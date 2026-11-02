@@ -47,6 +47,7 @@ tail -n +"$start" -F "$LOG" 2>/dev/null | while IFS= read -r line; do
     *"conference.participant.joined"*) echo "  $(date +%T)  leg joined the call" ;;
     *"deepfake result"*)               echo "  $(date +%T)  Telnyx AI-voice: ${line##*: }" ;;
     *"caretaker alert"*)               echo "  $(date +%T)  CARETAKER: ${line##*: }" ;;
+    *"keypress"*)                      echo "  $(date +%T)  INTERVENTION: ${line##*: }" ;;
     *"coach on turn"*)                 echo "  $(date +%T)  COACH whispered (${line##*call c_*: })" ;;
     *"media closed"*)                  echo "  $(date +%T)  call ended"; break ;;
     *Traceback*|*" ERROR "*)           echo "  $(date +%T)  !! $line" ;;

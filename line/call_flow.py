@@ -155,7 +155,7 @@ def display_name(name: str) -> str:
 # --------------------------------------------------------------------------- per-call flow state
 END_DIGIT = os.environ.get("EMBERZ_END_DIGIT", "9")    # B or C presses it: Emberz hangs up on the caller
 TALK_DIGIT = os.environ.get("EMBERZ_TALK_DIGIT", "0")  # C presses it while listening: barge (talk)
-INTERVENE_GOODBYE_S = 5.0  # time for the goodbye line before B (and C) are hung up
+INTERVENE_GOODBYE_S = 8.0  # fallback: end this long after the keypress if speak.ended never comes
 INTERVENE_TEXT = {
     "protected": "Emberz hung up on that caller for you. You are safe. Goodbye.",
     "caretaker": "Your caretaker ended that call. You are safe. Goodbye.",
@@ -311,6 +311,8 @@ class CallFlow:
             log.error("media stream failed on %s: %s", s.call_id, p.get("failure_reason"))
         elif et == "call.dtmf.received" and role == "B" and str(p.get("digit", "")) == END_DIGIT:
             await self.intervene(s, "protected")
+        elif et == "conference.participant.speak.ended" and st.intervened_by and ccid == s.b_ccid:
+            await self._end_call(s, f"ended_by_{st.intervened_by}_keypress")  # goodbye heard
         elif et == "call.hangup" and role == "A" and st.intervened_by:
             st.hung_up.add(ccid)  # we dropped the caller on purpose; B hears the goodbye first
         elif et == "call.hangup" and role in ("A", "B"):
@@ -481,7 +483,7 @@ class CallFlow:
             except Exception as e:
                 log.warning("intervention goodbye failed on %s: %s", s.call_id, e)
 
-        async def finish() -> None:
+        async def finish() -> None:  # fallback if the goodbye's speak.ended never arrives
             await asyncio.sleep(INTERVENE_GOODBYE_S)
             async with self._locks.setdefault(s.call_id, asyncio.Lock()):
                 if not s.ended:

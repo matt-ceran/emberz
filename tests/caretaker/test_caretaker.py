@@ -48,7 +48,7 @@ async def test_full_alert_answer_digit1_monitor_barge():
     await flow.on_event(s, "call.answered", ev(c, client_state=body["client_state"]))
     kind, ccid, action, g = tx.log[-1]
     assert (kind, ccid, action) == ("call", c, "gather_using_speak")
-    assert g["payload"] == "Emberz alert: Bank caller asked Grandma for a code. Press 1 to listen."
+    assert g["payload"] == "Emberz alert: Bank caller asked Grandma for a code. Press 1 to listen. While listening, press 0 to talk, or 9 to end the call."
     assert g["maximum_digits"] == 1 and g["valid_digits"] == "1" and g["voice"]
     # a re-delivered answered webhook must not start a second gather
     await flow.on_event(s, "call.answered", ev(c))
