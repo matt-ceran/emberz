@@ -191,13 +191,35 @@ class GuardianClient:
         if self.backend == "stub":
             resp = stub_guardian.score(req)
         else:
+            fb = self._fallback_client()
+            if fb is not None and time.monotonic() < self._skip_until:
+                resp, _ = await fb.score(req)  # primary is down (e.g. scaled to zero): don't wait on it
+                return resp, int((time.monotonic() - t0) * 1000)
             try:
                 resp = await asyncio.wait_for(self._remote(req), timeout=self.timeout_s)
             except Exception as e:  # timeout, HTTP error, bad JSON: never stall the call
                 self.last_error = f"{type(e).__name__}: {str(e)[:300]}"
                 log.error("guardian %s failed on %s: %s", self.backend, req.call_id, self.last_error)
                 resp = SAFE_FALLBACK
+                if fb is not None:
+                    # GUARDIAN_FALLBACK=standin: a serverless model scores instead, and the primary
+                    # is skipped for GUARDIAN_FALLBACK_HOLD_S (a scaled-to-zero deployment needs minutes).
+                    self._skip_until = time.monotonic() + float(os.environ.get("GUARDIAN_FALLBACK_HOLD_S", "60"))
+                    resp, _ = await fb.score(req)
+                    log.warning("guardian %s down; fallback %s answered risk=%s", self.backend, fb.model, resp.risk)
         return resp, int((time.monotonic() - t0) * 1000)
+
+    _skip_until: float = 0.0
+    _fallback: Optional["GuardianClient"] = None
+
+    def _fallback_client(self) -> Optional["GuardianClient"]:
+        if os.environ.get("GUARDIAN_FALLBACK", "") != "standin" or self.backend in ("stub", "standin"):
+            return None
+        if self._fallback is None:
+            self._fallback = GuardianClient(backend="standin", model=os.environ.get(
+                "GUARDIAN_FALLBACK_MODEL", os.environ.get("GUARDIAN_STANDIN_MODEL", STANDIN_MODEL)))
+            self._fallback.reasoning_effort = os.environ.get("GUARDIAN_FALLBACK_EFFORT", "none")
+        return self._fallback
 
     async def _remote(self, req: GuardianRequest) -> GuardianResponse:
         body = self._body(req)
