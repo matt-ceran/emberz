@@ -1,0 +1,41 @@
+{"ev": "data", "train": 3930, "dev": 96, "train_tokens": 2870977, "steps": 123, "start": 0, "est_cost_usd": 6.14, "risk_mix": {"watch": 886, "none": 799, "alert": 880, "urgent": 1365}, "t": 4.1, "clock": "13:47:37"}
+{"ev": "session", "session": "ts-611cb6def4b94dbabc50a2f687b942f7", "session_name": "accounts/afceran33-zaqel7a5ap/trainingSessions/ts-611cb6def4b94dbabc50a2f687b942f7", "run": "run-572aedb0786141ae83a135e860dbe809", "t": 5.2, "clock": "13:47:38"}
+{"ev": "dev", "step": 0, "dev_loss": 0.5256, "t": 25.3, "clock": "13:47:58"}
+{"ev": "step", "step": 1, "of": 123, "lr": 9.92e-05, "loss": 0.4998, "s_per_step": 33.0, "t": 33.0, "clock": "13:48:06"}
+{"ev": "step", "step": 2, "of": 123, "lr": 9.84e-05, "loss": 0.4693, "s_per_step": 24.4, "t": 48.8, "clock": "13:48:22"}
+{"ev": "step", "step": 3, "of": 123, "lr": 9.76e-05, "loss": 0.3826, "s_per_step": 17.5, "t": 52.4, "clock": "13:48:25"}
+{"ev": "speed", "s_per_step": 9.5, "eta": "14:07", "steps_left": 118, "t": 70.9, "clock": "13:48:44"}
+{"ev": "step", "step": 5, "of": 123, "lr": 9.59e-05, "loss": 0.4056, "s_per_step": 14.2, "t": 70.9, "clock": "13:48:44"}
+{"ev": "step", "step": 10, "of": 123, "lr": 9.19e-05, "loss": 0.34, "s_per_step": 12.2, "t": 121.8, "clock": "13:49:35"}
+{"ev": "step", "step": 15, "of": 123, "lr": 8.78e-05, "loss": 0.3323, "s_per_step": 13.0, "t": 195.7, "clock": "13:50:49"}
+{"ev": "step", "step": 20, "of": 123, "lr": 8.37e-05, "loss": 0.3027, "s_per_step": 12.1, "t": 242.2, "clock": "13:51:35"}
+{"ev": "checkpoint", "step": 20, "sampler": "afceran33-zaqel7a5ap/run-572aedb0786141ae83a135e860dbe809/nemo-v1-s020-a591a15c", "state": "afceran33-zaqel7a5ap/run-572aedb0786141ae83a135e860dbe809/nemo-v1-t020", "t": 275.7, "clock": "13:52:09"}
+{"ev": "step", "step": 25, "of": 123, "lr": 7.97e-05, "loss": 0.2311, "s_per_step": 12.8, "t": 320.9, "clock": "13:52:54"}
+{"ev": "step", "step": 30, "of": 123, "lr": 7.56e-05, "loss": 0.283, "s_per_step": 12.7, "t": 381.2, "clock": "13:53:54"}
+{"ev": "step", "step": 35, "of": 123, "lr": 7.15e-05, "loss": 0.2334, "s_per_step": 12.3, "t": 430.4, "clock": "13:54:43"}
+{"ev": "step", "step": 40, "of": 123, "lr": 6.75e-05, "loss": 0.2349, "s_per_step": 12.0, "t": 481.3, "clock": "13:55:34"}
+{"ev": "checkpoint", "step": 40, "sampler": "afceran33-zaqel7a5ap/run-572aedb0786141ae83a135e860dbe809/nemo-v1-s040-a591a15c", "state": "afceran33-zaqel7a5ap/run-572aedb0786141ae83a135e860dbe809/nemo-v1-t040", "t": 517.0, "clock": "13:56:10"}
+{"ev": "step", "step": 45, "of": 123, "lr": 6.34e-05, "loss": 0.256, "s_per_step": 12.1, "t": 542.9, "clock": "13:56:36"}
+{"ev": "step", "step": 50, "of": 123, "lr": 5.93e-05, "loss": 0.2292, "s_per_step": 12.2, "t": 607.8, "clock": "13:57:41"}
+{"ev": "step", "step": 55, "of": 123, "lr": 5.53e-05, "loss": 0.2546, "s_per_step": 12.0, "t": 659.5, "clock": "13:58:33"}
+{"ev": "step", "step": 60, "of": 123, "lr": 5.12e-05, "loss": 0.1855, "s_per_step": 11.7, "t": 701.7, "clock": "13:59:15"}
+{"ev": "checkpoint", "step": 60, "sampler": "afceran33-zaqel7a5ap/run-572aedb0786141ae83a135e860dbe809/nemo-v1-s060-a591a15c", "state": "afceran33-zaqel7a5ap/run-572aedb0786141ae83a135e860dbe809/nemo-v1-t060", "t": 742.9, "clock": "13:59:56"}
+{"ev": "step", "step": 65, "of": 123, "lr": 4.72e-05, "loss": 0.2618, "s_per_step": 12.2, "t": 793.1, "clock": "14:00:46"}
+{"ev": "step", "step": 70, "of": 123, "lr": 4.31e-05, "loss": 0.2129, "s_per_step": 12.1, "t": 844.5, "clock": "14:01:38"}
+{"ev": "step", "step": 75, "of": 123, "lr": 3.9e-05, "loss": 0.2046, "s_per_step": 12.1, "t": 904.6, "clock": "14:02:38"}
+{"ev": "step", "step": 80, "of": 123, "lr": 3.5e-05, "loss": 0.2091, "s_per_step": 12.0, "t": 956.2, "clock": "14:03:29"}
+{"ev": "checkpoint", "step": 80, "sampler": "afceran33-zaqel7a5ap/run-572aedb0786141ae83a135e860dbe809/nemo-v1-s080-a591a15c", "state": "afceran33-zaqel7a5ap/run-572aedb0786141ae83a135e860dbe809/nemo-v1-t080", "t": 995.0, "clock": "14:04:08"}
+{"ev": "step", "step": 85, "of": 123, "lr": 3.09e-05, "loss": 0.2038, "s_per_step": 12.3, "t": 1043.8, "clock": "14:04:57"}
+{"ev": "step", "step": 90, "of": 123, "lr": 2.68e-05, "loss": 0.2146, "s_per_step": 12.2, "t": 1095.0, "clock": "14:05:48"}
+{"ev": "step", "step": 95, "of": 123, "lr": 2.28e-05, "loss": 0.2413, "s_per_step": 12.1, "t": 1145.3, "clock": "14:06:38"}
+{"ev": "step", "step": 100, "of": 123, "lr": 1.87e-05, "loss": 0.2191, "s_per_step": 12.1, "t": 1211.1, "clock": "14:07:44"}
+{"ev": "checkpoint", "step": 100, "sampler": "afceran33-zaqel7a5ap/run-572aedb0786141ae83a135e860dbe809/nemo-v1-s100-a591a15c", "state": "afceran33-zaqel7a5ap/run-572aedb0786141ae83a135e860dbe809/nemo-v1-t100", "t": 1251.3, "clock": "14:08:24"}
+{"ev": "step", "step": 105, "of": 123, "lr": 1.46e-05, "loss": 0.2228, "s_per_step": 12.4, "t": 1300.7, "clock": "14:09:14"}
+{"ev": "step", "step": 110, "of": 123, "lr": 1.06e-05, "loss": 0.1878, "s_per_step": 12.4, "t": 1365.4, "clock": "14:10:18"}
+{"ev": "step", "step": 115, "of": 123, "lr": 1e-05, "loss": 0.1864, "s_per_step": 12.4, "t": 1430.5, "clock": "14:11:24"}
+{"ev": "step", "step": 120, "of": 123, "lr": 1e-05, "loss": 0.2543, "s_per_step": 12.5, "t": 1495.9, "clock": "14:12:29"}
+{"ev": "checkpoint", "step": 120, "sampler": "afceran33-zaqel7a5ap/run-572aedb0786141ae83a135e860dbe809/nemo-v1-s120-a591a15c", "state": "afceran33-zaqel7a5ap/run-572aedb0786141ae83a135e860dbe809/nemo-v1-t120", "t": 1528.9, "clock": "14:13:02"}
+{"ev": "step", "step": 123, "of": 123, "loss": 0.2325, "t": 1552.9, "clock": "14:13:26"}
+{"ev": "checkpoint", "step": 123, "sampler": "afceran33-zaqel7a5ap/run-572aedb0786141ae83a135e860dbe809/nemo-v1-fin-a591a15c", "state": "afceran33-zaqel7a5ap/run-572aedb0786141ae83a135e860dbe809/nemo-v1-t123", "t": 1580.2, "clock": "14:13:53"}
+{"ev": "dev", "step": 123, "dev_loss": 0.2099, "t": 1606.5, "clock": "14:14:20"}
+{"ev": "done", "sampler": "afceran33-zaqel7a5ap/run-572aedb0786141ae83a135e860dbe809/nemo-v1-fin-a591a15c", "note": "session kept for promotion; delete when finished", "t": 1606.5, "clock": "14:14:20"}

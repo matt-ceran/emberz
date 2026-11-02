@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="emberz-backend" content="http://127.0.0.1:8001">
+<title>Emberz Caretaker Console</title>
+<style>
+:root {
+  --bg: #f4f3ef;
+  --surface: #fcfcfb;
+  --surface-2: #efeee9;
+  --ink: #141413;
+  --ink-2: #3d3d3a;
+  --muted: #5c5b55;
+  --border: rgba(11, 11, 11, 0.12);
+  --accent: #1f5fc4;
+  --accent-ink: #ffffff;
+  --accent-soft: #e3ecfb;
+  --caller-bg: #ecebe6;
+  --good: #0ca30c;
+  --warning: #fab219;
+  --serious: #ec835a;
+  --critical: #d03b3b;
+  --critical-ink: #a32222;
+  --good-ink: #006300;
+  --track: #e1e0d9;
+  --shadow: 0 1px 2px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111110;
+    --surface: #1a1a19;
+    --surface-2: #232321;
+    --ink: #f2f1ec;
+    --ink-2: #d6d5ce;
+    --muted: #a9a89f;
+    --border: rgba(255, 255, 255, 0.13);
+    --accent: #6ea1f2;
+    --accent-ink: #0b0b0b;
+    --accent-soft: #1c2a40;
+    --caller-bg: #262624;
+    --critical-ink: #f08a8a;
+    --good-ink: #4fd24f;
+    --track: #2c2c2a;
+    --shadow: none;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  padding-bottom: calc(96px + env(safe-area-inset-bottom));
+}
+button { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+.wrap { max-width: 560px; margin: 0 auto; padding: 0 16px; }
+.top { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--border); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 52px; }
+.brand { font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
+.brand span { font-weight: 500; color: var(--muted); }
+.conn { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.conn::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+.conn.live::before { background: var(--good); }
+.conn.down::before { background: var(--critical); }
+main.wrap { padding-top: 12px; display: flex; flex-direction: column; gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; box-shadow: var(--shadow); }
+.card-title { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 8px; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+
+/* call header */
+.who { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.who .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.who .name { font-size: 20px; font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; }
+.who .meta { font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+.badges { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); }
+.chip.ai { background: var(--accent-soft); border-color: transparent; color: var(--ink); }
+.chip.ai::before { content: "AI"; font-size: 11px; font-weight: 800; background: var(--accent); color: var(--accent-ink); border-radius: 4px; padding: 0 4px; }
+.chip.live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--good); }
+.chip.ended { color: var(--muted); }
+.clock { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--muted); font-size: 14px; }
+.replay-note { margin-top: 10px; font-size: 13px; color: var(--muted); border-top: 1px dashed var(--border); padding-top: 8px; }
+details.rules { margin-top: 8px; font-size: 14px; }
+details.rules summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+details.rules ul { margin: 6px 0 0; padding-left: 18px; }
+
+/* risk */
+.risk-head { display: flex; align-items: center; gap: 12px; }
+.ricon { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 18px; }
+.lv-none .ricon, .ricon.lv-none { background: var(--good); color: #fff; }
+.lv-watch .ricon, .ricon.lv-watch { background: var(--warning); color: #0b0b0b; }
+.lv-alert .ricon, .ricon.lv-alert { background: var(--serious); color: #0b0b0b; }
+.lv-urgent .ricon, .ricon.lv-urgent { background: var(--critical); color: #fff; }
+.ricon.lv-wait { background: var(--track); color: var(--muted); }
+.risk-word { font-size: 20px; font-weight: 700; line-height: 1.2; }
+.risk-cat { color: var(--ink-2); font-size: 15px; }
+.meter { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 12px; }
+.seg { height: 8px; border-radius: 4px; background: var(--track); }
+.seg.on.s0 { background: var(--good); } .seg.on.s1 { background: var(--warning); }
+.seg.on.s2 { background: var(--serious); } .seg.on.s3 { background: var(--critical); }
+.meter-labels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; font-size: 12px; color: var(--muted); margin-top: 4px; }
+.meter-labels .cur { color: var(--ink); font-weight: 700; }
+.peak { font-size: 13px; color: var(--muted); margin-top: 6px; }
+.tl-head { display: flex; justify-content: space-between; align-items: baseline; margin-top: 14px; }
+.tl-head .card-title { margin: 0; }
+.timeline { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.cell { width: 30px; height: 30px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface-2); font-size: 12px; font-weight: 600; color: var(--muted); cursor: pointer; padding: 0; font-variant-numeric: tabular-nums; }
+.cell.lv-none { background: var(--good); color: #fff; border-color: transparent; }
+.cell.lv-watch { background: var(--warning); color: #0b0b0b; border-color: transparent; }
+.cell.lv-alert { background: var(--serious); color: #0b0b0b; border-color: transparent; }
+.cell.lv-urgent { background: var(--critical); color: #fff; border-color: transparent; }
+.cell.nov { background: repeating-linear-gradient(45deg, var(--surface-2) 0 4px, var(--track) 4px 8px); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--muted); margin-top: 8px; }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.latency { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.risk-why { font-size: 13px; color: var(--ink-2); margin-top: 8px; }
+.risk-why b { color: var(--critical-ink); }
+.msg .lat { font-weight: 500; margin-left: auto; font-variant-numeric: tabular-nums; }
+.others { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.others .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin-right: 2px; }
+.ochip { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; max-width: 100%; }
+.ochip i { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--good); }
+.ochip.r1 i { background: var(--warning); } .ochip.r2 i { background: var(--serious); } .ochip.r3 i { background: var(--critical); }
+.ochip.hot { border-color: var(--serious); font-weight: 650; }
+
+/* alert */
+.alert { border-left: 6px solid var(--serious); background: color-mix(in srgb, var(--serious) 10%, var(--surface)); }
+.alert.lv-urgent { border-left-color: var(--critical); background: color-mix(in srgb, var(--critical) 10%, var(--surface)); }
+.alert.coach-only { border-left-color: var(--accent); background: var(--surface); }
+.alert.resolved { border-left-color: var(--good); background: var(--surface); }
+.alert-title { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; line-height: 1.25; }
+.alert-title .ricon { width: 32px; height: 32px; font-size: 15px; }
+.alert-note { margin: 10px 0 0; font-size: 16px; }
+.quote { margin: 10px 0 0; padding: 8px 12px; border-left: 3px solid var(--border); background: var(--surface); border-radius: 6px; font-size: 15px; color: var(--ink-2); }
+.quote b { display: block; font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.coach { margin: 10px 0 0; font-size: 15px; }
+.coach b { font-weight: 700; }
+.resolved-note { margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--good-ink); }
+
+/* transcript */
+.transcript { display: flex; flex-direction: column; gap: 8px; max-height: 55vh; overflow-y: auto; overscroll-behavior: contain; padding: 2px; scroll-behavior: smooth; }
+.empty { color: var(--muted); font-size: 14px; }
+.msg { max-width: 86%; padding: 8px 12px; border-radius: 14px; font-size: 16px; overflow-wrap: anywhere; }
+.msg .who-line { font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 2px; display: flex; gap: 6px; align-items: center; }
+.msg.caller { align-self: flex-start; background: var(--caller-bg); border-bottom-left-radius: 4px; }
+.msg.protected { align-self: flex-end; background: var(--accent-soft); border-bottom-right-radius: 4px; }
+.msg.flagged { outline: 2px solid var(--serious); outline-offset: 1px; }
+.msg.flagged.urgent { outline-color: var(--critical); }
+.flag { font-size: 11px; font-weight: 700; padding: 0 6px; border-radius: 4px; background: var(--serious); color: #0b0b0b; }
+.jump { position: sticky; bottom: 4px; align-self: center; border: 1px solid var(--border); background: var(--surface); border-radius: 999px; padding: 4px 12px; font-size: 13px; cursor: pointer; }
+
+/* summary */
+.summary .headline { font-size: 22px; font-weight: 700; line-height: 1.2; }
+.summary .text { margin: 6px 0 0; }
+.summary .scenario { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
+.ok-chip { display: inline-block; margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--good-ink); }
+
+/* demo */
+details.demo summary { cursor: pointer; font-weight: 700; }
+.presets { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.preset { display: flex; gap: 8px; align-items: stretch; }
+.preset .play { flex: 1; text-align: left; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); cursor: pointer; }
+.preset .play b { display: block; font-size: 15px; }
+.preset .play span { font-size: 13px; color: var(--muted); }
+.preset .pair { flex: none; width: 34%; padding: 8px 10px; border-radius: 10px; border: 1px dashed var(--border); background: transparent; cursor: pointer; font-size: 13px; text-align: left; }
+.preset .pair span { display: block; color: var(--muted); font-size: 12px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; font-size: 14px; }
+.seg-btn { border: 1px solid var(--border); background: var(--surface); border-radius: 8px; padding: 4px 10px; cursor: pointer; font-size: 14px; }
+.seg-btn[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.row input { flex: 1; min-width: 0; font: inherit; font-size: 14px; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--ink); }
+
+/* actions */
+.actions { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; background: var(--surface); border-top: 1px solid var(--border); padding: 10px 0 calc(10px + env(safe-area-inset-bottom)); }
+.actions .wrap { display: flex; gap: 8px; }
+.act { flex: 1 1 0; min-width: 0; min-height: 48px; border-radius: 12px; border: 1px solid var(--border); background: var(--surface-2); font-weight: 650; font-size: 15px; cursor: pointer; padding: 4px; line-height: 1.15; }
+.act.primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+.act.hang { color: var(--critical-ink); border-color: color-mix(in srgb, var(--critical) 55%, transparent); }
+.act.safe { color: var(--good-ink); border-color: color-mix(in srgb, var(--good) 55%, transparent); }
+.act:disabled { opacity: .45; cursor: default; }
+.act.hint { font-size: 12px; font-weight: 600; opacity: .8; }
+.act[aria-pressed="true"] { opacity: 1; background: var(--accent-soft); color: var(--ink); border-color: var(--accent); }
+.act:focus-visible, .seg-btn:focus-visible, .play:focus-visible, .cell:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(84px + env(safe-area-inset-bottom)); z-index: 7; background: var(--ink); color: var(--bg); padding: 8px 14px; border-radius: 10px; font-size: 14px; max-width: calc(100% - 32px); box-shadow: 0 4px 16px rgba(0,0,0,.2); }
+@media (max-width: 380px) { .who .name { font-size: 18px; } .act { font-size: 14px; } }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand">Emberz <span>caretaker</span></div>
+  <div id="conn" class="conn">Connecting</div>
+</div></header>
+
+<main class="wrap">
+  <section id="idle" class="card">
+    <div class="card-title">No call right now</div>
+    <div class="muted">Protected calls from unknown numbers show up here while they happen.</div>
+    <div class="small muted" id="idleBackend" style="margin-top:6px"></div>
+  </section>
+
+  <section id="callCard" class="card" hidden>
+    <div class="who">
+      <div><div class="label">Protecting</div><div class="name" id="pName"></div><div class="meta" id="pMeta"></div></div>
+      <div><div class="label">Caller</div><div class="name" id="cName"></div><div class="meta" id="cMeta"></div></div>
+    </div>
+    <div class="badges">
+      <span id="aiBadge" class="chip ai" hidden></span>
+      <span id="status" class="chip live">Call in progress</span>
+      <span id="clock" class="clock">0:00</span>
+    </div>
+    <details class="rules" id="rulesBox" hidden><summary id="rulesSum">Rules</summary><ul id="rulesList"></ul></details>
+    <div id="replayNote" class="replay-note" hidden></div>
+  </section>
+
+  <section id="others" class="others" hidden aria-label="Other calls"></section>
+
+  <section id="summaryCard" class="card summary" hidden>
+    <div class="card-title">After the call</div>
+    <div class="headline" id="sumHead"></div>
+    <p class="text" id="sumText"></p>
+    <div class="ok-chip" id="sumOk" hidden></div>
+    <p class="scenario" id="sumScenario" hidden></p>
+  </section>
+
+  <section id="alertCard" class="card alert" hidden role="alert">
+    <div class="alert-title"><span class="ricon" id="alertIcon"></span><span id="alertTitle"></span></div>
+    <p class="alert-note" id="alertNote" hidden></p>
+    <div class="quote" id="alertQuote" hidden><b id="quoteTurn"></b><span id="quoteText"></span></div>
+    <p class="coach" id="coachLine" hidden></p>
+    <div class="resolved-note" id="safeNote" hidden>You marked this call safe.</div>
+  </section>
+
+  <section id="riskCard" class="card" hidden>
+    <div class="risk-head" id="riskHead">
+      <span class="ricon lv-wait" id="riskIcon">&middot;</span>
+      <div><div class="risk-word" id="riskWord">Listening</div><div class="risk-cat" id="riskCat">Waiting for the first check</div></div>
+    </div>
+    <div class="meter" aria-hidden="true"><div class="seg s0"></div><div class="seg s1"></div><div class="seg s2"></div><div class="seg s3"></div></div>
+    <div class="meter-labels"><span>Calm</span><span>Watching</span><span>Alert</span><span>Urgent</span></div>
+    <div class="peak" id="peak" hidden></div>
+    <div class="risk-why" id="riskWhy" hidden></div>
+    <div class="tl-head"><div class="card-title">Each turn</div><div class="small muted" id="tlCount"></div></div>
+    <div class="timeline" id="timeline"></div>
+    <div class="legend">
+      <span><i style="background:var(--good)"></i>Calm</span><span><i style="background:var(--warning)"></i>Watching</span>
+      <span><i style="background:var(--serious)"></i>Alert</span><span><i style="background:var(--critical)"></i>Urgent</span>
+      <span><i style="background:repeating-linear-gradient(45deg,var(--surface-2) 0 2px,var(--track) 2px 4px);border:1px solid var(--border)"></i>Not checked</span>
+    </div>
+    <div class="latency" id="latency"></div>
+  </section>
+
+  <section id="transcriptCard" class="card" hidden>
+    <div class="card-title">Live transcript</div>
+    <div class="transcript" id="transcript" aria-live="polite"></div>
+    <button class="jump" id="jump" hidden>New lines below</button>
+  </section>
+
+  <details class="card demo" id="demo" open hidden>
+    <summary>Demo replays</summary>
+    <div class="small muted" style="margin-top:6px" id="demoNote">Held-out test calls, replayed with the guardian's real evaluation verdicts.</div>
+    <div class="presets" id="presets"><div class="empty">Loading presets</div></div>
+    <div class="row" role="group" aria-label="Replay speed">
+      <span class="muted">Speed</span>
+      <button class="seg-btn" data-speed="0.5">0.5&times;</button>
+      <button class="seg-btn" data-speed="1">1&times;</button>
+      <button class="seg-btn" data-speed="2">2&times;</button>
+      <button class="seg-btn" data-speed="4">4&times;</button>
+    </div>
+    <form class="row" id="anyForm" hidden>
+      <input id="anyId" placeholder="Any held-out call id, e.g. t_b5d15c8aa9" autocomplete="off" spellcheck="false" aria-label="Call id">
+      <button class="seg-btn" type="submit">Replay</button>
+    </form>
+  </details>
+</main>
+
+<nav class="actions" id="actions" hidden><div class="wrap">
+  <button class="act" id="btnListen" data-act="listen">Listen in</button>
+  <button class="act primary" id="btnJoin" data-act="join">Join call</button>
+  <button class="act hang" id="btnHang" data-act="hangup" hidden>Hang up</button>
+  <button class="act safe" id="btnSafe" data-act="safe">Mark safe</button>
+</div></nav>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+"use strict";
+// ------------------------------------------------------------------ backend (Numan's line / fixture player, or the callguard console server)
+const Q = new URLSearchParams(location.search);
+const META_BACKEND = (document.querySelector('meta[name="emberz-backend"]') || {}).content || "";
+const BACKEND = (Q.get("backend") || META_BACKEND || location.origin).replace(/\/+$/, "");
+const TOKEN = Q.get("token");
+const NAME_Q = Q.get("name");
+function apiUrl(path, params) {
+  const u = new URL(BACKEND + path);
+  for (const [k, v] of Object.entries(params || {})) if (v != null) u.searchParams.set(k, v);
+  if (TOKEN) u.searchParams.set("token", TOKEN);
+  return u.toString();
+}
+async function api(method, path, params) {
+  const r = await fetch(apiUrl(path, params), { method });
+  let body = null;
+  try { body = await r.json(); } catch (e) { body = null; }
+  return { status: r.status, ok: r.ok, body };
+}
+const detailOf = (b) => (b && typeof b.detail === "string") ? b.detail : "";
+
+const LEVELS = ["none", "watch", "alert", "urgent"];
+const WORD = { none: "Calm", watch: "Watching", alert: "Alert", urgent: "Urgent" };
+const ICON = { none: "✓", watch: "•", alert: "!", urgent: "!!" };
+const PROFILE = { elder: "Elder", kid: "Kid", teen: "Teen", adult: "Adult" };
+const FALLBACK_NAME = { elder: "your parent", kid: "your child", teen: "your teen", adult: "the protected person" };
+const CAT = {
+  "scam.impersonation_bank_gov": "Bank or government impostor",
+  "scam.tech_support": "Tech support scam",
+  "scam.family_emergency": "Fake family emergency",
+  "scam.prize": "Prize or lottery scam",
+  "scam.romance_investment": "Romance or investment pitch",
+  "disclosure.location_school": "Sharing address or school",
+  "disclosure.credentials_otp": "Asked for a code or password",
+  "disclosure.financial_id": "Sharing card or ID numbers",
+  "disclosure.home_alone": "Asked who is home",
+  "grooming.secrecy": "Asked to keep secrets",
+  "grooming.isolation": "Pulling them away from family",
+  "grooming.gifts_flattery": "Gifts or flattery from a stranger",
+  "grooming.photo_request": "Asked for photos or video",
+  "grooming.meeting_request": "Asked to meet in person",
+  "vulgar": "Rude or vulgar language",
+  "threat_extortion": "Threats or blackmail",
+  "self_harm": "Talk of self-harm",
+  "custom_rule": "Matches one of your rules",
+  "none": "Nothing concerning",
+};
+const REASON = {
+  known_caller_cap: "saved contact", no_category_cap: "no clear category", smoothed_to_watch: "waiting for a second sign",
+  ai_voice_floor: "AI voice", ai_voice_unknown_ask_escalate: "AI voice asking for something",
+};
+const MODE = { monitor: "You are listening in", barge: "You joined the call" };
+const ENDED = { completed: "Call ended", caretaker_hangup: "You hung up", replay_stopped: "Replay stopped",
+                caller_hangup: "The caller hung up", hangup: "Call ended" };
+const AI_HIGH = 0.7;
+
+const $ = (id) => document.getElementById(id);
+const rank = (r) => Math.max(0, LEVELS.indexOf(r));
+const cap = (s) => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+function catWords(c) {
+  if (!c) return CAT.none;
+  if (CAT[c]) return CAT[c];
+  return cap(String(c).split(".").pop().replace(/_/g, " "));
+}
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+function clock(ms) { const s = Math.max(0, Math.floor((ms || 0) / 1000)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
+function dur(ms) { if (ms == null) return ""; return ms >= 1000 ? (ms / 1000).toFixed(ms >= 10000 ? 0 : 1) + " s" : Math.round(ms) + " ms"; }
+function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+
+let toastTimer = null;
+function toast(msg) {
+  const t = $("toast"); t.textContent = msg; t.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 4500);
+}
+
+// ------------------------------------------------------------------ calls (every call the backend has) + the one on screen
+const CALLS = new Map();   // call_id -> {id, events, keys}
+let S = null;              // view state of the call on screen
+let OURS = false;          // the backend is the callguard console server (it has /presets, replays, hang-up)
+let WANT = null;           // a call this viewer just started from the demo panel: show it even over a live call
+
+function clearView() {
+  S = null;
+  $("idle").hidden = false;
+  for (const id of ["callCard", "summaryCard", "alertCard", "riskCard", "transcriptCard", "actions"]) $(id).hidden = true;
+  $("transcript").replaceChildren();
+  $("timeline").replaceChildren();
+}
+
+function startCall(ev) {
+  clearView();
+  const d = ev.data || {};
+  S = {
+    id: ev.call_id, d, replay: d.replay || null, turns: new Map(), verdicts: new Map(),
+    latest: null, peak: null, alert: null, coach: null, ended: false, safe: false, lastAt: 0, caretaker: null,
+    name: NAME_Q || d.protected_name || FALLBACK_NAME[d.profile] || "the protected person",
+  };
+  $("idle").hidden = true;
+  for (const id of ["callCard", "riskCard", "transcriptCard", "actions"]) $(id).hidden = false;
+  $("pName").textContent = cap(S.name);
+  $("pMeta").textContent = [PROFILE[d.profile] || d.profile, d.relative ? "caretaker: " + d.relative : null].filter(Boolean).join(" · ");
+  if (d.caller_known) {
+    $("cName").textContent = d.caller_name || "Saved contact";
+    $("cMeta").textContent = ["Saved contact", d.caller_number].filter(Boolean).join(" · ");
+  } else {
+    $("cName").textContent = "Unknown number";
+    $("cMeta").textContent = d.caller_number || (S.replay ? "Not in contacts (test call)" : "Number withheld");
+  }
+  $("aiBadge").hidden = true;
+  setStatus("Call in progress", "live");
+  const rules = Array.isArray(d.rules) ? d.rules : [];
+  $("rulesBox").hidden = rules.length === 0;
+  $("rulesSum").textContent = "Rules for this line (" + rules.length + ")";
+  $("rulesList").replaceChildren(...rules.map((r) => el("li", null, r)));
+  $("replayNote").hidden = !S.replay;
+  if (S.replay) {
+    $("replayNote").textContent = "Replay of held-out test call " + (S.replay.call_id || ev.call_id) + " with " +
+      (S.replay.preds || "guardian") + " verdicts from the evaluation. " + (S.replay.note || "");
+  }
+  $("transcript").append(el("div", "empty", "Waiting for the first words"));
+  setRiskHead(null);
+  $("peak").hidden = true; $("riskWhy").hidden = true;
+  $("latency").textContent = "";
+  $("tlCount").textContent = "";
+  setClock(ev.at_ms);
+  updateButtons();
+}
+
+function setStatus(text, cls) { const s = $("status"); s.textContent = text; s.className = "chip " + (cls || ""); }
+function setClock(at) { if (!S) return; S.lastAt = Math.max(S.lastAt, at || 0); $("clock").textContent = clock(S.lastAt); }
+
+function setRiskHead(v) {
+  const icon = $("riskIcon"), segs = document.querySelectorAll(".meter .seg"), labels = document.querySelectorAll(".meter-labels span");
+  if (!v) {
+    icon.className = "ricon lv-wait"; icon.textContent = "·";
+    $("riskWord").textContent = "Listening"; $("riskCat").textContent = "Waiting for the first check";
+    segs.forEach((s) => s.classList.remove("on")); labels.forEach((l) => l.classList.remove("cur"));
+    return;
+  }
+  const lv = rank(v.risk);
+  icon.className = "ricon lv-" + LEVELS[lv]; icon.textContent = ICON[LEVELS[lv]];
+  $("riskWord").textContent = WORD[LEVELS[lv]];
+  $("riskCat").textContent = lv === 0 ? "Nothing concerning so far" : catWords(v.category);
+  segs.forEach((s, i) => s.classList.toggle("on", i <= lv));
+  labels.forEach((l, i) => l.classList.toggle("cur", i === lv));
+  // The meter follows display_risk (the line's rules). Say so when the model's raw verdict differs.
+  const why = [];
+  if (v.raw && v.raw !== LEVELS[lv]) {
+    const rs = (v.reasons || []).map((r) => REASON[r]).filter(Boolean);
+    why.push("Model said " + WORD[v.raw] + "; shown as " + WORD[LEVELS[lv]] + (rs.length ? " (" + rs.join(", ") + ")" : ""));
+  }
+  const box = $("riskWhy");
+  box.replaceChildren();
+  if (v.hang) box.append(el("b", null, "Suggests hanging up. "));
+  if (why.length) box.append(document.createTextNode(why.join(" · ")));
+  box.hidden = !(v.hang || why.length);
+}
+
+// ------------------------------------------------------------------ transcript + timeline
+function nearBottom(box) { return box.scrollHeight - box.scrollTop - box.clientHeight < 80; }
+function levelOf(d) { const r = d.response || {}; return LEVELS.includes(d.display_risk) ? d.display_risk : r.risk; }
+
+function addTurn(d) {
+  const box = $("transcript");
+  const stick = nearBottom(box);
+  box.querySelector(".empty")?.remove();
+  let t = S.turns.get(d.turn);
+  if (!t) {
+    const prot = d.speaker === "protected";
+    const msg = el("div", "msg " + (prot ? "protected" : "caller"));
+    const who = el("div", "who-line");
+    const label = prot ? (S.caretaker === "barge" ? "Protected side (you may be speaking)" : cap(S.name)) : "Caller";
+    who.append(el("span", null, label + " · turn " + d.turn));
+    const lat = el("span", "lat");
+    who.append(lat);
+    const body = el("div", "body");
+    msg.append(who, body);
+    msg.id = "turn-" + d.turn;
+    const cell = el("button", "cell", String(d.turn));
+    cell.type = "button";
+    cell.addEventListener("click", () => msg.scrollIntoView({ block: "nearest", behavior: "smooth" }));
+    t = { msg, body, who, cell, lat };
+    S.turns.set(d.turn, t);
+    const after = [...S.turns.keys()].filter((k) => k > d.turn).sort((a, b) => a - b)[0];
+    if (after != null) { box.insertBefore(msg, S.turns.get(after).msg); $("timeline").insertBefore(cell, S.turns.get(after).cell); }
+    else { box.append(msg); $("timeline").append(cell); }
+  }
+  t.body.textContent = d.text;
+  paintCell(d.turn);
+  $("tlCount").textContent = S.turns.size + " turn" + (S.turns.size === 1 ? "" : "s");
+  if (stick) box.scrollTop = box.scrollHeight; else $("jump").hidden = false;
+}
+
+function paintCell(turn) {
+  const t = S.turns.get(turn); if (!t) return;
+  const v = S.verdicts.get(turn);
+  t.cell.className = "cell";
+  t.lat.textContent = "";
+  if (v) {
+    const r = v.response || {};
+    const lv = rank(levelOf(v));
+    t.cell.classList.add("lv-" + LEVELS[lv]);
+    const lat = v.latency_ms != null ? " · check took " + dur(v.latency_ms) : "";
+    t.cell.title = "Turn " + turn + ": " + WORD[LEVELS[lv]] + (lv ? " · " + catWords(r.category) : "") + lat;
+    if (v.latency_ms != null) t.lat.textContent = WORD[LEVELS[lv]] + " · " + dur(v.latency_ms);
+  } else if (S.replay && Array.isArray(S.replay.verdict_turns) && !S.replay.verdict_turns.includes(turn)) {
+    t.cell.classList.add("nov");
+    t.cell.title = "Turn " + turn + ": not checked (the evaluation stops checking a call after its first alert)";
+  } else if (S.ended) {
+    t.cell.classList.add("nov");
+    t.cell.title = "Turn " + turn + ": no check received";
+  } else {
+    t.cell.title = "Turn " + turn + ": waiting for the check";
+  }
+  t.cell.setAttribute("aria-label", t.cell.title);
+}
+
+$("transcript").addEventListener("scroll", () => { if (nearBottom($("transcript"))) $("jump").hidden = true; });
+$("jump").addEventListener("click", () => { const b = $("transcript"); b.scrollTop = b.scrollHeight; $("jump").hidden = true; });
+
+// ------------------------------------------------------------------ verdicts + alerts
+function onRisk(d) {
+  const r = d.response || {};
+  const lvl = levelOf(d);
+  S.verdicts.set(d.turn, d);
+  paintCell(d.turn);
+  const v = { turn: d.turn, risk: lvl, category: r.category, raw: r.risk, reasons: d.reasons, hang: d.suggest_hangup === true };
+  if (!S.latest || d.turn >= S.latest.turn) S.latest = v;
+  if (!S.peak || rank(lvl) > rank(S.peak.risk)) S.peak = v;
+  setRiskHead(S.latest);
+  const peak = $("peak");
+  if (S.peak && rank(S.peak.risk) > rank(S.latest.risk)) {
+    peak.hidden = false;
+    peak.textContent = "Highest so far: " + WORD[S.peak.risk] + " at turn " + S.peak.turn + " (" + catWords(S.peak.category) + ")";
+  } else peak.hidden = true;
+  if (d.latency_ms != null) {
+    const note = d.latency_note || (S.replay ? S.replay.latency_note : null);
+    $("latency").textContent = "Check for turn " + d.turn + " took " + dur(d.latency_ms) + (note ? " · " + note : "");
+  }
+}
+
+function evidenceFor(turn) {
+  if (S.alert && Array.isArray(S.alert.evidence) && S.alert.evidence.length) return S.alert.evidence;
+  const v = S.verdicts.get(turn);
+  return (v && v.response && Array.isArray(v.response.evidence)) ? v.response.evidence : [];
+}
+
+function renderAlert() {
+  const card = $("alertCard");
+  if (!S.alert && !S.coach) { card.hidden = true; return; }
+  card.hidden = false;
+  const a = S.alert;
+  const lv = a ? LEVELS[Math.max(2, rank(a.level))] : null;
+  card.className = "card alert" + (a ? " lv-" + lv : " coach-only") + (S.safe ? " resolved" : "");
+  const icon = $("alertIcon");
+  icon.className = "ricon " + (a ? "lv-" + lv : "lv-wait");
+  icon.textContent = a ? ICON[lv] : "i";
+  $("alertTitle").textContent = a ? WORD[lv] + " · " + catWords(a.category) : "Guidance given";
+  $("alertNote").hidden = !(a && a.caretaker_note);
+  $("alertNote").textContent = a ? (a.caretaker_note || "") : "";
+  const ev = a ? evidenceFor(a.turn) : [];
+  const q = ev.find((e) => e && e.quote);
+  $("alertQuote").hidden = !q;
+  if (q) { $("quoteTurn").textContent = "Turn " + q.turn + " said"; $("quoteText").textContent = "“" + q.quote + "”"; }
+  for (const m of document.querySelectorAll(".msg.flagged")) { m.classList.remove("flagged", "urgent"); m.querySelector(".flag")?.remove(); }
+  for (const e of ev) {
+    const t = e && S.turns.get(e.turn);
+    if (!t) continue;
+    t.msg.classList.add("flagged");
+    if (lv === "urgent") t.msg.classList.add("urgent");
+    t.who.insertBefore(el("span", "flag", "Flagged"), t.lat);
+  }
+  const c = S.coach;
+  $("coachLine").hidden = !c;
+  if (c) {
+    const lead = c.sent === false ? "Suggested for " + S.name + " (could not be played): " : "We told " + S.name + ": ";
+    $("coachLine").replaceChildren(el("b", null, lead), document.createTextNode("“" + c.text + "”"));
+  }
+  $("safeNote").hidden = !S.safe;
+}
+
+function onSummary(d) {
+  $("summaryCard").hidden = false;
+  let head = "Call summary";
+  if (d.turns_before_ask) head = "Alerted " + d.turns_before_ask + " turn" + (d.turns_before_ask === 1 ? "" : "s") + " before the ask";
+  else if (d.first_alert) head = "Alerted at turn " + d.first_alert;
+  else if (d.replay) head = "No alert";
+  $("sumHead").textContent = head;
+  $("sumText").textContent = d.text || "";
+  $("sumOk").hidden = d.verdict_matches_label == null;
+  $("sumOk").textContent = d.verdict_matches_label ? "Matches the test label" : "Does not match the test label";
+  $("sumOk").style.color = d.verdict_matches_label ? "" : "var(--critical-ink)";
+  $("sumScenario").hidden = !d.scenario;
+  $("sumScenario").textContent = d.scenario ? "Scenario (from the test set): " + d.scenario : "";
+}
+
+function onEnded(d) {
+  S.ended = true;
+  const reason = ENDED[d.reason] || ("Call ended" + (d.reason ? " (" + String(d.reason).replace(/_/g, " ") + ")" : ""));
+  setStatus(reason, "ended");
+  if (d.duration_ms != null) setClock(d.duration_ms);
+  for (const k of S.turns.keys()) paintCell(k);
+  updateButtons();
+}
+
+function onCaretaker(d) {
+  if (d.mode === "monitor" && S.caretaker === "barge") return;  // never step back from joined
+  S.caretaker = d.mode;
+  if (!S.ended) setStatus(MODE[d.mode] || "Caretaker connected", "live");
+  updateButtons();
+}
+
+function onVoice(d) {
+  const s = Number(d.ai_score);
+  const b = $("aiBadge");
+  if (s >= AI_HIGH) { b.hidden = false; b.textContent = "AI voice likely · " + s.toFixed(2); b.title = "AI-voice score from " + (d.model || "detector"); }
+  else b.hidden = true;
+}
+
+function apply(ev) {
+  if (ev.type === "call_started") return startCall(ev);
+  if (!S) startCall({ type: "call_started", call_id: ev.call_id, at_ms: 0, data: {} }); // opened mid-call
+  setClock(ev.at_ms);
+  const d = ev.data || {};
+  switch (ev.type) {
+    case "turn": addTurn(d); break;
+    case "risk": onRisk(d); break;
+    case "alert": S.alert = d; renderAlert(); break;
+    case "coach": S.coach = d; renderAlert(); break;
+    case "voice": onVoice(d); break;
+    case "caretaker_joined": onCaretaker(d); break;
+    case "summary": onSummary(d); break;
+    case "call_ended": onEnded(d); break;
+  }
+}
+
+function show(id) {
+  const c = CALLS.get(id);
+  if (!c) return;
+  const keepSafe = S && S.id === id && S.safe;
+  clearView();
+  if (!c.events.length || c.events[0].type !== "call_started") startCall({ type: "call_started", call_id: id, at_ms: 0, data: {} });
+  for (const ev of c.events) apply(ev);
+  if (keepSafe || c.safe) { S.safe = true; renderAlert(); updateButtons(); }
+  callsSoon();
+}
+
+function ingest(ev) {
+  if (!ev || !ev.type || !ev.call_id) return;
+  let c = CALLS.get(ev.call_id);
+  if (!c || (ev.type === "call_started" && c.events.some((e) => e.type === "call_started"))) {
+    if (c) CALLS.delete(ev.call_id);   // a restarted call starts clean
+    c = { id: ev.call_id, events: [], keys: new Set(), safe: false };
+    CALLS.set(ev.call_id, c);
+  }
+  const key = ev.type + "|" + ev.at_ms + "|" + JSON.stringify(ev.data || {});
+  if (c.keys.has(key)) return;   // de-duplicate on (type, at_ms, data)
+  c.keys.add(key);
+  c.events.push(ev);
+  if (ev.type === "call_started") {
+    // Follow the newest call, but a replay never takes the screen from a live call in progress.
+    const liveOnScreen = S && S.id !== ev.call_id && !S.replay && !S.ended;
+    if (!(liveOnScreen && (ev.data || {}).replay) || ev.call_id === WANT) show(ev.call_id);
+  } else if (!S) {
+    show(ev.call_id);
+  } else if (S.id === ev.call_id) {
+    apply(ev);
+  }
+  if (ev.type !== "turn" && ev.type !== "voice") callsSoon();
+}
+
+// ------------------------------------------------------------------ other calls (GET /console/calls)
+let callsTimer = null;
+function callsSoon() { clearTimeout(callsTimer); callsTimer = setTimeout(refreshCalls, 300); }
+async function refreshCalls() {
+  let rows = null;
+  try { const r = await api("GET", "/console/calls"); if (r.ok && Array.isArray(r.body)) rows = r.body; } catch (e) { rows = null; }
+  if (!rows) return;
+  for (const row of rows) { const c = CALLS.get(row.call_id); if (c && row.safe) c.safe = true; }
+  if (S) { const mine = rows.find((r) => r.call_id === S.id); if (mine && mine.safe && !S.safe) { S.safe = true; renderAlert(); updateButtons(); } }
+  const box = $("others");
+  const others = rows.filter((r) => CALLS.has(r.call_id) && (!S || r.call_id !== S.id)).slice(0, 6);
+  box.replaceChildren();
+  box.hidden = others.length === 0;
+  if (!others.length) return;
+  box.append(el("span", "lbl", "Other calls"));
+  for (const r of others) {
+    const st = r.started || {};
+    const lv = rank(r.max_risk);
+    const who = st.protected_name || cap(FALLBACK_NAME[st.profile] || "call");
+    const b = el("button", "ochip r" + lv + (lv >= 2 && !r.ended ? " hot" : ""));
+    b.type = "button";
+    b.append(el("i"), document.createTextNode(who + " · " + (r.ended ? "ended" : "live") + " · " + WORD[LEVELS[lv]] + (r.replay ? " · replay" : "")));
+    b.title = r.call_id;
+    b.addEventListener("click", () => { show(r.call_id); window.scrollTo({ top: 0, behavior: "smooth" }); });
+    box.append(b);
+  }
+}
+setInterval(() => { if (ws && ws.readyState === 1) refreshCalls(); }, 10000);
+
+// ------------------------------------------------------------------ feed: WS {BACKEND}/console/ws
+let ws = null, retry = 0;
+const HOST = (() => { try { return new URL(BACKEND).host; } catch (e) { return BACKEND; } })();
+function connect() {
+  const conn = $("conn");
+  conn.title = "Backend: " + BACKEND;
+  $("idleBackend").textContent = "Connected to " + HOST;
+  ws = new WebSocket(apiUrl("/console/ws").replace(/^http/, "ws"));
+  ws.onopen = () => {
+    retry = 0;
+    conn.textContent = BACKEND === location.origin ? "Live" : "Live · " + HOST;
+    conn.className = "conn live";
+    CALLS.clear(); clearView();   // the backend replays every buffered call on connect
+  };
+  ws.onmessage = (m) => { try { ingest(JSON.parse(m.data)); } catch (e) { console.error(e); } };
+  ws.onclose = (e) => {
+    if (e.code === 1008) {
+      conn.textContent = "Token refused"; conn.className = "conn down";
+      toast("The line refused the console token. Open the link that includes ?token=…");
+    } else { conn.textContent = "Reconnecting"; conn.className = "conn down"; }
+    setTimeout(connect, Math.min(e.code === 1008 ? 15000 : 5000, 500 * 2 ** retry++));
+  };
+}
+
+// ------------------------------------------------------------------ caretaker buttons
+function updateButtons() {
+  const listen = $("btnListen"), join = $("btnJoin"), hang = $("btnHang"), safe = $("btnSafe");
+  hang.hidden = !OURS;
+  if (!S) { for (const b of [listen, join, hang, safe]) b.disabled = true; return; }
+  const live = !S.ended;
+  const ct = S.caretaker;
+  listen.classList.remove("hint");
+  listen.setAttribute("aria-pressed", String(ct === "monitor" || ct === "barge"));
+  if (ct === "monitor" || ct === "barge") { listen.disabled = true; listen.textContent = "Listening"; }
+  else if (S.replay && OURS) { listen.disabled = !live; listen.textContent = "Listen in"; }
+  else { listen.disabled = true; listen.textContent = "Press 1 on the alert call to listen"; listen.classList.add("hint"); }
+  join.disabled = !live || ct === "barge";
+  join.textContent = ct === "barge" ? "On the call" : "Join call";
+  join.setAttribute("aria-pressed", String(ct === "barge"));
+  hang.disabled = !live;
+  safe.disabled = S.safe;
+  safe.textContent = S.safe ? "Marked safe" : "Mark safe";
+}
+
+function errText(act, status, body) {
+  const d = detailOf(body);
+  if (status === 401) return "The console token was refused. Open the link that includes ?token=…";
+  if (act === "join") {
+    if (status === 409) return S.ended ? "The call has ended." : S.replay ? "Tap Listen in first, then Join." :
+      "Not joined yet. Press 1 on the Emberz alert call to listen first, then tap Join.";
+    if (status === 404) return "That call is over, or the line doesn't know it.";
+    if (status === 502) return "The phone system said no. You are still listening; try Join again.";
+  }
+  return d ? cap(d) + "." : "Something went wrong (" + status + ").";
+}
+
+async function onAction(act) {
+  if (!S) return;
+  const id = S.id;
+  if (act === "hangup" && !confirm("Hang up this call for " + S.name + "?")) return;
+  if (act === "safe") {
+    S.safe = true; const c = CALLS.get(id); if (c) c.safe = true;
+    renderAlert(); updateButtons();
+    if (!OURS) { toast("Marked safe on this screen."); return; }
+  }
+  try {
+    const r = act === "join" ? await api("POST", "/console/calls/" + encodeURIComponent(id) + "/barge")
+                             : await api("POST", "/actions/" + encodeURIComponent(id) + "/" + act);
+    if (!r.ok) { toast(errText(act, r.status, r.body)); return; }
+    const b = r.body || {};
+    if (act === "join") toast(b.replay ? "Joined. This is a replay, so no phone line was used." : "The line put you on the call.");
+    else if (act === "listen") toast("Listening. This is a replay, so it stands in for pressing 1 on the alert call.");
+    else if (act === "hangup") toast(b.replay ? "Replay stopped. No phone line was used." : "Hang-up sent to the phone line.");
+    else if (act === "safe") toast("Marked safe" + (b.forwarded ? " and sent to the phone line." : " on this console."));
+  } catch (e) {
+    toast("Could not reach the console backend at " + HOST + ".");
+  }
+}
+for (const b of document.querySelectorAll(".act")) b.addEventListener("click", () => onAction(b.dataset.act));
+
+// ------------------------------------------------------------------ demo: presets (our server) or fixture scenes (Numan's player)
+let speed = parseFloat(store("emberz.speed")) || 1;
+function paintSpeed() { for (const b of document.querySelectorAll("[data-speed]")) b.setAttribute("aria-pressed", String(parseFloat(b.dataset.speed) === speed)); }
+for (const b of document.querySelectorAll("[data-speed]")) b.addEventListener("click", () => { speed = parseFloat(b.dataset.speed); store("emberz.speed", String(speed)); paintSpeed(); });
+paintSpeed();
+
+function wantCall(id) {
+  WANT = id;
+  if (CALLS.has(id) && (!S || S.id !== id)) show(id);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+async function play(callId, force) {
+  try {
+    const r = await api("GET", "/replay", { call_id: callId, speed: speed, force: force ? 1 : null });
+    if (r.status === 409 && !force) {
+      if (confirm(cap(detailOf(r.body) || "A live call is in progress") + ".\n\nReplay anyway?")) return play(callId, true);
+      return;
+    }
+    if (!r.ok) throw new Error(detailOf(r.body) || r.status);
+    wantCall(r.body.call_id);
+  } catch (e) {
+    toast("Replay failed: " + e.message);
+  }
+}
+
+async function playScene(scene) {
+  try {
+    const r = await api("POST", "/fixtures/play/" + encodeURIComponent(scene), { speed: Math.min(20, Math.max(0.1, speed)) });
+    if (!r.ok) throw new Error(detailOf(r.body) || r.status);
+    wantCall(r.body.call_id);
+  } catch (e) {
+    toast("Could not play the scene: " + e.message);
+  }
+}
+
+function renderPresets(j) {
+  const box = $("presets");
+  $("demoNote").textContent = "Held-out test calls, replayed with " + j.preds + "'s real evaluation verdicts (" + j.preds_file + ").";
+  box.replaceChildren();
+  for (const p of j.presets) {
+    const row = el("div", "preset");
+    const b = el("button", "play"); b.type = "button";
+    const out = p.first_alert ? "alert at turn " + p.first_alert + (p.ask_turn ? ", ask at turn " + p.ask_turn : "") : "no alert";
+    b.append(el("b", null, p.title), el("span", null, [p.protected_name, PROFILE[p.profile] || p.profile, p.n_turns + " turns", out].filter(Boolean).join(" · ")));
+    b.title = p.why || "";
+    b.addEventListener("click", () => play(p.call_id));
+    row.append(b);
+    if (p.pair) {
+      const c = el("button", "pair"); c.type = "button";
+      c.append(document.createTextNode("Compare: " + p.pair.title), el("span", null, p.pair.first_alert ? "alert at turn " + p.pair.first_alert : "no alert"));
+      c.addEventListener("click", () => play(p.pair.call_id));
+      row.append(c);
+    }
+    box.append(row);
+  }
+  if (!j.presets.length) box.append(el("div", "empty", "No presets found in this predictions file."));
+  $("anyForm").hidden = false;
+  $("demo").hidden = false;
+}
+
+function renderFixtures(j) {
+  const box = $("presets");
+  $("demoNote").textContent = "Recorded demo scenes from the fixture player at " + HOST + ".";
+  box.replaceChildren();
+  for (const [name, f] of Object.entries(j)) {
+    const row = el("div", "preset");
+    const b = el("button", "play"); b.type = "button";
+    b.append(el("b", null, f.title || cap(name.replace(/^scene\d+_/, "").replace(/_/g, " "))),
+             el("span", null, [name, f.events != null ? f.events + " events" : null, f.duration_ms != null ? clock(f.duration_ms) : null].filter(Boolean).join(" · ")));
+    b.addEventListener("click", () => playScene(name));
+    row.append(b);
+    box.append(row);
+  }
+  $("demo").hidden = false;
+}
+
+async function loadDemo() {
+  try {
+    const r = await api("GET", "/presets");
+    if (r.ok && r.body && Array.isArray(r.body.presets)) { OURS = true; renderPresets(r.body); updateButtons(); return; }
+  } catch (e) { /* not our server */ }
+  try {
+    const r = await api("GET", "/fixtures");
+    if (r.ok && r.body && typeof r.body === "object" && !Array.isArray(r.body)) { renderFixtures(r.body); return; }
+  } catch (e) { /* the live line has no fixtures */ }
+  $("demo").hidden = true;
+}
+$("anyForm").addEventListener("submit", (e) => { e.preventDefault(); const v = $("anyId").value.trim(); if (v) play(v); });
+
+clearView();
+updateButtons();
+loadDemo();
+connect();
+</script>
+</body>
+</html>
