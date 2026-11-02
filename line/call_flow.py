@@ -66,6 +66,7 @@ import base64
 import inspect
 import json
 import logging
+import os
 import re
 from dataclasses import dataclass, field
 from typing import Any, Callable, Optional, Protocol
@@ -343,7 +344,13 @@ class CallFlow:
             # command_id"), but line/telnyx_client.py's dial() currently drops it (contract change asked).
             "command_id": f"{s.call_id}:dial_b",
         }
-        if s.caller_number:
+        if s.caller_number and os.environ.get("EMBERZ_B_FROM", "caller") == "guarded":
+            # Carrier spam filters may divert calls whose caller ID is not ours straight to
+            # voicemail; ring B from the guarded number and show the caller in the display name.
+            name = s.allowed_contacts.get(s.caller_number) or "Emberz"
+            body["from"] = s.guarded_number
+            body["from_display_name"] = display_name(f"{name} {s.caller_number}")
+        elif s.caller_number:
             # Show the caller's real number on B. `diversion` = the guarded number, which is the
             # `to` of the active inbound call, so Telnyx treats the caller's number as verified.
             body["from"] = s.caller_number
