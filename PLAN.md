@@ -78,6 +78,18 @@ Weights: **benchmark 40%**, business value 25%, technical execution 20%, present
 | Presentation (10%) | Clear problem, approach and result inside the video limit; easy to inspect | The video shows one live call (the coach line and the caretaker alert) and then the headline chart with the frontier baseline marked |
 | Documentation (10%) | Another builder can set up and reproduce the eval | `requirements.txt` / lockfile, `.env.example`, one command that reproduces every number from committed test data without a phone line or GPU (`python -m eval.run --all`), model ids and LoRA config, `results/*.jsonl` committed |
 
+## 2e. Prize targets (2026-11-02)
+
+Prizes: 1st $10k, 2nd $5k, 3rd $3k, and the **NVIDIA Best-Use Award** (a DGX Spark). All need Fireworks. We aim for the overall placings (rubric in 2d) and the NVIDIA award at the same time, because NVIDIA models already carry two of our three model jobs:
+
+| Where NVIDIA runs | What we show for it |
+|---|---|
+| **Nemotron Speech Streaming 0.6B** hears every live call (local, sherpa-onnx INT8, 160 ms chunks) | Measured: 37 ms per 160 ms chunk, 2 calls in real time on a laptop; WER on our 8 kHz phone audio and on the live call set; turn-end latency inside the 1.5 s coach budget |
+| **Nemotron 3 Ultra** (Fireworks serverless) writes the ~3,000 training calls | The framing finding (it refused without a safety-data system prompt), throughput (157 tok/s), and that a model taught only by Nemotron-written calls holds up on GLM-written and real calls |
+| **Nemotron Lightning 3.5 30B-A3B** (Fireworks serverless) as a cheap zero-shot baseline **B6** | Checked 2026-11-02: serverless and READY, but `tunable: false`, so it can't be the guardian; it's an extra point on the quality vs cost chart |
+
+The guardian stays **Qwen3-4B** (tunable on Fireworks; no Nemotron model is tunable there today). The README and the video name the NVIDIA parts in one line: "Nemotron hears it, Nemotron taught it, Fireworks serves it."
+
 ## 3. How a call works
 
 ```
@@ -317,6 +329,7 @@ I0, M0, M1 (with the G1 noise pass), M2 (v1), window 1, v2, window 2, D2. The pr
 | B3 | Qwen3-4B untuned, same prompt | Same deployment as ours |
 | B4 | Kimi K3 zero-shot | Fireworks serverless |
 | B5 | **Qwen3.8 Max** zero-shot, same prompt and schema (`accounts/fireworks/models/qwen3p8-max`, $2/$6 per 1M in/out, Batch 50% off) | Fireworks serverless; held-out subsample (~150 calls) + the live set. Reasoning off for the main run (it otherwise spends ~600 output tokens a turn); a 30-call reasoning-on sample reports what that costs in quality, latency and $ |
+| B6 | **Nemotron Lightning 3.5 30B-A3B** zero-shot, same prompt (`accounts/fireworks/models/nemotron-lightning-3p5-30b-a3b`) | Fireworks serverless; same subsample as B5. NVIDIA comparison point, cheap |
 
 **Test sets, reported separately, each with n and a 95% interval:**
 1. The held-out generated set.
