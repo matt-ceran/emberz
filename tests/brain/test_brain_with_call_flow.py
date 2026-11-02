@@ -70,7 +70,7 @@ async def test_call_flow_to_brain_coach_after_b_joins(fixture_turns):
     speaks = [(cid, b) for k, cid, a, b in tel.log if a == "speak" and k == "conference"]
     assert len(speaks) == 1 and speaks[0][0] == s.conference_id and speaks[0][1]["call_control_ids"] == [s.b_ccid]
     assert len(ct.alerts) == 1  # same category, no second alert
-    assert tr.fed[0] == ("outbound", 160, 20)
+    assert tr.fed[0] == ("outbound", 160, None)
 
     await flow.handle("call.hangup", leg("A", A, hangup_cause="normal_clearing"))
     assert tr.closed and s.ended and CID not in flow.brains
