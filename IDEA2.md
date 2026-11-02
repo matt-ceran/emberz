@@ -62,7 +62,7 @@ Pick by measuring, not guessing: the task where the base small model is clearly 
 
 Doing it on 2-3 tasks shows it's a method, not a lucky one-off.
 
-> **Update 1:45 PM (Matt + Claude): proposed niche change, see §11.** Banking77 is the weakest candidate for an edit. Screen sycophancy, over-refusal and CLINC150 out-of-scope first.
+> **Update 1:45 PM (Matt + Claude): proposed niche change, see §11.** Banking77 is probably the weakest candidate for an edit (not yet measured). Screen over-refusal, sycophancy and CLINC150 out-of-scope first.
 
 ## 6. Benchmark table
 
