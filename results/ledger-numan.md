@@ -20,3 +20,11 @@ Session-end checks:
 | Date | check.sh: no emberz VMs/disks | Bucket size | By |
 |---|---|---|---|
 | | | | |
+
+## 2026-11-02 15:11 PST: first full live end-to-end call (Matt's emberz-guardian-v2)
+SignalWire AI scam caller -> Telnyx guarded number -> conference with protected person (real phone).
+11 turns transcribed live. Urgent alert on turn 4 (scam.impersonation_bank_gov) and turn 10
+(disclosure.credentials_otp). Private coach to protected person on turns 4, 7, 11: trigger->sent
+702-753 ms, trigger->ack 1.6-1.8 s. Caretaker phoned at alert, pressed a key, joined in monitor mode,
+whispered the second alert. Call 98 s; 0 brain errors. Fix that made it work: RTP timestamps were
+fed to ASR as ms (commit 3c9f725). Guardian: reasoning_effort=none (reasoning otherwise truncates JSON).
