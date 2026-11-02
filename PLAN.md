@@ -67,7 +67,9 @@ Give your kid, your grandma or yourself a **guarded phone number** instead of th
  "caretaker_note": "20 words max"}
 ```
 
-- **Scored categories (the proof):** scam, disclosure and grooming tactics, plus `none`. Vulgar language, threats and self-harm stay in the output format as a stretch goal: demo only, not part of the scored claim. Keeping the proof narrow is what makes it credible.
+- **Scored categories:**
+  - **Headline:** scam, disclosure and grooming tactics, plus `none`. These carry the main claim.
+  - **Second slice, scored in parallel:** vulgar language, threats and self-harm. Llama Guard 3 is strong on these, and OpenAI's free omni-moderation is an extra baseline, so we report this slice separately and honestly. It is not part of the headline.
 - **A rule layer after the model:** smooth alerts over turns, add cooldowns so one call doesn't alert ten times, and apply hard caretaker rules such as an allowed-contacts list.
 - **Rules come from the caretaker.** Training mixes many different rule sets (kid profiles, elder profiles, "allow calls from Grandpa", "never share the door code") so the model follows the rules it is given instead of memorizing one set.
 - **Base model.** Start with **Qwen3-4B-Instruct-2507** (managed SFT LoRA, small and fast). Alternatives:
@@ -131,7 +133,7 @@ Give your kid, your grandma or yourself a **guarded phone number** instead of th
 - A per-category breakdown.
 - v1 vs v2 after the adversary round.
 
-## 6. AI-voice detector (second result, local audio model)
+## 6. AI-voice detector (parallel workstream, second result)
 
 - **Model:** reimplement a simple recipe (no EmberDial code or data). Take a frozen wav2vec2 front end (`jakeBland/wav2vec-vm-finetune`, Apache-2.0, or XLS-R), pool the first 2-4 s of caller audio, then train a small logistic head. Retraining takes seconds. If the low layers don't separate AI from human voices, try deeper layers or fine-tune W2V2-AASIST (MIT).
 - **Training data:**
@@ -145,7 +147,7 @@ Give your kid, your grandma or yourself a **guarded phone number** instead of th
 - **Timing cue:** people reply after about 0.2 s on average (Stivers et al. 2009); voice agents take about 1.3-2.4 s. Add reply gap, AI self-disclosure and missing "um"s as features. Report audio only, timing only and combined.
 - **Baselines:** off-the-shelf W2V2-AASIST, and Telnyx `deepfake_detection` on the same calls.
 - **How it is used:** an AI voice alone is at most `watch`. AI voice plus an unknown caller plus an ask escalates. A pharmacy reminder bot lights the badge but sends no alert. The FCC also requires artificial-voice calls to identify who is calling at the start (47 CFR 64.1200(b)). A missing identification is itself a signal.
-- **Keep the claim small:** this result is secondary. With about 20 test calls we label it "n=20, not a benchmark". The proof of the project is the guardian model.
+- **Its own workstream, built in parallel** (owner: Numan), with its own results section and charts. Target a real phone test set of about 50 AI-agent calls (5 agents x 10) and about 50 human calls over the same Telnyx path. Claim only what we measure on that set, with n and intervals.
 - **Metrics:** EER and AUC on our phone set, % detected within 2 s and 4 s, false alarms on human callers.
 
 ## 7. The demo (go all out)
