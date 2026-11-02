@@ -1,0 +1,4 @@
+{
+ "error": "HTTP 504: {\"error\":{\"message\":\"Gateway timeout\",\"param\":null,\"code\":\"GATEWAY_TIMEOUT\",\"type\":\"error\"},\"request_id\":\"chatcmpl-d0e07d1207c145719ee65e3e3a22b26f\"}",
+ "secs": 600.0326697826385
+}

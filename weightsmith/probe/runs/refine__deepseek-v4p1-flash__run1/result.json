@@ -1,0 +1,33 @@
+{
+ "model": "deepseek-v4p1-flash",
+ "note": "crashed on HTTP 429 during round 3; rounds 0-2 kept; held-out eval run separately",
+ "log": [
+  {
+   "round": 0,
+   "completion_tokens": 32000,
+   "practice_mean": 8.3125
+  },
+  {
+   "round": 1,
+   "completion_tokens": 32000,
+   "error": "no build_weights code block (hit 32k cap)"
+  },
+  {
+   "round": 2,
+   "completion_tokens": 28655,
+   "practice_mean": 25.21875
+  }
+ ],
+ "eval_round0": {
+  "mean": 10.895,
+  "ci95": 1.7,
+  "n": 200
+ },
+ "eval_round2": {
+  "mean": 25.615,
+  "ci95": 3.75,
+  "median": 19.5,
+  "max": 175.0,
+  "n": 200
+ }
+}

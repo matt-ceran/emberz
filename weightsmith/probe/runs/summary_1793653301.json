@@ -1,0 +1,50 @@
+[
+ {
+  "model": "baseline: all-zero weights (uniform random actions)",
+  "score": {
+   "mean": 0.5,
+   "ci95": 0.101150368189763,
+   "median": 0.0,
+   "max": 4.0,
+   "mean_steps": 11.1,
+   "n": 200
+  }
+ },
+ {
+  "model": "qwen3p8-2p4t-a95b",
+  "sample": 0,
+  "secs": 556.3004257678986,
+  "usage": {
+   "prompt_tokens": 1873,
+   "total_tokens": 73424,
+   "completion_tokens": 71551,
+   "prompt_tokens_details": {
+    "cached_tokens": 1872
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 69853
+   },
+   "output_tokens_details": {
+    "reasoning_tokens": 69853
+   }
+  },
+  "finish": "stop",
+  "error": null,
+  "score": {
+   "mean": 20.845,
+   "ci95": 2.63511965683328,
+   "median": 12.0,
+   "max": 105.0,
+   "mean_steps": 465.87,
+   "n": 200
+  }
+ },
+ {
+  "model": "qwen3p8-max",
+  "sample": 0,
+  "secs": 600.0326697826385,
+  "usage": null,
+  "finish": null,
+  "error": "HTTP 504: {\"error\":{\"message\":\"Gateway timeout\",\"param\":null,\"code\":\"GATEWAY_TIMEOUT\",\"type\":\"error\"},\"request_id\":\"chatcmpl-d0e07d1207c145719ee65e3e3a22b26f\"}"
+ }
+]

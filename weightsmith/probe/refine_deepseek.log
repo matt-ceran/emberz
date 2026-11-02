@@ -1,0 +1,36 @@
+{"round": 0, "secs": 182.4, "completion_tokens": 32000, "practice_mean": 8.3125}
+{"round": 1, "secs": 187.1, "completion_tokens": 32000, "error": "no build_weights code block"}
+{"round": 2, "secs": 160.5, "completion_tokens": 28655, "practice_mean": 25.21875}
+Traceback (most recent call last):
+  File "/Users/mattceran/Documents/fireworksamd/weightsmith/probe/breakout_refine.py", line 66, in chat
+    with urllib.request.urlopen(req, timeout=900) as r:
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/mattceran/.local/share/uv/python/cpython-3.13.16-macos-aarch64-none/lib/python3.13/urllib/request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mattceran/.local/share/uv/python/cpython-3.13.16-macos-aarch64-none/lib/python3.13/urllib/request.py", line 495, in open
+    response = meth(req, response)
+  File "/Users/mattceran/.local/share/uv/python/cpython-3.13.16-macos-aarch64-none/lib/python3.13/urllib/request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "/Users/mattceran/.local/share/uv/python/cpython-3.13.16-macos-aarch64-none/lib/python3.13/urllib/request.py", line 533, in error
+    return self._call_chain(*args)
+           ~~~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/mattceran/.local/share/uv/python/cpython-3.13.16-macos-aarch64-none/lib/python3.13/urllib/request.py", line 466, in _call_chain
+    result = func(*args)
+  File "/Users/mattceran/.local/share/uv/python/cpython-3.13.16-macos-aarch64-none/lib/python3.13/urllib/request.py", line 613, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 429: Too Many Requests
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mattceran/Documents/fireworksamd/weightsmith/probe/breakout_refine.py", line 122, in <module>
+    main()
+    ~~~~^^
+  File "/Users/mattceran/Documents/fireworksamd/weightsmith/probe/breakout_refine.py", line 86, in main
+    content, reasoning, usage, secs = chat(a.model, key, messages)
+                                      ~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mattceran/Documents/fireworksamd/weightsmith/probe/breakout_refine.py", line 71, in chat
+    raise RuntimeError(f"HTTP {e.code}: {msg}")
+RuntimeError: HTTP 429: {"error":{"message":"Request failed with HTTP status 429.","type":"Too Many Requests","code":429}}
