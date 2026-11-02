@@ -386,7 +386,7 @@ function startCall(ev) {
   S = {
     id: ev.call_id, d, replay: d.replay || null, turns: new Map(), verdicts: new Map(),
     latest: null, peak: null, alert: null, coach: null, ended: false, safe: false, lastAt: 0, caretaker: null,
-    name: NAME_Q || d.protected_name || FALLBACK_NAME[d.profile] || "the protected person",
+    name: d.protected_name || NAME_Q || FALLBACK_NAME[d.profile] || "the protected person",
   };
   $("idle").hidden = true;
   for (const id of ["callCard", "riskCard", "transcriptCard", "actions"]) $(id).hidden = false;
