@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RES = ROOT / "results"
 R = ["none", "watch", "alert", "urgent"]
 
-NAMES = {"guardian-v2": "**Guardian v2** (Qwen3.6-35B-A3B LoRA, deployed)", "guardian-v1": "Guardian v1 (Qwen3.6-35B-A3B LoRA)",
+NAMES = {"guardian-v2": "**Guardian v2** (Qwen3.6-35B-A3B LoRA; the deployed checkpoint, scored on the training sampler)", "guardian-v1": "Guardian v1 (Qwen3.6-35B-A3B LoRA)",
          "guardian-v3": "Guardian v3 (v2 + contrast pairs)", "guardian-nemo-v1": "Guardian nemo-v1 (Nemotron 3.5 Super LoRA)",
          "b1-rune": "Fireworks Rune zero-shot (B1)", "b3-qwen3p6-35b-untuned": "Qwen3.6-35B-A3B untuned, same prompt (B3)",
          "b4-kimi-k3": "Kimi K3 zero-shot (B4)", "b5-deepseek-v4p1-flash": "DeepSeek V4.1 Flash zero-shot (B5)",
@@ -66,6 +66,40 @@ def cascade(test_file="data/calls_test_heldout.jsonl", a="b1-rune", b="guardian-
     return c, len(asked), f, len(benign)
 
 
+def deploy_drift(ts="heldout120"):
+    dp, sp = RES / f"preds_guardian-v2-deployed__{ts}.jsonl", RES / "preds_guardian-v2__heldout.jsonl"
+    if not dp.exists():
+        return ""
+    rows = {json.loads(l)["call_id"]: json.loads(l) for l in (ROOT / "data/calls_test_heldout.jsonl").read_text().splitlines() if l.strip()}
+    D = {json.loads(l)["call_id"]: json.loads(l) for l in dp.read_text().splitlines() if l.strip()}
+    S = {json.loads(l)["call_id"]: json.loads(l) for l in sp.read_text().splitlines() if l.strip()}
+    common = [c for c in D if c in S]
+    flips = [c for c in common if bool(D[c]["first_alert"]) != bool(S[c]["first_alert"])]
+    def kind(c):
+        r = rows[c]
+        return {"allowed_contact": "allowed-contact twins", "rule": "rule-break twins"}.get(r.get("flip_kind") or "", "harmless calls" if r.get("benign_twin") else "risky calls")
+    now_alert, now_quiet = {}, {}
+    for c in flips:
+        d = now_alert if D[c]["first_alert"] else now_quiet
+        d[kind(c)] = d.get(kind(c), 0) + 1
+    fmt = lambda d: ", ".join(f"{v} {k if v != 1 else k.replace('calls', 'call').replace('twins', 'twin')}"
+                              for k, v in sorted(d.items(), key=lambda kv: -kv[1])) or "none"
+    g = lambda m, k: B.get((m, ts, k), {})
+    def pct(m, k):
+        r = g(m, k)
+        return f"{round(r['value'] * r['n'])}/{r['n']}" if r else "-"
+    return (f"**Accuracy drift on deployment (must read):** on the same {len(common)} calls, the deployed model differs from the "
+            f"evaluated checkpoint on {len(flips)} calls (now alerts: {fmt(now_alert)}; now quiet: {fmt(now_quiet)}). "
+            f"Caught before the ask {pct('guardian-v2-deployed', 'catch_before_ask')} vs {pct('guardian-v2', 'catch_before_ask')}, "
+            f"false alarms {pct('guardian-v2-deployed', 'false_alarm_rate')} vs {pct('guardian-v2', 'false_alarm_rate')}, "
+            f"rule-flip pairs {pct('guardian-v2-deployed', 'rule_flip_accuracy')} vs {pct('guardian-v2', 'rule_flip_accuracy')}. "
+            "The losses concentrate on caretaker rules and saved-contact signals, the behavior fine-tuning added, so our working "
+            "hypothesis is that serving applies the LoRA only partly (the adapter targets the MoE experts and the linear-attention "
+            "projections). `response_format` has no effect on it. The deployment also needs `reasoning_effort: none`; without it the "
+            "model thinks and returns empty content. We've raised it with Fireworks staff. **The headline numbers above are the "
+            "evaluated checkpoint (Training API sampler), not the deployment.**")
+
+
 MAIN = [("catch_before_ask", "Caught before the ask"), ("false_alarm_rate", "False alarms (harmless calls)"),
         ("rule_flip_accuracy", "Rule-flip pairs right"), ("recall_any", "Caught at any turn")]
 
@@ -90,6 +124,9 @@ def main():
             parts.append(f"**Same model on the deployment vs the training sampler ({t})**\n\n" +
                          table(t, MAIN + [("latency_ms_p50", "p50 ms (concurrent)"), ("latency_ms_p95", "p95 ms (concurrent)")],
                                ["guardian-v2-deployed", "guardian-v2"]))
+        drift = deploy_drift()
+        if drift:
+            parts.append(drift)
         deployed = "\n\n".join(parts)
     else:
         deployed = "_Pending: production latency and an FP4/BF16 re-score from the dedicated deployment are being measured now._"
@@ -101,6 +138,14 @@ transcribes both sides live, and a small guardian model **fine-tuned on Firework
 It stays quiet on normal calls, whispers a tip to the protected person when a call turns into a scam, a grooming
 pattern, a threat or an info grab, and alerts the caretaker, following rules the caretaker writes in plain words
 ("never share the door code", "Grandpa is allowed").
+
+## Team
+
+- **Numan Karakas:** the plan, the live line (Telnyx call flow, coach whisper, caretaker alert call), streaming speech-to-text
+  with NVIDIA Nemotron Speech, the AI-voice detector (frozen wav2vec2 XLS-R features plus a calibrated head, EER 1.3% on unseen
+  In-the-Wild speakers through a simulated phone path), and the Google Cloud jobs. His work lives on `numan/line-voice-gcp`.
+- **Matt Ceran:** the guardian (scenario taxonomy, data factory, fine-tuning on Fireworks, the eval harness and baselines),
+  and the caretaker console.
 
 ## The guardian
 
@@ -162,6 +207,14 @@ live line uses (median word error rate 16%, mostly numbers written as words). Sa
 
 {deployed}
 
+## Caretaker console
+
+`console/` is the phone-width page the caretaker watches: live transcript of both sides, a risk meter and per-turn timeline,
+the alert with its evidence quote and what we told the protected person, Listen in / Join call / Hang up / Mark safe, and
+a summary after the call. It reads Numan's line API directly, or replays held-out calls with the guardian's real verdicts.
+Run it from `callguard/` with `uv run --with fastapi --with 'uvicorn[standard]' uvicorn console.server:app --port 8095`;
+details in `console/README.md`.
+
 ## The NVIDIA thread
 
 - **Nemotron Speech Streaming 0.6B** (sherpa-onnx INT8, on a Mac) hears both sides of the live call: about 37 ms per 160 ms chunk.
@@ -173,6 +226,8 @@ live line uses (median word error rate 16%, mostly numbers written as words). Sa
 
 - **Latency:** guardian and untuned-Qwen latencies in `results/` come from the Training API sampler under shared-pool contention.
   They are not production numbers; see "Deployed".
+- **Deployment drift:** the deployed v2 loses most of its caretaker-rule following versus the evaluated checkpoint (see "Deployed").
+  Until that's resolved, the live demo's rule-flip behavior may not match the tables.
 - **Small n:** the unseen scam type has 2 held-out calls; the 120-call subset has 36 harmless calls. Most guardian-vs-guardian gaps sit
   inside the 95% intervals. The clear wins are against the baselines: false alarms and caretaker-rule following.
 - **Same-family risk:** Nemotron 3 Ultra wrote the held-out set, so the Nemotron guardian may get a style advantage there; BothBosu is the cleaner comparison.

@@ -6,6 +6,14 @@ It stays quiet on normal calls, whispers a tip to the protected person when a ca
 pattern, a threat or an info grab, and alerts the caretaker, following rules the caretaker writes in plain words
 ("never share the door code", "Grandpa is allowed").
 
+## Team
+
+- **Numan Karakas:** the plan, the live line (Telnyx call flow, coach whisper, caretaker alert call), streaming speech-to-text
+  with NVIDIA Nemotron Speech, the AI-voice detector (frozen wav2vec2 XLS-R features plus a calibrated head, EER 1.3% on unseen
+  In-the-Wild speakers through a simulated phone path), and the Google Cloud jobs. His work lives on `numan/line-voice-gcp`.
+- **Matt Ceran:** the guardian (scenario taxonomy, data factory, fine-tuning on Fireworks, the eval harness and baselines),
+  and the caretaker console.
+
 ## The guardian
 
 - **Task:** given the caretaker's rules, the protected person's profile, two signals (caller saved or unknown; AI-voice score)
@@ -30,7 +38,7 @@ asks for the code, money, address or meet-up. Calls are scored turn by turn, exa
 
 | Model | Caught before the ask | False alarms (harmless calls) | Rule-flip pairs right | Caught at any turn |
 |---|---|---|---|---|
-| **Guardian v2** (Qwen3.6-35B-A3B LoRA, deployed) | 137/148 (93%, CI 87-96) | 14/79 (18%, CI 11-28) | 19/22 (86%, CI 67-95) | 178/178 (100%, CI 98-100) |
+| **Guardian v2** (Qwen3.6-35B-A3B LoRA; the deployed checkpoint, scored on the training sampler) | 137/148 (93%, CI 87-96) | 14/79 (18%, CI 11-28) | 19/22 (86%, CI 67-95) | 178/178 (100%, CI 98-100) |
 | Guardian v1 (Qwen3.6-35B-A3B LoRA) | 133/148 (90%, CI 84-94) | 13/79 (16%, CI 10-26) | 19/22 (86%, CI 67-95) | 178/178 (100%, CI 98-100) |
 | Guardian v3 (v2 + contrast pairs) | 128/148 (86%, CI 80-91) | 10/79 (13%, CI 7-22) | 18/22 (82%, CI 62-93) | 178/178 (100%, CI 98-100) |
 | Guardian nemo-v1 (Nemotron 3.5 Super LoRA) | 132/148 (89%, CI 83-93) | 12/79 (15%, CI 9-25) | 17/22 (77%, CI 57-90) | 178/178 (100%, CI 98-100) |
@@ -48,7 +56,7 @@ false alarms 8/79 (10%). Computed from the two models' cached per-turn predictio
 
 | Model | Caught before the ask | False alarms (harmless calls) | Rule-flip pairs right | Caught at any turn |
 |---|---|---|---|---|
-| **Guardian v2** (Qwen3.6-35B-A3B LoRA, deployed) | 65/74 (88%, CI 78-94) | 9/36 (25%, CI 14-41) | 8/10 (80%, CI 49-94) | 84/84 (100%, CI 96-100) |
+| **Guardian v2** (Qwen3.6-35B-A3B LoRA; the deployed checkpoint, scored on the training sampler) | 65/74 (88%, CI 78-94) | 9/36 (25%, CI 14-41) | 8/10 (80%, CI 49-94) | 84/84 (100%, CI 96-100) |
 | Guardian v1 (Qwen3.6-35B-A3B LoRA) | 64/74 (86%, CI 77-92) | 6/36 (17%, CI 8-32) | 8/10 (80%, CI 49-94) | 84/84 (100%, CI 96-100) |
 | Guardian v3 (v2 + contrast pairs) | 61/74 (82%, CI 72-89) | 5/36 (14%, CI 6-29) | 7/10 (70%, CI 40-89) | 84/84 (100%, CI 96-100) |
 | Guardian nemo-v1 (Nemotron 3.5 Super LoRA) | 63/74 (85%, CI 75-92) | 5/36 (14%, CI 6-29) | 7/10 (70%, CI 40-89) | 84/84 (100%, CI 96-100) |
@@ -57,6 +65,7 @@ false alarms 8/79 (10%). Computed from the two models' cached per-turn predictio
 | DeepSeek V4.1 Flash zero-shot (B5) | 60/74 (81%, CI 71-88) | 12/36 (33%, CI 20-50) | 1/10 (10%, CI 2-40) | 82/84 (98%, CI 92-99) |
 | Qwen3.6-35B-A3B untuned, same prompt (B3) | 61/74 (82%, CI 72-89) | 20/36 (56%, CI 40-70) | 0/10 (0%, CI 0-28) | 81/84 (96%, CI 90-99) |
 | Keywords + PII regex (B0) | 34/74 (46%, CI 35-57) | 15/36 (42%, CI 27-58) | 0/10 (0%, CI 0-28) | 65/84 (77%, CI 67-85) |
+| Guardian v2 on the dedicated deployment (1x B200 BF16) | 60/74 (81%, CI 71-88) | 7/36 (19%, CI 10-35) | 2/10 (20%, CI 6-51) | 82/84 (98%, CI 92-99) |
 
 ### Out of distribution: BothBosu scam conversations (200 calls, 100 scam / 100 not)
 
@@ -64,7 +73,7 @@ Public synthetic dataset (Apache-2.0), call-level labels only, so "caught before
 
 | Model | Scams caught | False alarms |
 |---|---|---|
-| **Guardian v2** (Qwen3.6-35B-A3B LoRA, deployed) | 98/100 (98%, CI 93-99) | 0/100 (0%, CI 0-4) |
+| **Guardian v2** (Qwen3.6-35B-A3B LoRA; the deployed checkpoint, scored on the training sampler) | 98/100 (98%, CI 93-99) | 0/100 (0%, CI 0-4) |
 | Guardian v1 (Qwen3.6-35B-A3B LoRA) | 95/100 (95%, CI 89-98) | 0/100 (0%, CI 0-4) |
 | Guardian v3 (v2 + contrast pairs) | 97/100 (97%, CI 92-99) | 0/100 (0%, CI 0-4) |
 | Guardian nemo-v1 (Nemotron 3.5 Super LoRA) | 100/100 (100%, CI 96-100) | 0/100 (0%, CI 0-4) |
@@ -77,14 +86,14 @@ live line uses (median word error rate 16%, mostly numbers written as words). Sa
 
 | Model | Caught before the ask (clean text) | Caught at any turn | False alarms |
 |---|---|---|---|
-| **Guardian v2** (Qwen3.6-35B-A3B LoRA, deployed) | 23/27 (85%, CI 68-94) | 33/33 (100%, CI 90-100) | 4/16 (25%, CI 10-50) |
+| **Guardian v2** (Qwen3.6-35B-A3B LoRA; the deployed checkpoint, scored on the training sampler) | 23/27 (85%, CI 68-94) | 33/33 (100%, CI 90-100) | 4/16 (25%, CI 10-50) |
 | Guardian v1 (Qwen3.6-35B-A3B LoRA) | 23/27 (85%, CI 68-94) | 33/33 (100%, CI 90-100) | 1/16 (6%, CI 1-28) |
 | Fireworks Rune zero-shot (B1) | 24/27 (89%, CI 72-96) | 33/33 (100%, CI 90-100) | 3/16 (19%, CI 7-43) |
 | DeepSeek V4.1 Flash zero-shot (B5) | 22/27 (82%, CI 63-92) | 33/33 (100%, CI 90-100) | 4/16 (25%, CI 10-50) |
 
 | Model | Caught before the ask (through ASR) | Caught at any turn | False alarms |
 |---|---|---|---|
-| **Guardian v2** (Qwen3.6-35B-A3B LoRA, deployed) | 23/27 (85%, CI 68-94) | 33/33 (100%, CI 90-100) | 2/16 (12%, CI 4-36) |
+| **Guardian v2** (Qwen3.6-35B-A3B LoRA; the deployed checkpoint, scored on the training sampler) | 23/27 (85%, CI 68-94) | 33/33 (100%, CI 90-100) | 2/16 (12%, CI 4-36) |
 | Guardian v1 (Qwen3.6-35B-A3B LoRA) | 22/27 (82%, CI 63-92) | 33/33 (100%, CI 90-100) | 3/16 (19%, CI 7-43) |
 | Fireworks Rune zero-shot (B1) | 24/27 (89%, CI 72-96) | 32/33 (97%, CI 85-100) | 2/16 (12%, CI 4-36) |
 | DeepSeek V4.1 Flash zero-shot (B5) | 23/27 (85%, CI 68-94) | 32/33 (97%, CI 85-100) | 5/16 (31%, CI 14-56) |
@@ -93,7 +102,7 @@ live line uses (median word error rate 16%, mostly numbers written as words). Sa
 
 | Model | Caught before the ask | False alarms (harmless calls) | Rule-flip pairs right | Caught at any turn |
 |---|---|---|---|---|
-| **Guardian v2** (Qwen3.6-35B-A3B LoRA, deployed) | 89/90 (99%, CI 94-100) | 16/41 (39%, CI 26-54) | 8/9 (89%, CI 56-98) | 102/102 (100%, CI 96-100) |
+| **Guardian v2** (Qwen3.6-35B-A3B LoRA; the deployed checkpoint, scored on the training sampler) | 89/90 (99%, CI 94-100) | 16/41 (39%, CI 26-54) | 8/9 (89%, CI 56-98) | 102/102 (100%, CI 96-100) |
 | Guardian v3 (v2 + contrast pairs) | 86/90 (96%, CI 89-98) | 13/41 (32%, CI 20-47) | 8/9 (89%, CI 56-98) | 102/102 (100%, CI 96-100) |
 
 ### False alarms by harmless scenario (held-out)
@@ -115,7 +124,24 @@ live line uses (median word error rate 16%, mostly numbers written as words). Sa
 
 ## Deployed
 
-_Pending: production latency and an FP4/BF16 re-score from the dedicated deployment are being measured now._
+**Single-stream latency per scored turn** (one call at a time, 314 turns): p50 **475.5 ms**, p95 **871 ms**. This is the production latency claim; the sampler latencies elsewhere are not.
+
+**Same model on the deployment vs the training sampler (heldout120)**
+
+| Model | Caught before the ask | False alarms (harmless calls) | Rule-flip pairs right | Caught at any turn | p50 ms (concurrent) | p95 ms (concurrent) |
+|---|---|---|---|---|---|---|
+| Guardian v2 on the dedicated deployment (1x B200 BF16) | 60/74 (81%, CI 71-88) | 7/36 (19%, CI 10-35) | 2/10 (20%, CI 6-51) | 82/84 (98%, CI 92-99) | 801 | 1296 |
+| **Guardian v2** (Qwen3.6-35B-A3B LoRA; the deployed checkpoint, scored on the training sampler) | 65/74 (88%, CI 78-94) | 9/36 (25%, CI 14-41) | 8/10 (80%, CI 49-94) | 84/84 (100%, CI 96-100) | 1366.5 | 11883 |
+
+**Accuracy drift on deployment (must read):** on the same 120 calls, the deployed model differs from the evaluated checkpoint on 12 calls (now alerts: 3 allowed-contact twins, 1 harmless call; now quiet: 6 harmless calls, 2 rule-break twins). Caught before the ask 60/74 vs 65/74, false alarms 7/36 vs 9/36, rule-flip pairs 2/10 vs 8/10. The losses concentrate on caretaker rules and saved-contact signals, the behavior fine-tuning added, so our working hypothesis is that serving applies the LoRA only partly (the adapter targets the MoE experts and the linear-attention projections). `response_format` has no effect on it. The deployment also needs `reasoning_effort: none`; without it the model thinks and returns empty content. We've raised it with Fireworks staff. **The headline numbers above are the evaluated checkpoint (Training API sampler), not the deployment.**
+
+## Caretaker console
+
+`console/` is the phone-width page the caretaker watches: live transcript of both sides, a risk meter and per-turn timeline,
+the alert with its evidence quote and what we told the protected person, Listen in / Join call / Hang up / Mark safe, and
+a summary after the call. It reads Numan's line API directly, or replays held-out calls with the guardian's real verdicts.
+Run it from `callguard/` with `uv run --with fastapi --with 'uvicorn[standard]' uvicorn console.server:app --port 8095`;
+details in `console/README.md`.
 
 ## The NVIDIA thread
 
@@ -128,6 +154,8 @@ _Pending: production latency and an FP4/BF16 re-score from the dedicated deploym
 
 - **Latency:** guardian and untuned-Qwen latencies in `results/` come from the Training API sampler under shared-pool contention.
   They are not production numbers; see "Deployed".
+- **Deployment drift:** the deployed v2 loses most of its caretaker-rule following versus the evaluated checkpoint (see "Deployed").
+  Until that's resolved, the live demo's rule-flip behavior may not match the tables.
 - **Small n:** the unseen scam type has 2 held-out calls; the 120-call subset has 36 harmless calls. Most guardian-vs-guardian gaps sit
   inside the 95% intervals. The clear wins are against the baselines: false alarms and caretaker-rule following.
 - **Same-family risk:** Nemotron 3 Ultra wrote the held-out set, so the Nemotron guardian may get a style advantage there; BothBosu is the cleaner comparison.

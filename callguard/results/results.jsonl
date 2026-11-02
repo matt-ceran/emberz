@@ -418,3 +418,27 @@
 {"metric": "latency_ms_p50", "value": 1005, "n": 1733, "model": "guardian-v3", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793659344}
 {"metric": "latency_ms_p95", "value": 1537, "n": 1733, "model": "guardian-v3", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793659344}
 {"metric": "unparseable_replies", "value": 0, "n": 1733, "model": "guardian-v3", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793659344}
+{"metric": "catch_before_ask", "value": 0.811, "n": 74, "ci95": [0.707, 0.884], "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "catch_at_or_before_ask", "value": 0.973, "n": 74, "ci95": [0.907, 0.993], "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "recall_any", "value": 0.976, "n": 84, "ci95": [0.917, 0.993], "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "false_alarm_rate", "value": 0.194, "n": 36, "ci95": [0.098, 0.35], "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "rule_flip_accuracy", "value": 0.2, "n": 10, "ci95": [0.057, 0.51], "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 74, "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.667, "n": 17, "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "evidence_exact_match", "value": 0.998, "n": 455, "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "latency_ms_p50", "value": 801, "n": 849, "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "latency_ms_p95", "value": 1296, "n": 849, "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "unparseable_replies", "value": 0, "n": 849, "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "catch_before_ask", "value": 0.762, "n": 21, "ci95": [0.549, 0.894], "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "catch_at_or_before_ask", "value": 0.905, "n": 21, "ci95": [0.711, 0.973], "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "recall_any", "value": 0.96, "n": 25, "ci95": [0.805, 0.993], "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "false_alarm_rate", "value": 0.2, "n": 15, "ci95": [0.07, 0.452], "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "rule_flip_accuracy", "value": 0.0, "n": 3, "ci95": [0.0, 0.562], "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "lead_time_turns_median", "value": 4, "n": 21, "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.768, "n": 11, "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "evidence_exact_match", "value": 1.0, "n": 144, "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "latency_ms_p50", "value": 475.5, "n": 314, "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "latency_ms_p95", "value": 871, "n": 314, "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "unparseable_replies", "value": 0, "n": 314, "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
