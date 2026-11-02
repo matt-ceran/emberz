@@ -102,3 +102,38 @@ From https://docs.fireworks.ai/models/uploading-custom-models and https://docs.f
 4. **Then:** the full table, more tasks, the demo box and chart.
 
 Spending (L4 hours, Fireworks deployment hours, API calls) gets an OK before it starts.
+
+## 10. Deep dive: how the paper's Qwen fix actually worked (read from their logs, 2026-11-02)
+
+Source: `exp8_math/` in https://github.com/RikiyaT/lm_understand-logs (logs CC BY 4.0, scripts MIT, so we can reuse the task prompt and rules with attribution).
+
+**Setup the editor had**
+- A persistent Python kernel over the weights, **CPU only, no GPU, no internet**, at most 300 code runs. Helpers: `load(name)`, `save_edit(name, tensor)`, `drop_edit`, the tokenizer.
+- It was **not allowed to run the model itself**. Only a forward-pass tool could, with a budget of 10, 25 or 50 passes. One pass was either:
+  - a generation of up to 512 answers ("both" = paired original vs edited on the same problems and seeds, with the paired difference and its standard error), optionally saving activations; or
+  - a teacher-forced read of up to 1,024 texts returning log-probs, hidden states, MLP activations and attention. Takes seconds to minutes.
+- **Forbidden:** gradients, optimizers, any iterative fitting of weights to a loss; edits to the final norm, embeddings or output layer; multiplying a whole tensor by a constant.
+- The prompt told it to diagnose first, localize causally (dose-response, not just correlation), measure with paired comparisons and keep an edit only if its gain beats its standard error on problems not used to choose it.
+
+**What it found and changed**
+- 85 of its first 96 practice answers ran to the 32,768-token limit while repeating. It contrasted matched productive vs repetitive contexts, found a "repetition direction", and checked it with dose-response tests, layer isolation and a norm-matched random control.
+- 50-pass edit: subtract that direction from the 64 MLP output columns that write it most, in layers 15 and 19 (131,072 weights). 10-pass edit: a rank-one projection `W' = W - 1.5 u(u^T W)` on 30 matrices. 25-pass edit: zero one attention head.
+- Its own held-out check: 10.6% → 60.4% on 1,152 practice problems, 579 rescues vs 5 regressions; 576 of the rescues were answers that used to be cut off.
+
+**How long and how reliable**
+- **Not minutes: hours.** The 50-pass run took 158 turns, 80 Python runs, 4 conversation restarts and 20.3 hours (a full generation pass took up to ~30 min). The 10-pass run took 11.6 h.
+- **One run per setting, and fragile.** Runs not in the post: 0 and 5 passes made no edit; a shorter prompt (v4) with 10 passes made no edit. Only the single 50-pass run gave the big jump.
+- **Gemma 3 270M (no loops): nothing.** MATH-500 6.8% → at best 7.7%. The errors were ordinary reasoning mistakes with no single component to switch off. **Editing removes an obstacle that hides an ability; it doesn't add an ability.**
+
+**What this changes for us**
+1. **Niche choice rule:** the small model must already *have* the ability, with a removable obstacle in the way (format failures, a bias toward some labels, loops, over-refusal, language mixing). Plain confusions between similar labels are Gemma-like and probably won't move. The first measurement must break base Qwen3-8B's errors down into "obstacle" vs "confusion" before we commit to a niche.
+2. **Time claim:** report measured edit time honestly. Our passes are much cheaper (short label outputs, 8B on an L4: seconds per batch, not 30 min), so we expect far less than 20 h, but we measure it.
+3. **Reliability:** run 3 independent edit sessions per setting and report all of them, not the best one.
+4. **Credibility of "no training":** copy their rules (no gradients, a budget of forward passes through a tool, `save_edit` with refused edit types) and publish full transcripts, as they did.
+5. **Harness:** their prompt (`runs/p50c/message.txt`) is a ready template: diagnose, localize causally, paired measurement, keep only edits that beat their standard error on unused data.
+
+**Niches that fit "removable obstacle" (to test alongside Banking77/CLINC150)**
+- Invalid or off-list outputs and label bias in classification (if base Qwen3-8B shows them).
+- Over-refusal: refusing harmless requests. Refusal is known to run largely through a single direction. Must keep refusing truly harmful requests, measured on both sides (e.g. XSTest / OR-Bench style sets).
+- Loops in thinking mode on long tasks (the paper's exact failure).
+- Language mixing (Qwen drifting into Chinese mid-answer).
