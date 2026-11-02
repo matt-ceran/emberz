@@ -65,6 +65,18 @@ Fireworks hackathon, November 2026. Numan and Matt. Built on Fireworks plus open
 | **Human calls: fewer friends needed** (see V2) | Most of the "human over the phone path" audio comes from replaying CC0/public human speech through a real Telnyx call; Numan and Matt do the role-play calls themselves; friends are a bonus |
 | **Google Cloud: $25 is a target, not a hard cap** | Numan's call. VMs still auto-delete (max run duration + DELETE on termination) |
 
+## 2d. Judging rubric and what it changes (2026-11-02)
+
+Weights: **benchmark 40%**, business value 25%, technical execution 20%, presentation 10%, documentation 10%. Judges score evidence, not ambition; fine-tuning and an app are optional. So the eval gets most of our care, and the phone line is the vehicle for the demo and the live test set, not a goal in itself.
+
+| Criterion | What the judges look for | What we change |
+|---|---|---|
+| Benchmark (40%) | A reliable gain over a **named frontier-model baseline** on the same test cases; a representative held-out set; uncertainty; quality vs cost vs latency; 100+ examples | **B5: one closed frontier model** (pending Numan's pick) next to B4 Kimi K3, scored on the same calls with the same prompt, window and rule layer. **A live phone test set of 100+ calls** (AI callers + role-play + human, see V2): their real ASR transcripts are recorded once, labeled blind, committed, then every model scores the identical transcripts offline. The headline uses the held-out GLM set (500) and the live set, each with n and a bootstrap 95% CI, and paired tests (McNemar on catch-before-ask) between ours and each baseline |
+| Business value (25%) | Who uses it, why it matters, a quantified benefit with clear assumptions, adoption barriers | README section with sourced numbers: elder-fraud and impostor-scam losses, cost per protected call-minute (ours vs the frontier baseline), lead time before the ask. Barriers listed honestly: consent and notice, number porting, false alarms, carrier rules |
+| Technical execution (20%) | Experiments that show **which choices mattered**, failure cases, limits | **Free ablations only** (no extra SFT): rule layer on vs off; window 4 vs 8 turns; clean vs ASR-noisy test text; with vs without the `ai_voice` and `caller_known` signals; base vs v1 vs v2. A failure-case table (missed asks and false alarms, with quotes) |
+| Presentation (10%) | Clear problem, approach and result inside the video limit; easy to inspect | The video shows one live call (the coach line and the caretaker alert) and then the headline chart with the frontier baseline marked |
+| Documentation (10%) | Another builder can set up and reproduce the eval | `requirements.txt` / lockfile, `.env.example`, one command that reproduces every number from committed test data without a phone line or GPU (`python -m eval.run --all`), model ids and LoRA config, `results/*.jsonl` committed |
+
 ## 3. How a call works
 
 ```
@@ -303,12 +315,13 @@ I0, M0, M1 (with the G1 noise pass), M2 (v1), window 1, v2, window 2, D2. The pr
 | B2 | gpt-oss-safeguard-20b with the caretaker's written rules | Fireworks on-demand |
 | B3 | Qwen3-4B untuned, same prompt | Same deployment as ours |
 | B4 | Kimi K3 zero-shot | Fireworks serverless |
+| B5 | **Closed frontier model** zero-shot, same prompt (model pending Numan's pick) | Its own API, held-out subsample (~150 calls) + the live set |
 
 **Test sets, reported separately, each with n and a 95% interval:**
 1. The held-out generated set.
 2. BothBosu: 20 real scam calls.
 3. A PAN-12 subset: grooming in chat, not phone calls, and we say so.
-4. Our ~40 role-play calls.
+4. **The live phone set (100+ calls):** AI callers, ~40 role-play calls and human calls, scored on their recorded ASR transcripts. Labels are committed before any model scores them.
 
 **Charts:**
 - Catch-before-ask vs false alarms, one point per model.
