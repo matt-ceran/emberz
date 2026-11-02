@@ -62,7 +62,7 @@ Pick by measuring, not guessing: the task where the base small model is clearly 
 
 Doing it on 2-3 tasks shows it's a method, not a lucky one-off.
 
-> **Update 1:45 PM (Matt + Claude): proposed niche change, see §10.** Banking77 is the weakest candidate for an edit. Screen sycophancy, over-refusal and CLINC150 out-of-scope first.
+> **Update 1:45 PM (Matt + Claude): proposed niche change, see §10.** Banking77 is probably the weakest candidate for an edit (not yet measured). Screen over-refusal, sycophancy and CLINC150 out-of-scope first.
 
 ## 6. Benchmark table
 
@@ -107,7 +107,7 @@ Spending (L4 hours, Fireworks deployment hours, API calls) gets an OK before it 
 
 ## 10. Proposed niche change (Matt + Claude, 2026-11-02 1:45 PM)
 
-**Why change it.** The paper's big jump came from a model that was *broken in one systematic way*: Qwen3.5-0.8B looped, and 93% of its MATH-500 answers hit the token limit. The edit removed that obstacle; it did not add math skill. On Gemma 3 270M, whose errors were ordinary, the edit gained essentially nothing (MATH-500 6.8 to at most 7.7). Banking77's typical errors are confusions between near-identical intents (for example card arrival vs card delivery estimate), which is missing knowledge, the Gemma case. **So pick the niche by the *type* of error, not only by the size of the gap.**
+**Why change it.** The paper's big jump came from a model that was *broken in one systematic way*: Qwen3.5-0.8B looped, and 93% of its MATH-500 answers hit the token limit. The edit removed that obstacle; it did not add math skill. On Gemma 3 270M, whose errors were ordinary, the edit gained essentially nothing (MATH-500 6.8 to at most 7.7). We expect Banking77's errors to be confusions between near-identical intents (e.g. `card_arrival` vs `card_delivery_estimate`). If so, they look more like Gemma's case (no single component to switch off) than Qwen's loops. Not yet measured; the screen checks it. **So pick the niche by the *type* of error, not only by the size of the gap.**
 
 **What makes a good niche:**
 1. The base model fails in one systematic way, and there is prior evidence that a single edit fixes that kind of failure.
@@ -119,20 +119,19 @@ Spending (L4 hours, Fireworks deployment hours, API calls) gets an OK before it 
 
 | Niche | How the base model breaks | Prior evidence that one edit fixes it | Counter-metric ("did it break?") | Business line |
 |---|---|---|---|---|
-| **1. Caving under pushback** (`meg-tong/sycophancy-eval`, MIT) | Drops a correct answer when the user says "I think it's X" | Sycophancy was steered with a single direction (Panickssery/Rimsky et al. 2024). The paper's Exp 7 found one head (10.2) doing it | Still accepts the user when the user is right; plain accuracy unchanged | "Your support bot agrees with customers who are wrong" |
-| **2. Over-refusal** (`Paul/XSTest`, CC-BY-4.0: 250 safe-looking + 200 unsafe contrast prompts) | Refuses "how do I kill a stuck process?" | Refusal is one direction (Arditi et al. 2024) | The 200 unsafe prompts must still be refused | "Bots that refuse paying customers" |
-| 3. Looping on math (`openai/gsm8k`; Qwen3-1.7B or R1-Distill-Qwen-1.5B) | Loops until the token cap | The paper itself | Regression suite below | Cost per correct answer |
+| **1. Caving under pushback** (`meg-tong/sycophancy-eval`, MIT) | Drops a correct answer when the user says "I think it's X" | Opinion sycophancy was steered with one vector (CAA: Panickssery/Rimsky et al. 2024, on Llama 2). The paper's Exp 7 only *detected* a sycophantic model, from middle-layer attention heads (e.g. head 10.2); it did not edit one | Still accepts the user when the user is right; plain accuracy unchanged | "Your support bot agrees with customers who are wrong" |
+| **2. Over-refusal** (`Paul/XSTest`, CC-BY-4.0: 250 safe-looking + 200 unsafe contrast prompts) | Refuses "how do I kill a stuck process?" | **Most direct precedent:** ablating a single "false-refusal" vector cut over-refusal while keeping safety, training-free (Wang, Hu, Röttger & Plank 2024, arXiv 2410.03415). Refusal itself is one direction (Arditi et al. 2024), but removing *that* removes all refusal | The 200 unsafe prompts must still be refused | "Bots that refuse paying customers" |
+| 3. Looping on math (`openai/gsm8k`; Qwen3-1.7B or R1-Distill-Qwen-1.5B) | Likely loops until the token cap (both model cards warn of endless repetitions under non-recommended sampling; not measured on GSM8K) | The paper (Qwen3.5-0.8B on MATH-500) | Regression suite below | Cost per correct answer |
 | 4. Out-of-scope (`clinc/clinc_oos`, CC-BY-3.0) | Forces a real intent instead of "none" | A plausible single bias, untested | In-scope accuracy | Routing that admits it doesn't know |
 | 5. Banking77 (`PolyAI/banking77`, CC-BY-4.0) | Confuses near-identical intents | Weak: knowledge errors, the Gemma case | | Keep as the contrast where LoRA wins |
 
-**Pick without measuring: #1, caving under pushback.**
-- It has the strongest prior for a single-direction fix.
-- Its outputs are short.
-- Its counter-metric is honest: a model that never changes its mind is also broken.
-- The business story is easy to grasp.
+**Let the screen pick. On priors alone:**
+- **#2, over-refusal, has the most direct precedent** for a single-vector fix that keeps safety (Wang et al. 2024). Its risk is room: Qwen may rarely over-refuse.
+- **#1, caving under pushback, has the better business story** and an honest counter-metric (a model that never changes its mind is also broken). Its prior is weaker: CAA on Llama 2 opinion sycophancy.
+- Both need thinking mode off to keep outputs short.
 
 Caveats on the others:
-- **#2:** Qwen models are fairly permissive, so it may have little room on Qwen3-8B. Llama 3.1 8B or Gemma would be stronger targets.
+- **#2:** Qwen models are fairly permissive, so it may have little room on Qwen3-8B. Llama 3.1 8B or Gemma may be stronger targets (to check in the screen).
 - **#2 safety:** the edit weakens refusal, so the weights stay private unless the unsafe-prompt refusal rate is unchanged.
 - **#3:** generations are long, so test batches are slow.
 
@@ -145,13 +144,13 @@ Caveats on the others:
 
 **Proposed start (replaces §9 step 1):**
 1. **About 35 min:** a screen of base Qwen3-8B and Kimi K3 on about 100 prompts each from #1, #2 and #4.
-2. **Go/no-go:** pick the niche with the biggest *systematic* failure and the biggest gap to Kimi. A few dollars of Kimi calls; Qwen3-8B runs on the Mac at bf16 (16 GB of 24 GB; speed not yet measured).
+2. **Go/no-go:** pick the niche with the biggest *systematic* failure and the biggest gap to Kimi. A few dollars of Kimi calls; Qwen3-8B should fit on the Mac at bf16 (8.2B params ≈ 16.4 GB of 24 GB; not yet loaded, speed not measured).
 3. **Then:** §9 steps 2-4 on that one niche.
 
-**Rules to fix up front.** On a healthy model, the edits most likely to work compute directions from labelled examples' activations (difference of means). Decide and write down what counts as "no training". The paper forbade backward passes, optimizers and iterative fitting, and refused edits to the embedding and output layers. Disclose it in the write-up.
+**Rules to fix up front.** We expect the edits most likely to work on a healthy model to compute directions from labelled examples' activations (difference of means, as in Arditi et al. and CAA). Decide and write down what counts as "no training". The paper forbade backward passes, optimizers and iterative fitting, and refused edits to the embedding and output layers. Disclose it in the write-up.
 
-**Evidence for the open question in §3 (can the editor be a non-Fireworks model?).** If the rules require a Fireworks editor, `weightsmith/` shows Fireworks models can do weight reasoning to a limited degree. On the paper's Exp 5 (write a MinAtar Breakout network from the game's source code; 200 held-out episodes):
-- DeepSeek V4.1 Flash with **one** feedback pass: **25.6 ± 3.8**. That ties PPO at 500M steps (25.3) for about $0.12.
+**Evidence for the open question in §3 (can the editor be a non-Fireworks model?).** If the rules require a Fireworks editor, `weightsmith/` shows Fireworks models can do weight reasoning to a limited degree. On a re-run of the paper's Exp 5 task (write a MinAtar Breakout network from the game's source code), scored on 200 held-out episodes in our harness. The paper's PPO and Astra numbers come from its own 1,000-episode, 600-input setup:
+- DeepSeek V4.1 Flash with **one** feedback pass: **25.6 ± 3.8**. That ties PPO at 500M steps (25.3) for about $0.11.
 - Qwen3.8 2.4T one-shot: **20.8 ± 2.6**.
 - Astra: 517.4.
 
