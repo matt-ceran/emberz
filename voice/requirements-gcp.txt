@@ -1,0 +1,15 @@
+# V1 on the GCP L4 VM (python -m voice.pipeline). torch with CUDA: use the image's or
+# pip install torch --index-url https://download.pytorch.org/whl/cu124
+numpy
+soundfile
+soxr
+scikit-learn
+joblib
+pydantic>=2
+httpx
+transformers>=4.40
+huggingface_hub
+# W2V2-AASIST baseline (ONNX)
+onnxruntime-gpu
+# Kokoro renders (optional; also: apt-get install espeak-ng)
+kokoro>=0.9.4

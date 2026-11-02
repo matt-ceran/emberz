@@ -1,0 +1,29 @@
+{
+  "_comment": "Copy to data/profiles.json (gitignored) or point EMBERZ_PROFILES at your file. Keys are guarded numbers (E.164, a Telnyx number on the demo app). Numbers below are fictional 555-01xx.",
+  "+15555550100": {
+    "profile": "elder",
+    "rules": [
+      "Never share codes, passwords or one-time codes",
+      "Alert me about any talk of money, gift cards or wire transfers",
+      "Allowed: Grandpa (+15555550111)"
+    ],
+    "allowed_contacts": {
+      "+15555550111": "Grandpa"
+    },
+    "protected_number": "+15555550101",
+    "caretaker_number": "+15555550102"
+  },
+  "+15555550120": {
+    "profile": "kid",
+    "rules": [
+      "Never say our address, school or when we are not home",
+      "Tell me about any stranger asking to meet up or keep a secret"
+    ],
+    "allowed_contacts": {
+      "+15555550111": "Grandpa",
+      "+15555550102": "Mom"
+    },
+    "protected_number": "+15555550121",
+    "caretaker_number": "+15555550102"
+  }
+}

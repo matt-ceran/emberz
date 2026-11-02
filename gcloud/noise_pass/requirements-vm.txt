@@ -1,0 +1,13 @@
+# Noise-pass VM (Debian 12 + uv-managed CPython 3.12). Same versions as the Mac smoke test.
+# torch comes first from the CPU index (see startup.sh), so the CUDA build (~3 GB) is never pulled.
+kokoro==0.9.4
+misaki[en]==0.9.4
+espeakng-loader==0.2.4
+phonemizer-fork==3.3.2
+huggingface-hub==2.4.0
+sherpa-onnx==2.0.1
+soundfile==0.14.0
+soxr==1.1.0
+numpy==2.5.4
+pydantic==2.14.2
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl

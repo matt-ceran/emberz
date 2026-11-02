@@ -1,0 +1,41 @@
+{
+  "id": "pharmacy_refill",
+  "kind": "benign",
+  "summary": "Benign automated pharmacy refill reminder: identifies itself as automated, mentions a copay paid at pickup, never asks for codes, card numbers or payment over the phone.",
+  "max_duration_s": 150,
+  "end_phrase": "Have a good day, goodbye.",
+  "system_prompt": "[TEST SETUP] You are taking part in a phone-line test run by the Emberz team. You are calling a test phone line. The person who answers is a consenting team member playing a character. The pharmacy, people and numbers in this prompt are fictional.\n\n[YOUR ROLE] You are the automated refill assistant for {{pharmacy}}. You are honest and helpful. Say you are an automated assistant if asked, and in your first message. Speaking style: {{style}}.\n\n[CALL PLAN]\n1. Confirm you are speaking with {{callee_name}}. If it's someone else, ask them to pass on the message and say goodbye.\n2. Say their prescription ending in {{rx_last4}} for {{medication}} is {{status}} at the {{pharmacy}} on {{location}}.\n3. The copay is {{copay}}, paid at pickup. Never take payment, card numbers, codes or passwords on the phone; if they offer, say 'No need, you pay at the counter.'\n4. Ask whether they will pick it up by {{pickup_by}}, or would like it held longer. Answer simple questions about store hours ({{hours}}). For medical questions, say the pharmacist can help at pickup or at the number on the bottle.\n5. Thank them and end the call.\n\n[SPEAKING RULES] One or two short sentences per turn. Keep the call under two minutes. Always finish with exactly: 'Have a good day, goodbye.'",
+  "first_message": "Hello, this is an automated refill reminder from {{pharmacy}}. May I speak with {{callee_name}}?",
+  "vapi": {
+    "model": {"provider": "openai", "model": "gpt-4o-mini", "temperature": 0.5},
+    "voices": [
+      {"provider": "deepgram", "voiceId": "athena", "model": "aura"},
+      {"provider": "openai", "voiceId": "shimmer", "model": "gpt-4o-mini-tts"},
+      {"provider": "deepgram", "voiceId": "helios", "model": "aura"},
+      {"provider": "openai", "voiceId": "sage", "model": "gpt-4o-mini-tts"},
+      {"provider": "deepgram", "voiceId": "hera", "model": "aura"}
+    ]
+  },
+  "retell": {
+    "model": "gpt-4.1-mini",
+    "voices": [
+      {"provider": "openai", "gender": "female"},
+      {"provider": "cartesia", "gender": "female"},
+      {"provider": "minimax", "gender": "male"},
+      {"provider": "cartesia", "gender": "male"},
+      {"provider": "openai", "gender": "female"}
+    ]
+  },
+  "variants": [
+    {"pharmacy": "Corner Care Pharmacy", "callee_name": "Margaret", "rx_last4": "3021", "medication": "your blood pressure medicine", "status": "ready for pickup", "location": "Main Street", "copay": "$12", "pickup_by": "Friday", "hours": "8 am to 9 pm", "style": "clear and friendly"},
+    {"pharmacy": "Riverside Drug", "callee_name": "Robert", "rx_last4": "7788", "medication": "your cholesterol prescription", "status": "ready for pickup", "location": "Oak Avenue", "copay": "$5", "pickup_by": "Thursday", "hours": "9 am to 7 pm", "style": "calm"},
+    {"pharmacy": "Hillside Pharmacy", "callee_name": "Dorothy", "rx_last4": "1406", "medication": "your inhaler", "status": "ready", "location": "Elm Street", "copay": "$25", "pickup_by": "Monday", "hours": "8 am to 8 pm", "style": "cheerful"},
+    {"pharmacy": "Neighborhood Rx", "callee_name": "Harold", "rx_last4": "5532", "medication": "your diabetes medicine", "status": "ready for pickup", "location": "Pine Road", "copay": "$0", "pickup_by": "Saturday", "hours": "10 am to 6 pm", "style": "slow and clear"},
+    {"pharmacy": "Corner Care Pharmacy", "callee_name": "Patricia", "rx_last4": "9087", "medication": "your thyroid medicine", "status": "delayed by one day because of a supplier issue, and will be ready tomorrow", "location": "Main Street", "copay": "$8", "pickup_by": "Wednesday", "hours": "8 am to 9 pm", "style": "apologetic and polite"},
+    {"pharmacy": "Valley Family Pharmacy", "callee_name": "George", "rx_last4": "6610", "medication": "your arthritis medicine", "status": "ready", "location": "Lake Drive", "copay": "$15", "pickup_by": "Tuesday", "hours": "9 am to 9 pm", "style": "brief and efficient"},
+    {"pharmacy": "Riverside Drug", "callee_name": "Betty", "rx_last4": "2245", "medication": "your eye drops", "status": "ready for pickup", "location": "Oak Avenue", "copay": "$30", "pickup_by": "Friday", "hours": "9 am to 7 pm", "style": "warm"},
+    {"pharmacy": "Hillside Pharmacy", "callee_name": "Frank", "rx_last4": "4419", "medication": "your heart medicine", "status": "ready, and your insurance card on file needs updating at the counter", "location": "Elm Street", "copay": "$10", "pickup_by": "Monday", "hours": "8 am to 8 pm", "style": "friendly"},
+    {"pharmacy": "Neighborhood Rx", "callee_name": "Joan", "rx_last4": "8073", "medication": "your allergy prescription", "status": "ready", "location": "Pine Road", "copay": "$4", "pickup_by": "Thursday", "hours": "10 am to 6 pm", "style": "upbeat"},
+    {"pharmacy": "Valley Family Pharmacy", "callee_name": "Walter", "rx_last4": "1550", "medication": "your sleep medicine", "status": "ready for pickup; it needs an ID check at the counter", "location": "Lake Drive", "copay": "$18", "pickup_by": "Wednesday", "hours": "9 am to 9 pm", "style": "professional"}
+  ]
+}
