@@ -32,7 +32,7 @@ Fireworks hackathon, November 2026. Numan and Matt. Built on Fireworks plus open
 | AI-voice detector | Local: frozen wav2vec2 front end + small head, trained on public data. Telnyx `deepfake_detection` ($0.01 per call) as the commercial baseline |
 | AI test callers | Our own agents on Vapi and Retell (free credits) calling our number |
 | Text-to-speech, for transcription noise in training data | Kokoro (Apache-2.0) |
-| Google Cloud (bulk jobs only) | A big spot CPU VM for the bulk TTS-to-ASR noise pass, and a spot L4 for ASVspoof downloads and wav2vec features. The live system runs on the Mac and Fireworks |
+| Google Cloud (bulk jobs only, Numan) | Project `unified-booster-512122-j5`, region us-central1. Quota: 200 N2 vCPUs and 1 L4 GPU (spot allowed). Runs the bulk noise pass and the AI-voice dataset prep. The live system runs on the Mac and Fireworks |
 
 **Fireworks checks done (2026-11-02):**
 - The key works.
@@ -47,7 +47,7 @@ Fireworks hackathon, November 2026. Numan and Matt. Built on Fireworks plus open
 |---|---|---|
 | Generate one ~20-turn call | Nemotron 3 Ultra **157 tok/s** (~10 s per call, with framing); DeepSeek V4.1 Flash 131 tok/s; GLM 5.3 Flash 103 tok/s | With ~50 parallel requests, 3,500 calls take about 15-20 min, if rate limits allow (checked in M0) |
 | Live Nemotron ASR on the Mac | **37 ms** to process each 160 ms chunk; **64 ms** at worst with 4 streams at once | 2 live calls (4 streams) run comfortably in real time |
-| Bulk Nemotron ASR on the Mac | **~11x real time** at best (8 processes) | 300 calls (~10 h of audio) take ~55 min, so the bulk noise pass goes to a big Google Cloud VM (~10 min) |
+| Bulk Nemotron ASR on the Mac | **~11x real time** at best (8 processes) | 300 calls (~10 h of audio) take ~55 min, so the bulk noise pass goes to Google Cloud (G1, ~10-15 min) |
 | SFT, deployment start-up | Not yet measured | Measured by the M0 probe job |
 
 ## 3. How a call works
@@ -113,7 +113,9 @@ All events are JSON over a WebSocket or HTTP in the line server. The schemas liv
 
 ## 5. Work packages
 
-Big chunks, each with an owner, what it delivers, and when it's done. **I** = kickoff, **M** = Model and **C** = console (Matt), **L** = Line and **V** = Voice (Numan), **D** = demo.
+Big chunks, each with an owner, what it delivers, and when it's done. **I** = kickoff, **M** = Model and **C** = console (Matt), **L** = Line, **V** = Voice and **G** = Google Cloud (Numan), **D** = demo.
+
+**Matt:** M0, M1, M2, M3, C1, D2. **Numan:** L1, L2, L3, V1, V2, G1, D1. **Both:** I0.
 
 ### I0. Kickoff (both, about 75 minutes, hour 0)
 - Write the contracts as code: Pydantic models for every section 4 shape, plus fixture files and a stub guardian that returns canned JSON.
@@ -211,6 +213,23 @@ Big chunks, each with an owner, what it delivers, and when it's done. **I** = ki
 - About 40 role-play guardian calls with blind-written scripts.
 - Labels are committed after the calls are segmented (around sync S4), before any model scores them.
 
+### G1. Google Cloud bulk jobs (Numan)
+- **Noise pass, for M1:**
+  - An `n2-highcpu-96` VM.
+  - Kokoro renders about 300-500 of Matt's generated calls, converted to 8 kHz phone audio.
+  - Nemotron ASR (the same sherpa-onnx model as live) transcribes them, so part of the training text carries real transcription errors.
+  - About 10-15 minutes, a few dollars.
+  - Input: `data/noise_input.jsonl` from Matt. Output: `data/noisy_turns.jsonl` back to Matt before the prompt freeze (S2).
+- **AI-voice data, for V1:**
+  - A spot `g2-standard-8` VM with one L4.
+  - Download ASVspoof 5 (a subset, including the 8 kHz codec conditions) and In-the-Wild.
+  - Extract wav2vec2 features on the GPU and copy only the small feature files to the Mac through a Cloud Storage bucket.
+  - The large audio never touches the Mac.
+- **Rules:**
+  - Delete every VM as soon as its job ends, and run `gcloud compute instances list` at every session end.
+  - Cap: $25 total.
+- **Done when:** the noisy turns are delivered to M1, and the voice features are in the bucket for V1.
+
 ### D1. Integration and rehearsal (Numan)
 - The full demo end to end: casting the phones, the judge call, rehearsals.
 
@@ -220,14 +239,14 @@ Big chunks, each with an owner, what it delivers, and when it's done. **I** = ki
 ### Sync points
 - **S0, hour 0:** I0 together.
 - **S1, about hour 2.5:** hour-0 results. From Matt: quota, the Nemotron price, Batch timing, `response_format`. From Numan: `line/hour0.json` and the first real `turn` events.
-- **S2, about hour 5-6: prompt freeze** (`prompt_sha`). Pilot numbers check the budget before bulk generation. Role-play cards are final. The held-out manifest is committed.
+- **S2, about hour 5-6: prompt freeze** (`prompt_sha`). G1's noisy turns are in M1's data. Pilot numbers check the budget before bulk generation. Role-play cards are final. The held-out manifest is committed.
 - **S3, about hour 10-12: GPU window 1** on account A. B3 and v1 on dev (the checkpoint), held-out and BothBosu, plus latency. Numan makes one live call on the deployment to measure turn-to-coach latency. B1 and B2 run on account B in the same sitting, each with a 1-hour hard stop. Delete everything afterwards.
 - **S4, about hour 14:** recordings handed over, role-play labeled blind and committed, voice results frozen, v2 data built from dev errors.
 - **S5, about hour 16-18: GPU window 2,** straight into the rehearsal so the deployment warms up once. v1 vs v2 on every set, the full 6-scene rehearsal, then the README numbers are locked.
 - **S6:** demo and submission. Warm the deployment about 10 minutes before the slot, and scale it to 0 or delete it right after.
 
 ### Critical path
-I0, M0, M1, M2 (v1), window 1, v2, window 2, D2. The product chain (I0, L1, L2, L3, D1) runs alongside it and joins at S3 for the live latency call and at S5 for the rehearsal.
+I0, M0, M1 (with the G1 noise pass), M2 (v1), window 1, v2, window 2, D2. The product chain (I0, L1, L2, L3, D1) and the cloud jobs (G1) run alongside it and joins at S3 for the live latency call and at S5 for the rehearsal.
 
 ## 6. The guardian model
 
@@ -315,6 +334,8 @@ A judge can call the guarded number from their own phone and try to fool it.
 - A scaled-down deployment answers 503 while waking, so warm it about 10 minutes before use.
 - Run `firectl deployment list` on both accounts at every session end.
 - Each person keeps a ledger: `results/ledger-matt.md` and `results/ledger-numan.md`.
+
+**Google Cloud (G1):** capped at $25. VMs are deleted right after each job.
 
 **Telnyx:** about $0.002 per minute of voice, $0.002 per conference participant per minute, $0.0035 per minute of streaming, $0.01 per call for deepfake detection and $1 a month per number. About 150 test calls come to single-digit dollars.
 
