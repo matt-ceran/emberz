@@ -45,7 +45,9 @@ from line.session import CallSession
 
 log = logging.getLogger("emberz.guardian")
 
-FIREWORKS_URL = "https://api.fireworks.ai/inference/v1/chat/completions"
+# GUARDIAN_URL overrides the endpoint, e.g. Matt's sampler proxy (callguard/guardian/sampler_proxy.py) at
+# http://127.0.0.1:8077/inference/v1/chat/completions, which serves the evaluated checkpoint exactly.
+FIREWORKS_URL = os.environ.get("GUARDIAN_URL") or "https://api.fireworks.ai/inference/v1/chat/completions"
 # Picked 2026-11-02: cheapest serverless chat model that answers JSON-schema output with
 # thinking off ($0.05 in / $0.20 out per 1M tokens, docs.fireworks.ai/serverless/pricing).
 # Measured on fixture windows: p50 ~0.5 s, but ~1 in 3 requests stalled past 4 s (hence the hedge).
