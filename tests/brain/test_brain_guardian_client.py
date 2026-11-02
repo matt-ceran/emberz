@@ -50,9 +50,23 @@ def test_standin_prompt_renders_window_and_signals(req):
     assert len(PROMPT_SHA) == 12
 
 
-def test_render_messages_falls_back_to_standin(req):
-    # guardian.prompt (Matt's M0) does not exist on this branch yet
-    assert gc.render_messages(req) == render_messages(req)
+def test_render_messages_uses_matt_frozen_prompt(req, monkeypatch):
+    # guardian.prompt (Matt's M0) now exists: the line must send the exact training prompt
+    import guardian.prompt as gp
+    monkeypatch.setattr(gc, "_prompt_fn", None)
+    assert gc.render_messages(req) == gp.render_messages(req)
+    assert gp.PROMPT_SHA == gp.EXPECTED_PROMPT_SHA
+
+
+def test_render_messages_falls_back_to_standin(req, monkeypatch):
+    # simulate a checkout without guardian.prompt: the stand-in prompt is used
+    import sys
+    monkeypatch.setitem(sys.modules, "guardian.prompt", None)
+    monkeypatch.setattr(gc, "_prompt_fn", None)
+    try:
+        assert gc.render_messages(req) == render_messages(req)
+    finally:
+        gc._prompt_fn = None
 
 
 def test_parse_response_fenced():
@@ -179,6 +193,8 @@ def test_broken_guardian_prompt_module_is_not_silently_replaced(monkeypatch, tmp
     (pkg / "__init__.py").write_text("")
     (pkg / "prompt.py").write_text("import not_a_real_dependency_xyz\n")
     monkeypatch.syspath_prepend(str(tmp_path))
+    for m in ("guardian", "guardian.prompt", "guardian.render"):
+        monkeypatch.delitem(__import__("sys").modules, m, raising=False)
     monkeypatch.setattr(gc, "_prompt_fn", None)
     with pytest.raises(ModuleNotFoundError):
         gc.render_messages(req)
@@ -189,7 +205,7 @@ def test_broken_guardian_prompt_module_is_not_silently_replaced(monkeypatch, tmp
     try:
         assert gc.render_messages(req) == [{"role": "user", "content": "M0"}]
     finally:
-        for m in ("guardian", "guardian.prompt"):
+        for m in ("guardian", "guardian.prompt", "guardian.render"):
             __import__("sys").modules.pop(m, None)
         gc._prompt_fn = None
 

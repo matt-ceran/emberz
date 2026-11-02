@@ -58,6 +58,7 @@
             "vulgar",
             "threat_extortion",
             "self_harm",
+            "custom_rule",
             "none"
           ],
           "title": "Category",
@@ -65,6 +66,7 @@
         },
         "stage": {
           "enum": [
+            "none",
             "hook",
             "trust",
             "pressure",

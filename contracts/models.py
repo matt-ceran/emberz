@@ -20,7 +20,7 @@ class _Strict(BaseModel):
 Speaker = Literal["caller", "protected"]
 Profile = Literal["elder", "kid", "adult"]
 Risk = Literal["none", "watch", "alert", "urgent"]
-Stage = Literal["hook", "trust", "pressure", "ask"]
+Stage = Literal["none", "hook", "trust", "pressure", "ask"]
 Action = Literal["none", "log", "coach", "notify_caretaker", "suggest_hangup", "urgent_alert"]
 Category = Literal[
     "scam.impersonation_bank_gov",
@@ -40,6 +40,7 @@ Category = Literal[
     "vulgar",
     "threat_extortion",
     "self_harm",
+    "custom_rule",
     "none",
 ]
 RISK_ORDER: dict[str, int] = {"none": 0, "watch": 1, "alert": 2, "urgent": 3}
@@ -89,7 +90,7 @@ class GuardianResponse(_Strict):
     risk: Risk
     category: Category
     severity: int = Field(ge=0, le=3)
-    source: Literal["caller", "protected_person"]
+    source: Literal["none", "caller", "protected_person"]
     stage: Stage
     evidence: list[Evidence] = Field(default_factory=list)
     action: Action
