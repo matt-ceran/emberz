@@ -1,0 +1,456 @@
+{"metric": "catch_before_ask", "value": 0.52, "n": 148, "ci95": [0.44, 0.599], "model": "b0-keywords", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793653771}
+{"metric": "catch_at_or_before_ask", "value": 0.73, "n": 148, "ci95": [0.653, 0.795], "model": "b0-keywords", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793653771}
+{"metric": "recall_any", "value": 0.815, "n": 178, "ci95": [0.751, 0.865], "model": "b0-keywords", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793653771}
+{"metric": "false_alarm_rate", "value": 0.494, "n": 79, "ci95": [0.386, 0.602], "model": "b0-keywords", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793653771}
+{"metric": "unseen_type_recall", "value": 1.0, "n": 2, "ci95": [0.342, 1.0], "model": "b0-keywords", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793653771}
+{"metric": "rule_flip_accuracy", "value": 0.0, "n": 22, "ci95": [0.0, 0.149], "model": "b0-keywords", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793653771}
+{"metric": "lead_time_turns_median", "value": 2.0, "n": 122, "model": "b0-keywords", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793653771}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.504, "n": 17, "model": "b0-keywords", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793653771}
+{"metric": "evidence_exact_match", "value": 1.0, "n": 183, "model": "b0-keywords", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793653771}
+{"metric": "latency_ms_p50", "value": 0.0, "n": 2254, "model": "b0-keywords", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793653771}
+{"metric": "latency_ms_p95", "value": 0, "n": 2254, "model": "b0-keywords", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793653771}
+{"metric": "unparseable_replies", "value": 0, "n": 2254, "model": "b0-keywords", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793653771}
+{"metric": "catch_before_ask", "value": 0.851, "n": 74, "ci95": [0.753, 0.915], "model": "b4-kimi-k3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793654145}
+{"metric": "catch_at_or_before_ask", "value": 0.986, "n": 74, "ci95": [0.927, 0.998], "model": "b4-kimi-k3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793654145}
+{"metric": "recall_any", "value": 0.952, "n": 84, "ci95": [0.884, 0.981], "model": "b4-kimi-k3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793654145}
+{"metric": "false_alarm_rate", "value": 0.25, "n": 36, "ci95": [0.138, 0.411], "model": "b4-kimi-k3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793654145}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "b4-kimi-k3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793654145}
+{"metric": "rule_flip_accuracy", "value": 0.0, "n": 10, "ci95": [-0.0, 0.278], "model": "b4-kimi-k3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793654145}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 74, "model": "b4-kimi-k3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793654145}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.778, "n": 14, "model": "b4-kimi-k3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793654145}
+{"metric": "evidence_exact_match", "value": 0.976, "n": 626, "model": "b4-kimi-k3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793654145}
+{"metric": "latency_ms_p50", "value": 1882, "n": 797, "model": "b4-kimi-k3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793654145}
+{"metric": "latency_ms_p95", "value": 3898, "n": 797, "model": "b4-kimi-k3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793654145}
+{"metric": "unparseable_replies", "value": 0, "n": 797, "model": "b4-kimi-k3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793654145}
+{"metric": "catch_before_ask", "value": 1.0, "n": 2, "ci95": [0.342, 1.0], "model": "smoke-rune", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655395}
+{"metric": "catch_at_or_before_ask", "value": 1.0, "n": 2, "ci95": [0.342, 1.0], "model": "smoke-rune", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655395}
+{"metric": "recall_any", "value": 1.0, "n": 3, "ci95": [0.438, 1.0], "model": "smoke-rune", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655395}
+{"metric": "false_alarm_rate", "value": 0.0, "n": 3, "ci95": [0.0, 0.562], "model": "smoke-rune", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655395}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "smoke-rune", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655395}
+{"metric": "rule_flip_accuracy", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "smoke-rune", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655395}
+{"metric": "lead_time_turns_median", "value": 5.0, "n": 2, "model": "smoke-rune", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655395}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.667, "n": 3, "model": "smoke-rune", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655395}
+{"metric": "evidence_exact_match", "value": null, "n": 0, "model": "smoke-rune", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655395}
+{"metric": "latency_ms_p50", "value": 145.5, "n": 42, "model": "smoke-rune", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655395}
+{"metric": "latency_ms_p95", "value": 220, "n": 42, "model": "smoke-rune", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655395}
+{"metric": "unparseable_replies", "value": 0, "n": 42, "model": "smoke-rune", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655395}
+{"metric": "catch_before_ask", "value": 1.0, "n": 2, "ci95": [0.342, 1.0], "model": "smoke-deepseek", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655411}
+{"metric": "catch_at_or_before_ask", "value": 1.0, "n": 2, "ci95": [0.342, 1.0], "model": "smoke-deepseek", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655411}
+{"metric": "recall_any", "value": 1.0, "n": 3, "ci95": [0.438, 1.0], "model": "smoke-deepseek", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655411}
+{"metric": "false_alarm_rate", "value": 0.0, "n": 3, "ci95": [0.0, 0.562], "model": "smoke-deepseek", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655411}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "smoke-deepseek", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655411}
+{"metric": "rule_flip_accuracy", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "smoke-deepseek", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655411}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 2, "model": "smoke-deepseek", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655411}
+{"metric": "category_macro_f1_at_first_alert", "value": 1.0, "n": 3, "model": "smoke-deepseek", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655411}
+{"metric": "evidence_exact_match", "value": 0.969, "n": 32, "model": "smoke-deepseek", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655411}
+{"metric": "latency_ms_p50", "value": 1011.0, "n": 52, "model": "smoke-deepseek", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655411}
+{"metric": "latency_ms_p95", "value": 1540, "n": 52, "model": "smoke-deepseek", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655411}
+{"metric": "unparseable_replies", "value": 0, "n": 52, "model": "smoke-deepseek", "test_set": "smoke", "prompt_sha": "806908cfba7d", "ts": 1793655411}
+{"metric": "catch_before_ask", "value": 0.459, "n": 74, "ci95": [0.351, 0.572], "model": "b0-keywords", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655443}
+{"metric": "catch_at_or_before_ask", "value": 0.676, "n": 74, "ci95": [0.563, 0.771], "model": "b0-keywords", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655443}
+{"metric": "recall_any", "value": 0.774, "n": 84, "ci95": [0.674, 0.85], "model": "b0-keywords", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655443}
+{"metric": "false_alarm_rate", "value": 0.417, "n": 36, "ci95": [0.271, 0.578], "model": "b0-keywords", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655443}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "b0-keywords", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655443}
+{"metric": "rule_flip_accuracy", "value": 0.0, "n": 10, "ci95": [-0.0, 0.278], "model": "b0-keywords", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655443}
+{"metric": "lead_time_turns_median", "value": 2, "n": 57, "model": "b0-keywords", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655443}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.639, "n": 14, "model": "b0-keywords", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655443}
+{"metric": "evidence_exact_match", "value": 1.0, "n": 79, "model": "b0-keywords", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655443}
+{"metric": "latency_ms_p50", "value": 0.0, "n": 1036, "model": "b0-keywords", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655443}
+{"metric": "latency_ms_p95", "value": 0, "n": 1036, "model": "b0-keywords", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655443}
+{"metric": "unparseable_replies", "value": 0, "n": 1036, "model": "b0-keywords", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655443}
+{"metric": "catch_before_ask", "value": 0.926, "n": 148, "ci95": [0.872, 0.958], "model": "b1-rune", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "catch_at_or_before_ask", "value": 0.986, "n": 148, "ci95": [0.952, 0.996], "model": "b1-rune", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "recall_any", "value": 0.989, "n": 178, "ci95": [0.96, 0.997], "model": "b1-rune", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "false_alarm_rate", "value": 0.38, "n": 79, "ci95": [0.281, 0.49], "model": "b1-rune", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "unseen_type_recall", "value": 1.0, "n": 2, "ci95": [0.342, 1.0], "model": "b1-rune", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "rule_flip_accuracy", "value": 0.227, "n": 22, "ci95": [0.101, 0.434], "model": "b1-rune", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "lead_time_turns_median", "value": 6.0, "n": 148, "model": "b1-rune", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.517, "n": 17, "model": "b1-rune", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "evidence_exact_match", "value": null, "n": 0, "model": "b1-rune", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "latency_ms_p50", "value": 147.0, "n": 1502, "model": "b1-rune", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "latency_ms_p95", "value": 234, "n": 1502, "model": "b1-rune", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "unparseable_replies", "value": 0, "n": 1502, "model": "b1-rune", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "catch_before_ask", "value": 0.905, "n": 74, "ci95": [0.817, 0.953], "model": "b1-rune", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "catch_at_or_before_ask", "value": 0.973, "n": 74, "ci95": [0.907, 0.993], "model": "b1-rune", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "recall_any", "value": 1.0, "n": 84, "ci95": [0.956, 1.0], "model": "b1-rune", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "false_alarm_rate", "value": 0.333, "n": 36, "ci95": [0.202, 0.497], "model": "b1-rune", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "b1-rune", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "rule_flip_accuracy", "value": 0.2, "n": 10, "ci95": [0.057, 0.51], "model": "b1-rune", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "lead_time_turns_median", "value": 6.0, "n": 74, "model": "b1-rune", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.551, "n": 15, "model": "b1-rune", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "evidence_exact_match", "value": null, "n": 0, "model": "b1-rune", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "latency_ms_p50", "value": 155.5, "n": 672, "model": "b1-rune", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "latency_ms_p95", "value": 264, "n": 672, "model": "b1-rune", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "unparseable_replies", "value": 0, "n": 672, "model": "b1-rune", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655465}
+{"metric": "catch_before_ask", "value": 0.892, "n": 148, "ci95": [0.832, 0.932], "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655500}
+{"metric": "catch_at_or_before_ask", "value": 0.993, "n": 148, "ci95": [0.963, 0.999], "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655500}
+{"metric": "recall_any", "value": 0.972, "n": 178, "ci95": [0.936, 0.988], "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655500}
+{"metric": "false_alarm_rate", "value": 0.532, "n": 79, "ci95": [0.423, 0.638], "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655500}
+{"metric": "unseen_type_recall", "value": 1.0, "n": 2, "ci95": [0.342, 1.0], "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655500}
+{"metric": "rule_flip_accuracy", "value": 0.136, "n": 22, "ci95": [0.047, 0.333], "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655500}
+{"metric": "lead_time_turns_median", "value": 5.0, "n": 148, "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655500}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.357, "n": 18, "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655500}
+{"metric": "evidence_exact_match", "value": 0.946, "n": 892, "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655500}
+{"metric": "latency_ms_p50", "value": 8123.0, "n": 1488, "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655500}
+{"metric": "latency_ms_p95", "value": 22821, "n": 1488, "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655500}
+{"metric": "unparseable_replies", "value": 0, "n": 1488, "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655500}
+{"metric": "catch_before_ask", "value": 0.824, "n": 74, "ci95": [0.722, 0.894], "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655514}
+{"metric": "catch_at_or_before_ask", "value": 0.986, "n": 74, "ci95": [0.927, 0.998], "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655514}
+{"metric": "recall_any", "value": 0.964, "n": 84, "ci95": [0.9, 0.988], "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655514}
+{"metric": "false_alarm_rate", "value": 0.556, "n": 36, "ci95": [0.396, 0.705], "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655514}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655514}
+{"metric": "rule_flip_accuracy", "value": 0.0, "n": 10, "ci95": [-0.0, 0.278], "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655514}
+{"metric": "lead_time_turns_median", "value": 4.5, "n": 74, "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655514}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.369, "n": 16, "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655514}
+{"metric": "evidence_exact_match", "value": 0.956, "n": 458, "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655514}
+{"metric": "latency_ms_p50", "value": 12239.5, "n": 686, "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655514}
+{"metric": "latency_ms_p95", "value": 26292, "n": 686, "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655514}
+{"metric": "unparseable_replies", "value": 0, "n": 686, "model": "b3-qwen3p6-35b-untuned", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655514}
+{"metric": "catch_before_ask", "value": 0.899, "n": 148, "ci95": [0.84, 0.938], "model": "guardian-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655556}
+{"metric": "catch_at_or_before_ask", "value": 0.993, "n": 148, "ci95": [0.963, 0.999], "model": "guardian-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655556}
+{"metric": "recall_any", "value": 1.0, "n": 178, "ci95": [0.979, 1.0], "model": "guardian-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655556}
+{"metric": "false_alarm_rate", "value": 0.165, "n": 79, "ci95": [0.099, 0.261], "model": "guardian-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655556}
+{"metric": "unseen_type_recall", "value": 1.0, "n": 2, "ci95": [0.342, 1.0], "model": "guardian-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655556}
+{"metric": "rule_flip_accuracy", "value": 0.864, "n": 22, "ci95": [0.667, 0.953], "model": "guardian-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655556}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 148, "model": "guardian-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655556}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.616, "n": 18, "model": "guardian-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655556}
+{"metric": "evidence_exact_match", "value": 0.992, "n": 893, "model": "guardian-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655556}
+{"metric": "latency_ms_p50", "value": 1195, "n": 1745, "model": "guardian-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655556}
+{"metric": "latency_ms_p95", "value": 16046, "n": 1745, "model": "guardian-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655556}
+{"metric": "unparseable_replies", "value": 0, "n": 1745, "model": "guardian-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655556}
+{"metric": "catch_before_ask", "value": 0.851, "n": 148, "ci95": [0.785, 0.9], "model": "b5-deepseek-v4p1-flash", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "catch_at_or_before_ask", "value": 0.993, "n": 148, "ci95": [0.963, 0.999], "model": "b5-deepseek-v4p1-flash", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "recall_any", "value": 0.966, "n": 178, "ci95": [0.928, 0.984], "model": "b5-deepseek-v4p1-flash", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "false_alarm_rate", "value": 0.316, "n": 79, "ci95": [0.224, 0.425], "model": "b5-deepseek-v4p1-flash", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "unseen_type_recall", "value": 1.0, "n": 2, "ci95": [0.342, 1.0], "model": "b5-deepseek-v4p1-flash", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "rule_flip_accuracy", "value": 0.136, "n": 22, "ci95": [0.047, 0.333], "model": "b5-deepseek-v4p1-flash", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 148, "model": "b5-deepseek-v4p1-flash", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.517, "n": 18, "model": "b5-deepseek-v4p1-flash", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "evidence_exact_match", "value": 0.994, "n": 1784, "model": "b5-deepseek-v4p1-flash", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "latency_ms_p50", "value": 1269, "n": 1859, "model": "b5-deepseek-v4p1-flash", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "latency_ms_p95", "value": 1935, "n": 1859, "model": "b5-deepseek-v4p1-flash", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "unparseable_replies", "value": 0, "n": 1859, "model": "b5-deepseek-v4p1-flash", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "catch_before_ask", "value": 0.811, "n": 74, "ci95": [0.707, 0.884], "model": "b5-deepseek-v4p1-flash", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "catch_at_or_before_ask", "value": 0.986, "n": 74, "ci95": [0.927, 0.998], "model": "b5-deepseek-v4p1-flash", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "recall_any", "value": 0.976, "n": 84, "ci95": [0.917, 0.993], "model": "b5-deepseek-v4p1-flash", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "false_alarm_rate", "value": 0.333, "n": 36, "ci95": [0.202, 0.497], "model": "b5-deepseek-v4p1-flash", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "b5-deepseek-v4p1-flash", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "rule_flip_accuracy", "value": 0.1, "n": 10, "ci95": [0.018, 0.404], "model": "b5-deepseek-v4p1-flash", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 74, "model": "b5-deepseek-v4p1-flash", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.531, "n": 16, "model": "b5-deepseek-v4p1-flash", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "evidence_exact_match", "value": 0.992, "n": 858, "model": "b5-deepseek-v4p1-flash", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "latency_ms_p50", "value": 1305, "n": 833, "model": "b5-deepseek-v4p1-flash", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "latency_ms_p95", "value": 1955, "n": 833, "model": "b5-deepseek-v4p1-flash", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "unparseable_replies", "value": 0, "n": 833, "model": "b5-deepseek-v4p1-flash", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655598}
+{"metric": "catch_before_ask", "value": 0.865, "n": 74, "ci95": [0.769, 0.925], "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655612}
+{"metric": "catch_at_or_before_ask", "value": 0.986, "n": 74, "ci95": [0.927, 0.998], "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655612}
+{"metric": "recall_any", "value": 1.0, "n": 84, "ci95": [0.956, 1.0], "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655612}
+{"metric": "false_alarm_rate", "value": 0.167, "n": 36, "ci95": [0.079, 0.319], "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655612}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655612}
+{"metric": "rule_flip_accuracy", "value": 0.8, "n": 10, "ci95": [0.49, 0.943], "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655612}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 74, "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655612}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.702, "n": 16, "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655612}
+{"metric": "evidence_exact_match", "value": 0.993, "n": 435, "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655612}
+{"metric": "latency_ms_p50", "value": 6264.5, "n": 792, "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655612}
+{"metric": "latency_ms_p95", "value": 19343, "n": 792, "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655612}
+{"metric": "unparseable_replies", "value": 0, "n": 792, "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655612}
+{"metric": "catch_before_ask", "value": 0.865, "n": 74, "ci95": [0.769, 0.925], "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655617}
+{"metric": "catch_at_or_before_ask", "value": 0.986, "n": 74, "ci95": [0.927, 0.998], "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655617}
+{"metric": "recall_any", "value": 1.0, "n": 84, "ci95": [0.956, 1.0], "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655617}
+{"metric": "false_alarm_rate", "value": 0.167, "n": 36, "ci95": [0.079, 0.319], "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655617}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655617}
+{"metric": "rule_flip_accuracy", "value": 0.8, "n": 10, "ci95": [0.49, 0.943], "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655617}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 74, "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655617}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.702, "n": 16, "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655617}
+{"metric": "evidence_exact_match", "value": 0.993, "n": 435, "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655617}
+{"metric": "latency_ms_p50", "value": 6264.5, "n": 792, "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655617}
+{"metric": "latency_ms_p95", "value": 19343, "n": 792, "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655617}
+{"metric": "unparseable_replies", "value": 0, "n": 792, "model": "guardian-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793655617}
+{"metric": "catch_before_ask", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "b0-keywords", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656209}
+{"metric": "catch_at_or_before_ask", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "b0-keywords", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656209}
+{"metric": "recall_any", "value": 0.43, "n": 100, "ci95": [0.337, 0.528], "model": "b0-keywords", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656209}
+{"metric": "false_alarm_rate", "value": 0.0, "n": 100, "ci95": [0.0, 0.037], "model": "b0-keywords", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656209}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "b0-keywords", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656209}
+{"metric": "rule_flip_accuracy", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "b0-keywords", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656209}
+{"metric": "lead_time_turns_median", "value": null, "n": 0, "model": "b0-keywords", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656209}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.0, "n": 1, "model": "b0-keywords", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656209}
+{"metric": "evidence_exact_match", "value": 1.0, "n": 43, "model": "b0-keywords", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656209}
+{"metric": "latency_ms_p50", "value": 0.0, "n": 1800, "model": "b0-keywords", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656209}
+{"metric": "latency_ms_p95", "value": 0, "n": 1800, "model": "b0-keywords", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656209}
+{"metric": "unparseable_replies", "value": 0, "n": 1800, "model": "b0-keywords", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656209}
+{"metric": "catch_before_ask", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656527}
+{"metric": "catch_at_or_before_ask", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656527}
+{"metric": "recall_any", "value": 0.95, "n": 100, "ci95": [0.888, 0.978], "model": "guardian-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656527}
+{"metric": "false_alarm_rate", "value": 0.0, "n": 100, "ci95": [0.0, 0.037], "model": "guardian-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656527}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656527}
+{"metric": "rule_flip_accuracy", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656527}
+{"metric": "lead_time_turns_median", "value": null, "n": 0, "model": "guardian-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656527}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.0, "n": 1, "model": "guardian-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656527}
+{"metric": "evidence_exact_match", "value": 1.0, "n": 601, "model": "guardian-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656527}
+{"metric": "latency_ms_p50", "value": 1065, "n": 1685, "model": "guardian-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656527}
+{"metric": "latency_ms_p95", "value": 7422, "n": 1685, "model": "guardian-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656527}
+{"metric": "unparseable_replies", "value": 0, "n": 1685, "model": "guardian-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656527}
+{"metric": "catch_before_ask", "value": 0.926, "n": 148, "ci95": [0.872, 0.958], "model": "guardian-v2", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793656760}
+{"metric": "catch_at_or_before_ask", "value": 0.986, "n": 148, "ci95": [0.952, 0.996], "model": "guardian-v2", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793656760}
+{"metric": "recall_any", "value": 1.0, "n": 178, "ci95": [0.979, 1.0], "model": "guardian-v2", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793656760}
+{"metric": "false_alarm_rate", "value": 0.177, "n": 79, "ci95": [0.109, 0.276], "model": "guardian-v2", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793656760}
+{"metric": "unseen_type_recall", "value": 1.0, "n": 2, "ci95": [0.342, 1.0], "model": "guardian-v2", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793656760}
+{"metric": "rule_flip_accuracy", "value": 0.864, "n": 22, "ci95": [0.667, 0.953], "model": "guardian-v2", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793656760}
+{"metric": "lead_time_turns_median", "value": 4.5, "n": 148, "model": "guardian-v2", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793656760}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.624, "n": 18, "model": "guardian-v2", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793656760}
+{"metric": "evidence_exact_match", "value": 0.996, "n": 742, "model": "guardian-v2", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793656760}
+{"metric": "latency_ms_p50", "value": 1034.5, "n": 1722, "model": "guardian-v2", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793656760}
+{"metric": "latency_ms_p95", "value": 10237, "n": 1722, "model": "guardian-v2", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793656760}
+{"metric": "unparseable_replies", "value": 0, "n": 1722, "model": "guardian-v2", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793656760}
+{"metric": "catch_before_ask", "value": 0.878, "n": 74, "ci95": [0.785, 0.935], "model": "guardian-v2", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793656770}
+{"metric": "catch_at_or_before_ask", "value": 0.986, "n": 74, "ci95": [0.927, 0.998], "model": "guardian-v2", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793656770}
+{"metric": "recall_any", "value": 1.0, "n": 84, "ci95": [0.956, 1.0], "model": "guardian-v2", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793656770}
+{"metric": "false_alarm_rate", "value": 0.25, "n": 36, "ci95": [0.138, 0.411], "model": "guardian-v2", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793656770}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v2", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793656770}
+{"metric": "rule_flip_accuracy", "value": 0.8, "n": 10, "ci95": [0.49, 0.943], "model": "guardian-v2", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793656770}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 74, "model": "guardian-v2", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793656770}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.674, "n": 16, "model": "guardian-v2", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793656770}
+{"metric": "evidence_exact_match", "value": 1.0, "n": 356, "model": "guardian-v2", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793656770}
+{"metric": "latency_ms_p50", "value": 1366.5, "n": 760, "model": "guardian-v2", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793656770}
+{"metric": "latency_ms_p95", "value": 11883, "n": 760, "model": "guardian-v2", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793656770}
+{"metric": "unparseable_replies", "value": 0, "n": 760, "model": "guardian-v2", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793656770}
+{"metric": "catch_before_ask", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v2", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656896}
+{"metric": "catch_at_or_before_ask", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v2", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656896}
+{"metric": "recall_any", "value": 0.98, "n": 100, "ci95": [0.93, 0.994], "model": "guardian-v2", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656896}
+{"metric": "false_alarm_rate", "value": 0.0, "n": 100, "ci95": [0.0, 0.037], "model": "guardian-v2", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656896}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v2", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656896}
+{"metric": "rule_flip_accuracy", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v2", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656896}
+{"metric": "lead_time_turns_median", "value": null, "n": 0, "model": "guardian-v2", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656896}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.0, "n": 1, "model": "guardian-v2", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656896}
+{"metric": "evidence_exact_match", "value": 1.0, "n": 499, "model": "guardian-v2", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656896}
+{"metric": "latency_ms_p50", "value": 833.0, "n": 1640, "model": "guardian-v2", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656896}
+{"metric": "latency_ms_p95", "value": 1218, "n": 1640, "model": "guardian-v2", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656896}
+{"metric": "unparseable_replies", "value": 0, "n": 1640, "model": "guardian-v2", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793656896}
+{"metric": "catch_before_ask", "value": 0.989, "n": 90, "ci95": [0.94, 0.998], "model": "guardian-v2", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793657105}
+{"metric": "catch_at_or_before_ask", "value": 1.0, "n": 90, "ci95": [0.959, 1.0], "model": "guardian-v2", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793657105}
+{"metric": "recall_any", "value": 1.0, "n": 102, "ci95": [0.964, 1.0], "model": "guardian-v2", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793657105}
+{"metric": "false_alarm_rate", "value": 0.39, "n": 41, "ci95": [0.257, 0.543], "model": "guardian-v2", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793657105}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v2", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793657105}
+{"metric": "rule_flip_accuracy", "value": 0.889, "n": 9, "ci95": [0.565, 0.98], "model": "guardian-v2", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793657105}
+{"metric": "lead_time_turns_median", "value": 5.5, "n": 90, "model": "guardian-v2", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793657105}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.768, "n": 17, "model": "guardian-v2", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793657105}
+{"metric": "evidence_exact_match", "value": 0.998, "n": 433, "model": "guardian-v2", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793657105}
+{"metric": "latency_ms_p50", "value": 1055, "n": 833, "model": "guardian-v2", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793657105}
+{"metric": "latency_ms_p95", "value": 4105, "n": 833, "model": "guardian-v2", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793657105}
+{"metric": "unparseable_replies", "value": 0, "n": 833, "model": "guardian-v2", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793657105}
+{"metric": "catch_before_ask", "value": 0.852, "n": 27, "ci95": [0.675, 0.941], "model": "guardian-v1", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "catch_at_or_before_ask", "value": 0.963, "n": 27, "ci95": [0.817, 0.993], "model": "guardian-v1", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "recall_any", "value": 1.0, "n": 33, "ci95": [0.896, 1.0], "model": "guardian-v1", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "false_alarm_rate", "value": 0.062, "n": 16, "ci95": [0.011, 0.283], "model": "guardian-v1", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v1", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "rule_flip_accuracy", "value": 1.0, "n": 3, "ci95": [0.438, 1.0], "model": "guardian-v1", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "lead_time_turns_median", "value": 4, "n": 27, "model": "guardian-v1", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.74, "n": 13, "model": "guardian-v1", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "evidence_exact_match", "value": 0.985, "n": 198, "model": "guardian-v1", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "latency_ms_p50", "value": 10854, "n": 355, "model": "guardian-v1", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "latency_ms_p95", "value": 22176, "n": 355, "model": "guardian-v1", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "unparseable_replies", "value": 0, "n": 355, "model": "guardian-v1", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "catch_before_ask", "value": 0.852, "n": 27, "ci95": [0.675, 0.941], "model": "guardian-v2", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "catch_at_or_before_ask", "value": 0.963, "n": 27, "ci95": [0.817, 0.993], "model": "guardian-v2", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "recall_any", "value": 1.0, "n": 33, "ci95": [0.896, 1.0], "model": "guardian-v2", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "false_alarm_rate", "value": 0.25, "n": 16, "ci95": [0.102, 0.495], "model": "guardian-v2", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v2", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "rule_flip_accuracy", "value": 1.0, "n": 3, "ci95": [0.438, 1.0], "model": "guardian-v2", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "lead_time_turns_median", "value": 4, "n": 27, "model": "guardian-v2", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.721, "n": 12, "model": "guardian-v2", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "evidence_exact_match", "value": 1.0, "n": 149, "model": "guardian-v2", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "latency_ms_p50", "value": 6505, "n": 329, "model": "guardian-v2", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "latency_ms_p95", "value": 13354, "n": 329, "model": "guardian-v2", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "unparseable_replies", "value": 0, "n": 329, "model": "guardian-v2", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "catch_before_ask", "value": 0.889, "n": 27, "ci95": [0.719, 0.961], "model": "b1-rune", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "catch_at_or_before_ask", "value": 0.926, "n": 27, "ci95": [0.766, 0.979], "model": "b1-rune", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "recall_any", "value": 1.0, "n": 33, "ci95": [0.896, 1.0], "model": "b1-rune", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "false_alarm_rate", "value": 0.188, "n": 16, "ci95": [0.066, 0.43], "model": "b1-rune", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "b1-rune", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "rule_flip_accuracy", "value": 0.667, "n": 3, "ci95": [0.208, 0.939], "model": "b1-rune", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "lead_time_turns_median", "value": 6, "n": 27, "model": "b1-rune", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.532, "n": 12, "model": "b1-rune", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "evidence_exact_match", "value": null, "n": 0, "model": "b1-rune", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "latency_ms_p50", "value": 164.0, "n": 290, "model": "b1-rune", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "latency_ms_p95", "value": 307, "n": 290, "model": "b1-rune", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "unparseable_replies", "value": 0, "n": 290, "model": "b1-rune", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "catch_before_ask", "value": 0.815, "n": 27, "ci95": [0.633, 0.918], "model": "b5-deepseek-v4p1-flash", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "catch_at_or_before_ask", "value": 0.963, "n": 27, "ci95": [0.817, 0.993], "model": "b5-deepseek-v4p1-flash", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "recall_any", "value": 1.0, "n": 33, "ci95": [0.896, 1.0], "model": "b5-deepseek-v4p1-flash", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "false_alarm_rate", "value": 0.25, "n": 16, "ci95": [0.102, 0.495], "model": "b5-deepseek-v4p1-flash", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "b5-deepseek-v4p1-flash", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "rule_flip_accuracy", "value": 0.333, "n": 3, "ci95": [0.061, 0.792], "model": "b5-deepseek-v4p1-flash", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "lead_time_turns_median", "value": 4, "n": 27, "model": "b5-deepseek-v4p1-flash", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.584, "n": 13, "model": "b5-deepseek-v4p1-flash", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "evidence_exact_match", "value": 0.989, "n": 360, "model": "b5-deepseek-v4p1-flash", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "latency_ms_p50", "value": 1267, "n": 365, "model": "b5-deepseek-v4p1-flash", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "latency_ms_p95", "value": 2033, "n": 365, "model": "b5-deepseek-v4p1-flash", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "unparseable_replies", "value": 0, "n": 365, "model": "b5-deepseek-v4p1-flash", "test_set": "clean50", "prompt_sha": "806908cfba7d", "ts": 1793657739}
+{"metric": "catch_before_ask", "value": 0.889, "n": 27, "ci95": [0.719, 0.961], "model": "b1-rune", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657743}
+{"metric": "catch_at_or_before_ask", "value": 0.963, "n": 27, "ci95": [0.817, 0.993], "model": "b1-rune", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657743}
+{"metric": "recall_any", "value": 0.97, "n": 33, "ci95": [0.847, 0.995], "model": "b1-rune", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657743}
+{"metric": "false_alarm_rate", "value": 0.125, "n": 16, "ci95": [0.035, 0.36], "model": "b1-rune", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657743}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "b1-rune", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657743}
+{"metric": "rule_flip_accuracy", "value": 0.333, "n": 3, "ci95": [0.061, 0.792], "model": "b1-rune", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657743}
+{"metric": "lead_time_turns_median", "value": 6, "n": 27, "model": "b1-rune", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657743}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.514, "n": 12, "model": "b1-rune", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657743}
+{"metric": "evidence_exact_match", "value": null, "n": 0, "model": "b1-rune", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657743}
+{"metric": "latency_ms_p50", "value": 108, "n": 327, "model": "b1-rune", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657743}
+{"metric": "latency_ms_p95", "value": 218, "n": 327, "model": "b1-rune", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657743}
+{"metric": "unparseable_replies", "value": 0, "n": 327, "model": "b1-rune", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657743}
+{"metric": "catch_before_ask", "value": 0.852, "n": 27, "ci95": [0.675, 0.941], "model": "b5-deepseek-v4p1-flash", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657778}
+{"metric": "catch_at_or_before_ask", "value": 0.926, "n": 27, "ci95": [0.766, 0.979], "model": "b5-deepseek-v4p1-flash", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657778}
+{"metric": "recall_any", "value": 0.97, "n": 33, "ci95": [0.847, 0.995], "model": "b5-deepseek-v4p1-flash", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657778}
+{"metric": "false_alarm_rate", "value": 0.312, "n": 16, "ci95": [0.142, 0.556], "model": "b5-deepseek-v4p1-flash", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657778}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "b5-deepseek-v4p1-flash", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657778}
+{"metric": "rule_flip_accuracy", "value": 0.0, "n": 3, "ci95": [0.0, 0.562], "model": "b5-deepseek-v4p1-flash", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657778}
+{"metric": "lead_time_turns_median", "value": 6, "n": 27, "model": "b5-deepseek-v4p1-flash", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657778}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.574, "n": 12, "model": "b5-deepseek-v4p1-flash", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657778}
+{"metric": "evidence_exact_match", "value": 0.991, "n": 351, "model": "b5-deepseek-v4p1-flash", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657778}
+{"metric": "latency_ms_p50", "value": 1183, "n": 345, "model": "b5-deepseek-v4p1-flash", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657778}
+{"metric": "latency_ms_p95", "value": 1744, "n": 345, "model": "b5-deepseek-v4p1-flash", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657778}
+{"metric": "unparseable_replies", "value": 0, "n": 345, "model": "b5-deepseek-v4p1-flash", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657778}
+{"metric": "catch_before_ask", "value": 0.852, "n": 27, "ci95": [0.675, 0.941], "model": "guardian-v2", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657796}
+{"metric": "catch_at_or_before_ask", "value": 0.963, "n": 27, "ci95": [0.817, 0.993], "model": "guardian-v2", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657796}
+{"metric": "recall_any", "value": 1.0, "n": 33, "ci95": [0.896, 1.0], "model": "guardian-v2", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657796}
+{"metric": "false_alarm_rate", "value": 0.125, "n": 16, "ci95": [0.035, 0.36], "model": "guardian-v2", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657796}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v2", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657796}
+{"metric": "rule_flip_accuracy", "value": 1.0, "n": 3, "ci95": [0.438, 1.0], "model": "guardian-v2", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657796}
+{"metric": "lead_time_turns_median", "value": 4, "n": 27, "model": "guardian-v2", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657796}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.674, "n": 12, "model": "guardian-v2", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657796}
+{"metric": "evidence_exact_match", "value": 1.0, "n": 152, "model": "guardian-v2", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657796}
+{"metric": "latency_ms_p50", "value": 1110, "n": 339, "model": "guardian-v2", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657796}
+{"metric": "latency_ms_p95", "value": 2115, "n": 339, "model": "guardian-v2", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657796}
+{"metric": "unparseable_replies", "value": 0, "n": 339, "model": "guardian-v2", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657796}
+{"metric": "catch_before_ask", "value": 0.815, "n": 27, "ci95": [0.633, 0.918], "model": "guardian-v1", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657798}
+{"metric": "catch_at_or_before_ask", "value": 0.963, "n": 27, "ci95": [0.817, 0.993], "model": "guardian-v1", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657798}
+{"metric": "recall_any", "value": 1.0, "n": 33, "ci95": [0.896, 1.0], "model": "guardian-v1", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657798}
+{"metric": "false_alarm_rate", "value": 0.188, "n": 16, "ci95": [0.066, 0.43], "model": "guardian-v1", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657798}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v1", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657798}
+{"metric": "rule_flip_accuracy", "value": 1.0, "n": 3, "ci95": [0.438, 1.0], "model": "guardian-v1", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657798}
+{"metric": "lead_time_turns_median", "value": 4, "n": 27, "model": "guardian-v1", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657798}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.667, "n": 13, "model": "guardian-v1", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657798}
+{"metric": "evidence_exact_match", "value": 0.995, "n": 201, "model": "guardian-v1", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657798}
+{"metric": "latency_ms_p50", "value": 1160, "n": 349, "model": "guardian-v1", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657798}
+{"metric": "latency_ms_p95", "value": 2012, "n": 349, "model": "guardian-v1", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657798}
+{"metric": "unparseable_replies", "value": 0, "n": 349, "model": "guardian-v1", "test_set": "asr50", "prompt_sha": "806908cfba7d", "ts": 1793657798}
+{"metric": "catch_before_ask", "value": 0.892, "n": 148, "ci95": [0.832, 0.932], "model": "guardian-nemo-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793658203}
+{"metric": "catch_at_or_before_ask", "value": 0.973, "n": 148, "ci95": [0.933, 0.989], "model": "guardian-nemo-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793658203}
+{"metric": "recall_any", "value": 1.0, "n": 178, "ci95": [0.979, 1.0], "model": "guardian-nemo-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793658203}
+{"metric": "false_alarm_rate", "value": 0.152, "n": 79, "ci95": [0.089, 0.247], "model": "guardian-nemo-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793658203}
+{"metric": "unseen_type_recall", "value": 1.0, "n": 2, "ci95": [0.342, 1.0], "model": "guardian-nemo-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793658203}
+{"metric": "rule_flip_accuracy", "value": 0.773, "n": 22, "ci95": [0.566, 0.899], "model": "guardian-nemo-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793658203}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 148, "model": "guardian-nemo-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793658203}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.554, "n": 19, "model": "guardian-nemo-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793658203}
+{"metric": "evidence_exact_match", "value": 1.0, "n": 872, "model": "guardian-nemo-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793658203}
+{"metric": "latency_ms_p50", "value": 4650, "n": 1813, "model": "guardian-nemo-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793658203}
+{"metric": "latency_ms_p95", "value": 6854, "n": 1813, "model": "guardian-nemo-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793658203}
+{"metric": "unparseable_replies", "value": 0, "n": 1813, "model": "guardian-nemo-v1", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793658203}
+{"metric": "catch_before_ask", "value": 0.851, "n": 74, "ci95": [0.753, 0.915], "model": "guardian-nemo-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793658214}
+{"metric": "catch_at_or_before_ask", "value": 0.959, "n": 74, "ci95": [0.887, 0.986], "model": "guardian-nemo-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793658214}
+{"metric": "recall_any", "value": 1.0, "n": 84, "ci95": [0.956, 1.0], "model": "guardian-nemo-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793658214}
+{"metric": "false_alarm_rate", "value": 0.139, "n": 36, "ci95": [0.061, 0.287], "model": "guardian-nemo-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793658214}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-nemo-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793658214}
+{"metric": "rule_flip_accuracy", "value": 0.7, "n": 10, "ci95": [0.397, 0.892], "model": "guardian-nemo-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793658214}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 74, "model": "guardian-nemo-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793658214}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.642, "n": 17, "model": "guardian-nemo-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793658214}
+{"metric": "evidence_exact_match", "value": 1.0, "n": 426, "model": "guardian-nemo-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793658214}
+{"metric": "latency_ms_p50", "value": 4958.0, "n": 820, "model": "guardian-nemo-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793658214}
+{"metric": "latency_ms_p95", "value": 8359, "n": 820, "model": "guardian-nemo-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793658214}
+{"metric": "unparseable_replies", "value": 0, "n": 820, "model": "guardian-nemo-v1", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793658214}
+{"metric": "catch_before_ask", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-nemo-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793658638}
+{"metric": "catch_at_or_before_ask", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-nemo-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793658638}
+{"metric": "recall_any", "value": 1.0, "n": 100, "ci95": [0.963, 1.0], "model": "guardian-nemo-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793658638}
+{"metric": "false_alarm_rate", "value": 0.0, "n": 100, "ci95": [0.0, 0.037], "model": "guardian-nemo-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793658638}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-nemo-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793658638}
+{"metric": "rule_flip_accuracy", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-nemo-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793658638}
+{"metric": "lead_time_turns_median", "value": null, "n": 0, "model": "guardian-nemo-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793658638}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.0, "n": 1, "model": "guardian-nemo-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793658638}
+{"metric": "evidence_exact_match", "value": 1.0, "n": 584, "model": "guardian-nemo-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793658638}
+{"metric": "latency_ms_p50", "value": 2986.0, "n": 1620, "model": "guardian-nemo-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793658638}
+{"metric": "latency_ms_p95", "value": 5228, "n": 1620, "model": "guardian-nemo-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793658638}
+{"metric": "unparseable_replies", "value": 0, "n": 1620, "model": "guardian-nemo-v1", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793658638}
+{"metric": "catch_before_ask", "value": 0.956, "n": 90, "ci95": [0.891, 0.983], "model": "guardian-v3", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793659165}
+{"metric": "catch_at_or_before_ask", "value": 1.0, "n": 90, "ci95": [0.959, 1.0], "model": "guardian-v3", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793659165}
+{"metric": "recall_any", "value": 1.0, "n": 102, "ci95": [0.964, 1.0], "model": "guardian-v3", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793659165}
+{"metric": "false_alarm_rate", "value": 0.317, "n": 41, "ci95": [0.196, 0.47], "model": "guardian-v3", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793659165}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v3", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793659165}
+{"metric": "rule_flip_accuracy", "value": 0.889, "n": 9, "ci95": [0.565, 0.98], "model": "guardian-v3", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793659165}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 90, "model": "guardian-v3", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793659165}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.819, "n": 18, "model": "guardian-v3", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793659165}
+{"metric": "evidence_exact_match", "value": 1.0, "n": 493, "model": "guardian-v3", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793659165}
+{"metric": "latency_ms_p50", "value": 3978.5, "n": 942, "model": "guardian-v3", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793659165}
+{"metric": "latency_ms_p95", "value": 13548, "n": 942, "model": "guardian-v3", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793659165}
+{"metric": "unparseable_replies", "value": 0, "n": 942, "model": "guardian-v3", "test_set": "dev", "prompt_sha": "806908cfba7d", "ts": 1793659165}
+{"metric": "catch_before_ask", "value": 0.865, "n": 148, "ci95": [0.8, 0.911], "model": "guardian-v3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793659173}
+{"metric": "catch_at_or_before_ask", "value": 0.98, "n": 148, "ci95": [0.942, 0.993], "model": "guardian-v3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793659173}
+{"metric": "recall_any", "value": 1.0, "n": 178, "ci95": [0.979, 1.0], "model": "guardian-v3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793659173}
+{"metric": "false_alarm_rate", "value": 0.127, "n": 79, "ci95": [0.07, 0.218], "model": "guardian-v3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793659173}
+{"metric": "unseen_type_recall", "value": 1.0, "n": 2, "ci95": [0.342, 1.0], "model": "guardian-v3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793659173}
+{"metric": "rule_flip_accuracy", "value": 0.818, "n": 22, "ci95": [0.615, 0.927], "model": "guardian-v3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793659173}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 148, "model": "guardian-v3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793659173}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.656, "n": 19, "model": "guardian-v3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793659173}
+{"metric": "evidence_exact_match", "value": 0.994, "n": 823, "model": "guardian-v3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793659173}
+{"metric": "latency_ms_p50", "value": 2163, "n": 1883, "model": "guardian-v3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793659173}
+{"metric": "latency_ms_p95", "value": 18267, "n": 1883, "model": "guardian-v3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793659173}
+{"metric": "unparseable_replies", "value": 0, "n": 1883, "model": "guardian-v3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793659173}
+{"metric": "catch_before_ask", "value": 0.824, "n": 74, "ci95": [0.722, 0.894], "model": "guardian-v3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659184}
+{"metric": "catch_at_or_before_ask", "value": 0.973, "n": 74, "ci95": [0.907, 0.993], "model": "guardian-v3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659184}
+{"metric": "recall_any", "value": 1.0, "n": 84, "ci95": [0.956, 1.0], "model": "guardian-v3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659184}
+{"metric": "false_alarm_rate", "value": 0.139, "n": 36, "ci95": [0.061, 0.287], "model": "guardian-v3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659184}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659184}
+{"metric": "rule_flip_accuracy", "value": 0.7, "n": 10, "ci95": [0.397, 0.892], "model": "guardian-v3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659184}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 74, "model": "guardian-v3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659184}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.626, "n": 17, "model": "guardian-v3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659184}
+{"metric": "evidence_exact_match", "value": 0.997, "n": 399, "model": "guardian-v3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659184}
+{"metric": "latency_ms_p50", "value": 7824.0, "n": 846, "model": "guardian-v3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659184}
+{"metric": "latency_ms_p95", "value": 22613, "n": 846, "model": "guardian-v3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659184}
+{"metric": "unparseable_replies", "value": 0, "n": 846, "model": "guardian-v3", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659184}
+{"metric": "catch_before_ask", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v3", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793659344}
+{"metric": "catch_at_or_before_ask", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v3", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793659344}
+{"metric": "recall_any", "value": 0.97, "n": 100, "ci95": [0.915, 0.99], "model": "guardian-v3", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793659344}
+{"metric": "false_alarm_rate", "value": 0.0, "n": 100, "ci95": [0.0, 0.037], "model": "guardian-v3", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793659344}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v3", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793659344}
+{"metric": "rule_flip_accuracy", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v3", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793659344}
+{"metric": "lead_time_turns_median", "value": null, "n": 0, "model": "guardian-v3", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793659344}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.037, "n": 2, "model": "guardian-v3", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793659344}
+{"metric": "evidence_exact_match", "value": 1.0, "n": 493, "model": "guardian-v3", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793659344}
+{"metric": "latency_ms_p50", "value": 1005, "n": 1733, "model": "guardian-v3", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793659344}
+{"metric": "latency_ms_p95", "value": 1537, "n": 1733, "model": "guardian-v3", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793659344}
+{"metric": "unparseable_replies", "value": 0, "n": 1733, "model": "guardian-v3", "test_set": "bothbosu", "prompt_sha": "806908cfba7d", "ts": 1793659344}
+{"metric": "catch_before_ask", "value": 0.811, "n": 74, "ci95": [0.707, 0.884], "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "catch_at_or_before_ask", "value": 0.973, "n": 74, "ci95": [0.907, 0.993], "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "recall_any", "value": 0.976, "n": 84, "ci95": [0.917, 0.993], "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "false_alarm_rate", "value": 0.194, "n": 36, "ci95": [0.098, 0.35], "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "rule_flip_accuracy", "value": 0.2, "n": 10, "ci95": [0.057, 0.51], "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 74, "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.667, "n": 17, "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "evidence_exact_match", "value": 0.998, "n": 455, "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "latency_ms_p50", "value": 801, "n": 849, "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "latency_ms_p95", "value": 1296, "n": 849, "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "unparseable_replies", "value": 0, "n": 849, "model": "guardian-v2-deployed", "test_set": "heldout120", "prompt_sha": "806908cfba7d", "ts": 1793659791}
+{"metric": "catch_before_ask", "value": 0.762, "n": 21, "ci95": [0.549, 0.894], "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "catch_at_or_before_ask", "value": 0.905, "n": 21, "ci95": [0.711, 0.973], "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "recall_any", "value": 0.96, "n": 25, "ci95": [0.805, 0.993], "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "false_alarm_rate", "value": 0.2, "n": 15, "ci95": [0.07, 0.452], "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "unseen_type_recall", "value": null, "n": 0, "ci95": [0.0, 0.0], "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "rule_flip_accuracy", "value": 0.0, "n": 3, "ci95": [0.0, 0.562], "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "lead_time_turns_median", "value": 4, "n": 21, "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.768, "n": 11, "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "evidence_exact_match", "value": 1.0, "n": 144, "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "latency_ms_p50", "value": 475.5, "n": 314, "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "latency_ms_p95", "value": 871, "n": 314, "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "unparseable_replies", "value": 0, "n": 314, "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "catch_before_ask", "value": 0.899, "n": 148, "ci95": [0.84, 0.938], "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "catch_at_or_before_ask", "value": 0.993, "n": 148, "ci95": [0.963, 0.999], "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "recall_any", "value": 0.949, "n": 178, "ci95": [0.907, 0.973], "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "false_alarm_rate", "value": 0.228, "n": 79, "ci95": [0.149, 0.332], "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "unseen_type_recall", "value": 1.0, "n": 2, "ci95": [0.342, 1.0], "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "rule_flip_accuracy", "value": 0.182, "n": 22, "ci95": [0.073, 0.385], "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 148, "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.673, "n": 17, "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "evidence_exact_match", "value": 0.965, "n": 1329, "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "latency_ms_p50", "value": 1973, "n": 1803, "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "latency_ms_p95", "value": 4037, "n": 1803, "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "unparseable_replies", "value": 0, "n": 1803, "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
