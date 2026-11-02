@@ -442,3 +442,15 @@
 {"metric": "latency_ms_p50", "value": 475.5, "n": 314, "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
 {"metric": "latency_ms_p95", "value": 871, "n": 314, "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
 {"metric": "unparseable_replies", "value": 0, "n": 314, "model": "guardian-v2-deployed-seq", "test_set": "seq40", "prompt_sha": "806908cfba7d", "ts": 1793659953}
+{"metric": "catch_before_ask", "value": 0.899, "n": 148, "ci95": [0.84, 0.938], "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "catch_at_or_before_ask", "value": 0.993, "n": 148, "ci95": [0.963, 0.999], "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "recall_any", "value": 0.949, "n": 178, "ci95": [0.907, 0.973], "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "false_alarm_rate", "value": 0.228, "n": 79, "ci95": [0.149, 0.332], "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "unseen_type_recall", "value": 1.0, "n": 2, "ci95": [0.342, 1.0], "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "rule_flip_accuracy", "value": 0.182, "n": 22, "ci95": [0.073, 0.385], "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "lead_time_turns_median", "value": 4.0, "n": 148, "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "category_macro_f1_at_first_alert", "value": 0.673, "n": 17, "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "evidence_exact_match", "value": 0.965, "n": 1329, "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "latency_ms_p50", "value": 1973, "n": 1803, "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "latency_ms_p95", "value": 4037, "n": 1803, "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}
+{"metric": "unparseable_replies", "value": 0, "n": 1803, "model": "b4-kimi-k3", "test_set": "heldout", "prompt_sha": "806908cfba7d", "ts": 1793661973}

@@ -43,6 +43,7 @@ asks for the code, money, address or meet-up. Calls are scored turn by turn, exa
 | Guardian v3 (v2 + contrast pairs) | 128/148 (86%, CI 80-91) | 10/79 (13%, CI 7-22) | 18/22 (82%, CI 62-93) | 178/178 (100%, CI 98-100) |
 | Guardian nemo-v1 (Nemotron 3.5 Super LoRA) | 132/148 (89%, CI 83-93) | 12/79 (15%, CI 9-25) | 17/22 (77%, CI 57-90) | 178/178 (100%, CI 98-100) |
 | Fireworks Rune zero-shot (B1) | 137/148 (93%, CI 87-96) | 30/79 (38%, CI 28-49) | 5/22 (23%, CI 10-43) | 176/178 (99%, CI 96-100) |
+| Kimi K3 zero-shot (B4) | 133/148 (90%, CI 84-94) | 18/79 (23%, CI 15-33) | 4/22 (18%, CI 7-38) | 169/178 (95%, CI 91-97) |
 | DeepSeek V4.1 Flash zero-shot (B5) | 126/148 (85%, CI 78-90) | 25/79 (32%, CI 22-42) | 3/22 (14%, CI 5-33) | 172/178 (97%, CI 93-98) |
 | Qwen3.6-35B-A3B untuned, same prompt (B3) | 132/148 (89%, CI 83-93) | 42/79 (53%, CI 42-64) | 3/22 (14%, CI 5-33) | 173/178 (97%, CI 94-99) |
 | Keywords + PII regex (B0) | 77/148 (52%, CI 44-60) | 39/79 (49%, CI 39-60) | 0/22 (0%, CI 0-15) | 145/178 (82%, CI 75-86) |
