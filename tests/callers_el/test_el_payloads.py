@@ -42,7 +42,11 @@ def test_agent_payload_shape(persona):
     agent = body["conversation_config"]["agent"]
     assert agent["first_message"] == ""                       # waits for "hello" (line plays notice first)
     assert agent["prompt"]["llm"] == A.LLM
-    assert agent["prompt"]["built_in_tools"]["end_call"]["params"] == {"system_tool_type": "end_call"}
+    tools = agent["prompt"]["built_in_tools"]
+    assert tools["end_call"] == {"type": "system", "name": "end_call", "description": "",
+                                 "params": {"system_tool_type": "end_call"}}
+    assert tools["skip_turn"]["type"] == "system" and tools["skip_turn"]["params"] == {"system_tool_type": "skip_turn"}
+    assert "notice" in tools["skip_turn"]["description"]
     assert body["conversation_config"]["tts"] == {"model_id": A.TTS_MODEL, "voice_id": A.VOICES[persona][1]["voice_id"]}
     assert A.AGENT_TAG in body["tags"] and "benign" in body["tags"]
     prompt = agent["prompt"]["prompt"]
@@ -121,3 +125,25 @@ def test_bad_variant_exits():
 def test_redact_hides_passwords_everywhere():
     body = P.redact(P.dial_payload("pharmacy_refill", 0, CALLER, GUARDED, "secret-pw"))
     assert "secret-pw" not in json.dumps(body)
+
+
+@pytest.mark.parametrize("persona", A.ALLOWED_PERSONAS)
+@pytest.mark.parametrize("variant", range(10))
+def test_sip_headers_avoid_reserved_names_and_are_ascii(persona, variant):
+    for h in A.sip_headers(persona, variant):
+        n = h["name"].lower()
+        assert n not in ("x-call-id", "x-caller-id") and not n.startswith(("x-signalwire", "x-cid", "x-sw-"))
+        assert 3 <= len(h["name"]) <= 256 and h["value"].isascii()
+
+
+def test_reserved_header_variable_is_refused(monkeypatch, tmp_path):
+    spec = json.loads((A.SPECS_DIR / "pharmacy_refill.json").read_text())
+    spec["system_prompt"] += " {{caller_id}}"
+    for v in spec["variants"]:
+        v["caller_id"] = "x"
+    fake = tmp_path / "agents"
+    fake.mkdir()
+    (fake / "pharmacy_refill.json").write_text(json.dumps(spec))
+    monkeypatch.setattr(A, "SPECS_DIR", fake)
+    with pytest.raises(ValueError):
+        A.sip_headers("pharmacy_refill", 0)

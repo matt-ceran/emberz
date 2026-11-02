@@ -66,8 +66,13 @@ SWML main:
 How live runs behave:
 
 - **Pacing:** the script waits for Enter before each call (`q` stops). Use `--wait gap --gap-s 300` for unattended
-  spacing.
-- **Failed request:** the run stops at the first request that fails, and the failure is still logged.
+  spacing; gaps under 270 s are refused, so two calls never overlap and mix up labels.
+- **Failed request:** the run stops at the first request that fails, and the failure is still logged. A network
+  error or timeout on the create request is logged as `unknown_transport_error` (the call may exist), then the run
+  stops.
+- **Destination guard:** before the first call (and in `check`) a read-only phone-number lookup refuses to run if
+  `TELNYX_GUARDED_NUMBER` is a number in the SignalWire project, so a mis-set variable can't send a scam agent into
+  an EmberDial line.
 - **Credentials:** read from the process environment, or from the file `TELNYX_ENV_FILE` points at (EmberDial's
   `.env`). Only the three `SIGNALWIRE_SPACE`, `SIGNALWIRE_PROJECT_ID` and `SIGNALWIRE_API_TOKEN` keys are read, and
   they are never printed.
@@ -97,16 +102,21 @@ an exception such as `!recordings/ai_calls.jsonl`.
 From [SignalWire voice pricing](https://signalwire.com/pricing/voice), read 2026-11-02:
 
 - **AI Agent runtime:** $0.16/min, including STT, the LLM and standard TTS. Premium TTS costs extra; we use none.
-- **Outbound US PSTN (local):** $0.008/min. Recent EmberDial voice logs bill "Outbound Voice Minutes" at
-  $0.008/min, which matches.
-- **All in:** about **$0.168 per call-minute**. SignalWire says customers typically see $0.163-0.168/min.
+- **Outbound US PSTN (local, 10DLC):** $0.0080/min.
+- **All in:** about **$0.168 per call-minute** ($0.16 + $0.008). The page itself says most customers see an all-in
+  rate of ~$0.163-0.168/min.
+- **Not stated on the page:** the billing increment (per second or per started minute), and the unit for Premium
+  TTS (the AI section says per-minute, its footnote says per-character). The upper estimate below covers both.
 
 | | Minutes per call | Cost per call |
 |---|---|---|
-| Scam, typical (about 3 min) | 3.0 | ~$0.50 |
-| Benign, typical (about 2 min) | 2.0 | ~$0.34 |
-| **50 calls (30 scam + 20 benign), typical** | 130 | **~$22** |
-| 50 calls, every call hits its hard stop (4:15 / 2:45), plus Standard-tier TTS billed on top (~1,500 chars × $0.0001) | 182 | ~$38 (upper bound) |
+| Scam, typical (about 3 min) | 3.0 | ~$0.50 (3 × $0.168) |
+| Benign, typical (about 2 min) | 2.0 | ~$0.34 (2 × $0.168) |
+| **50 calls (30 scam + 20 benign), typical** | 130 | **~$22** (130 × $0.168 = $21.84) |
+| 50 calls, upper estimate: every call hits its hard stop (~4:15 / ~2:45) and is billed as 5 / 3 whole minutes, plus ~2,000 chars of TTS per call at the Standard-tier $0.0001/char | 210 | ~$45 |
+
+Upper arithmetic: 30 × 5 + 20 × 3 = 210 min × $0.168 = $35.28, plus 50 × 2,000 × $0.0001 = $10, so $45.28. The
+dry run prints both figures (`est_usd`, `upper_usd`) for whatever subset you plan.
 
 The Telnyx side (inbound leg, conference, streaming, the protected-phone leg) is separate. It is about $0.01/min
 (PLAN.md 9).
@@ -114,13 +124,13 @@ The Telnyx side (inbound leg, conference, streaming, the protected-phone leg) is
 ## Verified (read-only, 2026-11-02)
 
 - `place_calls check`: auth works, and +1 304 648 1098 is in the project as a longcode number with voice capability.
-  Its inbound handler is `laml_webhooks` and was left unchanged.
+  Its inbound handler is `laml_webhooks` and was left unchanged. The guarded number is not a SignalWire number.
 - **Request bodies:** all 50 dry-run bodies validate against SignalWire's OpenAPI 3.1 spec, using `Calling.CallRequest`
   with the `dial` / `Calling.CallCreateParamsSWML` schemas
   ([openapi](https://signalwire.com/docs/openapi/signalwire-rest-api.json)). The tests use the vendored subset in
   `tests/callers_sw/dial_params_schema.json`.
-- **SWML documents:** all 50 validate against the SWML JSON schema shipped in `signalwire-sdk==3.4.1`
-  (`signalwire/schema.json`, checked with `jsonschema` in a scratch venv). That schema is stricter than the docs in
+- **SWML documents:** all 50 validate against the SWML JSON schema shipped in `signalwire-sdk` 3.4.1 and again in
+  3.7.5, the latest on PyPI on 2026-11-02 (`signalwire/schema.json`, checked with `jsonschema` in a scratch venv). That schema is stricter than the docs in
   two places, and we meet both:
   - `hard_stop_time`: the schema accepts only the `"<n>h<n>m<n>s"` form, while the docs say letters are ignored.
     `"240s"` means 240 s under both.
@@ -129,6 +139,9 @@ The Telnyx side (inbound leg, conference, streaming, the protected-phone leg) is
   - that each voice id resolves on SignalWire. An unresolved voice is replaced, with a
     `relay_script_voice_unresolved` warning, and `place_calls logs` flags it.
   - that `wait_for_user` plus the leading silence handles our notice and ringing as intended.
+  - that the dial response `id` works as a voice-log id. The voice-log docs say a log id is the call's
+    `segment_id`, so `place_calls logs` falls back to matching our caller -> guarded leg by start time (within
+    2 minutes) when `GET /api/voice/logs/{id}` returns nothing.
 
 ## Sources
 

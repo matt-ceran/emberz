@@ -51,6 +51,21 @@ BRIDGE_LABEL = "Emberz EL bridge (inbound SIP from SignalWire, test only)"
 BRIDGE_SIP_USER = "emberz-bridge"
 PROVIDER = "elevenlabs"
 REDACTED = "<redacted>"
+SECRET_KEY_MARKERS = ("KEY", "TOKEN", "PASSWORD", "SECRET")
+_SECRETS: set[str] = set()      # values scrubbed from any error text we print
+
+
+def register_secrets(env: dict[str, str]) -> None:
+    for k, v in env.items():
+        if v and len(v) >= 6 and any(m in k.upper() for m in SECRET_KEY_MARKERS):
+            _SECRETS.add(v)
+
+
+def scrub(text: str) -> str:
+    """Remove known secret values from text (e.g. a 422 body that echoes the request back)."""
+    for v in sorted(_SECRETS, key=len, reverse=True):
+        text = text.replace(v, REDACTED)
+    return text
 
 # SignalWire voice-log statuses that mean the call is over
 # (https://signalwire.com/docs/apis/rest/voice-logs/get-voice-log, `status` enum).
@@ -69,7 +84,9 @@ def load_env() -> dict[str, str]:
     secrets = {}
     if secrets_path and Path(secrets_path).exists():
         secrets = {k: v for k, v in dotenv_values(secrets_path).items() if v is not None}
-    return {**secrets, **repo, **{k: v for k, v in os.environ.items()}}
+    env = {**secrets, **repo, **{k: v for k, v in os.environ.items()}}
+    register_secrets(env)
+    return env
 
 
 def need(env: dict[str, str], name: str) -> str:
@@ -146,7 +163,8 @@ def dial_payload(persona: str, variant: int, caller: str, guarded: str, sip_pass
         "to": guarded,
         "caller_id": caller,
         "timeout": ring_timeout_s,
-        "max_price_per_minute": 0.05,      # US PSTN is ~$0.01/min; refuse anything odd
+        # US local outbound is $0.008/min (https://signalwire.com/pricing/voice, 2026-11-02); refuse odd routes
+        "max_price_per_minute": 0.05,
         "swml": swml,
     }}
 
@@ -155,7 +173,10 @@ def ledger_row(call_id: str, persona: str, variant: int, started_at: str, **extr
     idx = A.voice_index(persona, variant)
     v = A.voice(persona, idx)
     row = {"call_id": call_id, "provider": PROVIDER, "persona": persona, "variant": variant,
-           "voice": f"{v['name']}:{v['voice_id']}", "engine": A.ENGINE, "started_at": started_at}
+           "voice": f"{v['name']}:{v['voice_id']}", "engine": A.ENGINE, "started_at": started_at,
+           # the same facts under the keys callers/signalwire/place_calls.py writes, so one reader
+           # handles both providers: platform, started_utc, label (V1 ground truth), kind
+           "platform": PROVIDER, "started_utc": started_at, "label": "ai", "kind": "benign"}
     row.update(extra)
     return row
 
@@ -214,7 +235,7 @@ def sw_client(env: dict[str, str]):
 
 def ok(r, what: str) -> Any:
     if r.status_code >= 400:
-        raise SystemExit(f"{what}: HTTP {r.status_code}: {r.text[:300]}")
+        raise SystemExit(f"{what}: HTTP {r.status_code}: {scrub(r.text)[:300]}")
     return r.json() if r.content else {}
 
 
@@ -277,26 +298,69 @@ def ensure_bridge_number(el, state: dict[str, Any], caller: str, sip_password: s
     return pid
 
 
-def wait_for_end(sw, call_id: str, limit_s: int) -> str:
-    """Poll GET /api/voice/logs/{id} (read-only) until a terminal status or the time limit."""
+def wait_for_end(sw, call_id: str, limit_s: int, el=None, agent_id: str | None = None,
+                 after_unix: int | None = None) -> str:
+    """Poll (read-only) until the call is over or the time limit passes. First SignalWire's
+    GET /api/voice/logs/{id}; its docs call the id the log's segment_id and don't say it equals the
+    Calling API call id, so if that 404s, fall back to the ElevenLabs conversation's status
+    (done/failed, https://elevenlabs.io/docs/api-reference/conversations/list)."""
     deadline, status = time.monotonic() + limit_s, "unknown"
     while time.monotonic() < deadline:
         time.sleep(10)
-        r = sw.get(f"/api/voice/logs/{call_id}")
-        if r.status_code < 400:
-            status = str(r.json().get("status", status))
-            if status in TERMINAL:
-                return status
+        try:
+            r = sw.get(f"/api/voice/logs/{call_id}")
+            if r.status_code < 400:
+                status = str(r.json().get("status", status))
+                if status in TERMINAL:
+                    return status
+                continue
+            if el is not None and agent_id and after_unix:
+                conv = latest_conversation(el, agent_id, after_unix)
+                if conv and conv.get("status") in ("done", "failed"):
+                    return f"el:{conv['status']}"
+        except Exception as e:          # a network blip must not kill the run after a placed call
+            status = f"poll-error:{type(e).__name__}"
     return f"timeout({status})"
 
 
-def find_conversation(el, agent_id: str, after_unix: int) -> str | None:
+def latest_conversation(el, agent_id: str, after_unix: int) -> dict[str, Any] | None:
+    """Newest conversation of this agent started after the dial (list is newest first)."""
     r = el.get("/v1/convai/conversations", params={"agent_id": agent_id, "call_start_after_unix": after_unix - 5,
                                                     "page_size": 5})
     if r.status_code >= 400:
         return None
     convs = r.json().get("conversations", [])
-    return convs[0].get("conversation_id") if convs else None
+    return convs[0] if convs else None
+
+
+def find_conversation(el, agent_id: str, after_unix: int) -> str | None:
+    conv = latest_conversation(el, agent_id, after_unix)
+    return conv.get("conversation_id") if conv else None
+
+
+def conversation_facts(el, conv_id: str | None, persona: str, variant: int) -> dict[str, Any]:
+    """GET /v1/convai/conversations/{id} (read-only,
+    https://elevenlabs.io/docs/api-reference/conversations/get): whether our X- headers arrived as
+    sip_* variables (if not, the agent ran on the variant-0 placeholders and the row's variant is
+    wrong), plus duration and cost for the ledger of spend."""
+    if not conv_id:
+        return {"headers_arrived": None}
+    try:
+        r = el.get(f"/v1/convai/conversations/{conv_id}")
+        if r.status_code >= 400:
+            return {"headers_arrived": None}
+        d = r.json()
+    except Exception:
+        return {"headers_arrived": None}
+    dyn = ((d.get("conversation_initiation_client_data") or {}).get("dynamic_variables") or {})
+    meta = d.get("metadata") or {}
+    expected = {"sip_emberz_persona": persona, "sip_emberz_variant": str(variant)}
+    arrived = None
+    if dyn:
+        arrived = all(str(dyn.get(k)) == v for k, v in expected.items())
+    return {"headers_arrived": arrived, "el_status": d.get("status"),
+            "call_duration_secs": meta.get("call_duration_secs"), "el_cost": meta.get("cost"),
+            "el_cost_fiat": meta.get("cost_fiat")}
 
 
 # ---- commands ------------------------------------------------------------------------------------
@@ -374,15 +438,25 @@ def cmd_call(args: argparse.Namespace) -> int:
             call_id = res.get("id", "")
             print(f"[{n + 1}/{len(calls)}] placed {p} v{v} -> {mask(guarded)} call_id={call_id}")
             row = ledger_row(call_id, p, v, started.isoformat(timespec="seconds"),
-                             route="signalwire-sip-bridge", from_number=caller, el_agent_id=aid,
+                             status=res.get("status"), route="signalwire-sip-bridge",
+                             from_last4=caller[-4:], to_last4=guarded[-4:], el_agent_id=aid,
                              exclude_from_training=True)   # PLAN.md V1: no ElevenLabs audio in training
             append_ledger(row)
-            status = wait_for_end(sw, call_id, int(A.load_spec(p)["max_duration_s"]) + 180)
+            status = wait_for_end(sw, call_id, int(A.load_spec(p)["max_duration_s"]) + 180,
+                                  el=el, agent_id=aid, after_unix=int(started.timestamp()))
             conv = find_conversation(el, aid, int(started.timestamp()))
-            print(f"    ended: {status}; ElevenLabs conversation {conv or 'not found yet'}")
+            facts = conversation_facts(el, conv, p, v)
+            print(f"    ended: {status}; ElevenLabs conversation {conv or 'not found yet'}; "
+                  f"headers arrived: {facts['headers_arrived']}")
+            if facts["headers_arrived"] is False:
+                print("    WARNING: the X- headers did not reach the agent; it used the placeholders. "
+                      "Stopping so the ledger doesn't fill with mislabeled calls.")
             # One row per call in the shared ledger; outcomes go to our own (gitignored) log.
             append_jsonl(OUTCOMES_PATH, {"call_id": call_id, "status": status, "el_conversation_id": conv,
+                                         **facts,
                                          "ended_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
+            if facts["headers_arrived"] is False:
+                return 1
             if n + 1 < len(calls):
                 time.sleep(args.gap_s)
     return 0

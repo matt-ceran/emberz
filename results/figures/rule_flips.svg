@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="374.4pt" viewBox="0 0 720 374.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-02T14:27:52.137457</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.9.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 374.4 
+L 720 374.4 
+L 720 0 
+L 0 0 
+z
+" style="fill: #1a1a19"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 194.4 318.24 
+L 684 318.24 
+L 684 74.88 
+L 194.4 74.88 
+z
+" style="fill: #1a1a19"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 194.4 318.24 
+L 194.4 74.88 
+" clip-path="url(#pa0002a34c5)" style="fill: none; stroke: #383835; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="md3a5b53c19" d="M 0 0 
+L 0 3.5 
+" style="stroke: #c3c2b7; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#md3a5b53c19" x="194.4" y="318.24" style="fill: #c3c2b7; stroke: #c3c2b7; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="fill: #c3c2b7; font: 12px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: middle" x="194.4" y="333.80875" transform="rotate(-0 194.4 333.80875)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 294.318367 318.24 
+L 294.318367 74.88 
+" clip-path="url(#pa0002a34c5)" style="fill: none; stroke: #383835; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#md3a5b53c19" x="294.318367" y="318.24" style="fill: #c3c2b7; stroke: #c3c2b7; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="fill: #c3c2b7; font: 12px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: middle" x="294.318367" y="333.80875" transform="rotate(-0 294.318367 333.80875)">5</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 394.236735 318.24 
+L 394.236735 74.88 
+" clip-path="url(#pa0002a34c5)" style="fill: none; stroke: #383835; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#md3a5b53c19" x="394.236735" y="318.24" style="fill: #c3c2b7; stroke: #c3c2b7; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="fill: #c3c2b7; font: 12px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: middle" x="394.236735" y="333.80875" transform="rotate(-0 394.236735 333.80875)">10</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 494.155102 318.24 
+L 494.155102 74.88 
+" clip-path="url(#pa0002a34c5)" style="fill: none; stroke: #383835; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#md3a5b53c19" x="494.155102" y="318.24" style="fill: #c3c2b7; stroke: #c3c2b7; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="fill: #c3c2b7; font: 12px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: middle" x="494.155102" y="333.80875" transform="rotate(-0 494.155102 333.80875)">15</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 594.073469 318.24 
+L 594.073469 74.88 
+" clip-path="url(#pa0002a34c5)" style="fill: none; stroke: #383835; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#md3a5b53c19" x="594.073469" y="318.24" style="fill: #c3c2b7; stroke: #c3c2b7; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="fill: #c3c2b7; font: 12px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: middle" x="594.073469" y="333.80875" transform="rotate(-0 594.073469 333.80875)">20</text>
+     </g>
+    </g>
+    <g id="text_6">
+     <text style="fill: #c3c2b7; font: 12px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: middle" x="439.2" y="348.944375" transform="rotate(-0 439.2 348.944375)">Rule-flip pairs judged correctly (out of 22)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_11"/>
+     <g id="text_7">
+      <text style="fill: #f0efec; font: 700 12px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: end" x="190.9" y="102.429622" transform="rotate(-0 190.9 102.429622)">Guardian v1</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_12"/>
+     <g id="text_8">
+      <text style="fill: #f0efec; font: 700 12px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: end" x="190.9" y="141.795523" transform="rotate(-0 190.9 141.795523)">Guardian v2</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_13"/>
+     <g id="text_9">
+      <text style="fill: #c3c2b7; font: 12px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: end" x="190.9" y="181.262674" transform="rotate(-0 190.9 181.262674)">Rune (zero-shot)</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_14"/>
+     <g id="text_10">
+      <text style="fill: #c3c2b7; font: 12px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: end" x="190.9" y="220.527326" transform="rotate(-0 190.9 220.527326)">Untuned Qwen3.6-35B-A3B</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_15"/>
+     <g id="text_11">
+      <text style="fill: #f0efec; font: 12px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: end" x="190.9" y="259.994477" transform="rotate(-0 190.9 259.994477)">DeepSeek V4.1 Flash (frontier)</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_16"/>
+     <g id="text_12">
+      <text style="fill: #c3c2b7; font: 12px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: end" x="190.9" y="299.259128" transform="rotate(-0 190.9 299.259128)">Keyword rules</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 194.4 110.348677 
+L 574.089796 110.348677 
+L 574.089796 85.941818 
+L 194.4 85.941818 
+z
+" clip-path="url(#pa0002a34c5)" style="fill: #3987e5; stroke: #1a1a19; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 194.4 149.714578 
+L 574.089796 149.714578 
+L 574.089796 125.307719 
+L 194.4 125.307719 
+z
+" clip-path="url(#pa0002a34c5)" style="fill: #3987e5; stroke: #1a1a19; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 194.4 189.080479 
+L 294.318367 189.080479 
+L 294.318367 164.67362 
+L 194.4 164.67362 
+z
+" clip-path="url(#pa0002a34c5)" style="fill: #8a8984; stroke: #1a1a19; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 194.4 228.44638 
+L 254.35102 228.44638 
+L 254.35102 204.039521 
+L 194.4 204.039521 
+z
+" clip-path="url(#pa0002a34c5)" style="fill: #8a8984; stroke: #1a1a19; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 194.4 267.812281 
+L 254.35102 267.812281 
+L 254.35102 243.405422 
+L 194.4 243.405422 
+z
+" clip-path="url(#pa0002a34c5)" style="fill: #d95926; stroke: #1a1a19; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 194.4 307.178182 
+L 194.4 307.178182 
+L 194.4 282.771323 
+L 194.4 282.771323 
+z
+" clip-path="url(#pa0002a34c5)" style="fill: #8a8984; stroke: #1a1a19; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 194.4 318.24 
+L 194.4 74.88 
+" style="fill: none; stroke: #383835; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 194.4 318.24 
+L 684 318.24 
+" style="fill: none; stroke: #383835; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_13">
+    <text style="fill: #f0efec; font: 700 11px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: start" x="579.964996" y="100.988919" transform="rotate(-0 579.964996 100.988919)">19/22</text>
+   </g>
+   <g id="text_14">
+    <text style="fill: #f0efec; font: 700 11px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: start" x="579.964996" y="140.35482" transform="rotate(-0 579.964996 140.35482)">19/22</text>
+   </g>
+   <g id="text_15">
+    <text style="fill: #c3c2b7; font: 11px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: start" x="300.193567" y="179.720721" transform="rotate(-0 300.193567 179.720721)">5/22</text>
+   </g>
+   <g id="text_16">
+    <text style="fill: #c3c2b7; font: 11px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: start" x="260.22622" y="219.086622" transform="rotate(-0 260.22622 219.086622)">3/22</text>
+   </g>
+   <g id="text_17">
+    <text style="fill: #c3c2b7; font: 11px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: start" x="260.22622" y="258.452523" transform="rotate(-0 260.22622 258.452523)">3/22</text>
+   </g>
+   <g id="text_18">
+    <text style="fill: #c3c2b7; font: 11px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: start" x="200.2752" y="297.818424" transform="rotate(-0 200.2752 297.818424)">0/22</text>
+   </g>
+  </g>
+  <g id="text_19">
+   <text style="fill: #f0efec; font: 700 16px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: start" x="21.6" y="26.208" transform="rotate(-0 21.6 26.208)">Rule flips: same call, one fact changed, the right answer flips</text>
+  </g>
+  <g id="text_20">
+   <text style="fill: #c3c2b7; font: 11px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: start" x="21.6" y="48.672" transform="rotate(-0 21.6 48.672)">All 257 held-out calls · 22 minimal pairs · Kimi K3 scored 0/10 on the 120-call subset</text>
+  </g>
+  <g id="text_21">
+   <text style="fill: #8a8984; font: 9px 'Helvetica Neue', 'Arial', 'DejaVu Sans'; text-anchor: start" x="21.6" y="363.168" transform="rotate(-0 21.6 363.168)">Source: Matt's TRAINING_RUN.md snapshot 14:04 PST Nov 2</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pa0002a34c5">
+   <rect x="194.4" y="74.88" width="489.6" height="243.36"/>
+  </clipPath>
+ </defs>
+</svg>

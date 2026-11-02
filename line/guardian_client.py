@@ -8,6 +8,8 @@ score(req) -> (GuardianResponse, latency_ms), backend picked by env GUARDIAN_BAC
               default STANDIN_MODEL below) with response_format = GuardianResponse's
               JSON schema
   deployment  same code, model = GUARDIAN_MODEL (the LoRA deployment, M2)
+  matt        line/matt_bridge.MattGuardianClient: Matt's callguard/guardian/render.py prompt
+              and parser, model = GUARDIAN_MODEL, key GUARDIAN_API_KEY or FIREWORKS_API_KEY
 
 Prompt: guardian.prompt.render_messages (Matt's M0 module) when it imports,
 otherwise line/standin_prompt.py.
@@ -141,8 +143,8 @@ class GuardianClient:
         max_tokens: int = 400,
     ):
         self.backend = backend or os.environ.get("GUARDIAN_BACKEND", "stub")
-        if self.backend not in ("stub", "standin", "deployment"):
-            raise ValueError(f"GUARDIAN_BACKEND must be stub|standin|deployment, got {self.backend!r}")
+        if self.backend not in ("stub", "standin", "deployment", "matt"):
+            raise ValueError(f"GUARDIAN_BACKEND must be stub|standin|deployment|matt, got {self.backend!r}")
         if model:
             self.model = model
         elif self.backend == "deployment":
@@ -245,7 +247,10 @@ class GuardianClient:
             break
         data = r.json()
         self.last_usage = data.get("usage") or {}
-        return parse_response(data["choices"][0]["message"]["content"])
+        return self._parse(data["choices"][0]["message"]["content"])
+
+    def _parse(self, content: str) -> GuardianResponse:
+        return parse_response(content)
 
 
 _default: Optional[GuardianClient] = None
@@ -256,7 +261,11 @@ def default_client() -> GuardianClient:
     GUARDIAN_BACKEND or a missing GUARDIAN_MODEL fails there, not on the first turn."""
     global _default
     if _default is None:
-        _default = GuardianClient()
+        if os.environ.get("GUARDIAN_BACKEND") == "matt":
+            from line.matt_bridge import MattGuardianClient  # Matt's render.py contract (line/matt_bridge.py)
+            _default = MattGuardianClient()
+        else:
+            _default = GuardianClient()
         if _default.backend != "stub":
             _default._client()  # also fail fast on a missing FIREWORKS_API_KEY
     return _default

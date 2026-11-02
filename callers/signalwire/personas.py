@@ -248,7 +248,7 @@ def build_prompt(persona: str, variant: int, fill: int) -> str:
 
 def _stop_time(seconds: int) -> str:
     """hard_stop_time as "<n>s". The current docs read "MM:SS" or plain seconds and say unit letters are
-    ignored ("240s" -> 240 s); the SignalWire SDK's SWML schema (signalwire-sdk 3.4.1, schema.json) only
+    ignored ("240s" -> 240 s); the SignalWire SDK's SWML schema (signalwire-sdk 3.4.1 and 3.7.5, schema.json) only
     accepts the "<n>h<n>m<n>s" form. "<n>s" means the same under both."""
     return f"{int(seconds)}s"
 
@@ -327,7 +327,7 @@ def swml_digest(doc: dict[str, Any]) -> str:
 
 # ------------------------------------------------------------------ structural validation
 # Ranges: the intersection of the docs (https://signalwire.com/docs/swml/reference/calling/ai/params) and
-# the SDK's SWML JSON schema (signalwire-sdk 3.4.1 schema.json), which is stricter on two of them.
+# the SDK's SWML JSON schema (signalwire-sdk 3.4.1 and 3.7.5 schema.json), which is stricter on two of them.
 _TOP_PARAMS = {
     "end_of_speech_timeout": (250, 10000),        # docs 0-10000, SDK schema 250-10000
     "attention_timeout": (10000, 600000),         # or 0; docs 1000-600000, SDK schema 10000-600000

@@ -5,8 +5,8 @@ guarded Telnyx number from the idle SignalWire number. They add a second commerc
 live AI-voice test set (PLAN.md V2). **No scam persona ever goes to ElevenLabs**: its use policy bans
 fraud and impersonation with no stated exception for testing (PLAN.md 2c). `agents.check_persona`
 enforces an allowlist, every payload builder calls it, and the CLI exits with code 2 on anything else.
-ElevenLabs audio is test data only, never training data (PLAN.md V1); ledger rows carry
-`exclude_from_training: true`.
+ElevenLabs audio is test data only, never training data (PLAN.md V1; the use policy's section 12 also
+restricts using Output to train AI models); ledger rows carry `exclude_from_training: true`.
 
 | File | What |
 |---|---|
@@ -37,8 +37,10 @@ ElevenLabs: imported "SIP trunk" number (inbound only) -> the assigned agent ans
 ElevenLabs offers these phone routes
 ([overview](https://elevenlabs.io/docs/agents-platform/overview),
 [docs index](https://elevenlabs.io/docs/llms.txt)): native Twilio, SIP trunk (provider guides for
-Telnyx, Plivo, Bandwidth, Sinch, Vonage, Exotel and others), and batch calls on top of those.
-ElevenLabs sells no numbers of its own. We have no Twilio, so the options were:
+Telnyx, Plivo, Bandwidth, Sinch, Vobiz and Exotel; Vonage via a WebSocket connector), and batch calls
+on top of those. The Agents phone-number API only imports numbers (Twilio or SIP trunk: import, list,
+get, update, delete); there is no endpoint to buy one. (ElevenLabs' separate Reception.ai product
+provisions numbers, but it is a receptionist product, not Agents.) We have no Twilio, so the options were:
 
 | Route | What it needs | Verdict |
 |---|---|---|
@@ -62,8 +64,13 @@ Route A in the docs:
 
 The agents don't speak first (`first_message: ""`), because the line plays the Emberz notice before
 the protected phone rings. The opening line is in the prompt, after "wait for a person to say
-hello" (the same idea as `callers/common.py`). `initial_wait_time` is 60 s. The `end_call` tool
-hangs up after the goodbye, and `max_duration_seconds` (the spec's 150 s + 30 s) caps every call.
+hello" (the same idea as `callers/common.py`). `initial_wait_time` is 60 s. The `skip_turn` tool
+([docs](https://elevenlabs.io/docs/eleven-agents/customization/tools/system-tools/skip-turn.md):
+"After this tool is called, the assistant will not speak") lets the agent stay silent when it hears
+the notice instead of answering a recording. The `end_call` tool hangs up after the goodbye, and
+`max_duration_seconds` (the spec's 150 s + 30 s) caps every call. That cap counts from when the
+guarded line answers, so the notice and the ringing come out of it: a pickup after ~30 s leaves
+~150 s of conversation.
 
 ## What it creates and what it never touches
 
@@ -74,8 +81,8 @@ hangs up after the goodbye, and `max_duration_seconds` (the spec's 150 s + 30 s)
   that call's agent. The script only PATCHes agents with our name prefix and tag, and only the
   number with our label. It refuses to run if the caller number is already imported under another
   label. The 4 existing `EmberDial LOCAL practice` agents are never touched.
-- **SignalWire:** creates nothing and modifies nothing. It never reads the caller number's inbound
-  routing for writing (today: `laml_webhooks`, EmberDial's webhook, left as is).
+- **SignalWire:** creates nothing and modifies nothing. It only reads the caller number's inbound
+  routing, in `check` (today: `laml_webhooks`, EmberDial's webhook, left as is).
 - **Telnyx:** nothing here. The guarded number receives a normal inbound call.
 
 ## One-time setup (Numan, before the first live call)
@@ -111,24 +118,41 @@ Each placed call appends one row to `recordings/ai_calls.jsonl`, in the shared A
 {"call_id": "<SignalWire call id>", "provider": "elevenlabs", "persona": "pharmacy_refill", "variant": 0,
  "voice": "Sarah:EXAVITQu4vr4xnSDxMaL", "engine": "elevenlabs-agents/eleven_flash_v2_5",
  "started_at": "2026-11-02T18:00:00+00:00",
- "route": "signalwire-sip-bridge", "from_number": "+13046481098", "el_agent_id": "agent_...",
- "exclude_from_training": true}
+ "platform": "elevenlabs", "started_utc": "2026-11-02T18:00:00+00:00", "label": "ai", "kind": "benign",
+ "status": "queued", "route": "signalwire-sip-bridge", "from_last4": "1098", "to_last4": "1282",
+ "el_agent_id": "agent_...", "exclude_from_training": true}
 ```
 
-The end status and the ElevenLabs conversation id go to `data/callers/elevenlabs_outcomes.jsonl`.
+`platform`, `started_utc`, `label`, `kind`, `status` and `from_last4`/`to_last4` repeat the keys that
+`callers/signalwire/place_calls.py` writes, so one reader handles both providers.
+
+After each call, the script reads the ElevenLabs conversation (read-only) and writes to
+`data/callers/elevenlabs_outcomes.jsonl`: the end status, the conversation id, `headers_arrived`
+(whether `sip_emberz_persona`/`sip_emberz_variant` reached the agent), `call_duration_secs` and
+the cost fields. If the headers didn't arrive, the agent ran on the variant-0 placeholders, so the
+script **stops** after that call. That call's ledger row then claims a variant the agent didn't use:
+join on `call_id` and drop rows where `headers_arrived` is false.
 
 ## Costs (checked 2026-11-02)
 
-- **ElevenLabs Agents, Creator plan:** 275 call minutes a month included, then $0.08 a minute
-  (10 concurrent calls, burst $0.16 a minute). LLM usage is passed through on top, which is small for
-  `gpt-4o-mini`. ElevenLabs charges no telephony fee for SIP trunks
-  ([agents pricing](https://elevenlabs.io/pricing/agents)). Silence over 10 s gets a 95% discount
+- **ElevenLabs Agents** ([agents pricing](https://elevenlabs.io/pricing/agents), fetched 2026-11-02;
+  the page shows no year): Creator includes 275 call minutes a month, then $0.08 a minute, 10
+  concurrent calls, burst calls at $0.16 a minute. "LLM usage is billed separately on top", deducted
+  from credits; small for `gpt-4o-mini`. ElevenLabs adds no telephony fee; an external provider bills
+  its own charges. The length is the connection time, with a 95% discount on silence over 10 s
   ([help](https://elevenlabs.io/docs/help-center/product/eleven-agents/how-much-does-eleven-agents-cost.md)).
-  Account today: Creator, active, 62,201 of 300,000 credits used (237,799 left, resets 2026-11-06).
-  20 calls of up to 3 minutes each is about 60 minutes or less, inside the included minutes.
-- **SignalWire:** one outbound PSTN leg plus one SIP leg per call, billed per minute at SignalWire's
-  rates. `max_price_per_minute: 0.05` rejects any oddly priced route. Check the first call's
-  `charge_details` in the voice log. 20 short calls should be around a dollar.
+  - Worst case: 20 calls x 180 s (`max_duration_seconds`) = **60 minutes**, under the 275 included.
+  - This account (read-only `GET /v1/user/subscription`, 2026-11-02): legacy Creator, $22 next
+    invoice, 62,201 of 300,000 credits used (237,799 left, resets 2026-11-06), current overage $0,
+    and `allowed_to_extend_character_limit: false`, so usage can't run past the quota into overage.
+    It's unconfirmed whether agent minutes on this credit plan come from the 275 minutes or from
+    credits. Secondary guides (not official) quote 1,000 credits a minute; even then 60 minutes is
+    ~60,000 of the 237,799 credits left. Each call's actual `el_cost` goes to the outcomes log.
+- **SignalWire** ([voice pricing](https://signalwire.com/pricing/voice), fetched 2026-11-02): US
+  local outbound is $0.008/min and SIP is $0.003/min, so a call is $0.011/min across its two legs.
+  Worst case: 20 calls x 210 s (the SWML `max_duration`) = 70 min x $0.011 = **$0.77**.
+  `max_price_per_minute: 0.05` rejects any oddly priced route. Check the first call's
+  `charge_details` in the voice log.
 - **Telnyx:** the guarded number's inbound minutes and media streaming, already in PLAN.md section 9.
 
 ## Not yet verified (needs the first live call)
@@ -137,5 +161,10 @@ The end status and the ElevenLabs conversation id go to `data/callers/elevenlabs
   audio flows both ways (PCMU/PCMA). If TLS fails, retry with `--transport tcp` to isolate it
   (ElevenLabs suggests testing without TLS first).
 - That the `X-` headers arrive as `{{sip_*}}` variables (check the conversation's Phone Call tab).
-- That the dial response `id` works with `GET /api/voice/logs/{id}`. If it doesn't, the wait falls
-  back to a timeout of the spec's max duration + 180 s.
+- That the dial response `id` works with `GET /api/voice/logs/{id}` (its docs call the id a
+  `segment_id`). If it 404s, the wait falls back to the ElevenLabs conversation reaching
+  `done`/`failed`, then to a timeout of the spec's max duration + 180 s.
+- That `skip_turn` actually keeps the agent quiet through the notice. Listen to the first call.
+- Whether ElevenLabs accepts the import with no `outbound_trunk_config` (the create docs mark it
+  optional and nullable).
+- Whether agent minutes come from the 275 included minutes or from credits on this legacy plan.

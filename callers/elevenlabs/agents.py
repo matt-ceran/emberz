@@ -215,10 +215,19 @@ def sip_headers(persona: str, variant: int) -> list[dict[str, str]]:
     headers = [{"name": "X-Emberz-Persona", "value": persona},
                {"name": "X-Emberz-Variant", "value": str(variant)}]
     for k, val in variant_values(spec, variant).items():
-        if not val or "\r" in val or "\n" in val or len(val.encode()) > 1024:
+        if not val or "\r" in val or "\n" in val or not val.isascii() or len(val.encode()) > 1024:
             raise ValueError(f"{persona} variant {variant}: value for {k!r} can't be a SIP header value")
-        headers.append({"name": header_name(k), "value": val})
+        name = header_name(k)
+        if name.lower() in RESERVED_HEADERS or name.lower().startswith(RESERVED_PREFIXES) or len(name) < 3:
+            raise ValueError(f"{persona}: variable {k!r} maps to reserved SIP header {name!r}")
+        headers.append({"name": name, "value": val})
     return headers
+
+
+# ElevenLabs maps X-Call-ID / X-Caller-ID to system variables, not sip_* (sip-trunking docs);
+# SignalWire reserves these prefixes in SWML connect `headers` (https://signalwire.com/docs/swml/methods/connect).
+RESERVED_HEADERS = {"x-call-id", "x-caller-id"}
+RESERVED_PREFIXES = ("x-signalwire", "x-cid", "x-sw-xregion", "signalwire")
 
 
 def all_agent_keys(personas: list[str] | None = None) -> list[tuple[str, int]]:

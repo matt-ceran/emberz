@@ -107,7 +107,14 @@ def test_summary_and_cost():
     rc, lines = run(["--summary", "--personas", "bank_fraud", "pharmacy_refill", "--calls", "2"])
     assert rc == 0 and len(lines) == 4 + 2
     est = json.loads(lines[4])
-    assert est == {"dry_run": True, "calls": 4, "est_minutes": 10.0, "est_usd": round(10 * 0.168, 2)}
+    # upper: 2 scam x 5 min + 2 benign x 3 min, plus 4 x 2,000 chars of TTS at $0.0001
+    assert est == {"dry_run": True, "calls": 4, "est_minutes": 10.0, "est_usd": round(10 * 0.168, 2),
+                   "upper_usd": round(16 * 0.168 + 4 * 0.2, 2)}
+
+
+def test_fifty_call_cost_matches_readme():
+    est = PC.estimate_cost(P.plan_calls(list(P.PERSONAS), 10))
+    assert est == {"calls": 50, "est_minutes": 130.0, "est_usd": 21.84, "upper_usd": 45.28}
 
 
 def test_no_call_without_live(monkeypatch):
@@ -210,8 +217,40 @@ def test_live_gap_mode_sleeps_between_calls(monkeypatch):
     posts, slept = [], []
     monkeypatch.setattr(PC, "make_client", live_client(posts))
     rc, _ = run(["--live", "--personas", "tech_support", "--calls", "3", "--max-calls", "3", "--wait", "gap",
-                 "--gap-s", "240"], wait=lambda m: pytest.fail("no prompt in gap mode"), sleep=slept.append)
-    assert rc == 0 and len(posts) == 3 and slept == [240.0, 240.0]
+                 "--gap-s", "300"], wait=lambda m: pytest.fail("no prompt in gap mode"), sleep=slept.append)
+    assert rc == 0 and len(posts) == 3 and slept == [300.0, 300.0]
+
+
+def test_gap_shorter_than_a_call_is_rejected():
+    with pytest.raises(SystemExit):
+        PC.parse_args(["--wait", "gap", "--gap-s", "240"])
+
+
+def test_live_refuses_when_guarded_number_is_a_signalwire_number(monkeypatch):
+    posts = []
+    monkeypatch.setattr(PC, "load_settings", lambda with_secrets: settings(guarded_number="+13045550111"))
+
+    def handler(request):
+        assert request.method == "GET", "must refuse before any POST"
+        return httpx.Response(200, json={"data": [
+            {"number": CALLER, "capabilities": ["voice"]}, {"number": "+13045550111", "capabilities": ["voice"]}]})
+    transport = httpx.MockTransport(handler)
+    monkeypatch.setattr(PC, "make_client", lambda s, t=None: httpx.Client(base_url="https://x", transport=transport))
+    with pytest.raises(SystemExit, match="SignalWire number in this project"):
+        run(["--live", "--personas", "bank_fraud", "--calls", "1"], wait=lambda m: "")
+
+
+def test_live_transport_error_is_logged_and_stops(monkeypatch):
+    def handler(request):
+        if request.method == "GET":
+            return httpx.Response(200, json={"data": [{"number": CALLER, "capabilities": ["voice"]}]})
+        raise httpx.ReadTimeout("slow", request=request)
+    transport = httpx.MockTransport(handler)
+    monkeypatch.setattr(PC, "make_client", lambda s, t=None: httpx.Client(base_url="https://x", transport=transport))
+    rc, lines = run(["--live", "--personas", "bank_fraud", "--calls", "2", "--max-calls", "2"], wait=lambda m: "")
+    rows = [json.loads(x) for x in PC.AI_CALLS_LOG.read_text().splitlines()]
+    assert rc == 1 and len(rows) == 1
+    assert rows[0]["status"] == "unknown_transport_error" and rows[0]["label"] == "ai" and rows[0]["call_id"] is None
 
 
 def test_live_failed_request_is_logged_and_stops(monkeypatch):
@@ -248,3 +287,33 @@ def test_settings_host_forms():
     assert settings(space="myspace").host == "myspace.signalwire.com"
     assert settings(space="myspace.signalwire.com").host == "myspace.signalwire.com"
     assert settings(space="https://myspace.signalwire.com/").host == "myspace.signalwire.com"
+
+
+def test_logs_falls_back_to_time_match(monkeypatch):
+    """Docs: a voice-log id is the call's segment_id, which may differ from the dial response id."""
+    PC.append_jsonl(PC.AI_CALLS_LOG, {"call_id": "dial-id", "persona": "tech_support", "voice": "deepgram.aura-arcas-en",
+                                      "started_utc": "2026-11-03T18:00:00+00:00"})
+    PC.append_jsonl(PC.AI_CALLS_LOG, {"call_id": None, "status": "unknown_transport_error",
+                                      "started_utc": "2026-11-03T19:00:00+00:00"})
+    seen = []
+
+    def handler(request):
+        assert request.method == "GET"
+        seen.append(request.url.path)
+        if request.url.path == "/api/voice/logs":
+            return httpx.Response(200, json={"data": [
+                {"id": "other", "from": "+15555550000", "to": GUARDED, "created_at": "2026-11-03T18:00:02Z", "charge": 9},
+                {"id": "seg-1", "from": CALLER, "to": GUARDED, "created_at": "2026-11-03T18:00:03Z", "charge": 0.5,
+                 "status": "completed", "duration": 175},
+                {"id": "seg-far", "from": CALLER, "to": GUARDED, "created_at": "2026-11-03T21:00:00Z", "charge": 1}]})
+        if request.url.path == "/api/voice/logs/seg-1/events":
+            return httpx.Response(200, json={"data": []})
+        return httpx.Response(404)
+    transport = httpx.MockTransport(handler)
+    monkeypatch.setattr(PC, "make_client", lambda s, t=None: httpx.Client(base_url="https://x", transport=transport))
+    lines = []
+    PC.cmd_logs(PC.parse_args(["logs", "--log", str(PC.AI_CALLS_LOG)]), out=lines.append)
+    first, second, total = (json.loads(x) for x in lines)
+    assert first["voice_log_id"] == "seg-1" and first["matched_via"] == "time_match" and first["charge"] == 0.5
+    assert second["voice_log"] == "not found"      # nothing of ours within 2 min of 19:00
+    assert total == {"calls": 2, "total_charge_usd": 0.5}
