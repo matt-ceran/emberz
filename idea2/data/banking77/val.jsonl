@@ -1,0 +1,1003 @@
+{"id": "train-00014", "text": "It's been a week since I ordered my card and it's not here. Please help?", "label": "card_arrival"}
+{"id": "train-00025", "text": "It's been a week since you sent my card and I still don't have it.", "label": "card_arrival"}
+{"id": "train-00029", "text": "What is the expected delivery date for my card?", "label": "card_arrival"}
+{"id": "train-00041", "text": "Where is my credit card that was to be mailed?", "label": "card_arrival"}
+{"id": "train-00047", "text": "Should I keep waiting for my card to be delivered?", "label": "card_arrival"}
+{"id": "train-00069", "text": "How can I check on the delivery status of my card?", "label": "card_arrival"}
+{"id": "train-00071", "text": "What's the expected wait time to recieve my new card?", "label": "card_arrival"}
+{"id": "train-00073", "text": "My card was supposed to arrive, but hasn't?", "label": "card_arrival"}
+{"id": "train-00077", "text": "Does the card you sent have a tracking number?", "label": "card_arrival"}
+{"id": "train-00083", "text": "Can I track the card that was just sent to me?", "label": "card_arrival"}
+{"id": "train-00086", "text": "Where is my new card if I haven't received it yet?", "label": "card_arrival"}
+{"id": "train-00092", "text": "What do I need to do to get my new card which I have requested 2 weeks ago?", "label": "card_arrival"}
+{"id": "train-00097", "text": "Is there a reason my new card hasn't arrived?", "label": "card_arrival"}
+{"id": "train-00126", "text": "How much longer until I get my new card?", "label": "card_arrival"}
+{"id": "train-00148", "text": "I haven't gotten my credit card in the mail.", "label": "card_arrival"}
+{"id": "train-00197", "text": "Is there a way to link the card i just got?", "label": "card_linking"}
+{"id": "train-00206", "text": "how do I link an old card?", "label": "card_linking"}
+{"id": "train-00220", "text": "I've obtained the card, how do I enable it on the app?", "label": "card_linking"}
+{"id": "train-00234", "text": "Can I reactivate my card? I reported it lost and found it this morning in my jacket.", "label": "card_linking"}
+{"id": "train-00243", "text": "Could I reactivate my card please, I couldn't find it but it turns out it was in my jacket pocket.", "label": "card_linking"}
+{"id": "train-00259", "text": "I found my card again. Can I put it back into the app?", "label": "card_linking"}
+{"id": "train-00262", "text": "How do I link my card in the app.", "label": "card_linking"}
+{"id": "train-00264", "text": "I found my card! Can I link it back into the app?", "label": "card_linking"}
+{"id": "train-00269", "text": "How can I add a new card?", "label": "card_linking"}
+{"id": "train-00273", "text": "How do I link the new card?", "label": "card_linking"}
+{"id": "train-00281", "text": "I just received a new card, where do I go to link it to my account?", "label": "card_linking"}
+{"id": "train-00283", "text": "How do I see my card in the app?", "label": "card_linking"}
+{"id": "train-00289", "text": "I have a card that was deactivated can I reactivate it?", "label": "card_linking"}
+{"id": "train-00290", "text": "My new card isn't in my app, how do I get it in there?", "label": "card_linking"}
+{"id": "train-00293", "text": "Will my money be of equal value when I travel abroad?", "label": "exchange_rate"}
+{"id": "train-00325", "text": "What is the formula for your exchange rate?", "label": "exchange_rate"}
+{"id": "train-00332", "text": "Where can I get your exchange rates from?", "label": "exchange_rate"}
+{"id": "train-00352", "text": "How's the exchange rate looking right now?", "label": "exchange_rate"}
+{"id": "train-00356", "text": "What will my exchange rate be?", "label": "exchange_rate"}
+{"id": "train-00359", "text": "How will I know what the exchange rate is?", "label": "exchange_rate"}
+{"id": "train-00370", "text": "How do you come up with your exchange rate", "label": "exchange_rate"}
+{"id": "train-00376", "text": "How much are the rates of exchange?", "label": "exchange_rate"}
+{"id": "train-00385", "text": "Can you tell me your exchange rates?", "label": "exchange_rate"}
+{"id": "train-00397", "text": "I want to know your exchange rates.", "label": "exchange_rate"}
+{"id": "train-00402", "text": "How do you determine the exchange rate?", "label": "exchange_rate"}
+{"id": "train-00409", "text": "I think something went wrong with my exchange between Russian Ruble and UK pounds. I was overcharged during the swap.", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00428", "text": "The exchange rate was incorrect for this item I bought.", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00434", "text": "I bought an item and the exchange rate was wrong.", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00448", "text": "I think there has been a mistake on my exchange rate for this purchase.", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00460", "text": "Your exchange rate was off.  I was charged extra on my payment that I made last Saturday.", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00476", "text": "Seems like the exchange rate for my payment last Saturday was wrong. I was charged extra.", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00483", "text": "It seems that the rate I got is incorrect.", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00500", "text": "Why is the exchange rate different from what I expected?", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00523", "text": "I have been charged to much for the object I bought when abroad, the exchange rate seems to be wrong.", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00524", "text": "I made a purchase and was charged at the wrong foreign exchange rate.", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00525", "text": "I think that the exchange rate was wrong for the payment made last Saturday - I was charged extra.", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00538", "text": "Are you ripping people off with the exchange rate?  It can't be that atrocious between banks.", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00542", "text": "When I bought something abroad, the exchange rate was wrong.", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00559", "text": "Last Saturday, I made a payment and the exchange rate was wrong.  I was charged too much.", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00561", "text": "I purchased an item and the exchange rate was wrong", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00568", "text": "I  have been charged more than I should for the presents I bought  when abroad, the problem seems to be the exchange rate.", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00569", "text": "I made a purchase but the exchange rate is wrong?", "label": "card_payment_wrong_exchange_rate"}
+{"id": "train-00583", "text": "I have no idea why there is a dollar that has been charged to my account.", "label": "extra_charge_on_statement"}
+{"id": "train-00600", "text": "I see I was charged $1 for a transaction.", "label": "extra_charge_on_statement"}
+{"id": "train-00631", "text": "what was the $1 fee i got", "label": "extra_charge_on_statement"}
+{"id": "train-00633", "text": "I was overcharged one extra pound!", "label": "extra_charge_on_statement"}
+{"id": "train-00644", "text": "What is this fee debit on my account?", "label": "extra_charge_on_statement"}
+{"id": "train-00649", "text": "What was the $1 charge for on my statement?", "label": "extra_charge_on_statement"}
+{"id": "train-00652", "text": "What am I being charged an extra pound when I haven't bought something worth that much?", "label": "extra_charge_on_statement"}
+{"id": "train-00668", "text": "There seems to be an additional charge of £1 on my statement, what is the reason for this?", "label": "extra_charge_on_statement"}
+{"id": "train-00678", "text": "There is an extra charge on my account I didn't authorise, it's just £1, what is it?", "label": "extra_charge_on_statement"}
+{"id": "train-00682", "text": "There is an unexplained $1 charge on my statement, can you please explain this to me?", "label": "extra_charge_on_statement"}
+{"id": "train-00684", "text": "Hello, I see that I have been charged an extra $1 on my app.  Could you please provide me with a reason for this charge?", "label": "extra_charge_on_statement"}
+{"id": "train-00691", "text": "I checked my statement and am being charged one pound. Where did this charge come from?", "label": "extra_charge_on_statement"}
+{"id": "train-00704", "text": "Why was I charged extra on my app?", "label": "extra_charge_on_statement"}
+{"id": "train-00718", "text": "Why is there an additional fee showing on the statement I received?", "label": "extra_charge_on_statement"}
+{"id": "train-00723", "text": "I had to pay one pound more than the set price!", "label": "extra_charge_on_statement"}
+{"id": "train-00726", "text": "Why is it showing that my account has been charged a dollar that is showing as pending?", "label": "extra_charge_on_statement"}
+{"id": "train-00727", "text": "I do not understand why there is a pending 1£ charge on my statement, I do not recall making this transaction. Can you please tell me what this is about?", "label": "extra_charge_on_statement"}
+{"id": "train-00743", "text": "Hello, I have a pending transaction in my account due to an ATM machine that wasn't working. In any case if the transaction goes through, after how long can I get my money back?", "label": "pending_cash_withdrawal"}
+{"id": "train-00744", "text": "Why is my ATM withdrawal still pending?", "label": "pending_cash_withdrawal"}
+{"id": "train-00753", "text": "Hello. I looked at my account and see that a transaction I tried to do is pending, but I did not complete that transaction. When I was at the ATM, the machine declined my card. Can you make sure that transaction does not go through because I definitely did not receive the money.", "label": "pending_cash_withdrawal"}
+{"id": "train-00759", "text": "If my cash withdrawal is still not showing, is something wrong?", "label": "pending_cash_withdrawal"}
+{"id": "train-00769", "text": "Why is my cash withdrawal pending?", "label": "pending_cash_withdrawal"}
+{"id": "train-00771", "text": "Hi there, earlier today I tried to take money out of an ATM machine, and something wasn't working.  I didn't actually receive the money, but I just checked and it says that the transaction is still pending.  Can you tell me what's going on here? Am I still being charged for the withdrawal even though I didn't end up getting any money?", "label": "pending_cash_withdrawal"}
+{"id": "train-00784", "text": "I'm expecting to see a cash withdrawal but I'm still waiting.", "label": "pending_cash_withdrawal"}
+{"id": "train-00788", "text": "The machine didn't work earlier when I went to get money out and now my account says transaction in progress.Why?", "label": "pending_cash_withdrawal"}
+{"id": "train-00797", "text": "My account says I have money but I withdrew it in cash.", "label": "pending_cash_withdrawal"}
+{"id": "train-00810", "text": "My ATM withdrawal is taking forever", "label": "pending_cash_withdrawal"}
+{"id": "train-00842", "text": "I removed cash from an ATM earlier but it shows up as pending in the app. How can this still be pending, I already received the cash?", "label": "pending_cash_withdrawal"}
+{"id": "train-00863", "text": "My atm withdraw is stillpending", "label": "pending_cash_withdrawal"}
+{"id": "train-00866", "text": "I made a cash withdraw and it shows up as pending why is that?", "label": "pending_cash_withdrawal"}
+{"id": "train-00869", "text": "My balance is not what I thought it was following an ATM withdrawal", "label": "pending_cash_withdrawal"}
+{"id": "train-00886", "text": "What currencies can I have?", "label": "fiat_currency_support"}
+{"id": "train-00902", "text": "Are there any fiat currencies that you will not work with?", "label": "fiat_currency_support"}
+{"id": "train-00914", "text": "What fiat currencies do you support?", "label": "fiat_currency_support"}
+{"id": "train-00917", "text": "What are all the fiat currencies that are supported for both exchange and holding?", "label": "fiat_currency_support"}
+{"id": "train-00924", "text": "Is it possible to hold money in multiple currencies?", "label": "fiat_currency_support"}
+{"id": "train-00953", "text": "Do you offer services that hold money in different types of currency?", "label": "fiat_currency_support"}
+{"id": "train-00956", "text": "What fiat currencies are used for exchange?", "label": "fiat_currency_support"}
+{"id": "train-00960", "text": "I'm interested in holding and exchange for flat currencies, what do you support?", "label": "fiat_currency_support"}
+{"id": "train-00968", "text": "Does my account have the option to hold multiple currencies?", "label": "fiat_currency_support"}
+{"id": "train-00972", "text": "can I have multiple currencies?", "label": "fiat_currency_support"}
+{"id": "train-00981", "text": "Do you deal with EUR?", "label": "fiat_currency_support"}
+{"id": "train-00983", "text": "Which fiat currencies are supported for holding and exchanging?", "label": "fiat_currency_support"}
+{"id": "train-00996", "text": "Can you change my currency to EUR?", "label": "fiat_currency_support"}
+{"id": "train-01018", "text": "I need my card soon.", "label": "card_delivery_estimate"}
+{"id": "train-01034", "text": "Give me my card, I need it now!", "label": "card_delivery_estimate"}
+{"id": "train-01037", "text": "How long is a delivery to the US?", "label": "card_delivery_estimate"}
+{"id": "train-01055", "text": "Can I have it by a certain date?", "label": "card_delivery_estimate"}
+{"id": "train-01062", "text": "I need my card ASAP!", "label": "card_delivery_estimate"}
+{"id": "train-01063", "text": "How long will it take to get to the US?", "label": "card_delivery_estimate"}
+{"id": "train-01071", "text": "Send me my card now! ASAP", "label": "card_delivery_estimate"}
+{"id": "train-01088", "text": "How long until the card arrives?", "label": "card_delivery_estimate"}
+{"id": "train-01100", "text": "How long does it take for a card to arrive?", "label": "card_delivery_estimate"}
+{"id": "train-01101", "text": "Will my card be here soon?", "label": "card_delivery_estimate"}
+{"id": "train-01117", "text": "When will it be delivered to the US?", "label": "card_delivery_estimate"}
+{"id": "train-01135", "text": "Do I need to set a limit on auto top-up?", "label": "automatic_top_up"}
+{"id": "train-01139", "text": "Can I auto top if I'm low on funds?", "label": "automatic_top_up"}
+{"id": "train-01145", "text": "Is it possible to do auto top up?", "label": "automatic_top_up"}
+{"id": "train-01146", "text": "is there a way to do automatic top up", "label": "automatic_top_up"}
+{"id": "train-01167", "text": "I'm going to travel, can I have it add money automatically in certain intervals?", "label": "automatic_top_up"}
+{"id": "train-01174", "text": "What is the limit on Auto top?", "label": "automatic_top_up"}
+{"id": "train-01177", "text": "Is auto top up a provided service?", "label": "automatic_top_up"}
+{"id": "train-01189", "text": "I want to auto top-up.", "label": "automatic_top_up"}
+{"id": "train-01193", "text": "I'm trying to activate the auto-top up function. Where is it?", "label": "automatic_top_up"}
+{"id": "train-01199", "text": "Can I set it up to add money every few days automatically while I am traveling?", "label": "automatic_top_up"}
+{"id": "train-01201", "text": "Is there a function where I can top-up automatically?", "label": "automatic_top_up"}
+{"id": "train-01216", "text": "Where do I find the auto top up option?", "label": "automatic_top_up"}
+{"id": "train-01234", "text": "How do I top-up while traveling?", "label": "automatic_top_up"}
+{"id": "train-01251", "text": "I cannot seem to use my card.", "label": "card_not_working"}
+{"id": "train-01253", "text": "I have not been able to use this card.", "label": "card_not_working"}
+{"id": "train-01266", "text": "I am unable to use my card for some reason.", "label": "card_not_working"}
+{"id": "train-01279", "text": "My card won't work at all for anything.", "label": "card_not_working"}
+{"id": "train-01283", "text": "My card hasn't been working for even small transactions today.", "label": "card_not_working"}
+{"id": "train-01287", "text": "Suddenly, my card won't work.", "label": "card_not_working"}
+{"id": "train-01303", "text": "I can't use my card for anything", "label": "card_not_working"}
+{"id": "train-01326", "text": "Why won't my card work anymore?", "label": "card_not_working"}
+{"id": "train-01330", "text": "My card stopped working after multiple transactions. Why?", "label": "card_not_working"}
+{"id": "train-01338", "text": "My card doesn't work when I use it.", "label": "card_not_working"}
+{"id": "train-01356", "text": "The card that I have isn't working. This is the physical card.", "label": "card_not_working"}
+{"id": "train-01359", "text": "How can I change to another currency?", "label": "exchange_via_app"}
+{"id": "train-01387", "text": "Can I exchange USD for GBP in your app?", "label": "exchange_via_app"}
+{"id": "train-01394", "text": "I need to get some Euros for my holiday. Am I able to exchange some of my money?", "label": "exchange_via_app"}
+{"id": "train-01409", "text": "I am trying to exchange AUD for GBP, how do I do that?", "label": "exchange_via_app"}
+{"id": "train-01419", "text": "Is this app capable of exchanging currencies?", "label": "exchange_via_app"}
+{"id": "train-01420", "text": "Is it possible to change from USD to GBP with your App?", "label": "exchange_via_app"}
+{"id": "train-01426", "text": "How do I exchange currencies with this", "label": "exchange_via_app"}
+{"id": "train-01433", "text": "How can I exchange GBP for AUD?", "label": "exchange_via_app"}
+{"id": "train-01435", "text": "Does this app exchange currencies?", "label": "exchange_via_app"}
+{"id": "train-01443", "text": "How do I make a currency exchange?", "label": "exchange_via_app"}
+{"id": "train-01462", "text": "How do I change to AUD from GBP?", "label": "exchange_via_app"}
+{"id": "train-01468", "text": "What other currencies are available to change to?", "label": "exchange_via_app"}
+{"id": "train-01484", "text": "Help! I lost my card!", "label": "lost_or_stolen_card"}
+{"id": "train-01487", "text": "My card was stolen", "label": "lost_or_stolen_card"}
+{"id": "train-01499", "text": "I think my card is stolen!", "label": "lost_or_stolen_card"}
+{"id": "train-01502", "text": "Are you able to guide me to my card's location?", "label": "lost_or_stolen_card"}
+{"id": "train-01507", "text": "i need help, i lost my card", "label": "lost_or_stolen_card"}
+{"id": "train-01520", "text": "Someone stole my wallet with my card in it while vacationing in Spain. I really need my card blocked and a new one ordered.", "label": "lost_or_stolen_card"}
+{"id": "train-01532", "text": "Please help me.  My card is missing.", "label": "lost_or_stolen_card"}
+{"id": "train-01536", "text": "What are the steps I need to do if I have a stolen card?", "label": "lost_or_stolen_card"}
+{"id": "train-01566", "text": "Can I start an account for my kids?", "label": "age_limit"}
+{"id": "train-01567", "text": "How old does my daughter have to be to open an account?", "label": "age_limit"}
+{"id": "train-01570", "text": "What about my children?", "label": "age_limit"}
+{"id": "train-01571", "text": "What is the process for setting up and account for my child?", "label": "age_limit"}
+{"id": "train-01589", "text": "Can my 8 year old grandson open an account at the bank?", "label": "age_limit"}
+{"id": "train-01609", "text": "What is the age limit?", "label": "age_limit"}
+{"id": "train-01614", "text": "Do you offer account services for children and teens?", "label": "age_limit"}
+{"id": "train-01626", "text": "At what age can a person open an account?", "label": "age_limit"}
+{"id": "train-01636", "text": "Is there an age limit to when my child can use these services?", "label": "age_limit"}
+{"id": "train-01645", "text": "Can I get an account for my son?", "label": "age_limit"}
+{"id": "train-01647", "text": "Am I allowed to get an account for my daughter?", "label": "age_limit"}
+{"id": "train-01692", "text": "I tried the wrong PIN too many times.", "label": "pin_blocked"}
+{"id": "train-01696", "text": "I forgot my PIN number.", "label": "pin_blocked"}
+{"id": "train-01697", "text": "I tried entering my pin several times incorrectly. Why isn't my pin working?", "label": "pin_blocked"}
+{"id": "train-01706", "text": "My PIN is locked, how do I unlock it?", "label": "pin_blocked"}
+{"id": "train-01712", "text": "What is the procedure of unblocking my PIN?", "label": "pin_blocked"}
+{"id": "train-01720", "text": "My PIN can't access my card, can you help?.", "label": "pin_blocked"}
+{"id": "train-01721", "text": "After putting in the wrong PIN too many times, I was blocked. Can you assist me in changing it?", "label": "pin_blocked"}
+{"id": "train-01733", "text": "How do I get unblocked?", "label": "pin_blocked"}
+{"id": "train-01750", "text": "Can I unblock my pin using the app?", "label": "pin_blocked"}
+{"id": "train-01758", "text": "Would you please unblock my pin? I don't know why, but it's blocked.", "label": "pin_blocked"}
+{"id": "train-01771", "text": "I entered the wrong pin too many times and now I think it's blocked. What do I do?", "label": "pin_blocked"}
+{"id": "train-01778", "text": "Can you unblock my account?  I entered the PIN wrong.", "label": "pin_blocked"}
+{"id": "train-01785", "text": "My contactless payments don't work.", "label": "contactless_not_working"}
+{"id": "train-01800", "text": "The contactless payments are not working.", "label": "contactless_not_working"}
+{"id": "train-01806", "text": "My contactless is non-functional.", "label": "contactless_not_working"}
+{"id": "train-01807", "text": "How can i get new card?", "label": "contactless_not_working"}
+{"id": "train-01833", "text": "If someone sends me money, will I be charged?", "label": "top_up_by_bank_transfer_charge"}
+{"id": "train-01834", "text": "Do you accept SWIFT transfers?", "label": "top_up_by_bank_transfer_charge"}
+{"id": "train-01868", "text": "Are SWIFT Transfers available at this bank?", "label": "top_up_by_bank_transfer_charge"}
+{"id": "train-01871", "text": "Is there a charge for getting my money?", "label": "top_up_by_bank_transfer_charge"}
+{"id": "train-01891", "text": "Can I transfer using SWIFT?", "label": "top_up_by_bank_transfer_charge"}
+{"id": "train-01896", "text": "How much would it cost me for a bank transfer to top up my account?", "label": "top_up_by_bank_transfer_charge"}
+{"id": "train-01899", "text": "Will I be charged for receiving the money?", "label": "top_up_by_bank_transfer_charge"}
+{"id": "train-01900", "text": "For SEPA transfers, what kind of charge will be applied?", "label": "top_up_by_bank_transfer_charge"}
+{"id": "train-01907", "text": "Can I Transfer from SWIFT?", "label": "top_up_by_bank_transfer_charge"}
+{"id": "train-01914", "text": "Will I be charged for topping up my account using a bank transfer?", "label": "top_up_by_bank_transfer_charge"}
+{"id": "train-01919", "text": "If I top up by transfer, am I going to be charged?", "label": "top_up_by_bank_transfer_charge"}
+{"id": "train-01928", "text": "How long does a top-up take to go through?", "label": "pending_top_up"}
+{"id": "train-01949", "text": "how long does it take to reflect in my balance a top up", "label": "pending_top_up"}
+{"id": "train-01952", "text": "My top-up funds aren't available yet.", "label": "pending_top_up"}
+{"id": "train-01965", "text": "My top up hasn't gone through yet, why?", "label": "pending_top_up"}
+{"id": "train-01983", "text": "Is my top up not working?", "label": "pending_top_up"}
+{"id": "train-01986", "text": "Hi, I tried topping up for the first time today (I'm a new customer), and the transaction has shown as pending for the last half an hour. Can you fix it?", "label": "pending_top_up"}
+{"id": "train-01987", "text": "My top up says it is still pending", "label": "pending_top_up"}
+{"id": "train-02000", "text": "My top is still pending.", "label": "pending_top_up"}
+{"id": "train-02002", "text": "Has my top up gone through?", "label": "pending_top_up"}
+{"id": "train-02022", "text": "My top up hasn't gone through", "label": "pending_top_up"}
+{"id": "train-02023", "text": "I'm pretty sure my top up is still pending.", "label": "pending_top_up"}
+{"id": "train-02045", "text": "Even though I added money ey to the card, I couldn't use it", "label": "pending_top_up"}
+{"id": "train-02054", "text": "How long should it take for my top-up to finish? I've been waiting a while.", "label": "pending_top_up"}
+{"id": "train-02058", "text": "Can you please sort out your top up? I need this to go through asap because I really need the money. It's already been pending for an hour.", "label": "pending_top_up"}
+{"id": "train-02061", "text": "What's taking my top-up so long?", "label": "pending_top_up"}
+{"id": "train-02092", "text": "I messed up a transfer and need to reverse it.", "label": "cancel_transfer"}
+{"id": "train-02100", "text": "Could I please cancel my transfer, I paid it into the wrong account. I need to pay it into the right account by tomorrow.", "label": "cancel_transfer"}
+{"id": "train-02105", "text": "I messed up and made a transaction using the wrong account.", "label": "cancel_transfer"}
+{"id": "train-02127", "text": "Help me cancel a transfer.", "label": "cancel_transfer"}
+{"id": "train-02139", "text": "Is there any way to cancel a recent transfer?  I did not mean to make it and need to make sure it does not go through.", "label": "cancel_transfer"}
+{"id": "train-02148", "text": "I need to reverse a transaction", "label": "cancel_transfer"}
+{"id": "train-02155", "text": "I sent a payment to the wrong account number - can that transaction be reversed? I am worried about accidentally giving my money away.", "label": "cancel_transfer"}
+{"id": "train-02159", "text": "I need urgent help. I realize I sent my payment to the wrong account number. I made a typo. Please cancel the transfer now. There isn't an option from the app.", "label": "cancel_transfer"}
+{"id": "train-02183", "text": "Is it possible to cancel my transfer?", "label": "cancel_transfer"}
+{"id": "train-02199", "text": "I made the incorrect payment for my rent yesterday and this needs to be fixed by no later than tomorrow. How can you help?", "label": "cancel_transfer"}
+{"id": "train-02201", "text": "I made a transfer into my account and now I need to cancel it", "label": "cancel_transfer"}
+{"id": "train-02209", "text": "There's been a transaction to the wrong account.", "label": "cancel_transfer"}
+{"id": "train-02215", "text": "The wrong account was used during a transaction.", "label": "cancel_transfer"}
+{"id": "train-02216", "text": "I just initiated a transfer but I'd like to cancel it.", "label": "cancel_transfer"}
+{"id": "train-02224", "text": "I need help right now. I realize I sent my payment to the wrong account number after making a typo. Please cancel the transfer now since I can't do it from the app.", "label": "cancel_transfer"}
+{"id": "train-02231", "text": "What do I have to do to cancel a transfer?", "label": "cancel_transfer"}
+{"id": "train-02244", "text": "What is the maximum I can top up?", "label": "top_up_limits"}
+{"id": "train-02257", "text": "Do top-ups have limits?", "label": "top_up_limits"}
+{"id": "train-02262", "text": "Whats the limit on my top up", "label": "top_up_limits"}
+{"id": "train-02273", "text": "What limits are the to top-ups?", "label": "top_up_limits"}
+{"id": "train-02277", "text": "What is the top-up limit for my card?", "label": "top_up_limits"}
+{"id": "train-02289", "text": "I need to add a serious amount of cash to my card, how do I do that?", "label": "top_up_limits"}
+{"id": "train-02298", "text": "Do you limit my top-offs?", "label": "top_up_limits"}
+{"id": "train-02304", "text": "How often am I able to top-up?", "label": "top_up_limits"}
+{"id": "train-02310", "text": "Can I use as many top-ups as I want?", "label": "top_up_limits"}
+{"id": "train-02319", "text": "What's the amount that I can top-up?", "label": "top_up_limits"}
+{"id": "train-02336", "text": "The ATM didn't give me enough money.", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02339", "text": "I received $20 but I entered $100", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02349", "text": "I got less money than I asked for.", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02370", "text": "Hi, I draw out some money from the ATM today. The ATM has given me wrong amount and the application is displaying more amount than i withdraw.", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02375", "text": "Why didn't I receive the right amount of cash at the ATM?", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02401", "text": "What happens if the ATM doesn't give the right amount of money?", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02412", "text": "The correct amount of cash was not received.", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02428", "text": "I was not distributed all of cash that I requested", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02430", "text": "I asked for a certain amount of money from the ATM, but it gave me a different amount. Less than what I asked for.", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02459", "text": "I took out money, and didn't get all of it.", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02461", "text": "Please help me with the amount that i have withdrawn from the ATM today, the ATM has given me wrong sum of amount, and i could see that the app is displaying the greater amount than taken out.", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02463", "text": "I requested money from the ATM and it didn't give me as much as I requested.", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02476", "text": "My cash withdrawal was not entirely complete", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02481", "text": "I was only given $20 when I tried to get $100", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02482", "text": "I needed $100 but all it gave me was $20.", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02494", "text": "I only got some of the cash I requested from the ATM", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02495", "text": "I am at the ATM and tried to withdraw 30 pounds and it only gave me 10 pounds, what do I do?", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02510", "text": "The machine only paid me a hundred when I wanted 20", "label": "wrong_amount_of_cash_received"}
+{"id": "train-02512", "text": "I received a fee I should not have.", "label": "card_payment_fee_charged"}
+{"id": "train-02516", "text": "I paid with my card so so why was I charged a transaction fee?", "label": "card_payment_fee_charged"}
+{"id": "train-02520", "text": "I had to pay a fee when buying items with my card.", "label": "card_payment_fee_charged"}
+{"id": "train-02524", "text": "I'm going on holiday to France for 6 weeks with my family and the cat, Fluffy.  I just purchased €10,000 from a currency exchange to ensure we don't run short but there appears to be a fee.  What is this for?", "label": "card_payment_fee_charged"}
+{"id": "train-02527", "text": "Why was I charged an extra fee when paying with card?", "label": "card_payment_fee_charged"}
+{"id": "train-02528", "text": "I noticed a new fee on my account. I didn't know there were fees for these payments. What is the policy?", "label": "card_payment_fee_charged"}
+{"id": "train-02536", "text": "What is the extra fee that showed up on my card?", "label": "card_payment_fee_charged"}
+{"id": "train-02551", "text": "Why am I being charged fees on some transactions but not on others? What am I missing here? I cannot find where to see the fee structure on my account. Help!", "label": "card_payment_fee_charged"}
+{"id": "train-02555", "text": "How did the extra charge on my card come in effect?", "label": "card_payment_fee_charged"}
+{"id": "train-02558", "text": "I was made to pay a fee for making a transaction with card.", "label": "card_payment_fee_charged"}
+{"id": "train-02585", "text": "I want to see what this fee is on my card payment.", "label": "card_payment_fee_charged"}
+{"id": "train-02589", "text": "Why was there an extra charge because I used my card to pay?", "label": "card_payment_fee_charged"}
+{"id": "train-02606", "text": "How come I was charged an extra fee when paying with the card?", "label": "card_payment_fee_charged"}
+{"id": "train-02614", "text": "Why does it cost more to pay with my card?", "label": "card_payment_fee_charged"}
+{"id": "train-02615", "text": "Is there a place to check for fee for payments? I feel like I'm getting charged too much at times.", "label": "card_payment_fee_charged"}
+{"id": "train-02620", "text": "Why was the price higher when I paid with my card?", "label": "card_payment_fee_charged"}
+{"id": "train-02646", "text": "I don't think I should have been charged a fee to use my card.", "label": "card_payment_fee_charged"}
+{"id": "train-02671", "text": "Why have I been charged a small fee to use my card?", "label": "card_payment_fee_charged"}
+{"id": "train-02691", "text": "Do you have charges now when you pay with a card?", "label": "card_payment_fee_charged"}
+{"id": "train-02711", "text": "I transferred money and it didn't get there.", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02712", "text": "Is there a reason why a recipient might not see my money transaction", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02736", "text": "I have moved to a new house and set up a rent payment to my landlord, it was supposed to be in her account a few days ago but it hasn't arrived.  I definitely sent it to the right place, can you confirm where the money is?", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02743", "text": "How much time do transfers take? I sent money to a friend who needs it fast. It's been hours, and the money has not gone through.", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02745", "text": "My friend says he hasn't received my transaction", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02746", "text": "What is the length of a transaction completion?", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02776", "text": "Why can't the person I sent the money transfer to see it?", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02787", "text": "Why hasn't the money transfer arrived yet?", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02789", "text": "how long does it take for a transfer to arrive", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02799", "text": "I tried doing an in country transfer earlier this week. I thought it would be there by now but I still don't see the money. Can you check the status on my transfer?", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02813", "text": "My cash transaction isn't showing on my receipt", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02818", "text": "Hi - I have made a transaction to my new landlord but unfortunately it shows on my end but not on the landlord's end. The numbers are correct. Can you confirm when that will go through?", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02824", "text": "Why has my transfer not arrived yet?", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02832", "text": "The day before yesterday I transferred funds to another account within the country.  The funds have not yet arrived.  I double and triple checked the account number and it was correct.  Why hasn't the transfer been completed yet?", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02844", "text": "I have done a transfer within the country the day before yesterday, but it's still not there yet. Can you please check what's going on with that, the account number definitely is the right one, I've checked that several times already.", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02852", "text": "How long will my most recent transfer take to go through? The recipient needs the money urgently.", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02858", "text": "Why isn't the transfer I made to a friend showing?", "label": "transfer_not_received_by_recipient"}
+{"id": "train-02870", "text": "Which currencies do you accept for adding money?", "label": "supported_cards_and_currencies"}
+{"id": "train-02879", "text": "what cards and currencies are accepted?", "label": "supported_cards_and_currencies"}
+{"id": "train-02881", "text": "use my credit to add money", "label": "supported_cards_and_currencies"}
+{"id": "train-02886", "text": "How can I fund another account with my American Express?", "label": "supported_cards_and_currencies"}
+{"id": "train-02887", "text": "What currencies do you accept to add money?", "label": "supported_cards_and_currencies"}
+{"id": "train-02891", "text": "How can I get funds into my account from my American Express?", "label": "supported_cards_and_currencies"}
+{"id": "train-02899", "text": "I only have one other credit card from the US. Do you accept that?", "label": "supported_cards_and_currencies"}
+{"id": "train-02928", "text": "I'd like to use my American Express to place money into my account.", "label": "supported_cards_and_currencies"}
+{"id": "train-02932", "text": "Which credit card top-ups do you accept?", "label": "supported_cards_and_currencies"}
+{"id": "train-02935", "text": "I want to add money to my card, what payments do you accept?", "label": "supported_cards_and_currencies"}
+{"id": "train-02943", "text": "What currencies do you accept for adding money to my account?", "label": "supported_cards_and_currencies"}
+{"id": "train-02967", "text": "Is American Express accepted?", "label": "supported_cards_and_currencies"}
+{"id": "train-02968", "text": "Which currencies do you work with?", "label": "supported_cards_and_currencies"}
+{"id": "train-03000", "text": "How can I sign up for a virtual card?", "label": "getting_virtual_card"}
+{"id": "train-03003", "text": "I want to get my hands on one of those virtual cards!", "label": "getting_virtual_card"}
+{"id": "train-03026", "text": "How can I go about ordering a virtual card?", "label": "getting_virtual_card"}
+{"id": "train-03040", "text": "I look but I see no virtual card. Why is that?", "label": "getting_virtual_card"}
+{"id": "train-03041", "text": "Hello, what is a virtual card and how do I get one?", "label": "getting_virtual_card"}
+{"id": "train-03045", "text": "How do I access the virtual card?", "label": "getting_virtual_card"}
+{"id": "train-03058", "text": "And do you have virtual cards instead of physical ones?", "label": "getting_virtual_card"}
+{"id": "train-03067", "text": "Where can I sign up for a virtual card?", "label": "getting_virtual_card"}
+{"id": "train-03068", "text": "Where do i go to receive a virtual card", "label": "getting_virtual_card"}
+{"id": "train-03093", "text": "Please tell me how I can get a virtual card.", "label": "getting_virtual_card"}
+{"id": "train-03097", "text": "In which stores can I shop with this card?", "label": "card_acceptance"}
+{"id": "train-03103", "text": "What businesses accept this card?", "label": "card_acceptance"}
+{"id": "train-03118", "text": "where is card accepted", "label": "card_acceptance"}
+{"id": "train-03136", "text": "Are there limits as to where my card will be accepted?", "label": "card_acceptance"}
+{"id": "train-03138", "text": "Which merchants accept this card?", "label": "card_acceptance"}
+{"id": "train-03152", "text": "What businesses accept my card?", "label": "card_acceptance"}
+{"id": "train-03164", "text": "I believe my top up was reverted.", "label": "top_up_reverted"}
+{"id": "train-03185", "text": "Is there a reason my top-up has been cancelled?", "label": "top_up_reverted"}
+{"id": "train-03199", "text": "I did a topup successfully but its not showing in balance. I think there is some problem in system.", "label": "top_up_reverted"}
+{"id": "train-03201", "text": "My thoughts were that you offered crypto top up which does not seem to be working. The money has now been taken from my account. What is the problem here?", "label": "top_up_reverted"}
+{"id": "train-03218", "text": "Hi, I have done a topup, but my money was reverted. Please look into this issue.", "label": "top_up_reverted"}
+{"id": "train-03219", "text": "My top-up has been reverted and I would like to know why.", "label": "top_up_reverted"}
+{"id": "train-03223", "text": "I refilled my account balance but got an error message.", "label": "top_up_reverted"}
+{"id": "train-03224", "text": "My money's disappeared from my account! I topped up the other day and it was there, but now it's not. Help?", "label": "top_up_reverted"}
+{"id": "train-03227", "text": "HI,Accordingly you offer crypto top up but it doesn't seem to be working? Money just disappeared from my account.What should be done now?", "label": "top_up_reverted"}
+{"id": "train-03242", "text": "I got an cancellation error when I was topping up.", "label": "top_up_reverted"}
+{"id": "train-03250", "text": "The app reverted after I topped-up", "label": "top_up_reverted"}
+{"id": "train-03255", "text": "Why isn't my top up showing?  Was the money reversed?", "label": "top_up_reverted"}
+{"id": "train-03272", "text": "I thought crypto top up with something you offered and it does not appear that it's working even though the money has disappeared out of my account. Can you tell me what's going on?", "label": "top_up_reverted"}
+{"id": "train-03292", "text": "Hi, i just topped up my phone and the money was deducted but it seems to have deducted the same amount again! please help!", "label": "top_up_reverted"}
+{"id": "train-03298", "text": "Hae, I already completed my 3D secure authentication when I tried the crypto top up but it's still not working for me. I also don't understand what happened to the money in my account", "label": "top_up_reverted"}
+{"id": "train-03303", "text": "I tried using a check to update my balance, but it isn't work? Is something wrong?", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03305", "text": "I put some cash into my account but it's not displaying that on my balance.", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03334", "text": "When will my deposit from this morning show up?", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03338", "text": "My account balance doesn't reflect an update I made by cheque yesterday. Is something wrong or is the system slow?", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03347", "text": "The cheque I sent to you to have deposited a couple days ago has not cleared in my account yet. What is the issue?", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03352", "text": "Waiting for the cash I deposited this morning still", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03358", "text": "When will the check I deposited post to my account?", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03365", "text": "Why has my account balance not changed after depositing a cheque?", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03372", "text": "I sent you a cheque a few days ago and I noticed that nothing has happened yet. Can you tell me the status of my cheque please?", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03374", "text": "My balance was not updated with my checque or cash deposit.", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03393", "text": "Do you guys accept cash? Because i deposited some this morning and I can't see it in my account.", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03396", "text": "My balance is not right. It has not been updated for the cash or cheque deposit.", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03403", "text": "I deposited a check, but haven't received the funds for it.", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03404", "text": "After depositing a cheque my balance did not change.", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03416", "text": "I put money in my account a week ago but its still not there?? What happened to my money?", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03427", "text": "My friend deposited $100 into my account, but it is not showing up!", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03437", "text": "I deposited money but my balance hasn't been updated yet.", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03465", "text": "How long does a check take to show up in the account balance?", "label": "balance_not_updated_after_cheque_or_cash_deposit"}
+{"id": "train-03505", "text": "I don't recognize a purchase that was made with my card.", "label": "card_payment_not_recognised"}
+{"id": "train-03512", "text": "I looked at my statement and found a payment I and found a mistake.", "label": "card_payment_not_recognised"}
+{"id": "train-03518", "text": "Why is there a random payment in my statement?", "label": "card_payment_not_recognised"}
+{"id": "train-03527", "text": "I am seeing in the App a payment that its not mine", "label": "card_payment_not_recognised"}
+{"id": "train-03536", "text": "I've never been to that store.  That's a fraudulent charge.", "label": "card_payment_not_recognised"}
+{"id": "train-03546", "text": "There is a payment on my card that I do not recognize.  I've never seen the name on the transaction before.", "label": "card_payment_not_recognised"}
+{"id": "train-03554", "text": "This card payment isn't is recognition.", "label": "card_payment_not_recognised"}
+{"id": "train-03558", "text": "There are a couple of payments with my card shown in the app that I really didn't make myself. What's going on with this?", "label": "card_payment_not_recognised"}
+{"id": "train-03584", "text": "There is a payment in the app I did not make", "label": "card_payment_not_recognised"}
+{"id": "train-03592", "text": "I do not recognise this card payment.", "label": "card_payment_not_recognised"}
+{"id": "train-03594", "text": "There are a couple payments with my card shown that I'm not responsible for. What is going on? Maybe someone has access to my account.", "label": "card_payment_not_recognised"}
+{"id": "train-03597", "text": "I just checked my account on the App and there is a payment on there that I did not make.", "label": "card_payment_not_recognised"}
+{"id": "train-03599", "text": "In the App I see a payment that is not mine.", "label": "card_payment_not_recognised"}
+{"id": "train-03622", "text": "There's a card payment with a name I don't recognize", "label": "card_payment_not_recognised"}
+{"id": "train-03629", "text": "I don't recognize this payment", "label": "card_payment_not_recognised"}
+{"id": "train-03633", "text": "There are a few payments in the app that I didn't make! Does someone else have my card?  What should I do?", "label": "card_payment_not_recognised"}
+{"id": "train-03642", "text": "I have a charge I did not make.", "label": "card_payment_not_recognised"}
+{"id": "train-03651", "text": "I am here to change my adress.", "label": "edit_personal_details"}
+{"id": "train-03652", "text": "I'd like to make some changes to my personal information.", "label": "edit_personal_details"}
+{"id": "train-03678", "text": "Tell me how to change my details.", "label": "edit_personal_details"}
+{"id": "train-03687", "text": "I am looking to change my adress.", "label": "edit_personal_details"}
+{"id": "train-03722", "text": "My marital status has change, I got to correct my name to reflect that.", "label": "edit_personal_details"}
+{"id": "train-03724", "text": "I moved so I need to change my address. How do I do that?", "label": "edit_personal_details"}
+{"id": "train-03735", "text": "is there a way to change name?", "label": "edit_personal_details"}
+{"id": "train-03751", "text": "how do i get into my account and edit my details", "label": "edit_personal_details"}
+{"id": "train-03753", "text": "How do I modify my account details?", "label": "edit_personal_details"}
+{"id": "train-03754", "text": "How do I change my name?", "label": "edit_personal_details"}
+{"id": "train-03756", "text": "I need to change my contact information.", "label": "edit_personal_details"}
+{"id": "train-03757", "text": "I need to update my phone number.", "label": "edit_personal_details"}
+{"id": "train-03781", "text": "Is the identity check part of bank policy?", "label": "why_verify_identity"}
+{"id": "train-03786", "text": "Can I use my account before the identity verification is complete?", "label": "why_verify_identity"}
+{"id": "train-03805", "text": "If my identy verifacation hasn't gone through can I use my account?", "label": "why_verify_identity"}
+{"id": "train-03808", "text": "Can I use my account now, even though my identity verification has not gone through yet?", "label": "why_verify_identity"}
+{"id": "train-03819", "text": "Can I go ahead and use my account even though my identify hasn't been verified yet?", "label": "why_verify_identity"}
+{"id": "train-03825", "text": "Why are you asking so many questions about me?", "label": "why_verify_identity"}
+{"id": "train-03828", "text": "Why is it required to verify my identity?", "label": "why_verify_identity"}
+{"id": "train-03831", "text": "What do you need my identity details for?", "label": "why_verify_identity"}
+{"id": "train-03839", "text": "I don't understand why you want so much of my personal info.", "label": "why_verify_identity"}
+{"id": "train-03843", "text": "I can't do the verification.", "label": "why_verify_identity"}
+{"id": "train-03847", "text": "can I use my card before identity verification?", "label": "why_verify_identity"}
+{"id": "train-03878", "text": "I keep being asked to verify my identity. Is this normal?", "label": "why_verify_identity"}
+{"id": "train-03893", "text": "What proof do you need for my identification?", "label": "unable_to_verify_identity"}
+{"id": "train-03898", "text": "I can't verify identity through the app.", "label": "unable_to_verify_identity"}
+{"id": "train-03905", "text": "You will hear back from us about your verification results in 10 minutes to a one hour timeframe.  If these verification results do fail, please double-check to make sure your images are clear and have no glare or blur; your photos need to be fully readable.  You need to be 18 years of age or older and a resident of Switzerland or the European Economic Area to create an account.", "label": "unable_to_verify_identity"}
+{"id": "train-03934", "text": "Hearing about your verification results from us may take anywhere from 10 minutes to approximately one hour.  If this verification has in fact, failed, double-check to make sure that your images are clear.  Also make sure that your document photos have no blur or glare. They need to be readable.  You must also be 18 years of age or older and be a resident of Switzerland or the European Economic Area to open an account.", "label": "unable_to_verify_identity"}
+{"id": "train-03935", "text": "I'm having a hard time proving my identity.", "label": "unable_to_verify_identity"}
+{"id": "train-03963", "text": "The app doesn't think it's me.", "label": "unable_to_verify_identity"}
+{"id": "train-03964", "text": "How long does it take to verify a person's identity?", "label": "unable_to_verify_identity"}
+{"id": "train-03971", "text": "It won't let me prove my identity.", "label": "unable_to_verify_identity"}
+{"id": "train-03972", "text": "I am having trouble verifying my id.", "label": "unable_to_verify_identity"}
+{"id": "train-03988", "text": "Help me verify my identity.", "label": "unable_to_verify_identity"}
+{"id": "train-04013", "text": "How do I find my PIN?", "label": "get_physical_card"}
+{"id": "train-04015", "text": "When do I get my PIN?", "label": "get_physical_card"}
+{"id": "train-04019", "text": "do i have to wait for a physical card before i get my pin", "label": "get_physical_card"}
+{"id": "train-04041", "text": "How is the PIN delivered?", "label": "get_physical_card"}
+{"id": "train-04044", "text": "Where's my card PIN?", "label": "get_physical_card"}
+{"id": "train-04050", "text": "When do I set up my card PIN?", "label": "get_physical_card"}
+{"id": "train-04056", "text": "How do I find the PIN?", "label": "get_physical_card"}
+{"id": "train-04072", "text": "I can't find my PIN anywhere.", "label": "get_physical_card"}
+{"id": "train-04077", "text": "can i go into my app to find my pin", "label": "get_physical_card"}
+{"id": "train-04078", "text": "Is the PIN separately delivered?", "label": "get_physical_card"}
+{"id": "train-04087", "text": "Do you deliver the PIN separately?", "label": "get_physical_card"}
+{"id": "train-04108", "text": "I want a mastercard", "label": "visa_or_mastercard"}
+{"id": "train-04109", "text": "I prefer mastercard.", "label": "visa_or_mastercard"}
+{"id": "train-04119", "text": "Can you issue both a Visa and a Mastercard to me?", "label": "visa_or_mastercard"}
+{"id": "train-04143", "text": "I would like to have a Mastercard.", "label": "visa_or_mastercard"}
+{"id": "train-04161", "text": "I'd like to apply for a Visa Card.", "label": "visa_or_mastercard"}
+{"id": "train-04167", "text": "Can I select my card scheme or do you choose it for me?", "label": "visa_or_mastercard"}
+{"id": "train-04197", "text": "I need a Visa and a Mastercard from you.", "label": "visa_or_mastercard"}
+{"id": "train-04199", "text": "I want a Mastercard, instead.", "label": "visa_or_mastercard"}
+{"id": "train-04200", "text": "I need to get visa and mastercard", "label": "visa_or_mastercard"}
+{"id": "train-04201", "text": "Could I get a mastercard if that's reasonable?", "label": "visa_or_mastercard"}
+{"id": "train-04220", "text": "I hope to get a Visa card", "label": "visa_or_mastercard"}
+{"id": "train-04225", "text": "I would like to get both Mastercard and Visa card from you if that's possible.", "label": "visa_or_mastercard"}
+{"id": "train-04231", "text": "Is it acceptable to use either Visa or Mastercard?", "label": "visa_or_mastercard"}
+{"id": "train-04233", "text": "Can I choose what card I can use", "label": "visa_or_mastercard"}
+{"id": "train-04250", "text": "I used my card top-up but all of the money is missing.", "label": "topping_up_by_card"}
+{"id": "train-04268", "text": "Why was my card charged when topping off my balance but it's not showing up in my wallet balance?", "label": "topping_up_by_card"}
+{"id": "train-04277", "text": "The money disappeared when I tried to use my card to top up.", "label": "topping_up_by_card"}
+{"id": "train-04278", "text": "I wasn't able to use my top up card because the money I put on there wasn't there anymore", "label": "topping_up_by_card"}
+{"id": "train-04282", "text": "How do I top up on my card?", "label": "topping_up_by_card"}
+{"id": "train-04293", "text": "Can I allow other people to top up my account?", "label": "topping_up_by_card"}
+{"id": "train-04313", "text": "What's the process for topping up my card?", "label": "topping_up_by_card"}
+{"id": "train-04320", "text": "If I want a friend to top off my account, can they?", "label": "topping_up_by_card"}
+{"id": "train-04324", "text": "Where did my top-up go? I can't find it in my wallet", "label": "topping_up_by_card"}
+{"id": "train-04335", "text": "I need to transfer some money, can I use my credit card?", "label": "topping_up_by_card"}
+{"id": "train-04339", "text": "How many times can I use a virtual card?", "label": "disposable_card_limits"}
+{"id": "train-04353", "text": "How limited is a virtual card?", "label": "disposable_card_limits"}
+{"id": "train-04367", "text": "I need to make several disposable cards per day.", "label": "disposable_card_limits"}
+{"id": "train-04374", "text": "I need several cards per day. And I need to be able to throw away all of the cards I make.", "label": "disposable_card_limits"}
+{"id": "train-04386", "text": "What are the restrictions on the virtual cards?", "label": "disposable_card_limits"}
+{"id": "train-04395", "text": "What is the maximum transactions I can use on a disposable card?", "label": "disposable_card_limits"}
+{"id": "train-04417", "text": "Are there limits on the virtual cards?", "label": "disposable_card_limits"}
+{"id": "train-04422", "text": "What is the maximum number of transactions I can do with a disposable card?", "label": "disposable_card_limits"}
+{"id": "train-04427", "text": "How many transactions can be made with a disposable card?", "label": "disposable_card_limits"}
+{"id": "train-04434", "text": "Do the disposable cards have restrictions?", "label": "disposable_card_limits"}
+{"id": "train-04436", "text": "What are the disposable card limits?", "label": "disposable_card_limits"}
+{"id": "train-04442", "text": "let me know how many disposable cards I can have?", "label": "disposable_card_limits"}
+{"id": "train-04459", "text": "I think someone is using my card without my permission!", "label": "compromised_card"}
+{"id": "train-04460", "text": "What do I do if I detect fraudulent use on my car?", "label": "compromised_card"}
+{"id": "train-04479", "text": "I want to cancel my card. I think someone else is using it.", "label": "compromised_card"}
+{"id": "train-04489", "text": "I think my card has been used by somebody else since I was never in the little town where some transactions on this bill have come from. Please stop this right away.", "label": "compromised_card"}
+{"id": "train-04502", "text": "I am not sure but someone else might be using my card", "label": "compromised_card"}
+{"id": "train-04511", "text": "I have transactions that I don't recognize - I think someone is using my card.", "label": "compromised_card"}
+{"id": "train-04512", "text": "my card details could be stolen, as i didnt make these transactions", "label": "compromised_card"}
+{"id": "train-04521", "text": "My card information seems to have been stolen! I don't know where these transactions came from and I've never even been to the city where they were made. I need my card blocked ASAP so this person can't keep using my card.", "label": "compromised_card"}
+{"id": "train-04538", "text": "My wallet was stolen and all my credit cards were in there.  HELP?!!?", "label": "compromised_card"}
+{"id": "train-04550", "text": "Do all ATMs accept this card?", "label": "atm_support"}
+{"id": "train-04554", "text": "Which ATMs accept this bill of fare ?", "label": "atm_support"}
+{"id": "train-04558", "text": "What locations allow me to withdraw money?", "label": "atm_support"}
+{"id": "train-04571", "text": "Where are the ATMs that accept this card?", "label": "atm_support"}
+{"id": "train-04579", "text": "Where is the closest ATM I can use?", "label": "atm_support"}
+{"id": "train-04599", "text": "What's the closest place to withdraw money?", "label": "atm_support"}
+{"id": "train-04616", "text": "Are there only certain ATM machines where I can use this card?", "label": "atm_support"}
+{"id": "train-04623", "text": "I need to know where I can withdraw money.", "label": "atm_support"}
+{"id": "train-04630", "text": "What ATM accepts Mastercard?", "label": "atm_support"}
+{"id": "train-04638", "text": "There is a Direct Debit that looks suspicious.", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04641", "text": "A direct debit payment that I didn't authorise shows up in my app.", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04653", "text": "Is there a strict timeline regarding disputing transactions made on my account? I just noticed a fraudulent charge on a statement from a couple months ago.", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04692", "text": "I have an unknown debit charge in my statement, why?", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04704", "text": "I think I am a victim of fraud.  I noticed there was a charge on my account that I didn't do because I haven't touched my card today.  Can you please reverse the charge and refund my money?", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04725", "text": "How do I dispute a direct debit transaction?", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04729", "text": "I would like to dispute a payment I didnt make", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04741", "text": "I might have been charged on my debit statement by fraud.", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04751", "text": "Please help me regarding a direct debit in the app that I don't recognize.", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04752", "text": "how do i get a refund for a direct debit payment i didn't make", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04755", "text": "Purchases I did not make are appearing in my bank statement?", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04757", "text": "There's a payment showing in the app today even though I have not used my card at all. I want a refund.", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04763", "text": "Weird Direct Debit payment", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04764", "text": "I have an unauthorized direct debit on my account", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04768", "text": "after going over my transactions for the last couple of months I noticed a pretty large charge that I know I did not make. I know it's been a while but can I still dispute this charge?", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04781", "text": "Why am I seeing a direct debit thats not mine?", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04783", "text": "There is a direct debit set up that I didn't create.", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04812", "text": "There is a payment showing on my app that I didn't do. Will you please cancel this payment and refund my money ?", "label": "direct_debit_payment_not_recognised"}
+{"id": "train-04825", "text": "I can't remember my passcode.", "label": "passcode_forgotten"}
+{"id": "train-04836", "text": "I seem to of forgotten my passcode.", "label": "passcode_forgotten"}
+{"id": "train-04842", "text": "I don't remember my login code", "label": "passcode_forgotten"}
+{"id": "train-04857", "text": "I've forgotten my passcode. Can I reset?", "label": "passcode_forgotten"}
+{"id": "train-04872", "text": "Where do I go to reset my passcode?", "label": "passcode_forgotten"}
+{"id": "train-04875", "text": "How can I go about resetting my passcode?", "label": "passcode_forgotten"}
+{"id": "train-04876", "text": "How can I change my password?", "label": "passcode_forgotten"}
+{"id": "train-04877", "text": "Is there a way to reset the passcode?", "label": "passcode_forgotten"}
+{"id": "train-04883", "text": "Can you tell me my code to get into the app?", "label": "passcode_forgotten"}
+{"id": "train-04904", "text": "How do I get the passcode reset?", "label": "passcode_forgotten"}
+{"id": "train-04922", "text": "i needed money for a night out with the girls but i was declined, why?", "label": "declined_cash_withdrawal"}
+{"id": "train-04926", "text": "My withdrawals were going smooth until I got declined today. What is going on?", "label": "declined_cash_withdrawal"}
+{"id": "train-04931", "text": "How come I can't get money at the ATM", "label": "declined_cash_withdrawal"}
+{"id": "train-04952", "text": "Why couldn't I make a withdrawal from the ATM?", "label": "declined_cash_withdrawal"}
+{"id": "train-04957", "text": "The ATM keeps declining my Transaction . I tried two different ATMs already can you please check if everything is okay with my account?", "label": "declined_cash_withdrawal"}
+{"id": "train-04990", "text": "My cash withdrawal was declined.  Why?", "label": "declined_cash_withdrawal"}
+{"id": "train-04993", "text": "Is there something wrong with my ATM Card?  Tried using it earlier and it did not work.", "label": "declined_cash_withdrawal"}
+{"id": "train-05000", "text": "My card rejected a cash withdrawal. Why?", "label": "declined_cash_withdrawal"}
+{"id": "train-05002", "text": "I could not get the ATM to work", "label": "declined_cash_withdrawal"}
+{"id": "train-05009", "text": "Hello, is there any way to double check my card? I have never had issues with withdraws in the past, but this morning on the way to work it was unexpectedly declined.", "label": "declined_cash_withdrawal"}
+{"id": "train-05010", "text": "My card didn't work at the ATM in Notting Hill.  Is my card working?", "label": "declined_cash_withdrawal"}
+{"id": "train-05035", "text": "Why do I get declined when I try to withdraw cash?", "label": "declined_cash_withdrawal"}
+{"id": "train-05044", "text": "I tried to get money out of the Notting Hill ATM earlier, but I wasn't able to get anything out. Is there a problem with my card? It's the first time I tried using it.", "label": "declined_cash_withdrawal"}
+{"id": "train-05057", "text": "I tried to withdraw cash, but got declined!", "label": "declined_cash_withdrawal"}
+{"id": "train-05072", "text": "I tried to make a withdrawal from the ATM, but it was cancelled.", "label": "declined_cash_withdrawal"}
+{"id": "train-05073", "text": "I could not get money from an ATM", "label": "declined_cash_withdrawal"}
+{"id": "train-05084", "text": "Why did the ATM cancel my transaction", "label": "declined_cash_withdrawal"}
+{"id": "train-05092", "text": "What does it mean when a payment is pending?", "label": "pending_card_payment"}
+{"id": "train-05099", "text": "How long does a payment usually show as pending? Is it normal that mine is still pending?", "label": "pending_card_payment"}
+{"id": "train-05102", "text": "I made a payment with my card and it hasn't changed. How long do you think this will take?", "label": "pending_card_payment"}
+{"id": "train-05122", "text": "How is my card payment still pending?", "label": "pending_card_payment"}
+{"id": "train-05125", "text": "Why is my payment still pending?", "label": "pending_card_payment"}
+{"id": "train-05140", "text": "Why hasn't my card payment cleared yet?", "label": "pending_card_payment"}
+{"id": "train-05141", "text": "I've made a card payment a couple of days ago now but it looks like the money is stuck. How long does it typically take for the payment to go through?", "label": "pending_card_payment"}
+{"id": "train-05143", "text": "What does it mean if my payment is pending?", "label": "pending_card_payment"}
+{"id": "train-05161", "text": "My card payment has been stuck on pending. What is the problem? It should have gone through by now.", "label": "pending_card_payment"}
+{"id": "train-05191", "text": "How long does it take for my payment to process?", "label": "pending_card_payment"}
+{"id": "train-05192", "text": "Why would my payment for my card show as pending?", "label": "pending_card_payment"}
+{"id": "train-05198", "text": "Why didn't my payment process", "label": "pending_card_payment"}
+{"id": "train-05199", "text": "I have a payment that hasn't went through yet.", "label": "pending_card_payment"}
+{"id": "train-05200", "text": "I made a payment but it's still pending", "label": "pending_card_payment"}
+{"id": "train-05205", "text": "I have a payment which has not been approved.", "label": "pending_card_payment"}
+{"id": "train-05227", "text": "My payment is in the app but hasn't gone through yet", "label": "pending_card_payment"}
+{"id": "train-05251", "text": "My phone was stolen, what should I do first?", "label": "lost_or_stolen_phone"}
+{"id": "train-05267", "text": "I can't use the app because I got mugged yesterday and they took everything. Please help.", "label": "lost_or_stolen_phone"}
+{"id": "train-05274", "text": "I got mugged yesterday and they took everything. I can't use the app, so I need some help.", "label": "lost_or_stolen_phone"}
+{"id": "train-05282", "text": "I don't have the device I used to log onto the platform so I can't access it.", "label": "lost_or_stolen_phone"}
+{"id": "train-05288", "text": "phone is gone, what should i do", "label": "lost_or_stolen_phone"}
+{"id": "train-05309", "text": "Can I use your services without access to the app?", "label": "lost_or_stolen_phone"}
+{"id": "train-05311", "text": "How do I protect my phone from someone using it after I lost it.", "label": "lost_or_stolen_phone"}
+{"id": "train-05334", "text": "What do I do to lock my phone after losing it so my account isn't accessed", "label": "lost_or_stolen_phone"}
+{"id": "train-05344", "text": "What should I do if I lost my phone?", "label": "lost_or_stolen_phone"}
+{"id": "train-05347", "text": "I cannot find my phone, what should I do?", "label": "lost_or_stolen_phone"}
+{"id": "train-05350", "text": "left my phone at hotel, cant use app", "label": "lost_or_stolen_phone"}
+{"id": "train-05364", "text": "Do I need to do anything? My phone was stolen yesterday.", "label": "lost_or_stolen_phone"}
+{"id": "train-05372", "text": "How long does it take to get a refund on something I bought?", "label": "request_refund"}
+{"id": "train-05379", "text": "I'm interested in learning more about product refunds.", "label": "request_refund"}
+{"id": "train-05393", "text": "I've changed my mind on an item.  How do I get a refund?", "label": "request_refund"}
+{"id": "train-05395", "text": "How do I get a refund for something I bought?", "label": "request_refund"}
+{"id": "train-05408", "text": "I want to cancel a purchase", "label": "request_refund"}
+{"id": "train-05417", "text": "I received the wrong color and size, can I return it?", "label": "request_refund"}
+{"id": "train-05431", "text": "Hey, I ordered a thing but changed my mind and want a refund on it. Since I haven't received the thing, would you just go ahead and cancel the payment for me?", "label": "request_refund"}
+{"id": "train-05433", "text": "What do I need to do for a refund?", "label": "request_refund"}
+{"id": "train-05454", "text": "My product was faulty.", "label": "request_refund"}
+{"id": "train-05457", "text": "Can I get a refund on an item?", "label": "request_refund"}
+{"id": "train-05468", "text": "I'm going to cancel a purchase.", "label": "request_refund"}
+{"id": "train-05494", "text": "Give me back my money, I'm not paying the sellers. It has been a long time ago that I made an order and it just isn't coming.", "label": "request_refund"}
+{"id": "train-05499", "text": "I would like it if I could get an item refunded", "label": "request_refund"}
+{"id": "train-05518", "text": "How do I return something for a full refund?", "label": "request_refund"}
+{"id": "train-05519", "text": "I did not receive my purchase, how do I cancel it?", "label": "request_refund"}
+{"id": "train-05526", "text": "Hello I changed my mind and want a refund on one of things I bought recently. Can you please cancel the transaction and get me my money back. Please it's urgent.", "label": "request_refund"}
+{"id": "train-05536", "text": "Can I exchange an item for a refund?", "label": "request_refund"}
+{"id": "train-05542", "text": "Why was my transfer request decline?", "label": "declined_transfer"}
+{"id": "train-05544", "text": "I tried to buy something online yesterday and got a message saying declined. I tried again today and got the same message. What's the problem?", "label": "declined_transfer"}
+{"id": "train-05582", "text": "I get a \"decline\" message when doing a transfer", "label": "declined_transfer"}
+{"id": "train-05590", "text": "I couldn't make a transfer because it was declined", "label": "declined_transfer"}
+{"id": "train-05604", "text": "I am unable to transfer money. I believe it is not working because it states it was declined.", "label": "declined_transfer"}
+{"id": "train-05607", "text": "Hi, during online shopping payment is getting declined yesterday and today as well. Please check the issue.", "label": "declined_transfer"}
+{"id": "train-05608", "text": "Please help me as my online payment is getting declined since yesterday while i am trying to purchase something online.", "label": "declined_transfer"}
+{"id": "train-05619", "text": "Why are my transfers and purchases keep getting declined?", "label": "declined_transfer"}
+{"id": "train-05620", "text": "how come my transfer declined", "label": "declined_transfer"}
+{"id": "train-05628", "text": "My transfer has been declined.", "label": "declined_transfer"}
+{"id": "train-05629", "text": "I wanted to know why my transaction didn't go through.", "label": "declined_transfer"}
+{"id": "train-05661", "text": "Help me. My transfer was declined. How could this happen?", "label": "declined_transfer"}
+{"id": "train-05668", "text": "Declined, transfer not completed.", "label": "declined_transfer"}
+{"id": "train-05680", "text": "I need my refund", "label": "Refund_not_showing_up"}
+{"id": "train-05683", "text": "when will I get my refund?", "label": "Refund_not_showing_up"}
+{"id": "train-05688", "text": "I can't see a refund for a return I completed recently.", "label": "Refund_not_showing_up"}
+{"id": "train-05701", "text": "There is a refund missing.", "label": "Refund_not_showing_up"}
+{"id": "train-05703", "text": "I need my refund as soon as possible. What else do I have to do?", "label": "Refund_not_showing_up"}
+{"id": "train-05706", "text": "How can I check if I have received a refund if it is not yet on my statement?", "label": "Refund_not_showing_up"}
+{"id": "train-05720", "text": "Give me a refund now!! I am still waiting.", "label": "Refund_not_showing_up"}
+{"id": "train-05745", "text": "A while ago i requested a refund from a seller. I keep checking my statement but I have not been refunded yet. I'm confused why i haven't gotten my money back yet but I need your help getting it please.", "label": "Refund_not_showing_up"}
+{"id": "train-05748", "text": "I have received my statement but I do not see my refund, why is that?", "label": "Refund_not_showing_up"}
+{"id": "train-05761", "text": "who should i contact if my refund doesn't go through?", "label": "Refund_not_showing_up"}
+{"id": "train-05775", "text": "I keep checking to see if I've received a refund that I requested from a seller, but I'm not seeing the refund. I need you to help me get the refund.", "label": "Refund_not_showing_up"}
+{"id": "train-05789", "text": "My refund has not shown up in my account.   Where is it?", "label": "Refund_not_showing_up"}
+{"id": "train-05791", "text": "How long will it take to refund me", "label": "Refund_not_showing_up"}
+{"id": "train-05792", "text": "I keep checking my statements but no progress.I requested a refund but seems it's not reaching my account for some reason. Can you please help me get the money back from the seller for me", "label": "Refund_not_showing_up"}
+{"id": "train-05812", "text": "My refund isn't showing up", "label": "Refund_not_showing_up"}
+{"id": "train-05818", "text": "I don't see a refund in my account.", "label": "Refund_not_showing_up"}
+{"id": "train-05845", "text": "I am very upset that i went to use my new card today and it kept getting declined. Why is this happening and what do I do to not have it declined?", "label": "declined_card_payment"}
+{"id": "train-05848", "text": "Why has my card been declined?", "label": "declined_card_payment"}
+{"id": "train-05876", "text": "When I use my card, it says decline?", "label": "declined_card_payment"}
+{"id": "train-05880", "text": "I tried to make a purchase in the store but my card was declined.", "label": "declined_card_payment"}
+{"id": "train-05884", "text": "Explain the payment that was declined!", "label": "declined_card_payment"}
+{"id": "train-05886", "text": "Why didn;t my payment work", "label": "declined_card_payment"}
+{"id": "train-05903", "text": "Why won't you accept my payment? I keep trying with this card and it's not working.", "label": "declined_card_payment"}
+{"id": "train-05929", "text": "I tried to pay with my card and it didn't work", "label": "declined_card_payment"}
+{"id": "train-05937", "text": "It seems like my card payment didn't work.", "label": "declined_card_payment"}
+{"id": "train-05939", "text": "Why has my card been declined?  whats the deal?", "label": "declined_card_payment"}
+{"id": "train-05942", "text": "my payment was rejected, do you know why?", "label": "declined_card_payment"}
+{"id": "train-05944", "text": "I made a card payment, but it has been declined?", "label": "declined_card_payment"}
+{"id": "train-05950", "text": "I was just needing to know why my card got declined", "label": "declined_card_payment"}
+{"id": "train-05964", "text": "I received my new card and tried using it today, just to have it show declined over and over again.  Why is this happening?", "label": "declined_card_payment"}
+{"id": "train-05985", "text": "Card payment didn't go through.", "label": "declined_card_payment"}
+{"id": "train-05993", "text": "How long do transfers take, mine just says pending?", "label": "pending_transfer"}
+{"id": "train-06001", "text": "I transferred money to another country several days ago, but my transaction is still pending. i have checked that the accounts are keyed in correctly. what sees to be the problem?", "label": "pending_transfer"}
+{"id": "train-06006", "text": "What am I supposed to do if the funds haven't show up from a transfer completed this morning?", "label": "pending_transfer"}
+{"id": "train-06020", "text": "I bought something on line a and the seller hasn't received the money I sent could you please tell me how long an EU transfer takes?", "label": "pending_transfer"}
+{"id": "train-06028", "text": "How long do you expect me to wait for the transfer? It finally worked out, but has been pending for a long time and it's quite urgent.", "label": "pending_transfer"}
+{"id": "train-06040", "text": "why have I got a pending transfer? I'm confused!!", "label": "pending_transfer"}
+{"id": "train-06047", "text": "I am still waiting for a transfer to show up", "label": "pending_transfer"}
+{"id": "train-06050", "text": "A transfer is pending.", "label": "pending_transfer"}
+{"id": "train-06057", "text": "Could you please help me figure out why the seller has not received their money after I sent it.", "label": "pending_transfer"}
+{"id": "train-06076", "text": "Why is there a pending time on my transfer?", "label": "pending_transfer"}
+{"id": "train-06096", "text": "My money transfer has not happened yet", "label": "pending_transfer"}
+{"id": "train-06104", "text": "I have an outgoing transfer", "label": "pending_transfer"}
+{"id": "train-06122", "text": "I have a pending money transfer", "label": "pending_transfer"}
+{"id": "train-06131", "text": "My transfer went through, but it seems to be caught up in a pending status.  This was very important that it got done quickly, can you give me a status update on how long it will take?", "label": "pending_transfer"}
+{"id": "train-06134", "text": "I need to know why a money transfer is available.", "label": "pending_transfer"}
+{"id": "train-06144", "text": "I would like to invalidate my account.  I am very disappointed with your services.", "label": "terminate_account"}
+{"id": "train-06147", "text": "for god sake, just delete my account i am sick of this", "label": "terminate_account"}
+{"id": "train-06167", "text": "I am not happy with your company. Please delete my account asap.", "label": "terminate_account"}
+{"id": "train-06173", "text": "I want to stop my account", "label": "terminate_account"}
+{"id": "train-06184", "text": "I want to terminate my account", "label": "terminate_account"}
+{"id": "train-06185", "text": "How can I delete my account?", "label": "terminate_account"}
+{"id": "train-06186", "text": "I want to end my account", "label": "terminate_account"}
+{"id": "train-06191", "text": "How do I terminate my account.", "label": "terminate_account"}
+{"id": "train-06201", "text": "What do I do to close my account?", "label": "terminate_account"}
+{"id": "train-06204", "text": "I don't want this account anymore, how do I delete it?", "label": "terminate_account"}
+{"id": "train-06212", "text": "I would like to terminate my account.", "label": "terminate_account"}
+{"id": "train-06259", "text": "The ATM took my card.", "label": "card_swallowed"}
+{"id": "train-06265", "text": "What should I do since my card is trapped in the ATM?", "label": "card_swallowed"}
+{"id": "train-06284", "text": "What do I do?  The ATM took my card!", "label": "card_swallowed"}
+{"id": "train-06292", "text": "How do I get a new card as your machine swallowed mine!", "label": "card_swallowed"}
+{"id": "train-06300", "text": "How do I get my card back after the ATM swallowed it.", "label": "card_swallowed"}
+{"id": "train-06303", "text": "What are the steps I should take to recover my swallowed card?", "label": "card_swallowed"}
+{"id": "train-06311", "text": "How do I query a payment on my card? It looks like I have paid for the same thing twice.", "label": "transaction_charged_twice"}
+{"id": "train-06318", "text": "My transaction history is looking a little off. I have been charged twice for multiple different purchases, and would like to have those duplicate charges refunded.", "label": "transaction_charged_twice"}
+{"id": "train-06333", "text": "I got charged two times for a transaction", "label": "transaction_charged_twice"}
+{"id": "train-06344", "text": "I had a duplicate card and bought something and it showed up twice. I canceled my card, how do I get my money back?", "label": "transaction_charged_twice"}
+{"id": "train-06349", "text": "I have duplicate charges for the same transaction", "label": "transaction_charged_twice"}
+{"id": "train-06352", "text": "There are two of the same charges on my account.", "label": "transaction_charged_twice"}
+{"id": "train-06364", "text": "Why does the same transaction appear multiple times?", "label": "transaction_charged_twice"}
+{"id": "train-06371", "text": "A transaction is showing more than once.", "label": "transaction_charged_twice"}
+{"id": "train-06383", "text": "Why do I have a transaction showing up more than once?", "label": "transaction_charged_twice"}
+{"id": "train-06384", "text": "Why was I charged twice for my item!", "label": "transaction_charged_twice"}
+{"id": "train-06394", "text": "I was charged two times for the same thing.", "label": "transaction_charged_twice"}
+{"id": "train-06407", "text": "Why have I been charged more than once for the same transaction?", "label": "transaction_charged_twice"}
+{"id": "train-06421", "text": "Why do I have a transaction showing multiple times?", "label": "transaction_charged_twice"}
+{"id": "train-06426", "text": "There are two of the same charge on my statement.", "label": "transaction_charged_twice"}
+{"id": "train-06441", "text": "How come there is a duplicate charge on my card?", "label": "transaction_charged_twice"}
+{"id": "train-06458", "text": "In reviewing my statement, I show I have two charges for the same purchase at the same time, which I have not made in duplicate? How do I get this solved?", "label": "transaction_charged_twice"}
+{"id": "train-06474", "text": "I think I was charged double for something I bought - how long should I wait before reporting this?", "label": "transaction_charged_twice"}
+{"id": "train-06475", "text": "Why is there a payment showing twice?", "label": "transaction_charged_twice"}
+{"id": "train-06487", "text": "Can I trace where my funds came from?", "label": "verify_source_of_funds"}
+{"id": "train-06494", "text": "I would like to know where my source of funds came from.", "label": "verify_source_of_funds"}
+{"id": "train-06513", "text": "What kind of security protects my money?", "label": "verify_source_of_funds"}
+{"id": "train-06519", "text": "my money, where is it coming from?", "label": "verify_source_of_funds"}
+{"id": "train-06529", "text": "How do I verify the source of my funds?", "label": "verify_source_of_funds"}
+{"id": "train-06536", "text": "I would like to know how to work out where my funds came from?", "label": "verify_source_of_funds"}
+{"id": "train-06547", "text": "Can you tell me how to tell where my funds come from?", "label": "verify_source_of_funds"}
+{"id": "train-06555", "text": "Is there a way to lookup where funds came from?", "label": "verify_source_of_funds"}
+{"id": "train-06571", "text": "can i see money source?", "label": "verify_source_of_funds"}
+{"id": "train-06574", "text": "Where can I find my fund information?", "label": "verify_source_of_funds"}
+{"id": "train-06587", "text": "I'd like to know where my funds come from.", "label": "verify_source_of_funds"}
+{"id": "train-06599", "text": "When does my transfer from the US arrive in my account?", "label": "transfer_timing"}
+{"id": "train-06605", "text": "How long should I have to wait before I see the transfer in my account?", "label": "transfer_timing"}
+{"id": "train-06606", "text": "When will my transfer post to my account?", "label": "transfer_timing"}
+{"id": "train-06639", "text": "What is the estimated time on an urgent transfer from China?", "label": "transfer_timing"}
+{"id": "train-06643", "text": "How long does it take for a transfer to show up in my account?", "label": "transfer_timing"}
+{"id": "train-06648", "text": "When can I expect money to be transferred to my account?", "label": "transfer_timing"}
+{"id": "train-06650", "text": "I need to transfer something to China. It is urgent. How many days will it take to get there?", "label": "transfer_timing"}
+{"id": "train-06657", "text": "It's been a couple days how much longer do I have to wait for my transfer?", "label": "transfer_timing"}
+{"id": "train-06671", "text": "I need to transfer something ASAP from China, how long will it take to post to my account?", "label": "transfer_timing"}
+{"id": "train-06683", "text": "There is an urgent transfer I need to make from China.  How long will it take to get it processed?", "label": "transfer_timing"}
+{"id": "train-06690", "text": "how long does a US transfer take", "label": "transfer_timing"}
+{"id": "train-06698", "text": "What is the time frame for european transfers?", "label": "transfer_timing"}
+{"id": "train-06716", "text": "Transfers from the US how long will the wait be?", "label": "transfer_timing"}
+{"id": "train-06747", "text": "My payment came back for something i'm trying to buy online? it's been doing it for two weeks.  do you know what the issue is?", "label": "reverted_card_payment?"}
+{"id": "train-06754", "text": "I dont know what happened, but my payment was cancelled", "label": "reverted_card_payment?"}
+{"id": "train-06756", "text": "why did my payment revert", "label": "reverted_card_payment?"}
+{"id": "train-06766", "text": "What reasons would cause my card payment to be cancelled?", "label": "reverted_card_payment?"}
+{"id": "train-06782", "text": "Looks like my card payment was cancelled.", "label": "reverted_card_payment?"}
+{"id": "train-06786", "text": "The seller just told me he didn't get paid. After reviewing my account it did subtract the balance but now it has added it back to my account. I need you to please take care of this promptly.", "label": "reverted_card_payment?"}
+{"id": "train-06787", "text": "My card payments have stopped.", "label": "reverted_card_payment?"}
+{"id": "train-06792", "text": "My payment was put back, I think.", "label": "reverted_card_payment?"}
+{"id": "train-06801", "text": "What does it mean if my payment has been reverted?", "label": "reverted_card_payment?"}
+{"id": "train-06804", "text": "I've got a problem - I bought something with my card one or two weeks ago, but now exact same amount of the purchase is showing up in my account. I like more money in my account, but this is too good to be true. Can you tell me what's happening?", "label": "reverted_card_payment?"}
+{"id": "train-06820", "text": "Hello, I was contacted by a seller who let me know my money didn't come through on their side. It most certainly came out of my account so I need this looked at immediately because now it has been returned to me!", "label": "reverted_card_payment?"}
+{"id": "train-06824", "text": "I see a reverted payment on my account. Why has this happened?", "label": "reverted_card_payment?"}
+{"id": "train-06849", "text": "I notice that I have a card payment that's been cancelled.", "label": "reverted_card_payment?"}
+{"id": "train-06851", "text": "I did a payment but the app cancelled it.", "label": "reverted_card_payment?"}
+{"id": "train-06878", "text": "My payment was stopped", "label": "reverted_card_payment?"}
+{"id": "train-06882", "text": "Is it possible that my card payment was reverted?", "label": "reverted_card_payment?"}
+{"id": "train-06898", "text": "Where can I update my pin number?", "label": "change_pin"}
+{"id": "train-06915", "text": "Can my PIN changed remotely without visiting a bank?", "label": "change_pin"}
+{"id": "train-06945", "text": "How can I set a new pin.", "label": "change_pin"}
+{"id": "train-06960", "text": "I want to change my pin number from an ATM. Is this possible?", "label": "change_pin"}
+{"id": "train-06962", "text": "I'm in Austria right now, but I really need to change my PIN right now. Can I do this even though I'm in another country?", "label": "change_pin"}
+{"id": "train-06964", "text": "I want to create a new pin.", "label": "change_pin"}
+{"id": "train-06968", "text": "Set a new PIN please.", "label": "change_pin"}
+{"id": "train-06974", "text": "Can I get a new pin number at any ATM using my card?", "label": "change_pin"}
+{"id": "train-06982", "text": "Help me change my PIN.", "label": "change_pin"}
+{"id": "train-06995", "text": "Which atms allow me to change my pin?", "label": "change_pin"}
+{"id": "train-07001", "text": "At what ATM can I change my PIN?", "label": "change_pin"}
+{"id": "train-07002", "text": "If I am not in the country and I need to change my PIN, how can this be done?", "label": "change_pin"}
+{"id": "train-07017", "text": "Why is my beneficiary not allowed?", "label": "beneficiary_not_allowed"}
+{"id": "train-07019", "text": "My beneficiary is not allowed?  Why?", "label": "beneficiary_not_allowed"}
+{"id": "train-07020", "text": "I tried to transfer funds to a beneficiary and was denied. Can you tell me why?", "label": "beneficiary_not_allowed"}
+{"id": "train-07023", "text": "Why am I not allowed to add a certain beneficiary?", "label": "beneficiary_not_allowed"}
+{"id": "train-07030", "text": "Why didn't my transfer to a beneficiary go through?", "label": "beneficiary_not_allowed"}
+{"id": "train-07055", "text": "Explain why I can't do a transfer to an account.", "label": "beneficiary_not_allowed"}
+{"id": "train-07058", "text": "I cannot make a transfer to another account.", "label": "beneficiary_not_allowed"}
+{"id": "train-07060", "text": "why didnt my account allow a transfer", "label": "beneficiary_not_allowed"}
+{"id": "train-07071", "text": "Why won't you let me name X as a beneficiary?", "label": "beneficiary_not_allowed"}
+{"id": "train-07085", "text": "My account did not allow the transfer.", "label": "beneficiary_not_allowed"}
+{"id": "train-07093", "text": "I don't understand why you aren't accepting my transfer. After a couple times trying I'm still getting an error message.", "label": "beneficiary_not_allowed"}
+{"id": "train-07096", "text": "Why can't I use my beneficiary?", "label": "beneficiary_not_allowed"}
+{"id": "train-07104", "text": "I was trying to purchase some crypto and the app won't allow me to do it. What's the deal with this? I really wanted to complete the exchange.", "label": "beneficiary_not_allowed"}
+{"id": "train-07107", "text": "I tried transferring to an account but it didn't go through. What happened?", "label": "beneficiary_not_allowed"}
+{"id": "train-07113", "text": "Why is a transfer to a beneficiary not possible?", "label": "beneficiary_not_allowed"}
+{"id": "train-07150", "text": "My card isn't letting me purchase something and I wanted to know why.", "label": "beneficiary_not_allowed"}
+{"id": "train-07169", "text": "why am I being charged a fee for transferring money ?", "label": "transfer_fee_charged"}
+{"id": "train-07175", "text": "My transaction went through but I was charged a fee. Why?", "label": "transfer_fee_charged"}
+{"id": "train-07190", "text": "I got an unexpected charge on my transfers. How can I correct this?", "label": "transfer_fee_charged"}
+{"id": "train-07196", "text": "So I've been using my account frequently to manage payments for my vacation house in a different country, and now I'm getting hit with ridiculously high fees! What's with that? Ought not I be rewarded as a frequent user?", "label": "transfer_fee_charged"}
+{"id": "train-07199", "text": "I did a transfer and was charged a fee that I shouldn't have been!", "label": "transfer_fee_charged"}
+{"id": "train-07203", "text": "Does transferring money have a fee?", "label": "transfer_fee_charged"}
+{"id": "train-07227", "text": "Could you inform me as to why I have been charged a higher fee for doing banking abroad.", "label": "transfer_fee_charged"}
+{"id": "train-07236", "text": "This isn't fair! I thought transfers could be made for free. I just made  a purchase online from abroad and now see some strange fee that I've never seen before.", "label": "transfer_fee_charged"}
+{"id": "train-07250", "text": "Why was I charged a fee for transferring money", "label": "transfer_fee_charged"}
+{"id": "train-07257", "text": "Why am I seeing a fee for transferring money?", "label": "transfer_fee_charged"}
+{"id": "train-07264", "text": "Why is there a fee on my money transfer?", "label": "transfer_fee_charged"}
+{"id": "train-07274", "text": "Can you elaborate on why I have an extra charge just for transferring?", "label": "transfer_fee_charged"}
+{"id": "train-07290", "text": "Why do I see a fee when I do a transfer?", "label": "transfer_fee_charged"}
+{"id": "train-07291", "text": "How come I can see an extra charge for my transfer?", "label": "transfer_fee_charged"}
+{"id": "train-07297", "text": "I noticed that there was an extra charge fee on my account. Could You explain to me why?", "label": "transfer_fee_charged"}
+{"id": "train-07304", "text": "After a transfer, I see an extra fee.  Why?", "label": "transfer_fee_charged"}
+{"id": "train-07325", "text": "Is it right that I've been charged for transferring money?", "label": "transfer_fee_charged"}
+{"id": "train-07336", "text": "I am paid by my employer in GBP; do I need to do anything in the app to indicate this?", "label": "receiving_money"}
+{"id": "train-07338", "text": "I would like to know how my friend would be able to send me money", "label": "receiving_money"}
+{"id": "train-07339", "text": "How can I receive money?", "label": "receiving_money"}
+{"id": "train-07340", "text": "I received a transfer in GBP how do I change it to a different currency?", "label": "receiving_money"}
+{"id": "train-07378", "text": "How can I receive money from someone?", "label": "receiving_money"}
+{"id": "train-07385", "text": "Can I have a friend send money directly to me?", "label": "receiving_money"}
+{"id": "train-07389", "text": "May I get my salary paid out in a different currency?", "label": "receiving_money"}
+{"id": "train-07391", "text": "I was wondering, Can I get my pay in another currency?", "label": "receiving_money"}
+{"id": "train-07411", "text": "Can I receive payment in another currency?", "label": "receiving_money"}
+{"id": "train-07422", "text": "If my salary is in GBP, do I need to do something?", "label": "receiving_money"}
+{"id": "train-07428", "text": "What is happening?  I have tried to transfer money 5x already.  Is the system down?  This shouldnt be happening as this is a basic transfer.", "label": "failed_transfer"}
+{"id": "train-07440", "text": "I believe that my transfer hasn't gone through.", "label": "failed_transfer"}
+{"id": "train-07463", "text": "please help my transfer go through", "label": "failed_transfer"}
+{"id": "train-07471", "text": "Hello.  I ran into a problem with a transfer this morning.  I was trying to send money to some friends but when I tried to send it, the transfer failed.  I don't know what is causing the transfer to be rejected.  Please let me know what is causing the problem.  Thanks.", "label": "failed_transfer"}
+{"id": "train-07481", "text": "I attemped a transfer and it didn't go through.", "label": "failed_transfer"}
+{"id": "train-07494", "text": "My transfer did not work, what was the reason?", "label": "failed_transfer"}
+{"id": "train-07499", "text": "I don't think my transfer wen through. Why?", "label": "failed_transfer"}
+{"id": "train-07512", "text": "I'm trying to purchase a flat but i need my first payment for my mortgage to go through first. I keep getting an error. I'm not sure what is going on but i need help making this transfer.", "label": "failed_transfer"}
+{"id": "train-07525", "text": "I couldn't make a transfer", "label": "failed_transfer"}
+{"id": "train-07527", "text": "The transfer keeps rejected, I tried to transfer some money to friends but it keeps getting rejected for some reason, Would you please check the issue?", "label": "failed_transfer"}
+{"id": "train-07528", "text": "I've been trying to make a transfer and it doesn't seem to be working. (5 times) What is wrong with your system?", "label": "failed_transfer"}
+{"id": "train-07532", "text": "Why was my transaction declined?", "label": "failed_transfer"}
+{"id": "train-07538", "text": "The attempted transfer failed.", "label": "failed_transfer"}
+{"id": "train-07544", "text": "What are the reasons that my mortgage payment won't go through? I'm getting an error and don't know how to correct to get this transfer to go through.", "label": "failed_transfer"}
+{"id": "train-07582", "text": "How do I use bank transfer to top up my account?", "label": "transfer_into_account"}
+{"id": "train-07597", "text": "I have money in a foreign account that I want to send to this account.", "label": "transfer_into_account"}
+{"id": "train-07598", "text": "How can I transfer money into my account?", "label": "transfer_into_account"}
+{"id": "train-07599", "text": "I need to move money from another bank to this account.", "label": "transfer_into_account"}
+{"id": "train-07601", "text": "How do I go forth with bank transfers for top up accounts?", "label": "transfer_into_account"}
+{"id": "train-07606", "text": "I would like to know how to transfer money into my account.", "label": "transfer_into_account"}
+{"id": "train-07622", "text": "Can I add money to top up my account via a bank transfer?", "label": "transfer_into_account"}
+{"id": "train-07652", "text": "What is the process for transferring money into my account?", "label": "transfer_into_account"}
+{"id": "train-07664", "text": "I want to transfer money from another account into this one.", "label": "transfer_into_account"}
+{"id": "train-07672", "text": "I am out of money in my account and I was wondering if I could do a bank transfer is put more in it?", "label": "transfer_into_account"}
+{"id": "train-07677", "text": "I need money put into this account from another one.", "label": "transfer_into_account"}
+{"id": "train-07683", "text": "Explain to me how to verify the top-up card.", "label": "verify_top_up"}
+{"id": "train-07684", "text": "How can I verify my top-up card?", "label": "verify_top_up"}
+{"id": "train-07694", "text": "I am having trouble finding the top-up card verification code.", "label": "verify_top_up"}
+{"id": "train-07703", "text": "Why does top-up need to be verified?", "label": "verify_top_up"}
+{"id": "train-07714", "text": "How do I find the code needed in order to verify my top-up card?", "label": "verify_top_up"}
+{"id": "train-07750", "text": "I don't see the verification code for my card transfer.", "label": "verify_top_up"}
+{"id": "train-07751", "text": "Why does top-up require verification?", "label": "verify_top_up"}
+{"id": "train-07754", "text": "What  is the verification process for a top up card?", "label": "verify_top_up"}
+{"id": "train-07758", "text": "How do i authenticate a top-up card?", "label": "verify_top_up"}
+{"id": "train-07766", "text": "Why do I need to verify a top-up?", "label": "verify_top_up"}
+{"id": "train-07780", "text": "What is the top up code for?", "label": "verify_top_up"}
+{"id": "train-07795", "text": "I'm being asked for a verification code. Where do I find it?", "label": "verify_top_up"}
+{"id": "train-07796", "text": "Why does a top- up need to be verify?", "label": "verify_top_up"}
+{"id": "train-07805", "text": "I'd like to order an additional card", "label": "getting_spare_card"}
+{"id": "train-07828", "text": "Can I have a third card?", "label": "getting_spare_card"}
+{"id": "train-07838", "text": "I lost my card and need a new one, will it cost me?", "label": "getting_spare_card"}
+{"id": "train-07843", "text": "I would like some more physical cards, what is my limit?", "label": "getting_spare_card"}
+{"id": "train-07845", "text": "I want to give a second card for this account to my daughter, would this be possible?", "label": "getting_spare_card"}
+{"id": "train-07863", "text": "I would like an extra card.", "label": "getting_spare_card"}
+{"id": "train-07866", "text": "Can another family member hold a card for this account in addition to mine?", "label": "getting_spare_card"}
+{"id": "train-07868", "text": "If I need an additional card, is there a fee for that?", "label": "getting_spare_card"}
+{"id": "train-07886", "text": "Would it be possible for me to get a second card?", "label": "getting_spare_card"}
+{"id": "train-07887", "text": "I am interested in giving a second card to my daughter, how can I make this happen?", "label": "getting_spare_card"}
+{"id": "train-07911", "text": "Is it possible to have a second card?", "label": "getting_spare_card"}
+{"id": "train-07913", "text": "What is the charge for sending out more cards?", "label": "getting_spare_card"}
+{"id": "train-07921", "text": "Do you charge for sending more cards?", "label": "getting_spare_card"}
+{"id": "train-07939", "text": "Can I use a check to get gas?", "label": "top_up_by_cash_or_cheque"}
+{"id": "train-07942", "text": "How can I put more money into my account?", "label": "top_up_by_cash_or_cheque"}
+{"id": "train-07960", "text": "Can I top up with cash", "label": "top_up_by_cash_or_cheque"}
+{"id": "train-07962", "text": "I want to do a cash deposit to top up. How do I do this?", "label": "top_up_by_cash_or_cheque"}
+{"id": "train-07966", "text": "can i top up with check?", "label": "top_up_by_cash_or_cheque"}
+{"id": "train-07977", "text": "where do I go to top up with cash?", "label": "top_up_by_cash_or_cheque"}
+{"id": "train-07987", "text": "Where do I look for cash top up?", "label": "top_up_by_cash_or_cheque"}
+{"id": "train-07998", "text": "How do I use a check to top up?", "label": "top_up_by_cash_or_cheque"}
+{"id": "train-08000", "text": "Where is the option to top up with a cheque?", "label": "top_up_by_cash_or_cheque"}
+{"id": "train-08028", "text": "I want to use cash to top up.", "label": "top_up_by_cash_or_cheque"}
+{"id": "train-08031", "text": "How do I add cash to my account?", "label": "top_up_by_cash_or_cheque"}
+{"id": "train-08057", "text": "Is it possible to get a physical card?", "label": "order_physical_card"}
+{"id": "train-08066", "text": "Please tell me how I can receive a physical card", "label": "order_physical_card"}
+{"id": "train-08067", "text": "I would like a physical card", "label": "order_physical_card"}
+{"id": "train-08079", "text": "Where do you deliver cards to?", "label": "order_physical_card"}
+{"id": "train-08096", "text": "Is a physical charge extra", "label": "order_physical_card"}
+{"id": "train-08109", "text": "Can I receive my card anywhere?", "label": "order_physical_card"}
+{"id": "train-08122", "text": "What is the process for getting an actual physical card?", "label": "order_physical_card"}
+{"id": "train-08138", "text": "I need to get a card, how do I do that?", "label": "order_physical_card"}
+{"id": "train-08150", "text": "What are the places that you deliver cards to?", "label": "order_physical_card"}
+{"id": "train-08152", "text": "What locations are cards delivered to?", "label": "order_physical_card"}
+{"id": "train-08159", "text": "How would I go about getting a physical card to use in stores?", "label": "order_physical_card"}
+{"id": "train-08165", "text": "can i order cards on the app", "label": "order_physical_card"}
+{"id": "train-08172", "text": "My disposable virtual card was rejected.", "label": "virtual_card_not_working"}
+{"id": "train-08173", "text": "My disposable virtual card got rejected", "label": "virtual_card_not_working"}
+{"id": "train-08183", "text": "I can't use my virtual disposable card", "label": "virtual_card_not_working"}
+{"id": "train-08189", "text": "I cannot get my disposable virtual card to work", "label": "virtual_card_not_working"}
+{"id": "train-08218", "text": "Can I make a withdraw in my home currency at an ATM? I'm on vacation and don't have cash with me. This is cause for a bit of concern. Is it possible to withdraw here without additional fees?", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08222", "text": "When I got cash, the exchange rate applied was wrong.", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08229", "text": "I withdrew  money from the ATM and was overcharged.  It said nothing about an extra fee.", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08262", "text": "I don't think the exchange rate was right.", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08277", "text": "I'm unhappy with the exchange rate your cash transactions.", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08307", "text": "The exchange rate for me was wrong when I was abroad.", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08312", "text": "the exchange rate I got for cash was wrong", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08320", "text": "I didn't receive the correct exchange rate when I got cash.", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08324", "text": "When I received my cash; they had my exchange rate incorrect.", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08326", "text": "I thought I was going to receive more currency?", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08334", "text": "I'm upset because I got charged a ridiculous fee when making an ATM withdrawal over a holiday weekend.  It didn't notify me beforehand either or I wouldn't have ever done it.", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08335", "text": "When I received my cash, the exchange rate was wrong.", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08337", "text": "On my last trip, I received the incorrect exchange rate.", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08347", "text": "I got cash and the exchange rate should have been different than it ended up being.", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08353", "text": "When I got cash I believe that the exchange rate was wrong", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08368", "text": "You applied the wrong exchange rate while I was traveling outside the country.", "label": "wrong_exchange_rate_for_cash_withdrawal"}
+{"id": "train-08373", "text": "I want a disposable virtual card, how do I do that?", "label": "get_disposable_virtual_card"}
+{"id": "train-08381", "text": "can i get a virtual card online", "label": "get_disposable_virtual_card"}
+{"id": "train-08395", "text": "What are the disposable cards used for?", "label": "get_disposable_virtual_card"}
+{"id": "train-08401", "text": "I want to make an online purchase but I don't want to use my credit card. Can you tell me how a disposable virtual card works and where I can apply for one?", "label": "get_disposable_virtual_card"}
+{"id": "train-08418", "text": "Can you tell me more info about virtual disposable cards?", "label": "get_disposable_virtual_card"}
+{"id": "train-08420", "text": "Can you point me in the right direction of where to go to roder a disposable virtual card, I can't seem to find it.", "label": "get_disposable_virtual_card"}
+{"id": "train-08427", "text": "How do I order a disposable virtual card?", "label": "get_disposable_virtual_card"}
+{"id": "train-08436", "text": "Can I use a disposable virtual card for any purchase?", "label": "get_disposable_virtual_card"}
+{"id": "train-08457", "text": "How can I obtain a disposable virtual card?", "label": "get_disposable_virtual_card"}
+{"id": "train-08464", "text": "What are the benefits of a disposable card?", "label": "get_disposable_virtual_card"}
+{"id": "train-08479", "text": "My credit card was declined for top-up. Can you see if there is enough funds in my account?", "label": "top_up_failed"}
+{"id": "train-08480", "text": "Why did my credit card get declined for top up?", "label": "top_up_failed"}
+{"id": "train-08490", "text": "My credit card did not go through. Can you see if it has insufficient funds?", "label": "top_up_failed"}
+{"id": "train-08491", "text": "Can I tell if my top off didn't work?  It doesn't seem to have.", "label": "top_up_failed"}
+{"id": "train-08499", "text": "Tell me why my topup wouldn't go through?", "label": "top_up_failed"}
+{"id": "train-08504", "text": "So my top-up failed, could you tell me why?", "label": "top_up_failed"}
+{"id": "train-08512", "text": "My top-up didn't go through", "label": "top_up_failed"}
+{"id": "train-08521", "text": "My top up was denied", "label": "top_up_failed"}
+{"id": "train-08528", "text": "How do I know if my top up worked?", "label": "top_up_failed"}
+{"id": "train-08562", "text": "I'm not sure if my pop-up went through.", "label": "top_up_failed"}
+{"id": "train-08573", "text": "Why did my top-up not work?", "label": "top_up_failed"}
+{"id": "train-08584", "text": "I tried again to top up my card after doing it a couple days ago when it had worked. Now, it doesn't seem to be working. Can you tell me what the deal is here please?", "label": "top_up_failed"}
+{"id": "train-08606", "text": "I tried to top up my account and it didn't work", "label": "top_up_failed"}
+{"id": "train-08607", "text": "Won't let me top my card up!! Who can get it sorted out for me? It's urgent! How do I find out what the problem is with my card and how else to top it up?", "label": "top_up_failed"}
+{"id": "train-08624", "text": "Hi, I am unable to see transaction in my account which i made couples of hours ago from my UK account. Please help me in this.", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08629", "text": "I made a transfer from France two days ago now but there hasn't made it there yet. Do international transfers take longer?", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08647", "text": "Balance hasn't been updated following a bank transfer", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08655", "text": "How long to UK transfers usually take? I made a transfer but it didn't pop up in my history yet. I just want to make sure it went through.", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08662", "text": "I transferred some funds but I don't see it", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08667", "text": "My money hasn't been transferred yet.", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08677", "text": "There is a missing transfer on my account", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08683", "text": "I made a bank transfer earlier from my UK account.  I don't see it yet, can you check the status?", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08697", "text": "How long does a transfer from a UK account take? I just made one and it doesn't seem to be working, wondering if everything is okay", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08698", "text": "The transfer on my account is not showing up.", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08701", "text": "How long do transfers from a UK bank account usually take for you? I just made a transfer and I'm not seeing anything, wondering if it worked", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08702", "text": "How long does a bank transfer take to show up in available funds?", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08704", "text": "Although I transferred some money, it has not as of yet, arrived.", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08707", "text": "I just transferred some money into my account and do not see it updated yet, can you assist?", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08712", "text": "Hi. A couple hours ago I make a transfer from my UK bank account, but it hasn't shown up. Please, would you see what the delay is?", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08759", "text": "How long do I have to wait for my bank transfer to appear in my account?", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08777", "text": "How long do I have to wait until the transferred money shows up?", "label": "balance_not_updated_after_bank_transfer"}
+{"id": "train-08786", "text": "I saw on the app that a cash withdrawal was completed on my account; however, I did not complete it.", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08788", "text": "Someone has a copy of my card !! I definitely still have it here but someone just made a 500£ cash withdrawal, HELP!", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08809", "text": "Somebody stole my wallet and is using my card! Can you do something so they can't keep taking my money?", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08810", "text": "Help! I think someone has a copy of my card - I still have my card, but a five hundred pound cash withdrawal that I didn't authorize is shown on my account.", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08817", "text": "What is this cash withdrawal I don't recognize?", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08835", "text": "My app is showing a cash balance that I did not receive.", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08841", "text": "There are funds in my app that I did not receive.", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08857", "text": "My app shows a money withdrawal that I did not do.", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08900", "text": "There's a cash withdrawal I am certain I did not make", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08902", "text": "I have my card here with me and someone has just made a withdrawal for 500. Please help!", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08920", "text": "I see in the app some cash was withdrawn, but it's not mine.", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08925", "text": "i didnt put that money in my account", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08927", "text": "There is a cash withdrawl I don't remember.", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08931", "text": "I have a cash withdrawal that I don't recognize.", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08933", "text": "Please help me, its urgent. Someone has withdrawn money from my account as few hours before my wallet has been. Now i want to stop withdrawal of more money.", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08942", "text": "There has been an unusual withdrawal from my account, can you help?", "label": "cash_withdrawal_not_recognised"}
+{"id": "train-08955", "text": "How much more do you charge for currency exchange?", "label": "exchange_charge"}
+{"id": "train-08960", "text": "How much will I be charged for a cross-currency exchange?", "label": "exchange_charge"}
+{"id": "train-08971", "text": "Is there a pay structure for currency exchanges?", "label": "exchange_charge"}
+{"id": "train-08974", "text": "Are there any discounts for frequent currency exchanges?", "label": "exchange_charge"}
+{"id": "train-08976", "text": "I need to exchange foreign currency will i be charged?", "label": "exchange_charge"}
+{"id": "train-08982", "text": "If I exchange currencies on a regular basis, is there a discount?", "label": "exchange_charge"}
+{"id": "train-09025", "text": "Is there a fee for exchanging currency?", "label": "exchange_charge"}
+{"id": "train-09026", "text": "Does a discount apply if I exchange currencies frequently?", "label": "exchange_charge"}
+{"id": "train-09031", "text": "Will I be charged for exchanging foreign currencies?", "label": "exchange_charge"}
+{"id": "train-09035", "text": "What are the charges if I exchange foreign currency?", "label": "exchange_charge"}
+{"id": "train-09047", "text": "Is it possible to have a discount for exchanging currency frequently?", "label": "exchange_charge"}
+{"id": "train-09058", "text": "I need to exchange some foreign currency. What's the charge for doing that?", "label": "exchange_charge"}
+{"id": "train-09066", "text": "What is the fee for topping up a US card?", "label": "top_up_by_card_charge"}
+{"id": "train-09067", "text": "What fees are charged when I top up", "label": "top_up_by_card_charge"}
+{"id": "train-09068", "text": "Is there a charge for topping up by card?", "label": "top_up_by_card_charge"}
+{"id": "train-09070", "text": "Will you charge me if I top up by card?", "label": "top_up_by_card_charge"}
+{"id": "train-09092", "text": "Are there any charges for European bank card for top up?", "label": "top_up_by_card_charge"}
+{"id": "train-09105", "text": "Does it cost anything to top up?", "label": "top_up_by_card_charge"}
+{"id": "train-09109", "text": "Do I get charged if I top up with my European bank card?", "label": "top_up_by_card_charge"}
+{"id": "train-09115", "text": "Will you charge me for topping up with a European card?", "label": "top_up_by_card_charge"}
+{"id": "train-09122", "text": "Will I be charged any fees if I want to add money with an international card?", "label": "top_up_by_card_charge"}
+{"id": "train-09157", "text": "I am worried about fees for top up cards?", "label": "top_up_by_card_charge"}
+{"id": "train-09177", "text": "How much does top up fees cost?", "label": "top_up_by_card_charge"}
+{"id": "train-09186", "text": "My card needs to be activated.", "label": "activate_my_card"}
+{"id": "train-09190", "text": "Do I need a photo ID to activate a my new card?", "label": "activate_my_card"}
+{"id": "train-09202", "text": "How can I activate my new card? I didn't recieve any information with it about how to do so.", "label": "activate_my_card"}
+{"id": "train-09229", "text": "I just received my card and I'd like to activate it.", "label": "activate_my_card"}
+{"id": "train-09249", "text": "My card needs to be activated asap", "label": "activate_my_card"}
+{"id": "train-09261", "text": "How do I activate my card so I can start using it?", "label": "activate_my_card"}
+{"id": "train-09269", "text": "what are the steps to activate my card?", "label": "activate_my_card"}
+{"id": "train-09271", "text": "I would like to get help from someone in your customer service department with assisting me with activating my card.", "label": "activate_my_card"}
+{"id": "train-09280", "text": "Can you tell me how I go about activating a new card?", "label": "activate_my_card"}
+{"id": "train-09300", "text": "How can I switch on my new card?", "label": "activate_my_card"}
+{"id": "train-09309", "text": "I want to activate the card.", "label": "activate_my_card"}
+{"id": "train-09311", "text": "The activation process for my card isn't working.", "label": "activate_my_card"}
+{"id": "train-09316", "text": "How can I make my card ready to use?", "label": "activate_my_card"}
+{"id": "train-09319", "text": "I have a new card. How do I activate it?", "label": "activate_my_card"}
+{"id": "train-09322", "text": "Just received my replacement card, what steps do i need to take to activate it?", "label": "activate_my_card"}
+{"id": "train-09326", "text": "I just got my new card.  How can I activate it?", "label": "activate_my_card"}
+{"id": "train-09360", "text": "WHY IS THERE AN EXTRA FEE FOR USING THE ATM??!!!", "label": "cash_withdrawal_charge"}
+{"id": "train-09367", "text": "Why was i charged for making a withdrawal? After i went grocery shopping i withdrew some money from my account and now there is another charge.", "label": "cash_withdrawal_charge"}
+{"id": "train-09384", "text": "How much money can I withdraw before fees? I noticed a fee on my card but I didn't think I had hit the limit of how much I could withdraw in a month.", "label": "cash_withdrawal_charge"}
+{"id": "train-09393", "text": "I thought it was free to make a withdrawal. So how much does it cost now?", "label": "cash_withdrawal_charge"}
+{"id": "train-09394", "text": "I just had a look at my statement. Why have I been changed for using the ATM?", "label": "cash_withdrawal_charge"}
+{"id": "train-09405", "text": "I got charged a fee that shouldn't be there from my cash", "label": "cash_withdrawal_charge"}
+{"id": "train-09413", "text": "Can you tell me why I was charged to withdraw cash?", "label": "cash_withdrawal_charge"}
+{"id": "train-09434", "text": "Why am I being charge a fee when using an ATM?", "label": "cash_withdrawal_charge"}
+{"id": "train-09443", "text": "Why did I get a fee for getting cash?", "label": "cash_withdrawal_charge"}
+{"id": "train-09448", "text": "Since when were there charges for taking out cash from my account? It's always been free for me to do this before.  How much are the charges going to be?", "label": "cash_withdrawal_charge"}
+{"id": "train-09471", "text": "Why did I get charged for withdrawing cash?", "label": "cash_withdrawal_charge"}
+{"id": "train-09475", "text": "Why is there a fee for cash withdrawal?", "label": "cash_withdrawal_charge"}
+{"id": "train-09486", "text": "I used my card the other day to get cash from an ATM and was charged an extra fee. I don't understand why I am being charged a fee all of a sudden. I thought it was free to withdraw from an ATM?", "label": "cash_withdrawal_charge"}
+{"id": "train-09492", "text": "Why did you charge me for taking out cash?", "label": "cash_withdrawal_charge"}
+{"id": "train-09509", "text": "I withdrew money and got a fee, please explain", "label": "cash_withdrawal_charge"}
+{"id": "train-09511", "text": "I noticed a different charge while I was taking my money out.", "label": "cash_withdrawal_charge"}
+{"id": "train-09512", "text": "Why was I charged a fee for withdrawing money?", "label": "cash_withdrawal_charge"}
+{"id": "train-09514", "text": "Why is there a fee for getting cash?", "label": "cash_withdrawal_charge"}
+{"id": "train-09528", "text": "Will I receive a new card when mine expires?", "label": "card_about_to_expire"}
+{"id": "train-09529", "text": "My card is due to expire", "label": "card_about_to_expire"}
+{"id": "train-09530", "text": "What do I do if my card expires soon?", "label": "card_about_to_expire"}
+{"id": "train-09548", "text": "What do I do if my card is about to expire?", "label": "card_about_to_expire"}
+{"id": "train-09551", "text": "How do I replace a card that's going to expire?", "label": "card_about_to_expire"}
+{"id": "train-09552", "text": "If my card becomes expired what can I do?", "label": "card_about_to_expire"}
+{"id": "train-09567", "text": "My card is expiring soon, How do I order a new card?", "label": "card_about_to_expire"}
+{"id": "train-09591", "text": "I need a new card, my old card is expiring.", "label": "card_about_to_expire"}
+{"id": "train-09594", "text": "If I order a new card, how much will it be and how long will it take me to get it?", "label": "card_about_to_expire"}
+{"id": "train-09608", "text": "What do I do after my card expires?", "label": "card_about_to_expire"}
+{"id": "train-09622", "text": "My card is about to expire. Do I have to go to a branch to order a new card?", "label": "card_about_to_expire"}
+{"id": "train-09631", "text": "My card expires soon", "label": "card_about_to_expire"}
+{"id": "train-09640", "text": "Can I get a new card even though I am in China?", "label": "card_about_to_expire"}
+{"id": "train-09655", "text": "Can I use my American Express card with Apple Pay?", "label": "apple_pay_or_google_pay"}
+{"id": "train-09660", "text": "What do I do if my Google pay top up isn't working?", "label": "apple_pay_or_google_pay"}
+{"id": "train-09666", "text": "I am having a slight problem with my American express in apple play, can you help me fix the problem with top up?", "label": "apple_pay_or_google_pay"}
+{"id": "train-09678", "text": "Can I use Apple Pay to top-up?", "label": "apple_pay_or_google_pay"}
+{"id": "train-09679", "text": "Why doesn't my Google pay top up work?", "label": "apple_pay_or_google_pay"}
+{"id": "train-09688", "text": "I want to top up my account. Can I do it with Google Pay?", "label": "apple_pay_or_google_pay"}
+{"id": "train-09714", "text": "How do i top up my google pay?", "label": "apple_pay_or_google_pay"}
+{"id": "train-09715", "text": "I want to top up with my Apple Watch.", "label": "apple_pay_or_google_pay"}
+{"id": "train-09728", "text": "What are the steps needed to top up with Apple Pay?", "label": "apple_pay_or_google_pay"}
+{"id": "train-09745", "text": "How to activate Google Pay for top up?", "label": "apple_pay_or_google_pay"}
+{"id": "train-09747", "text": "I can't see my Google Pay top up. Is it not working correctly?", "label": "apple_pay_or_google_pay"}
+{"id": "train-09755", "text": "How can I top up using google pay?", "label": "apple_pay_or_google_pay"}
+{"id": "train-09757", "text": "Google Pay isn't working. What is wrong?", "label": "apple_pay_or_google_pay"}
+{"id": "train-09772", "text": "I need to verify my identity. How do I do that?", "label": "verify_my_identity"}
+{"id": "train-09780", "text": "What are the requirements to verify my identity?", "label": "verify_my_identity"}
+{"id": "train-09789", "text": "What will I need to verify my identity", "label": "verify_my_identity"}
+{"id": "train-09797", "text": "How do I go through the identity checks?", "label": "verify_my_identity"}
+{"id": "train-09809", "text": "Where can I verify my identity?", "label": "verify_my_identity"}
+{"id": "train-09825", "text": "Can I use my social security card as a form of identity?", "label": "verify_my_identity"}
+{"id": "train-09835", "text": "If I'm getting my identity verified, what all do I need?", "label": "verify_my_identity"}
+{"id": "train-09858", "text": "How can you assist on verifying my identity?", "label": "verify_my_identity"}
+{"id": "train-09865", "text": "How do I complete the ID check?", "label": "verify_my_identity"}
+{"id": "train-09866", "text": "How do you check my identity?", "label": "verify_my_identity"}
+{"id": "train-09885", "text": "Do you provide cards to people not in the UK?", "label": "country_support"}
+{"id": "train-09887", "text": "Which countries does your service work in?", "label": "country_support"}
+{"id": "train-09902", "text": "Where are you present globally?", "label": "country_support"}
+{"id": "train-09908", "text": "Although I am not located in the UK area, may i still receive a card?", "label": "country_support"}
+{"id": "train-09913", "text": "Are your cards supported in the EU?", "label": "country_support"}
+{"id": "train-09927", "text": "Are cards available to those outside of the UK?", "label": "country_support"}
+{"id": "train-09943", "text": "I reside in the US, but I want a card.", "label": "country_support"}
+{"id": "train-09946", "text": "what countries can i use my card in", "label": "country_support"}
+{"id": "train-09949", "text": "Where can I get a card in the EU?", "label": "country_support"}
+{"id": "train-09964", "text": "I'm not in the UK, but can I still get a card?", "label": "country_support"}
+{"id": "train-09976", "text": "Can an American resident apply to get a card?", "label": "country_support"}
+{"id": "train-10001", "text": "Are cards available in the EU?", "label": "country_support"}
+{"id": "train-10002", "text": "Which countries are represented?", "label": "country_support"}

@@ -1,0 +1,1 @@
+{"ts": "2026-11-02T13:40:23-0800", "event": "create_model_error", "status": 400, "body": "{\n  \"code\": 9,\n  \"details\": [],\n  \"message\": \"model creation, uploads and preparation are temporarily disabled, please contact Fireworks AI to get access\"\n}"}

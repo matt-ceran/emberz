@@ -1,0 +1,47 @@
+{
+ "task": "banking77",
+ "split": "val",
+ "system": "kimi-k3",
+ "model": "accounts/fireworks/models/kimi-k3",
+ "base_url": "https://api.fireworks.ai/inference/v1",
+ "extra_body": null,
+ "max_tokens": 4096,
+ "prompt_sha": "0e895b6e6f68",
+ "n_expected": 1000,
+ "n_done": 1000,
+ "complete": true,
+ "accuracy": 0.797,
+ "ci95": [
+  0.771,
+  0.8210249999999998
+ ],
+ "bootstrap_resamples": 2000,
+ "invalid_rate": 0.0,
+ "parse_methods": {
+  "exact": 1000,
+  "invalid": 0
+ },
+ "finish_length_rate": 0.0,
+ "latency_p50_s": 2.0814500000000002,
+ "latency_p95_s": 5.021764999999999,
+ "tokens": {
+  "prompt": 503680,
+  "cached": 10165,
+  "completion": 94650,
+  "reasoning": 77586
+ },
+ "tokens_per_call": {
+  "prompt": 503.68,
+  "completion": 94.65,
+  "reasoning": 77.586
+ },
+ "cost_usd": 2.9033444999999998,
+ "cost_per_1k_calls_usd": 2.9033444999999998,
+ "price": {
+  "input": 3.0,
+  "cached_input": 0.3,
+  "output": 15.0,
+  "source": "https://fireworks.ai/models/fireworks/kimi-k3 (Per 1M Tokens input/cached input/output: $3.00/$0.30/$15.00)"
+ },
+ "failed_this_run": 0
+}

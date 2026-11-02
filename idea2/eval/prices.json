@@ -1,0 +1,15 @@
+{
+  "_note": "USD per 1M tokens, Fireworks serverless standard tier, checked 2026-11-02. Reasoning tokens are counted in completion_tokens and assumed billed at the output rate (the pages do not say otherwise). Cached input = prompt_tokens_details.cached_tokens.",
+  "accounts/fireworks/models/kimi-k3": {
+    "input": 3.00, "cached_input": 0.30, "output": 15.00,
+    "source": "https://fireworks.ai/models/fireworks/kimi-k3 (Per 1M Tokens input/cached input/output: $3.00/$0.30/$15.00)"
+  },
+  "accounts/fireworks/models/glm-5p3": {
+    "input": 1.40, "cached_input": 0.26, "output": 4.40,
+    "source": "https://fireworks.ai/models/fireworks/glm-5p3 (Per 1M Tokens input/cached input/output: $1.40/$0.26/$4.40)"
+  },
+  "qwen3-8b-dedicated": {
+    "input": null, "cached_input": null, "output": null,
+    "source": "https://fireworks.ai/models/fireworks/qwen3-8b says serverless 'Not Supported'; our model runs on a dedicated deployment billed per GPU-hour, so cost per 1k calls must be computed from GPU-hour price and measured throughput at a stated load."
+  }
+}

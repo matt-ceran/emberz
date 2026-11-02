@@ -1,0 +1,47 @@
+{
+ "task": "clinc150",
+ "split": "val",
+ "system": "kimi-k3-smoke",
+ "model": "accounts/fireworks/models/kimi-k3",
+ "base_url": "https://api.fireworks.ai/inference/v1",
+ "extra_body": null,
+ "max_tokens": 4096,
+ "prompt_sha": "1a51bd41bd10",
+ "n_expected": 20,
+ "n_done": 20,
+ "complete": true,
+ "accuracy": 0.85,
+ "ci95": [
+  0.7,
+  1.0
+ ],
+ "bootstrap_resamples": 2000,
+ "invalid_rate": 0.0,
+ "parse_methods": {
+  "exact": 20,
+  "invalid": 0
+ },
+ "finish_length_rate": 0.0,
+ "latency_p50_s": 2.6993,
+ "latency_p95_s": 5.134430000000001,
+ "tokens": {
+  "prompt": 13060,
+  "cached": 0,
+  "completion": 1885,
+  "reasoning": 1581
+ },
+ "tokens_per_call": {
+  "prompt": 653.0,
+  "completion": 94.25,
+  "reasoning": 79.05
+ },
+ "cost_usd": 0.067455,
+ "cost_per_1k_calls_usd": 3.37275,
+ "price": {
+  "input": 3.0,
+  "cached_input": 0.3,
+  "output": 15.0,
+  "source": "https://fireworks.ai/models/fireworks/kimi-k3 (Per 1M Tokens input/cached input/output: $3.00/$0.30/$15.00)"
+ },
+ "failed_this_run": 0
+}
