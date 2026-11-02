@@ -28,4 +28,5 @@ def test_unknown_is_404():
 
 def test_index():
     rows = make_client().get("/callers/swml").json()
+    rows = [r for r in rows if r["persona"] not in P.DEMO_PERSONAS]  # demo-only personas are extra
     assert len(rows) == 15 and {r["persona"] for r in rows} == set(P.PERSONAS)

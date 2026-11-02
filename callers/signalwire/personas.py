@@ -37,10 +37,14 @@ import re
 from dataclasses import asdict, dataclass
 from typing import Any
 
-from callers.common import load_specs, render
+from pathlib import Path
+
+from callers.common import check_spec, load_specs, render
 
 SWML_VERSION = "1.0.0"
 PERSONAS = ("bank_fraud", "tech_support", "prize_giftcard", "pharmacy_refill", "appointment_confirm")
+# Demo-only personas (callers/agents_demo/*.json): placed by name, never part of the 5-persona fleet.
+DEMO_PERSONAS = ("family_money",)
 BANNED_ENGINES = {"elevenlabs", "11labs", "eleven_labs"}
 # Engines we use. All are listed in ai.languages docs; each is in SignalWire's Economy, Economy+ or
 # Standard TTS price tier (https://signalwire.com/pricing/voice), none Premium/Pro.
@@ -119,6 +123,10 @@ OPENINGS = {
         "Hi, this is an automated call from {{pharmacy}} for {{callee_name}}, about a prescription.",
         "Hello! This is the {{pharmacy}} automated assistant with a refill reminder. Is {{callee_name}} available?",
     ],
+    "family_money": [
+        "Hi {{callee_name}}! It's {{agent_name}}, got a minute?",
+        "Hey {{callee_name}}, it's me, {{agent_name}}. Just calling to say hi.",
+    ],
     "appointment_confirm": [
         "Hi, this is an automated reminder from {{clinic}} for {{callee_name}} about an upcoming appointment.",
         "Hello, {{clinic}} calling with an automated appointment confirmation. Is this {{callee_name}}?",
@@ -139,12 +147,13 @@ VARIANTS: dict[str, list[Variant]] = {
     "tech_support": [Variant("deepgram_arcas", "normal", 0), Variant("amazon_joanna", "slow", 1), Variant("azure_guy", "brisk", 2)],
     "prize_giftcard": [Variant("openai_nova", "brisk", 0), Variant("cartesia_ny_man", "normal", 1), Variant("amazon_danielle", "slow", 2)],
     "pharmacy_refill": [Variant("gcloud_neural2_c", "normal", 0), Variant("deepgram_asteria", "slow", 1), Variant("openai_echo", "brisk", 2)],
+    "family_money": [Variant("azure_guy", "normal", 0), Variant("openai_echo", "normal", 1), Variant("deepgram_arcas", "normal", 2)],
     "appointment_confirm": [Variant("azure_jenny", "normal", 0), Variant("amazon_matthew", "brisk", 1), Variant("cartesia_helpful_woman", "slow", 2)],
 }
 
 # Caller first names used in callers/agents/*.json, so a male voice never says "this is Sarah".
 MALE_NAMES = {"Daniel", "Kevin", "Michael", "Chris", "Brian", "Dennis", "Ray", "Howard", "Lou", "Carl",
-              "Steve", "Mark", "Tom", "James", "Paul", "Victor"}
+              "Steve", "Mark", "Tom", "James", "Paul", "Victor", "Sam"}
 FEMALE_NAMES = {"Sarah", "Lisa", "Jennifer", "Amanda", "Nicole", "Gloria", "Tina", "Kim", "Angela", "Debbie",
                 "Emily", "Rachel", "Laura", "Megan"}
 
@@ -161,7 +170,15 @@ CALL_END = (
 
 
 def _specs() -> dict[str, dict[str, Any]]:
-    return {s["id"]: s for s in load_specs(list(PERSONAS))}
+    out = {s["id"]: s for s in load_specs(list(PERSONAS))}
+    demo_dir = Path(__file__).resolve().parents[1] / "agents_demo"
+    for name in DEMO_PERSONAS:
+        f = demo_dir / f"{name}.json"
+        if f.exists():
+            spec = json.loads(f.read_text(encoding="utf-8"))
+            check_spec(spec)
+            out[spec["id"]] = spec
+    return out
 
 
 def check_voice(voice: str) -> str:

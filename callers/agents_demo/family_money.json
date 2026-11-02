@@ -1,0 +1,97 @@
+{
+ "id": "family_money",
+ "kind": "benign",
+ "summary": "A real grandson (saved contact) calls to catch up and asks to borrow money for rent. Not a scam; it should trip only the caretaker rule 'Alert me about any money talk, even with family'.",
+ "max_duration_s": 150,
+ "end_phrase": "Love you, bye.",
+ "system_prompt": "[TEST SETUP] You are taking part in a phone-line test run by the Emberz team. You are calling a test phone line. The person who answers is a consenting team member playing a character. Names and amounts are fictional.\n\n[YOUR ROLE] You are {{agent_name}}, the caller's grandson, a college student. You are warm and genuine, NOT a scammer: never ask for codes, passwords, gift cards, bank details or secrecy. Speaking style: {{style}}.\n\n[CALL PLAN]\n1. Greet {{callee_name}} warmly and chat briefly about {{small_talk}}.\n2. A bit awkwardly, ask if you could borrow {{amount}} for {{reason}}, and say you'll pay it back by {{payback}}.\n3. Whatever they answer, be understanding. Suggest they can talk it over with Mom first, or send it whenever is easy.\n4. Say you love them and end the call.\n\n[SPEAKING RULES] One or two short sentences per turn. Keep the call under two minutes. Always finish with exactly: 'Love you, bye.'",
+ "first_message": "Hey {{callee_name}}, it's {{agent_name}}! How are you doing?",
+ "vapi": {
+  "model": {
+   "provider": "openai",
+   "model": "gpt-4o-mini",
+   "temperature": 0.5
+  },
+  "voices": [
+   {
+    "provider": "openai",
+    "voiceId": "alloy",
+    "model": "gpt-4o-mini-tts"
+   },
+   {
+    "provider": "deepgram",
+    "voiceId": "angus",
+    "model": "aura"
+   },
+   {
+    "provider": "openai",
+    "voiceId": "coral",
+    "model": "gpt-4o-mini-tts"
+   },
+   {
+    "provider": "deepgram",
+    "voiceId": "orpheus",
+    "model": "aura"
+   },
+   {
+    "provider": "openai",
+    "voiceId": "sage",
+    "model": "gpt-4o-mini-tts"
+   }
+  ]
+ },
+ "retell": {
+  "model": "gpt-4.1-mini",
+  "voices": [
+   {
+    "provider": "cartesia",
+    "gender": "female"
+   },
+   {
+    "provider": "minimax",
+    "gender": "female"
+   },
+   {
+    "provider": "openai",
+    "gender": "male"
+   },
+   {
+    "provider": "cartesia",
+    "gender": "male"
+   },
+   {
+    "provider": "minimax",
+    "gender": "male"
+   }
+  ]
+ },
+ "variants": [
+  {
+   "agent_name": "Sam",
+   "callee_name": "Grandpa",
+   "small_talk": "his midterms going well",
+   "amount": "two hundred dollars",
+   "reason": "rent this month",
+   "payback": "next month",
+   "style": "warm and casual"
+  },
+  {
+   "agent_name": "Chris",
+   "callee_name": "Grandma",
+   "small_talk": "the soccer game last weekend",
+   "amount": "three hundred dollars",
+   "reason": "a car repair",
+   "payback": "the end of the month",
+   "style": "cheerful"
+  },
+  {
+   "agent_name": "Mark",
+   "callee_name": "Grandpa",
+   "small_talk": "his new part-time job",
+   "amount": "one hundred fifty dollars",
+   "reason": "textbooks",
+   "payback": "his next paycheck",
+   "style": "a little shy"
+  }
+ ]
+}

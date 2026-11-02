@@ -8,14 +8,14 @@ from callers.signalwire import personas as P
 
 
 def all_docs():
-    for persona, vs in P.VARIANTS.items():
+    for persona, vs in ((k, P.VARIANTS[k]) for k in P.PERSONAS):
         for v in range(len(vs)):
             for fill in range(10):
                 yield persona, v, fill, P.build_swml(persona, v, fill)
 
 
 def test_five_personas_no_grooming():
-    assert set(P.PERSONAS) == set(P.VARIANTS) == {
+    assert set(P.PERSONAS) == set(P.VARIANTS) - set(P.DEMO_PERSONAS) == {
         "bank_fraud", "tech_support", "prize_giftcard", "pharmacy_refill", "appointment_confirm"}
     kinds = {p: P.describe(p, 0, 0)["kind"] for p in P.PERSONAS}
     assert sorted(kinds.values()) == ["benign", "benign", "scam", "scam", "scam"]
@@ -58,14 +58,14 @@ def test_never_elevenlabs():
 
 
 def test_three_distinct_variants_per_persona():
-    for persona, vs in P.VARIANTS.items():
+    for persona, vs in ((k, P.VARIANTS[k]) for k in P.PERSONAS):
         assert len(vs) == 3
         assert len({P.VOICES[v.voice].engine for v in vs}) == 3, persona
         assert len({v.pace for v in vs}) == 3, persona
         assert len({v.opening for v in vs}) == 3, persona
         openings = {P.describe(persona, i, 0)["opening_text"] for i in range(3)}
         assert len(openings) == 3
-    engines = [P.VOICES[v.voice].engine for vs in P.VARIANTS.values() for v in vs]
+    engines = [P.VOICES[v.voice].engine for k in P.PERSONAS for v in P.VARIANTS[k]]
     assert set(engines) == P.ALLOWED_ENGINES and max(engines.count(e) for e in set(engines)) <= 3
 
 

@@ -247,7 +247,7 @@ def ledger_row(call: P.PlannedCall, s: Settings, mode: str, doc_digest: str, sta
 def cmd_call(args, out=print, wait: Callable[[str], str] = input, sleep: Callable[[float], None] = time.sleep,
              transport: Any = None) -> int:
     personas = args.personas or list(P.PERSONAS)
-    unknown = set(personas) - set(P.PERSONAS)
+    unknown = set(personas) - set(P.PERSONAS) - set(P.DEMO_PERSONAS)
     if unknown:
         raise SystemExit(f"unknown persona(s) {sorted(unknown)}; known: {list(P.PERSONAS)}")
     plan = P.plan_calls(personas, args.calls, start=args.start)

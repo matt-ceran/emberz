@@ -8,3 +8,5 @@ __pycache__/
 models/
 data/
 recordings/
+line/profiles.json
+line/profiles_family.json
