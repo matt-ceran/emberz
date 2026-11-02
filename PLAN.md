@@ -28,7 +28,7 @@ Fireworks hackathon, November 2026. Numan and Matt. Built on Fireworks plus open
 | Held-out test generator | **GLM 5.3 Flash** on Fireworks serverless: a different model family, so the test isn't the generator grading itself |
 | Guardian model | **Qwen3-4B-Instruct-2507**, LoRA SFT on Fireworks, served on an on-demand deployment |
 | Baselines | Keyword rules, Llama Guard 3 8B (on-demand), gpt-oss-safeguard-20b (on-demand), untuned Qwen3-4B (same deployment), **Kimi K3** serverless |
-| Dev stand-in for the guardian | A cheap serverless model with the same prompt and schema, while the line is being built |
+| Dev stand-in for the guardian (used only while building the line) | A cheap serverless model with the same prompt and schema, while the line is being built |
 | AI-voice detector | Local: frozen wav2vec2 front end + small head, trained on public data. Telnyx `deepfake_detection` ($0.01 per call) as the commercial baseline |
 | AI test callers | Our own agents on Vapi and Retell (free credits) calling our number |
 | Text-to-speech, for transcription noise in training data | Kokoro (Apache-2.0), local |
@@ -54,9 +54,9 @@ Fireworks hackathon, November 2026. Numan and Matt. Built on Fireworks plus open
    |      |-- guardian model on Fireworks: rules + last turns -> JSON
    |      '-- rule layer: smoothing, cooldowns, allowed contacts -> action
    v
- conference with the protected person's real phone
-   |-- coach: whisper only the protected person hears
-   |-- caretaker alert call: "Press 1 to listen" -> listen, barge in
+ conference: dial the protected phone, showing the caller's real number
+   |-- coach: conference speak to the protected leg only (caller hears nothing)
+   |-- caretaker alert call: "Press 1 to listen" -> join as monitor, barge in
    |-- live console (web): transcript, risk lines, alerts
    '-- hang-up: summary to the caretaker
 ```
@@ -103,90 +103,125 @@ All events are JSON over a WebSocket or HTTP in the line server. The schemas liv
 
 ## 5. Work packages
 
-Big chunks, each with an owner, outputs, what unblocks it, and when it's done. **M** = Model (Matt), **L** = Line (Numan), **V** = Voice (Numan), **D** = Demo (both).
+Big chunks, each with an owner, what it delivers, and when it's done. **I** = kickoff, **M** = Model and **C** = console (Matt), **L** = Line and **V** = Voice (Numan), **D** = demo.
+
+### I0. Kickoff (both, about 75 minutes, hour 0)
+- Write the contracts as code: Pydantic models for every section 4 shape, plus fixture files and a stub guardian that returns canned JSON.
+- Agree who owns which folders and which branch names. Each person works in their own folders and their own ledger file, to avoid merge conflicts.
+- **Keys:**
+  - Matt and Numan each have their own Fireworks key.
+  - **The Telnyx key (EmberDial's account) stays on Numan's Mac only.**
+  - Auto Reload off on both Fireworks accounts.
+- Set up a shared channel for `data/` and `recordings/`. Manifests are committed; files are not.
+- Start the big downloads (ASVspoof 5, In-the-Wild), request PAN-12 access, and book friends for the human and role-play calls.
+
+### M0. Fireworks hour-0 checks and the shared guardian library (Matt)
+- **Checks:**
+  - GPU quota and rate limits on both accounts.
+  - The Nemotron 3 Ultra price, which sets the generation spend cap.
+  - How long the Batch API takes to return.
+  - Deployment shapes (`firectl deployment-shape-version list`).
+  - Whether `response_format` (JSON schema) works on the LoRA deployment.
+  - How multi-turn SFT samples are billed (a tiny test job).
+- **Builds:** `guardian/` with `render_messages()` (one prompt for training and live use), the parser and validator, and the client.
+- **Prompt freeze at sync S2:** publish `prompt_sha`, the 8-turn window and how `ai_voice` and `caller_known` are bucketed. Any later change means retraining.
 
 ### M1. Data factory (Matt)
-- **Builds:** the scenario grid, which is protected person (kid 8-12, teen, elder, adult) x caller type (scams by family, stranger, groomer at the tactics level, real bank, doctor's office, school, family member, friend, AI appointment bot) x rule set x persona.
-- **Self-play:** Nemotron 3 Ultra plays the caller from a hidden plan (stages, the exact ask turn, tactics) and another call plays the protected person. Labels come from the plan.
+- **One request per whole call:** the generator writes the full call from a hidden plan (stages, the exact ask turn, tactics). A plan-alignment checker drops calls that drift from the plan. Labels come from the plan.
+- **Scenario grid:** protected person (kid 8-12, teen, elder, adult) x caller type (scams by family, stranger, groomer at the tactics level, real bank, doctor's office, school, family member, friend, AI appointment bot) x rule set x persona.
 - **Extras:**
   - Benign twins (35%): normal calls that reuse scam words.
-  - Rule-flip pairs (10%): the same words under different rules.
+  - Rule-flip pairs (10%) that also change the written rules.
   - Disclosure calls: the protected person gives away personal info.
   - One scam type held out entirely.
+  - **Simulated `ai_voice` and `caller_known` fields**, so training inputs match the live ones.
   - Transcription noise on part of the set: Kokoro, then 8 kHz, then Nemotron ASR.
-- **Hard rule: grooming stays at the level of tactics. No sexual content involving minors is ever generated.** A conversation stops at the request.
-- **Held-out test set:** made by GLM 5.3 Flash with different persona seeds.
-- **Outputs:** `data/train.jsonl`, `data/dev.jsonl`, `data/test_heldout.jsonl` (gitignored), dataset card, overlap check.
-- **Unblocked by:** nothing. Starts in hour 0.
-- **Done when:** about 3,000 training calls and 500 held-out calls exist, with turn-level labels, and pass validation against the schema.
+- **Hard rule: grooming stays at the level of tactics. No sexual content involving minors is ever generated.**
+- **Generators:** Nemotron 3 Ultra makes train and dev. GLM 5.3 Flash makes the held-out test with different persona seeds, and its manifest is committed before any model scores it.
+- **Done when:** about 3,000 training calls and 500 held-out calls pass schema validation.
 
 ### M2. Guardian fine-tune and deployment (Matt)
-- **Builds:** the training-set builder (calls into windowed chat samples with JSON targets), SFT v1, one multi-LoRA deployment (base + v1 + v2), and SFT v2 after the adversary round.
-- **Budget:** cap v1 at about 24M billed tokens. Keep every ask, near-ask and benign-twin window, and subsample easy negatives. **Always pass an explicit LoRA rank (8-16).** A missing rank triggers full training at twice the price.
-- **Outputs:** model IDs, deployment ID, `guardian/client.py` (the `guardian_request` to `guardian_response` call).
-- **Unblocked by:** M1's first 500 calls. A tiny test job first confirms how multi-turn samples are billed.
-- **Done when:** v1 answers on the deployment with valid JSON and beats the untuned base (B3) on the dev set.
+- **Builds:** the training-set builder (calls into windowed chat samples with JSON targets, using `render_messages()`), SFT v1, and one multi-LoRA deployment for the base model (B3), v1 and v2, which is also the demo deployment.
+- **Training settings:** cap v1 at about 24M billed tokens, v2 at about 8M. **Always pass an explicit LoRA rank (8-16).** A missing rank means full training at twice the price.
+- **Checkpoint:** v1 must beat B3 on dev, or we fix the errors and retrain once.
+- **v2 (adversary round):** built from **dev errors only**, never the test set.
 
 ### M3. Eval harness, baselines and charts (Matt)
-- **Builds:** scorers for every metric in section 7, baselines B0-B4, the real test sets (BothBosu, PAN-12 subset, our role-play calls from V2), and the charts.
-- **Run early:** B0 and B4 on BothBosu plus 50 dev calls in the first hours. Labels for the real sets are committed to git before any model runs on them.
-- **Outputs:** `results/*.jsonl` in the `results_row` format, `eval/charts/*.png`.
-- **Done when:** one command re-runs every model on every test set and redraws the charts.
+- **Builds:** scorers for section 7, baselines B0-B4, test sets (held-out, BothBosu, PAN-12 subset, role-play from V2), charts.
+- **Shared rules:** the rule layer is a pure function in `line/policy.py`, and eval imports the same code, so eval scores the system the demo runs. Rule-following is also measured on the model alone.
+- **Run early:** B0 and B4 on BothBosu plus 50 dev calls.
+- **Done when:** one command re-runs everything and redraws the charts.
 
-### L1. Guarded line (Numan)
-- **Builds:**
-  - The new Telnyx Call Control app and 3 new numbers: Grandma, kid, caretaker test.
-  - Webhook signature checks and the `cloudflared` tunnel.
-  - Answer with `deepfake_detection` on, play the notice, stream both tracks to the WebSocket.
-  - Conference with the protected person's phone.
-- **Checks first:** conference whisper and barge (`supervisor_role`), and whether the original caller ID shows on the protected phone.
-- **Done when:** a call to the guarded number rings a real phone, both sides stream to the server, and the Telnyx deepfake result arrives by webhook.
+### C1. Caretaker console and summaries (Matt)
+- **Builds:** a phone-friendly web page driven by `console_event`: the live transcript of both sides, risk lines, alerts, a join button and the post-call summary (one serverless call at hang-up).
+- **Done when:** it works against the fixture event stream, then on live calls after L3.
+
+### L1. Isolated Telnyx line (Numan)
+- **Setup, all new objects tagged `emberz`:**
+  - An outbound voice profile with a $10 daily spend limit and US-only destinations.
+  - A Call Control app, `emberz`.
+  - 3 new numbers assigned to that app.
+- **Never PATCH existing EmberDial IDs.** Run `GET` on the apps and numbers before and after, to prove nothing of EmberDial's changed.
+- **Webhooks:** go through a `cloudflared` tunnel. Only the `emberz` app is re-pointed when the URL changes. Verify every webhook with Ed25519 (`TELNYX_PUBLIC_KEY`). Handlers are idempotent on `command_id`.
+- **Call skeleton:**
+  - Answer leg A (the caller) with `deepfake_detection` on.
+  - Play the notice and put A into a conference.
+  - Dial B (the protected phone) into the conference, with `from` = the caller's number and `diversion` = the guarded number. If the caller is anonymous, show "Emberz: unknown caller".
+  - Stream A with `both_tracks`: inbound is the caller, outbound is the conference mix.
+  - Set `end_conference_on_exit` on A and B.
+- **Hour-0 checks, written to `line/hour0.json`:**
+  - Do deepfake detection and our stream run together on leg A?
+  - Does a targeted conference `speak` stay out of the caller's audio?
+  - Does the track split come out as expected?
+  - Do the supervisor roles work?
+  - Does the caller's number show on B?
+  - Does the notice or ringback leak into the protected person's transcript?
 
 ### L2. Live brain (Numan)
 - **Builds:**
-  - Nemotron streaming ASR per side (sherpa-onnx), with μ-law decode, stateful resampling and turn segmentation.
-  - The `turn` events and the guardian client (a dev stand-in model until M2 lands).
-  - The rule layer: smoothing, cooldowns, allowed contacts, and AI voice + unknown caller + ask = escalate.
-  - The whisper coach (text-to-speech heard only by the protected person).
-  - The caretaker alert call ("Press 1 to listen"), joining as a listener, and barge-in.
-- **Done when:** a role-played scam call produces a whisper and an alert call within about 1.5 s of the trigger line.
+  - Nemotron streaming ASR per side (sherpa-onnx INT8, 160 ms chunks), with μ-law decode and stateful resampling.
+  - Turn segmentation and `turn` events.
+  - The guardian client: the stand-in model during development, then the deployment.
+  - `line/policy.py`: smoothing, cooldowns, allowed contacts, and AI voice + unknown caller + ask = escalate.
+  - **The coach:** `POST /v2/conferences/{id}/actions/speak` with `call_control_ids` set to B only, so only the protected person hears it.
+- **Done when:** a role-played scam call produces a coach line and an alert within about 1.5 s of the trigger line.
 
-### L3. Caretaker console and summaries (Numan, or Matt if free)
-- **Builds:** a phone-friendly web page with the live transcript of both sides, risk lines (AI voice, scam, disclosure, grooming), alerts, a join button and the end-of-call summary (one serverless call at hang-up).
-- **Unblocked by:** a fake `console_event` stream.
-- **Done when:** the full demo script (section 8) runs on screen.
+### L3. Caretaker alert call and console backend (Numan)
+- **Builds:** dial C (the caretaker), then `gather_using_speak` ("Press 1 to listen"), then on digit 1, join the conference with `supervisor_role: monitor`. The join button calls `update` with `barge`. **Never mute C**, because an explicit mute outlasts the role change. Also the `console_event` WebSocket feed and the summary trigger.
 
 ### V1. AI-voice detector (Numan)
-- **Builds:** frozen wav2vec2 features over the first 2-4 s of caller audio, plus a small logistic head. Also timing and text cues: reply gap (people ~0.2 s, voice agents ~1.3-2.4 s), "I'm an AI assistant", missing "um"s.
+- **Builds:** frozen wav2vec2 features over the first 2-4 s of caller audio, plus a small logistic head. Also timing and text cues: reply gap (people ~0.2 s, agents ~1.3-2.4 s), "I'm an AI assistant", missing "um"s.
 - **Training data:**
-  - ASVspoof 5, which includes 8 kHz codec conditions.
+  - ASVspoof 5, including its 8 kHz codec conditions.
   - In-the-Wild.
   - Kokoro renders of our scripts.
   - Human audio over the same Telnyx path.
-  - **Not ElevenLabs output:** its use policy bans training on it.
-- **Baselines:** off-the-shelf W2V2-AASIST (MIT) and Telnyx `deepfake_detection`.
-- **Done when:** EER and AUC on our phone set (from V2) for audio only, timing only and combined, with n and intervals.
+  - **Not ElevenLabs output.**
+- **Baselines:** W2V2-AASIST (MIT) and Telnyx `deepfake_detection`.
+- **Done when:** EER and AUC on our phone set for audio only, timing only and combined, with n and intervals.
 
 ### V2. Real test calls (Numan records, Matt labels blind)
-- **Builds:**
-  - 5 of our own AI agents on Vapi and Retell, each with a different voice, making about 10 calls each to our number.
-  - About 50 human calls over the same path.
-  - About 40 role-play guardian calls between teammates and consenting friends: scam, disclosure, grooming tactics, AI caller and benign hard negatives, with scripts written blind.
-- **Done when:** the audio, transcripts and labels are committed (labels before any model runs).
+- 5 of our own Vapi and Retell agents making about 10 calls each, plus about 50 human calls over the same path.
+- About 40 role-play guardian calls with blind-written scripts.
+- Labels are committed after the calls are segmented (around sync S4), before any model scores them.
 
-### D1. Demo, README and submission (both)
-- **Builds:** the rehearsed demo (section 8), the README with results, charts and legal notes, the 60-second video, the Fireworks endpoint and the repo.
-- **Done when:** submitted.
+### D1. Integration and rehearsal (Numan)
+- The full demo end to end: casting the phones, the judge call, rehearsals.
+
+### D2. README, video and submission (Matt)
+- Results, charts, legal notes, the 60-second video, the Fireworks endpoint, and teardown (delete deployments, check Telnyx usage).
 
 ### Sync points
-1. **Hour 0, 30 minutes:** agree the contracts, the metrics and the JSON schema. Then split.
-2. **Hour 6:** M1's first data feeds M2. L2 switches to real events.
-3. **Hour 10:** guardian v1 on the deployment. L2 points at it for the first live test.
-4. **Hour 14:** V2 recordings and labels handed to M3 and V1.
-5. **Hour 18:** feature freeze, then rehearsal, video and results.
+- **S0, hour 0:** I0 together.
+- **S1, about hour 2.5:** hour-0 results. From Matt: quota, the Nemotron price, Batch timing, `response_format`. From Numan: `line/hour0.json` and the first real `turn` events.
+- **S2, about hour 5-6: prompt freeze** (`prompt_sha`). Pilot numbers check the budget before bulk generation. Role-play cards are final. The held-out manifest is committed.
+- **S3, about hour 10-12: GPU window 1** on account A. B3 and v1 on dev (the checkpoint), held-out and BothBosu, plus latency. Numan makes one live call on the deployment to measure turn-to-coach latency. B1 and B2 run on account B in the same sitting, each with a 1-hour hard stop. Delete everything afterwards.
+- **S4, about hour 14:** recordings handed over, role-play labeled blind and committed, voice results frozen, v2 data built from dev errors.
+- **S5, about hour 16-18: GPU window 2,** straight into the rehearsal so the deployment warms up once. v1 vs v2 on every set, the full 6-scene rehearsal, then the README numbers are locked.
+- **S6:** demo and submission. Warm the deployment about 10 minutes before the slot, and scale it to 0 or delete it right after.
 
 ### Critical path
-M1, then M2 (v1), then M3 (scores), then D1. The line (L1 to L3) and voice (V1, V2) run alongside it.
+I0, M0, M1, M2 (v1), window 1, v2, window 2, D2. The product chain (I0, L1, L2, L3, D1) runs alongside it and joins at S3 for the live latency call and at S5 for the rehearsal.
 
 ## 6. The guardian model
 
@@ -253,28 +288,29 @@ The screen shows the live console. Three phones: Grandma's, the kid's and Mom's.
 
 A judge can call the guarded number from their own phone and try to fool it.
 
-## 9. Fireworks budget ($100: two $50 accounts, which can't be pooled)
+## 9. Budget
 
-Estimates use $8 per hour for an H100 or H200 (billed per second; start-up isn't billed) and $0.50 per million SFT tokens for models up to 16B.
+**Fireworks: $100, two $50 accounts that can't be pooled.** Prices: H100 or H200 at $8 per hour, billed per second, start-up not billed. LoRA SFT on models up to 16B at $0.50 per million tokens. The Batch API is 50% off.
 
 | Account | Line item | Estimate |
 |---|---|---|
-| A (Matt) | SFT v1, about 24M tokens | ~$12 |
-| A (Matt) | SFT v2, about 8M tokens | ~$4 |
-| A (Matt) | Guardian deployment, eval windows (B3 + v1 + v2 back to back), about 2 h | ~$16 |
-| A (Matt) | Guardian deployment, rehearsal and demo, about 1.5 h | ~$12 |
-| A (Matt) | Reserve: never spend the last $6, or the demo deployment stops | $6 |
-| B (Numan) | Generation through the Batch API (50% off): train and held-out sets | ~$10 |
-| B (Numan) | B4 Kimi K3, plus summaries and the dev stand-in | ~$8 |
-| B (Numan) | B1 Llama Guard + B2 safeguard deployments, about 1.5 h each | ~$24 |
-| | **Total** | **~$92** |
+| A (Matt) | Probe SFT job | ~$0.25 |
+| A (Matt) | SFT v1 (24M tokens or fewer), v2 (about 8M) | ~$16 |
+| A (Matt) | Window 1 (1 h or less), window 2 + rehearsal (1.5 h or less), demo (1 h or less) | ~$28 |
+| A (Matt) | **Reserve, never spent before the demo** (usage stops at $0) | $5.50 |
+| B (Numan) | Generation: Nemotron 3 Ultra train/dev (cap $12 once its price is known), GLM held-out (about $1), via Batch | ~$13 |
+| B (Numan) | B4 Kimi K3 via Batch on 500 held-out calls + a 100-request latency sample | ~$9.60 |
+| B (Numan) | B1 Llama Guard + B2 safeguard, 1 GPU-hour or less each | ~$16 |
+| B (Numan) | Stand-in model + summaries | ~$1.50 |
+| | **Total** | **~$84** |
 
 **Rules:**
-- Deployments run only during eval windows and the demo. Create them with `--min-replica-count 0 --scale-to-zero-window 5m`, and delete them right after.
-- Run `firectl deployment list` on both accounts at the end of every session.
-- Turn Auto Reload off and set a $50 spend limit on each account.
-- Spend dashboards lag, so keep a ledger in `results/ledger.md` of GPU start and stop times and token counts.
-- Install `firectl` in hour 0 and check deployment shapes.
+- Deployments are up only in windows. Create them with `--min-replica-count 0 --scale-to-zero-window 5m`, and delete them afterwards.
+- A scaled-down deployment answers 503 while waking, so warm it about 10 minutes before use.
+- Run `firectl deployment list` on both accounts at every session end.
+- Each person keeps a ledger: `results/ledger-matt.md` and `results/ledger-numan.md`.
+
+**Telnyx** (on the `emberz` profile, $10 daily cap): about $0.002 per minute of voice, $0.002 per conference participant per minute, $0.0035 per minute of streaming, $0.01 per call for deepfake detection and $1 a month per number. About 150 test calls come to single-digit dollars.
 
 ## 10. Consent (for the README)
 
