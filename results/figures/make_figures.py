@@ -205,21 +205,32 @@ def voice_roc():
         return False
     d = json.loads(p.read_text())
     curves = d.get("curves") or [d]
-    fig, ax = plt.subplots(figsize=(7.2, 6.4))
-    fig.subplots_adjust(left=0.12, right=0.96, top=0.84, bottom=0.14)
-    pal = [OURS, FRONT, "#199e70"]
+    if isinstance(curves, dict):
+        curves = list(curves.values())
+    fig, ax = plt.subplots(figsize=(10, 6.2))
+    fig.subplots_adjust(left=0.09, right=0.97, top=0.82, bottom=0.16)
+    pal = [OURS, FRONT, NV]
     for i, c in enumerate(curves[:3]):
-        lab = c.get("label") or c.get("name") or f"curve {i + 1}"
-        auc = c.get("auc")
-        ax.plot(c["fpr"], c["tpr"], color=pal[i], lw=2, label=f"{lab}" + (f" (AUC {auc:.3f})" if auc is not None else ""))
-    ax.plot([0, 1], [0, 1], color=GRID, lw=1, ls="--")
-    ax.set_xlabel("False positive rate (human called AI)")
-    ax.set_ylabel("True positive rate (AI voice caught)")
-    ax.legend(frameon=False, labelcolor=INK2, loc="lower right")
-    fig.text(0.12, 0.92, "AI-voice detector ROC", fontsize=16, fontweight="bold")
-    n = d.get("n") or d.get("n_total")
-    fig.text(0.12, 0.875, f"{d.get('dataset', '')}" + (f" · n = {n}" if n else ""), fontsize=11, color=INK2)
-    fig.text(0.12, 0.03, "Source: results/voice_roc.json", fontsize=9, color=MUTED)
+        lab = c.get("label") or f"curve {i + 1}"
+        extra = []
+        if c.get("eer") is not None:
+            extra.append(f"EER {100 * c['eer']:.2f}%")
+        if c.get("auc") is not None:
+            extra.append(f"AUC {c['auc']:.4f}")
+        ax.step([100 * x for x in c["fpr"]], [100 * y for y in c["tpr"]], where="post", color=pal[i],
+                lw=2.4 if i == 0 else 1.6, label=f"{lab}  ({', '.join(extra)})")
+    ax.set_xlim(0, 10)
+    ax.set_ylim(60, 100.5)
+    ax.set_xlabel("False positive rate (%): human voice flagged as AI  ·  zoomed to 0-10%")
+    ax.set_ylabel("AI voices caught (%)")
+    ax.legend(frameon=False, labelcolor=INK2, loc="lower right", fontsize=11)
+    c0 = curves[0]
+    fig.text(0.09, 0.93, "AI-voice detector: 98% of AI clips caught at 1% false alarms", fontsize=16, fontweight="bold")
+    fig.text(0.09, 0.875, f"{d.get('model', '')} · In-the-Wild, {c0.get('n')} clips from speakers unseen in training "
+             f"({c0.get('n_ai')} AI / {c0.get('n_human')} human) · simulated 8 kHz mu-law phone path",
+             fontsize=11, color=INK2)
+    fig.text(0.09, 0.03, "Source: results/voice_roc.json, results/voice_v1.md · in-domain test; pre-2022 TTS, not today's voice agents",
+             fontsize=9, color=MUTED)
     save(fig, "voice_roc")
     return True
 
@@ -234,7 +245,7 @@ def line_budget():
     d = json.loads(p.read_text())
     st = d["stages"]
     fig, ax = plt.subplots(figsize=(10, 3.8))
-    fig.subplots_adjust(left=0.05, right=0.97, top=0.70, bottom=0.30)
+    fig.subplots_adjust(left=0.05, right=0.97, top=0.70, bottom=0.34)
     left, cols = 0.0, [OURS, FRONT, "#199e70"]
     for i, s in enumerate(st):
         ms = s.get("ms")
@@ -243,12 +254,12 @@ def line_budget():
         est = s.get("estimate")
         ax.barh(0, ms, left=left, color=cols[i % 3], height=0.5, edgecolor=SURF, linewidth=2,
                 hatch="//" if est else None, alpha=0.8 if est else 1.0, zorder=2)
-        ax.text(left + ms / 2, 0.42, f"{s['name']}\n{ms:.0f} ms" + (" (est.)" if est else ""),
+        ax.text(left + ms / 2, 0.42, f"{s['name']}\n{ms:.0f} ms" + (f" ({s.get('tag', 'est.')})" if est else ""),
                 ha="center", va="bottom", fontsize=10.5, color=INK)
         left += ms
     ax.axvline(1500, color=INK, lw=1.5, ls="--", zorder=3)
-    ax.text(1510, -0.42, "1.5 s target", color=INK, fontsize=10.5, va="center")
-    ax.text(left, -0.42, f"total {left:.0f} ms ", ha="right", color=INK2, fontsize=10.5, va="center")
+    ax.text(1500, 0.95, "1.5 s target ", color=INK, fontsize=10.5, va="top", ha="right")
+    ax.text(left, -0.42, f"measured stages total {left:.0f} ms", ha="right", color=INK2, fontsize=10.5, va="center")
     ax.set_ylim(-0.6, 1.0)
     ax.set_yticks([])
     ax.set_xlim(0, max(1700, left * 1.08))
@@ -256,7 +267,8 @@ def line_budget():
     ax.set_xlabel("ms from the end of the caller's line to the coach tip")
     fig.text(0.05, 0.9, "Live-line latency budget", fontsize=16, fontweight="bold")
     fig.text(0.05, 0.82, d.get("subtitle", ""), fontsize=11, color=INK2)
-    fig.text(0.05, 0.07, d.get("note", ""), fontsize=9.5, color=INK2)
+    import textwrap
+    fig.text(0.05, 0.065, "\n".join(textwrap.wrap(d.get("note", ""), 150)), fontsize=9.5, color=INK2)
     fig.text(0.05, 0.02, "Hatched = estimate or non-production measurement; sources in results/figures/line_latency.json",
              fontsize=9, color=MUTED)
     save(fig, "line_budget")

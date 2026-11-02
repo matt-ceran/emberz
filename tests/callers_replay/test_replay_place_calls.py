@@ -238,3 +238,25 @@ def test_cli_run_is_dry_by_default(monkeypatch, capsys):
     assert pc.main(["run", "--limit", "2"]) == 0
     out = capsys.readouterr().out
     assert "DRY RUN" in out and out.count('"POST"') == 2
+
+
+def test_limit_zero_means_no_calls_not_all(monkeypatch):
+    assert pc.pick_rows(rows(5), None, 0, 0, set()) == []
+    with pytest.raises(SystemExit):
+        pc.pick_rows(rows(5), None, 0, -1, set())
+    live_setup(monkeypatch)
+    sw = FakeSW([])
+    assert pc.cmd_run(run_args(live=True, limit=0), ENV, sw_factory=lambda env: sw, sleep=lambda s: None) == 0
+    assert sw.dials == []
+
+
+def test_live_prompt_without_terminal_aborts(monkeypatch):
+    live_setup(monkeypatch)
+
+    def eof(prompt=""):
+        raise EOFError
+
+    monkeypatch.setattr("builtins.input", eof)
+    sw = FakeSW([])
+    assert pc.cmd_run(run_args(live=True, yes=False), ENV, sw_factory=lambda env: sw, sleep=lambda s: None) == 1
+    assert sw.dials == []

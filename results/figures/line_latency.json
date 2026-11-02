@@ -1,0 +1,9 @@
+{
+  "subtitle": "p50 per stage · ASR measured in audio time · guardian from the Training API sampler · Telnyx speak not measured yet",
+  "note": "ASR: line/bench_asr.py delay, 2 calls / 4 streams, 26 utterance ends, 14:46 PST Nov 2 (audio-time p50 0.62 s, p95 0.74 s; wall time invalid: Mac CPU saturated by concurrent jobs, load avg ~26). Guardian: v2 p50 on all 257 calls via sampler, not a deployment.",
+  "stages": [
+    {"name": "ASR endpoint (VAD 0.6 s)", "ms": 620, "source": "line.bench_asr delay, audio-time p50, 2026-11-02 14:46 PST", "estimate": false},
+    {"name": "Guardian v2", "ms": 1030, "source": "TRAINING_RUN.md 14:26, all 257, Training API sampler p50", "estimate": true, "tag": "sampler, not a deployment"},
+    {"name": "Telnyx speak start", "ms": null, "source": "not measured", "estimate": true, "tag": "sampler, not a deployment"}
+  ]
+}

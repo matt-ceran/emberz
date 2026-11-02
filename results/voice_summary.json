@@ -78,7 +78,7 @@
         "dev_eer": 0.0613
       }
     ],
-    "created": "2026-11-02T22:34:40+00:00",
+    "created": "2026-11-02T22:39:08+00:00",
     "sklearn": "1.9.1"
   },
   "head_path": "/Users/numankarakas/Projects/fireworks-AMD/voice/heads/w2v-head-v1.joblib",
@@ -396,6 +396,163 @@
       "acc_at_0.5": 0.9844,
       "tpr_at_fpr_1pct": 0.971,
       "tpr_at_fpr_5pct": 0.9986
+    },
+    "clean": {
+      "test_set": "itw_clean_heldout_speakers",
+      "window_s": 4.0,
+      "layer": 9,
+      "n": 2829,
+      "n_ai": 1413,
+      "n_human": 1416,
+      "eer": 0.009180790960451978,
+      "eer_ci95": [
+        0.005649717514124294,
+        0.01273885350318471
+      ],
+      "auc": 0.9994687146392858,
+      "auc_ci95": [
+        0.9990938285932484,
+        0.99977214205461
+      ],
+      "eer_ci95_speaker": [
+        0.0047,
+        0.015
+      ],
+      "auc_ci95_speaker": [
+        0.9989,
+        0.9999
+      ],
+      "n_speakers": 25,
+      "per_speaker": {
+        "Alexandria Ocasio-Cortez": {
+          "n": 69,
+          "n_ai": 25,
+          "acc_at_0.5": 0.986
+        },
+        "Arnold Schwarzenegger": {
+          "n": 64,
+          "n_ai": 27,
+          "acc_at_0.5": 0.984
+        },
+        "Ayn Rand": {
+          "n": 489,
+          "n_ai": 280,
+          "acc_at_0.5": 0.984
+        },
+        "Barack Obama": {
+          "n": 581,
+          "n_ai": 85,
+          "acc_at_0.5": 0.981
+        },
+        "Bill Clinton": {
+          "n": 348,
+          "n_ai": 178,
+          "acc_at_0.5": 0.991
+        },
+        "Calvin Coolidge": {
+          "n": 13,
+          "n_ai": 4,
+          "acc_at_0.5": 0.923
+        },
+        "Dave Chappelle": {
+          "n": 4,
+          "n_ai": 2,
+          "acc_at_0.5": 1.0
+        },
+        "Dwight Eisenhower": {
+          "n": 47,
+          "n_ai": 16,
+          "acc_at_0.5": 0.83
+        },
+        "FDR": {
+          "n": 87,
+          "n_ai": 41,
+          "acc_at_0.5": 0.92
+        },
+        "Frank Sinatra": {
+          "n": 13,
+          "n_ai": 10,
+          "acc_at_0.5": 1.0
+        },
+        "Harry Truman": {
+          "n": 11,
+          "n_ai": 4,
+          "acc_at_0.5": 1.0
+        },
+        "JFK": {
+          "n": 129,
+          "n_ai": 69,
+          "acc_at_0.5": 0.969
+        },
+        "Jimmy Carter": {
+          "n": 5,
+          "n_ai": 3,
+          "acc_at_0.5": 1.0
+        },
+        "John Cleese": {
+          "n": 27,
+          "n_ai": 18,
+          "acc_at_0.5": 0.926
+        },
+        "Louis Farrakhan": {
+          "n": 72,
+          "n_ai": 27,
+          "acc_at_0.5": 0.986
+        },
+        "Lyndon Johnson": {
+          "n": 17,
+          "n_ai": 3,
+          "acc_at_0.5": 0.941
+        },
+        "Malcolm X": {
+          "n": 32,
+          "n_ai": 12,
+          "acc_at_0.5": 1.0
+        },
+        "Mark Zuckerberg": {
+          "n": 114,
+          "n_ai": 66,
+          "acc_at_0.5": 1.0
+        },
+        "Milton Friedman": {
+          "n": 119,
+          "n_ai": 76,
+          "acc_at_0.5": 0.983
+        },
+        "Mitch Hedberg": {
+          "n": 8,
+          "n_ai": 7,
+          "acc_at_0.5": 1.0
+        },
+        "Orson Welles": {
+          "n": 49,
+          "n_ai": 45,
+          "acc_at_0.5": 1.0
+        },
+        "Queen Elizabeth II": {
+          "n": 107,
+          "n_ai": 91,
+          "acc_at_0.5": 1.0
+        },
+        "Ronald Reagan": {
+          "n": 326,
+          "n_ai": 233,
+          "acc_at_0.5": 0.997
+        },
+        "Scarlett Johansson": {
+          "n": 16,
+          "n_ai": 11,
+          "acc_at_0.5": 1.0
+        },
+        "The Notorious B.I.G.": {
+          "n": 82,
+          "n_ai": 80,
+          "acc_at_0.5": 1.0
+        }
+      },
+      "acc_at_0.5": 0.982,
+      "tpr_at_fpr_1pct": 0.9915,
+      "tpr_at_fpr_5pct": 0.9979
     }
   }
 }

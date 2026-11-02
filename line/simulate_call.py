@@ -140,6 +140,7 @@ class SceneResult:
     coach_latency_ms: Optional[int] = None
     line_ends: list = field(default_factory=list)
     speaks: list = field(default_factory=list)
+    action_replies: list = field(default_factory=list)
 
     def of(self, t: str) -> list:
         return [e for e in self.events if e.type == t]
@@ -152,7 +153,9 @@ def _wh(client, event_type: str, payload: dict) -> None:
 
 
 def run_scene(name: str, *, text_mode: bool = False, fast: bool = False, quiet: bool = False,
-              real_summary: bool = False, cache: Optional[Path] = None) -> SceneResult:
+              real_summary: bool = False, cache: Optional[Path] = None, score_fn: Any = None,
+              actions: Optional[dict] = None) -> SceneResult:
+    """actions: {line_index: "safe"|"hangup"|...} -> POST /actions/{call_id}/{action} right before that line."""
     from fastapi.testclient import TestClient
 
     from line.app import build_app
@@ -184,8 +187,8 @@ def run_scene(name: str, *, text_mode: bool = False, fast: bool = False, quiet: 
         allowed_contacts={GRANDPA: "Grandpa"}, protected_number=PROTECTED, caretaker_number=CARETAKER)}
     app = build_app(telnyx=tel, settings=settings, profiles=profiles,
                     transcriber_factory=ScriptTranscriber if text_mode else None,
-                    summarizer=None if real_summary else local_summary, open_console=True,
-                    record=False, voice_detector=not text_mode, taps=(tap,))
+                    summarizer=None if real_summary else local_summary, open_console=True, score_fn=score_fn,
+                    record=False, voice_detector=False if text_mode else None, taps=(tap,))
     sid = uuid.uuid4().hex[:10]
     call_id, a = "c_" + sid, "sim-A-" + sid
     result.call_id = call_id
@@ -221,6 +224,10 @@ def run_scene(name: str, *, text_mode: bool = False, fast: bool = False, quiet: 
 
             ms = 0
             for i, (spk, text, _v) in enumerate(scene["lines"], 1):
+                if actions and (i - 1) in actions:
+                    result.action_replies.append(client.post(f"/actions/{call_id}/{actions[i - 1]}").json())
+                if session.ended:
+                    break
                 dur = 60 * len(text)
                 tr = ScriptTranscriber.instances[call_id] if call_id in ScriptTranscriber.instances else None
                 if tr is None:  # created on the first media frame

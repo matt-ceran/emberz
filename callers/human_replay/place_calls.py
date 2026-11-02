@@ -165,7 +165,9 @@ def pick_rows(rows: list[dict[str, str]], clips: Optional[str], start: int, limi
         rows = [r for r in rows if r["clip_id"] in want]
     rows = [r for r in rows if r["clip_id"] not in skip_done]
     rows = rows[start:]
-    return rows[:limit] if limit else rows
+    if limit is not None and limit < 0:
+        raise SystemExit("--limit must be >= 0")
+    return rows if limit is None else rows[:limit]     # --limit 0 means no calls, never "all"
 
 
 def done_clips(log_path: Path = CALL_LOG) -> set[str]:
@@ -368,6 +370,9 @@ def cmd_run(args, env: dict[str, str], sw_factory: Callable[[dict[str, str]], Si
     todo = pick_rows(rows, args.clips, args.start, args.limit, skip)
     if len(todo) > args.max_calls:
         raise SystemExit(f"{len(todo)} calls > --max-calls {args.max_calls}")
+    if not todo:
+        log("nothing to call (check --clips/--start/--limit/--skip-done)")
+        return 0
     est_min = sum(max(1, -(-int(expected_call_s(r, args.lead_silence_s) + 5) // 60)) for r in todo)
     log(f"{'LIVE' if args.live else 'DRY RUN'}: {len(todo)} calls {caller} -> {guarded}, "
         f"~{est_min} billed SignalWire minutes (~${est_min * 0.008:.2f} at $0.008/min), gap {args.gap_s}s")
@@ -390,7 +395,11 @@ def cmd_run(args, env: dict[str, str], sw_factory: Callable[[dict[str, str]], Si
     if not sw.find_number(caller):
         raise SystemExit(f"{caller} is not in this SignalWire project")
     if not args.yes:
-        if input(f"Place {len(todo)} real calls now? Type yes: ").strip() != "yes":
+        try:
+            answer = input(f"Place {len(todo)} real calls now? Type yes: ").strip()
+        except EOFError:                                  # no terminal: never treat as consent
+            answer = ""
+        if answer != "yes":
             log("aborted")
             return 1
     upload(todo, log)

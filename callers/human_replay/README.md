@@ -43,7 +43,9 @@ the `emberz-g1` service account. Then it places one call per clip through Signal
 ```
 
 The calls run one at a time. The script waits until SignalWire reports the call ended
-(`GET /api/voice/logs/{id}`), then waits 20 s more. A run of 60 calls takes about 40 minutes. It stops
+(`GET /api/voice/logs/{id}`), then waits 20 s more. If a call is not reported ended in time, it sends
+`calling.end` for it. If a dial request fails in transit (timeout), a call may still have been placed, so the
+run logs `dial_uncertain` and stops instead of retrying. A run of 60 calls takes about 40 minutes. It stops
 after two failed calls in a row, refuses more than `--max-calls` (80), and asks you to type `yes` (or pass `--yes`).
 
 **One-time permission (Numan):** your gcloud account is project owner, but owner does not include
@@ -102,19 +104,26 @@ calls to our own line. If we ever share the clips themselves, EdAcc-derived clip
 > (https://creativecommons.org/licenses/by-sa/4.0/), read from the Hugging Face copy `edinburghcstr/edacc`.
 > Changes: we cut segments to at most 12 s, resampled them and normalized their level, and played them over phone calls.
 
-Not used: Common Voice (CC0, but since October 2025 only through a Mozilla Data Collective account:
-https://commonvoice.mozilla.org/en/faq), VCTK (CC BY 4.0, but a single ~11 GB zip of 2-4 s sentences),
+Not used: Common Voice (CC0, but "effective October 2025" only through Mozilla Data Collective with an account:
+https://huggingface.co/spaces/mozilla-foundation/README), VCTK (CC BY 4.0, but a single ~11 GB zip of 2-4 s sentences),
 FLEURS (CC BY 4.0, no speaker ids), VoxPopuli en (CC0, but one 936 MB test parquet), People's Speech
 (no speaker metadata).
 
-## Cost (60 calls, each about 25 s including ring, billed as 1 minute)
+## Cost (60 calls, each under 1 minute, every leg rounded up to 1 billed minute as a worst case)
 
-| Item | Estimate |
-|---|---|
-| SignalWire outbound US, $0.008/min (https://signalwire.com/pricing/voice) | ~$0.50 |
-| Telnyx inbound leg + media streaming + `deepfake_detection` ($0.01/call) + B leg + conference (PLAN.md section 9 prices) | ~$1.50-2.00 |
-| Cloud Storage: 16 MB for 30 days, ~60 uploads, 16 MB egress | < $0.01 |
-| **Total** | **~$2-3** |
+| Item | Per call | 60 calls |
+|---|---|---|
+| SignalWire outbound US: $0.008/min (https://signalwire.com/pricing/voice; the page states no billing increment, so 1 full minute is assumed) | $0.008 | $0.48 |
+| Telnyx A leg (inbound): $0.002/min | $0.002 | $0.12 |
+| Telnyx media streaming: $0.0035/min | $0.0035 | $0.21 |
+| Telnyx `deepfake_detection`: $0.01/call | $0.01 | $0.60 |
+| Telnyx B leg (only if the cell answers): $0.002/min | $0.002 | $0.12 |
+| Telnyx conference, A + B participants: $0.002/participant-min | $0.004 | $0.24 |
+| Cloud Storage: 16 MB for 30 days, ~60 uploads, 16 MB egress | | < $0.01 |
+| **Total** | **~$0.03** | **~$1.77, under $2** |
+
+Telnyx rates are PLAN.md section 9's figures (not re-checked here). `max_price_per_minute` is set to $0.05
+on every dial, so SignalWire rejects any route that would cost more than that.
 
 ## Docs used (checked 2026-11-02)
 

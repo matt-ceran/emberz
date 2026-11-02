@@ -51,12 +51,12 @@ def roc_points(y, s, max_pts=400):
             "threshold": [round(float(min(v, 1.0)), 5) for v in thr]}
 
 
-def svg_roc(curves: dict, path: Path, title: str):
+def svg_roc(curves: dict, path: Path, title: str, xmax: float = 0.10, ymin: float = 0.80):
     """curves: {label: {"fpr", "tpr", "eer", "auc", "n"}}; at most 2 series (blue, orange)."""
     W, H, L, R, T, B = 560, 470, 60, 20, 56, 56
     pw, ph = W - L - R, H - T - B
-    X = lambda v: L + v * pw
-    Y = lambda v: T + (1 - v) * ph
+    X = lambda v: L + min(v, xmax) / xmax * pw
+    Y = lambda v: T + (1 - (max(v, ymin) - ymin) / (1 - ymin)) * ph
     cls = ["s1", "s2"]
     parts = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
              f'font-family="system-ui,-apple-system,Segoe UI,sans-serif" role="img" aria-label="{title}">',
@@ -67,26 +67,26 @@ def svg_roc(curves: dict, path: Path, title: str):
              ".s1{stroke:var(--s1)}.s2{stroke:var(--s2)}.f1{fill:var(--s1)}.f2{fill:var(--s2)}</style>",
              f'<rect class="bg" width="{W}" height="{H}"/>',
              f'<text class="t" x="{L}" y="24" font-size="15" font-weight="600">{title}</text>']
-    for v in (0, .2, .4, .6, .8, 1):
-        parts.append(f'<line class="g" x1="{X(v)}" y1="{T}" x2="{X(v)}" y2="{T + ph}"/>'
-                     f'<line class="g" x1="{L}" y1="{Y(v)}" x2="{L + pw}" y2="{Y(v)}"/>'
-                     f'<text class="t2" x="{X(v)}" y="{T + ph + 16}" font-size="11" text-anchor="middle">{v:g}</text>'
-                     f'<text class="t2" x="{L - 8}" y="{Y(v) + 4}" font-size="11" text-anchor="end">{v:g}</text>')
-    parts.append(f'<line class="g" x1="{X(0)}" y1="{Y(0)}" x2="{X(1)}" y2="{Y(1)}" stroke-dasharray="4 4"/>')
+    for i in range(6):
+        vx, vy = xmax * i / 5, ymin + (1 - ymin) * i / 5
+        parts.append(f'<line class="g" x1="{X(vx)}" y1="{T}" x2="{X(vx)}" y2="{T + ph}"/>'
+                     f'<line class="g" x1="{L}" y1="{Y(vy)}" x2="{L + pw}" y2="{Y(vy)}"/>'
+                     f'<text class="t2" x="{X(vx)}" y="{T + ph + 16}" font-size="11" text-anchor="middle">{vx:.0%}</text>'
+                     f'<text class="t2" x="{L - 8}" y="{Y(vy) + 4}" font-size="11" text-anchor="end">{vy:.0%}</text>')
     parts.append(f'<text class="t2" x="{L + pw / 2}" y="{H - 14}" font-size="12" text-anchor="middle">'
-                 f'False positive rate (human called AI)</text>')
+                 f'False positive rate: humans flagged as AI (zoomed to 0-10%)</text>')
     parts.append(f'<text class="t2" transform="translate(16 {T + ph / 2}) rotate(-90)" font-size="12" '
-                 f'text-anchor="middle">True positive rate (AI caught)</text>')
+                 f'text-anchor="middle">AI voices caught (zoomed to 80-100%)</text>')
     for i, (lab, c) in enumerate(curves.items()):
         pts = " ".join(f"{X(a):.1f},{Y(b):.1f}" for a, b in zip(c["fpr"], c["tpr"]))
         parts.append(f'<polyline class="{cls[i]}" fill="none" stroke-width="2" stroke-linejoin="round" points="{pts}"/>')
         e = c["eer"]
         parts.append(f'<circle class="{cls[i].replace("s", "f")}" cx="{X(e):.1f}" cy="{Y(1 - e):.1f}" r="4.5" '
                      f'stroke="var(--bg)" stroke-width="2"/>')
-        ly = T + ph - 44 + i * 22
+        ly = T + ph - 50 + i * 22
         parts.append(f'<line class="{cls[i]}" x1="{L + pw - 250}" y1="{ly}" x2="{L + pw - 232}" y2="{ly}" stroke-width="2"/>'
                      f'<text class="t" x="{L + pw - 226}" y="{ly + 4}" font-size="12">{lab}: EER {e:.1%}, '
-                     f'AUC {c["auc"]:.3f}</text>')
+                     f'AUC {c["auc"]:.4f}</text>')
     parts.append(f'<text class="t2" x="{L}" y="44" font-size="11">Dots mark the equal-error point. '
                  f'n = {next(iter(curves.values()))["n"]} clips from speakers never seen in training.</text>')
     parts.append("</svg>")

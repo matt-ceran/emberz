@@ -12,7 +12,7 @@ Two sources (checked 2026-11-02):
   groups of the conversations we pick (~25-50 MB each), never the 7 GB dataset.
 
 Not used: Common Voice (CC0, but since Oct 2025 only through Mozilla Data Collective with an
-account: https://commonvoice.mozilla.org/en/faq), VCTK (CC BY 4.0, but one ~11 GB zip and
+account: https://huggingface.co/spaces/mozilla-foundation/README), VCTK (CC BY 4.0, but one ~11 GB zip and
 2-4 s sentences), FLEURS (CC BY 4.0, no speaker ids), VoxPopuli en (CC0, but one 936 MB test
 parquet), People's Speech (no speaker metadata).
 

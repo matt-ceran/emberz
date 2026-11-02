@@ -89,7 +89,8 @@ for name, cap in [
     ("bothbosu", "BothBosu: calls written by a different model family, call-level labels. n = 100 scam, 100 benign. Only rules, v1 and v2 were run."),
     ("latency_p50", "Latency p50 per turn. Hatched bars come from the Fireworks Training API sampler (queueing), not a dedicated deployment; production latency is not measured yet."),
     ("line_budget", "Live-line latency budget vs the 1.5 s coach target. Hatched = estimate or non-production number; see results/figures/line_latency.json."),
-    ("voice_roc", "AI-voice detector ROC (results/voice_roc.json)."),
+    ("voice_roc", "AI-voice detector (wav2vec2 XLS-R features + logistic head), In-the-Wild clips from 25 speakers unseen in training, simulated phone path. "
+                  "Headline: EER 1.27% (95% CI 0.85-1.77%), AUC 0.9991, n = 2,829 (results/voice_v1.md). In-domain test with pre-2022 TTS; expect a drop on today's voice agents."),
 ]:
     t = img(name, cap)
     if t:
