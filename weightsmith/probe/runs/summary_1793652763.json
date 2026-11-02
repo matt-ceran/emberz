@@ -1,0 +1,96 @@
+[
+ {
+  "model": "baseline: all-zero weights (uniform random actions)",
+  "score": {
+   "mean": 0.5,
+   "ci95": 0.101150368189763,
+   "median": 0.0,
+   "max": 4.0,
+   "mean_steps": 11.1,
+   "n": 200
+  }
+ },
+ {
+  "model": "minimax-m3",
+  "sample": 0,
+  "secs": 113.71842169761658,
+  "usage": {
+   "prompt_tokens": 1893,
+   "total_tokens": 33893,
+   "completion_tokens": 32000,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 32000
+   },
+   "output_tokens_details": {
+    "reasoning_tokens": 32000
+   }
+  },
+  "finish": "length",
+  "error": "no build_weights code block"
+ },
+ {
+  "model": "qwen3p8-max",
+  "sample": 0,
+  "secs": 221.3265221118927,
+  "usage": {
+   "prompt_tokens": 1873,
+   "total_tokens": 33873,
+   "completion_tokens": 32000,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 31999
+   },
+   "output_tokens_details": {
+    "reasoning_tokens": 31999
+   }
+  },
+  "finish": "length",
+  "error": "no build_weights code block"
+ },
+ {
+  "model": "qwen3p8-2p4t-a95b",
+  "sample": 0,
+  "secs": 241.70219326019287,
+  "usage": {
+   "prompt_tokens": 1873,
+   "total_tokens": 33873,
+   "completion_tokens": 32000,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "reasoning_tokens": 32000
+   },
+   "output_tokens_details": {
+    "reasoning_tokens": 32000
+   }
+  },
+  "finish": "length",
+  "error": "no build_weights code block"
+ },
+ {
+  "model": "glm-5p3",
+  "sample": 0,
+  "secs": 394.3067479133606,
+  "usage": {
+   "prompt_tokens": 1728,
+   "completion_tokens": 32000,
+   "total_tokens": 33728,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   },
+   "completion_tokens_details": {
+    "accepted_prediction_tokens": null,
+    "reasoning_tokens": 32000,
+    "rejected_prediction_tokens": null
+   }
+  },
+  "finish": "length",
+  "error": "no build_weights code block"
+ }
+]
