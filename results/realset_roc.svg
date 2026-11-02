@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 520" width="780" height="520" font-family="system-ui,-apple-system,Segoe UI,sans-serif">
+<rect width="780" height="520" fill="#fcfcfb"/>
+<text x="16" y="26" font-size="16" font-weight="600" fill="#0b0b0b">Real-audio test set: ROC of each call's highest rating</text>
+<text x="16" y="44" font-size="12" fill="#52514e">61 scam robocalls vs 50 benign bank calls; points = flag at watch, alert (official), urgent</text>
+<line x1="70" y1="420" x2="70" y2="60" stroke="#e6e5e0"/>
+<line x1="70" y1="420" x2="430" y2="420" stroke="#e6e5e0"/>
+<text x="70" y="436" font-size="11" fill="#52514e" text-anchor="middle">0%</text>
+<text x="64" y="424" font-size="11" fill="#52514e" text-anchor="end">0%</text>
+<line x1="160.0" y1="420" x2="160.0" y2="60" stroke="#e6e5e0"/>
+<line x1="70" y1="330.0" x2="430" y2="330.0" stroke="#e6e5e0"/>
+<text x="160.0" y="436" font-size="11" fill="#52514e" text-anchor="middle">25%</text>
+<text x="64" y="334.0" font-size="11" fill="#52514e" text-anchor="end">25%</text>
+<line x1="250.0" y1="420" x2="250.0" y2="60" stroke="#e6e5e0"/>
+<line x1="70" y1="240.0" x2="430" y2="240.0" stroke="#e6e5e0"/>
+<text x="250.0" y="436" font-size="11" fill="#52514e" text-anchor="middle">50%</text>
+<text x="64" y="244.0" font-size="11" fill="#52514e" text-anchor="end">50%</text>
+<line x1="340.0" y1="420" x2="340.0" y2="60" stroke="#e6e5e0"/>
+<line x1="70" y1="150.0" x2="430" y2="150.0" stroke="#e6e5e0"/>
+<text x="340.0" y="436" font-size="11" fill="#52514e" text-anchor="middle">75%</text>
+<text x="64" y="154.0" font-size="11" fill="#52514e" text-anchor="end">75%</text>
+<line x1="430.0" y1="420" x2="430.0" y2="60" stroke="#e6e5e0"/>
+<line x1="70" y1="60.0" x2="430" y2="60.0" stroke="#e6e5e0"/>
+<text x="430.0" y="436" font-size="11" fill="#52514e" text-anchor="middle">100%</text>
+<text x="64" y="64.0" font-size="11" fill="#52514e" text-anchor="end">100%</text>
+<line x1="70" y1="420" x2="430" y2="60" stroke="#c9c8c2" stroke-dasharray="3 3"/>
+<rect x="70" y="60" width="360" height="360" fill="none" stroke="#52514e"/>
+<text x="250.0" y="454" font-size="12" fill="#0b0b0b" text-anchor="middle">False alarms on benign calls</text>
+<text x="26" y="240.0" font-size="12" fill="#0b0b0b" text-anchor="middle" transform="rotate(-90 26 240.0)">Scam recall</text>
+<polyline points="70.0,420.0 70.0,420.0 98.8,414.1 98.8,414.1 430.0,60.0" fill="none" stroke="#8a8984" stroke-width="1.5" stroke-dasharray="2 4" stroke-linejoin="round"/>
+<rect x="66.5" y="416.5" width="7.0" height="7.0" fill="#8a8984" stroke="#fcfcfb" stroke-width="1.5"><title>keyword stub at urgent: recall 0%, false alarms 0%</title></rect>
+<rect x="95.3" y="410.6" width="7.0" height="7.0" fill="#8a8984" stroke="#fcfcfb" stroke-width="1.5"><title>keyword stub at watch: recall 2%, false alarms 8%</title></rect>
+<rect x="93.8" y="409.1" width="10" height="10" fill="#8a8984" stroke="#fcfcfb" stroke-width="1.5"><title>keyword stub at alert: recall 2%, false alarms 8%</title></rect>
+<polyline points="70.0,420.0 70.0,384.6 178.0,95.4 415.6,60.0 430.0,60.0" fill="none" stroke="#2a78d6" stroke-width="2" stroke-dasharray="7 4" stroke-linejoin="round"/>
+<polygon points="70.0,380.1 74.5,384.6 70.0,389.1 65.5,384.6" fill="#2a78d6" stroke="#fcfcfb" stroke-width="1.5"><title>DeepSeek V4.1 Flash at urgent: recall 10%, false alarms 0%</title></polygon>
+<polygon points="178.0,89.4 184.0,95.4 178.0,101.4 172.0,95.4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="1.5"><title>DeepSeek V4.1 Flash at alert: recall 90%, false alarms 30%</title></polygon>
+<polygon points="415.6,55.5 420.1,60.0 415.6,64.5 411.1,60.0" fill="#2a78d6" stroke="#fcfcfb" stroke-width="1.5"><title>DeepSeek V4.1 Flash at watch: recall 100%, false alarms 96%</title></polygon>
+<polyline points="70.0,420.0 70.0,402.3 142.0,77.7 422.8,60.0 430.0,60.0" fill="none" stroke="#7a4fd0" stroke-width="2" stroke-dasharray="7 4" stroke-linejoin="round"/>
+<polygon points="70.0,397.8 74.5,402.3 70.0,406.8 65.5,402.3" fill="#7a4fd0" stroke="#fcfcfb" stroke-width="1.5"><title>Kimi K3 at urgent: recall 5%, false alarms 0%</title></polygon>
+<polygon points="142.0,71.7 148.0,77.7 142.0,83.7 136.0,77.7" fill="#7a4fd0" stroke="#fcfcfb" stroke-width="1.5"><title>Kimi K3 at alert: recall 95%, false alarms 20%</title></polygon>
+<polygon points="422.8,55.5 427.3,60.0 422.8,64.5 418.3,60.0" fill="#7a4fd0" stroke="#fcfcfb" stroke-width="1.5"><title>Kimi K3 at watch: recall 100%, false alarms 98%</title></polygon>
+<polyline points="70.0,420.0 70.0,372.8 134.8,83.6 422.8,60.0 430.0,60.0" fill="none" stroke="#13907d" stroke-width="2" stroke-dasharray="7 4" stroke-linejoin="round"/>
+<polygon points="70.0,368.3 74.5,372.8 70.0,377.3 65.5,372.8" fill="#13907d" stroke="#fcfcfb" stroke-width="1.5"><title>Qwen3.8 Max at urgent: recall 13%, false alarms 0%</title></polygon>
+<polygon points="134.8,77.6 140.8,83.6 134.8,89.6 128.8,83.6" fill="#13907d" stroke="#fcfcfb" stroke-width="1.5"><title>Qwen3.8 Max at alert: recall 93%, false alarms 18%</title></polygon>
+<polygon points="422.8,55.5 427.3,60.0 422.8,64.5 418.3,60.0" fill="#13907d" stroke="#fcfcfb" stroke-width="1.5"><title>Qwen3.8 Max at watch: recall 100%, false alarms 98%</title></polygon>
+<polyline points="70.0,420.0 70.0,420.0 214.0,77.7 214.0,65.9 430.0,60.0" fill="none" stroke="#b8860b" stroke-width="2" stroke-dasharray="7 4" stroke-linejoin="round"/>
+<polygon points="70.0,415.5 74.5,420.0 70.0,424.5 65.5,420.0" fill="#b8860b" stroke="#fcfcfb" stroke-width="1.5"><title>Rune at urgent: recall 0%, false alarms 0%</title></polygon>
+<polygon points="214.0,71.7 220.0,77.7 214.0,83.7 208.0,77.7" fill="#b8860b" stroke="#fcfcfb" stroke-width="1.5"><title>Rune at alert: recall 95%, false alarms 40%</title></polygon>
+<polygon points="214.0,61.4 218.5,65.9 214.0,70.4 209.5,65.9" fill="#b8860b" stroke="#fcfcfb" stroke-width="1.5"><title>Rune at watch: recall 98%, false alarms 40%</title></polygon>
+<polyline points="70.0,420.0 77.2,402.3 134.8,237.0 422.8,60.0 430.0,60.0" fill="none" stroke="#d4461a" stroke-width="3.5" stroke-linejoin="round"/>
+<circle cx="77.2" cy="402.3" r="3.5" fill="#d4461a" stroke="#fcfcfb" stroke-width="1.5"><title>Emberz guardian v2 (ours) at urgent: recall 5%, false alarms 2%</title></circle>
+<circle cx="134.8" cy="237.0" r="5" fill="#d4461a" stroke="#fcfcfb" stroke-width="1.5"><title>Emberz guardian v2 (ours) at alert: recall 51%, false alarms 18%</title></circle>
+<circle cx="422.8" cy="60.0" r="3.5" fill="#d4461a" stroke="#fcfcfb" stroke-width="1.5"><title>Emberz guardian v2 (ours) at watch: recall 100%, false alarms 98%</title></circle>
+<text x="460" y="66" font-size="12" font-weight="600" fill="#0b0b0b">Model (AUC, 95% CI)</text>
+<line x1="460" y1="90" x2="490" y2="90" stroke="#d4461a" stroke-width="3.5"/>
+<text x="498" y="94" font-size="12" fill="#0b0b0b" font-weight="600">Emberz guardian v2 (ours)</text>
+<text x="498" y="108" font-size="11" fill="#52514e">AUC 0.668 (0.58-0.75)</text>
+<line x1="460" y1="124" x2="490" y2="124" stroke="#13907d" stroke-width="2" stroke-dasharray="7 4"/>
+<text x="498" y="128" font-size="12" fill="#0b0b0b">Qwen3.8 Max (frontier)</text>
+<text x="498" y="142" font-size="11" fill="#52514e">AUC 0.890 (0.83-0.94)</text>
+<line x1="460" y1="158" x2="490" y2="158" stroke="#7a4fd0" stroke-width="2" stroke-dasharray="7 4"/>
+<text x="498" y="162" font-size="12" fill="#0b0b0b">Kimi K3 (frontier)</text>
+<text x="498" y="176" font-size="11" fill="#52514e">AUC 0.881 (0.82-0.94)</text>
+<line x1="460" y1="192" x2="490" y2="192" stroke="#2a78d6" stroke-width="2" stroke-dasharray="7 4"/>
+<text x="498" y="196" font-size="12" fill="#0b0b0b">DeepSeek V4.1 Flash (frontier)</text>
+<text x="498" y="210" font-size="11" fill="#52514e">AUC 0.818 (0.75-0.89)</text>
+<line x1="460" y1="226" x2="490" y2="226" stroke="#b8860b" stroke-width="2" stroke-dasharray="7 4"/>
+<text x="498" y="230" font-size="12" fill="#0b0b0b">Rune (frontier)</text>
+<text x="498" y="244" font-size="11" fill="#52514e">AUC 0.785 (0.71-0.86)</text>
+<line x1="460" y1="260" x2="490" y2="260" stroke="#8a8984" stroke-width="1.5" stroke-dasharray="2 4"/>
+<text x="498" y="264" font-size="12" fill="#0b0b0b">keyword stub</text>
+<text x="498" y="278" font-size="11" fill="#52514e">AUC 0.468 (0.43-0.51)</text>
+<text x="460" y="400" font-size="11" fill="#52514e">Large mark = official alert rule.</text>
+<text x="460" y="414" font-size="11" fill="#52514e">Up and left is better.</text>
+<text x="16" y="492" font-size="11" fill="#52514e">Robocalls (NCSU, public domain) vs role-played HarperValley bank calls (CC BY 4.0).</text>
+<text x="16" y="508" font-size="11" fill="#52514e">8 kHz mu-law + live Nemotron ASR; same transcripts and prompt for every model. Bootstrap CI: 2000 resamples.</text>
+</svg>

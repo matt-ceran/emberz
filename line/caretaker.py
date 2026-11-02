@@ -246,7 +246,7 @@ class CaretakerFlow:
             try:
                 await self.telnyx.call_action(
                     session.c_ccid, "gather_using_speak",
-                    payload=f"Emberz alert: {tr.note}. Press 1 to listen.",
+                    payload=f"Emberz alert: {tr.note}. Press 1 to listen. While listening, press 0 to talk, or 9 to end the call.",
                     invalid_payload="Press 1 to listen, or hang up.",
                     voice=self.voice, language=LANGUAGE,
                     minimum_digits=1, maximum_digits=1, valid_digits="1",

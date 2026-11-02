@@ -153,6 +153,15 @@ def display_name(name: str) -> str:
 
 
 # --------------------------------------------------------------------------- per-call flow state
+END_DIGIT = os.environ.get("EMBERZ_END_DIGIT", "9")    # B or C presses it: Emberz hangs up on the caller
+TALK_DIGIT = os.environ.get("EMBERZ_TALK_DIGIT", "0")  # C presses it while listening: barge (talk)
+INTERVENE_GOODBYE_S = 5.0  # time for the goodbye line before B (and C) are hung up
+INTERVENE_TEXT = {
+    "protected": "Emberz hung up on that caller for you. You are safe. Goodbye.",
+    "caretaker": "Your caretaker ended that call. You are safe. Goodbye.",
+}
+
+
 @dataclass
 class FlowState:
     done: set[str] = field(default_factory=set)
@@ -160,6 +169,7 @@ class FlowState:
     b_joined: bool = False
     hung_up: set[str] = field(default_factory=set)  # call_control_ids that are gone
     end_reason: str = ""
+    intervened_by: str = ""  # "protected" | "caretaker" once someone pressed END_DIGIT
 
 
 class CallFlow:
@@ -196,6 +206,9 @@ class CallFlow:
             if role == "C":
                 session = self.sessions.get(call_id)
                 if session is not None:
+                    if event_type == "call.dtmf.received" and session.caretaker_state in ("monitoring", "barged"):
+                        await self._on_caretaker_digit(session, str(payload.get("digit", "")))
+                        return
                     await self.caretaker.on_event(session, event_type, payload)
                 return
             if event_type == "call.initiated" and role == "A":
@@ -296,6 +309,10 @@ class CallFlow:
             s.stream_id = p.get("stream_id") or s.stream_id
         elif et == "streaming.failed":
             log.error("media stream failed on %s: %s", s.call_id, p.get("failure_reason"))
+        elif et == "call.dtmf.received" and role == "B" and str(p.get("digit", "")) == END_DIGIT:
+            await self.intervene(s, "protected")
+        elif et == "call.hangup" and role == "A" and st.intervened_by:
+            st.hung_up.add(ccid)  # we dropped the caller on purpose; B hears the goodbye first
         elif et == "call.hangup" and role in ("A", "B"):
             st.hung_up.add(ccid)
             who = "caller" if role == "A" else "protected"
@@ -430,6 +447,50 @@ class CallFlow:
             s.ai_voice = AiVoice(score=score, source="telnyx")
         sig = VoiceSignal(call_id=s.call_id, at_ms=s.now_ms(), ai_score=score, model="telnyx")
         await self._publish(s, "voice", sig.model_dump())
+
+    # ------------------------------------------------------------------ intervention
+    async def _on_caretaker_digit(self, s: CallSession, digit: str) -> None:
+        if digit == END_DIGIT:
+            await self.intervene(s, "caretaker")
+        elif digit == TALK_DIGIT:
+            try:
+                await self.caretaker.barge(s)
+            except Exception as e:
+                log.warning("caretaker barge by keypress failed on %s: %s", s.call_id, e)
+
+    async def intervene(self, s: CallSession, by: str) -> None:
+        """Someone pressed END_DIGIT: drop the caller now, tell the protected person, then end.
+        Runs under the call's lock (from handle); the final hang-up runs as a task after the goodbye."""
+        st = self.state[s.call_id]
+        if s.ended or st.intervened_by:
+            return
+        st.intervened_by = by
+        log.info("call %s: ended by %s keypress", s.call_id, by)
+        await self._publish(s, "alert", {"level": "urgent", "category": "intervention",
+                                         "caretaker_note": f"Call ended by the {by} (keypress {END_DIGIT})"})
+        if s.a_ccid and s.a_ccid not in st.hung_up:
+            await self._cmd("hangup", s.a_ccid, f"{s.call_id}:intervene_a")
+        listeners = [c for c in (s.b_ccid, getattr(s, "c_ccid", None)) if c]
+        if s.conference_id and listeners:
+            try:
+                await self.telnyx.conference_action(
+                    s.conference_id, "speak", payload=INTERVENE_TEXT.get(by, INTERVENE_TEXT["protected"]),
+                    voice=self.settings.tts_voice,
+                    language="en-US", call_control_ids=listeners,
+                )
+            except Exception as e:
+                log.warning("intervention goodbye failed on %s: %s", s.call_id, e)
+
+        async def finish() -> None:
+            await asyncio.sleep(INTERVENE_GOODBYE_S)
+            async with self._locks.setdefault(s.call_id, asyncio.Lock()):
+                if not s.ended:
+                    await self._end_call(s, f"ended_by_{by}_keypress")
+
+        self._intervene_tasks = getattr(self, "_intervene_tasks", set())
+        t = asyncio.create_task(finish())
+        self._intervene_tasks.add(t)
+        t.add_done_callback(self._intervene_tasks.discard)
 
     async def _end_call(self, s: CallSession, reason: str) -> None:
         st = self.state[s.call_id]
