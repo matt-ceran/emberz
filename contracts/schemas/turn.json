@@ -1,0 +1,60 @@
+{
+  "additionalProperties": false,
+  "description": "One final transcript segment from the line (event `turn`).",
+  "properties": {
+    "call_id": {
+      "title": "Call Id",
+      "type": "string"
+    },
+    "turn": {
+      "minimum": 1,
+      "title": "Turn",
+      "type": "integer"
+    },
+    "speaker": {
+      "enum": [
+        "caller",
+        "protected"
+      ],
+      "title": "Speaker",
+      "type": "string"
+    },
+    "text": {
+      "title": "Text",
+      "type": "string"
+    },
+    "t_start_ms": {
+      "minimum": 0,
+      "title": "T Start Ms",
+      "type": "integer"
+    },
+    "t_end_ms": {
+      "minimum": 0,
+      "title": "T End Ms",
+      "type": "integer"
+    },
+    "gap_ms": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Silence between the previous turn's end (other speaker) and this turn's start",
+      "title": "Gap Ms"
+    }
+  },
+  "required": [
+    "call_id",
+    "turn",
+    "speaker",
+    "text",
+    "t_start_ms",
+    "t_end_ms"
+  ],
+  "title": "Turn",
+  "type": "object"
+}

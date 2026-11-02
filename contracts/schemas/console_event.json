@@ -1,0 +1,43 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "enum": [
+        "call_started",
+        "turn",
+        "risk",
+        "alert",
+        "coach",
+        "caretaker_joined",
+        "summary",
+        "call_ended",
+        "voice"
+      ],
+      "title": "Type",
+      "type": "string"
+    },
+    "call_id": {
+      "title": "Call Id",
+      "type": "string"
+    },
+    "at_ms": {
+      "description": "ms since call start",
+      "minimum": 0,
+      "title": "At Ms",
+      "type": "integer"
+    },
+    "data": {
+      "additionalProperties": true,
+      "description": "Payload; shape per type documented in contracts/README.md",
+      "title": "Data",
+      "type": "object"
+    }
+  },
+  "required": [
+    "type",
+    "call_id",
+    "at_ms"
+  ],
+  "title": "ConsoleEvent",
+  "type": "object"
+}

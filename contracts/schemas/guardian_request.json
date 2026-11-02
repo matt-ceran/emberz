@@ -1,0 +1,113 @@
+{
+  "$defs": {
+    "AiVoice": {
+      "additionalProperties": false,
+      "properties": {
+        "score": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Score",
+          "type": "number"
+        },
+        "source": {
+          "enum": [
+            "detector",
+            "telnyx",
+            "timing"
+          ],
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "score",
+        "source"
+      ],
+      "title": "AiVoice",
+      "type": "object"
+    },
+    "WindowTurn": {
+      "additionalProperties": false,
+      "properties": {
+        "turn": {
+          "title": "Turn",
+          "type": "integer"
+        },
+        "speaker": {
+          "enum": [
+            "caller",
+            "protected"
+          ],
+          "title": "Speaker",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "turn",
+        "speaker",
+        "text"
+      ],
+      "title": "WindowTurn",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "call_id": {
+      "title": "Call Id",
+      "type": "string"
+    },
+    "profile": {
+      "enum": [
+        "elder",
+        "kid",
+        "adult"
+      ],
+      "title": "Profile",
+      "type": "string"
+    },
+    "rules": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Rules",
+      "type": "array"
+    },
+    "caller_known": {
+      "title": "Caller Known",
+      "type": "boolean"
+    },
+    "ai_voice": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AiVoice"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "turns": {
+      "description": "The last N turns (window frozen at S2, 8 by default)",
+      "items": {
+        "$ref": "#/$defs/WindowTurn"
+      },
+      "title": "Turns",
+      "type": "array"
+    }
+  },
+  "required": [
+    "call_id",
+    "profile",
+    "rules",
+    "caller_known",
+    "turns"
+  ],
+  "title": "GuardianRequest",
+  "type": "object"
+}

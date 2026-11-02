@@ -1,0 +1,56 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "model": {
+      "title": "Model",
+      "type": "string"
+    },
+    "test_set": {
+      "title": "Test Set",
+      "type": "string"
+    },
+    "metric": {
+      "title": "Metric",
+      "type": "string"
+    },
+    "value": {
+      "title": "Value",
+      "type": "number"
+    },
+    "n": {
+      "title": "N",
+      "type": "integer"
+    },
+    "ci95": {
+      "anyOf": [
+        {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Ci95"
+    }
+  },
+  "required": [
+    "model",
+    "test_set",
+    "metric",
+    "value",
+    "n"
+  ],
+  "title": "ResultsRow",
+  "type": "object"
+}

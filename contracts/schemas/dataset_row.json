@@ -1,0 +1,228 @@
+{
+  "$defs": {
+    "AiVoice": {
+      "additionalProperties": false,
+      "properties": {
+        "score": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Score",
+          "type": "number"
+        },
+        "source": {
+          "enum": [
+            "detector",
+            "telnyx",
+            "timing"
+          ],
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "score",
+        "source"
+      ],
+      "title": "AiVoice",
+      "type": "object"
+    },
+    "Label": {
+      "additionalProperties": false,
+      "properties": {
+        "risk": {
+          "enum": [
+            "none",
+            "watch",
+            "alert",
+            "urgent"
+          ],
+          "title": "Risk",
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "scam.impersonation_bank_gov",
+            "scam.tech_support",
+            "scam.family_emergency",
+            "scam.prize",
+            "scam.romance_investment",
+            "disclosure.location_school",
+            "disclosure.credentials_otp",
+            "disclosure.financial_id",
+            "disclosure.home_alone",
+            "grooming.secrecy",
+            "grooming.isolation",
+            "grooming.gifts_flattery",
+            "grooming.photo_request",
+            "grooming.meeting_request",
+            "vulgar",
+            "threat_extortion",
+            "self_harm",
+            "none"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "stage": {
+          "enum": [
+            "hook",
+            "trust",
+            "pressure",
+            "ask"
+          ],
+          "title": "Stage",
+          "type": "string"
+        }
+      },
+      "required": [
+        "risk",
+        "category",
+        "stage"
+      ],
+      "title": "Label",
+      "type": "object"
+    },
+    "LabeledTurn": {
+      "additionalProperties": false,
+      "properties": {
+        "turn": {
+          "title": "Turn",
+          "type": "integer"
+        },
+        "speaker": {
+          "enum": [
+            "caller",
+            "protected"
+          ],
+          "title": "Speaker",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "label": {
+          "$ref": "#/$defs/Label"
+        }
+      },
+      "required": [
+        "turn",
+        "speaker",
+        "text",
+        "label"
+      ],
+      "title": "LabeledTurn",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "call_id": {
+      "title": "Call Id",
+      "type": "string"
+    },
+    "split": {
+      "enum": [
+        "train",
+        "dev",
+        "test_heldout"
+      ],
+      "title": "Split",
+      "type": "string"
+    },
+    "generator": {
+      "title": "Generator",
+      "type": "string"
+    },
+    "profile": {
+      "enum": [
+        "elder",
+        "kid",
+        "adult"
+      ],
+      "title": "Profile",
+      "type": "string"
+    },
+    "rules": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Rules",
+      "type": "array"
+    },
+    "rule_flip_of": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Rule Flip Of"
+    },
+    "scam_type": {
+      "title": "Scam Type",
+      "type": "string"
+    },
+    "turns": {
+      "items": {
+        "$ref": "#/$defs/LabeledTurn"
+      },
+      "title": "Turns",
+      "type": "array"
+    },
+    "ask_turn": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Ask Turn"
+    },
+    "benign_twin": {
+      "default": false,
+      "title": "Benign Twin",
+      "type": "boolean"
+    },
+    "caller_known": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Caller Known"
+    },
+    "ai_voice": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AiVoice"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "call_id",
+    "split",
+    "generator",
+    "profile",
+    "rules",
+    "scam_type",
+    "turns"
+  ],
+  "title": "DatasetRow",
+  "type": "object"
+}

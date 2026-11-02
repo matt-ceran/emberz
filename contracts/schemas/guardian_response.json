@@ -1,0 +1,125 @@
+{
+  "$defs": {
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "turn": {
+          "title": "Turn",
+          "type": "integer"
+        },
+        "quote": {
+          "title": "Quote",
+          "type": "string"
+        }
+      },
+      "required": [
+        "turn",
+        "quote"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "risk": {
+      "enum": [
+        "none",
+        "watch",
+        "alert",
+        "urgent"
+      ],
+      "title": "Risk",
+      "type": "string"
+    },
+    "category": {
+      "enum": [
+        "scam.impersonation_bank_gov",
+        "scam.tech_support",
+        "scam.family_emergency",
+        "scam.prize",
+        "scam.romance_investment",
+        "disclosure.location_school",
+        "disclosure.credentials_otp",
+        "disclosure.financial_id",
+        "disclosure.home_alone",
+        "grooming.secrecy",
+        "grooming.isolation",
+        "grooming.gifts_flattery",
+        "grooming.photo_request",
+        "grooming.meeting_request",
+        "vulgar",
+        "threat_extortion",
+        "self_harm",
+        "none"
+      ],
+      "title": "Category",
+      "type": "string"
+    },
+    "severity": {
+      "maximum": 3,
+      "minimum": 0,
+      "title": "Severity",
+      "type": "integer"
+    },
+    "source": {
+      "enum": [
+        "caller",
+        "protected_person"
+      ],
+      "title": "Source",
+      "type": "string"
+    },
+    "stage": {
+      "enum": [
+        "hook",
+        "trust",
+        "pressure",
+        "ask"
+      ],
+      "title": "Stage",
+      "type": "string"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/Evidence"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "action": {
+      "enum": [
+        "none",
+        "log",
+        "coach",
+        "notify_caretaker",
+        "suggest_hangup",
+        "urgent_alert"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "coach_line": {
+      "default": "",
+      "description": "15 words max, heard by the protected person only",
+      "title": "Coach Line",
+      "type": "string"
+    },
+    "caretaker_note": {
+      "default": "",
+      "description": "20 words max",
+      "title": "Caretaker Note",
+      "type": "string"
+    }
+  },
+  "required": [
+    "risk",
+    "category",
+    "severity",
+    "source",
+    "stage",
+    "action"
+  ],
+  "title": "GuardianResponse",
+  "type": "object"
+}

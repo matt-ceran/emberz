@@ -1,0 +1,57 @@
+{
+  "additionalProperties": false,
+  "description": "G1 output: one row per turn of a call that went Kokoro -> 8 kHz -> Nemotron ASR.",
+  "properties": {
+    "call_id": {
+      "title": "Call Id",
+      "type": "string"
+    },
+    "turn": {
+      "title": "Turn",
+      "type": "integer"
+    },
+    "speaker": {
+      "enum": [
+        "caller",
+        "protected"
+      ],
+      "title": "Speaker",
+      "type": "string"
+    },
+    "text_clean": {
+      "title": "Text Clean",
+      "type": "string"
+    },
+    "text_asr": {
+      "title": "Text Asr",
+      "type": "string"
+    },
+    "voice": {
+      "description": "Kokoro voice id used for the render",
+      "title": "Voice",
+      "type": "string"
+    },
+    "wer": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Wer"
+    }
+  },
+  "required": [
+    "call_id",
+    "turn",
+    "speaker",
+    "text_clean",
+    "text_asr",
+    "voice"
+  ],
+  "title": "NoisyTurn",
+  "type": "object"
+}

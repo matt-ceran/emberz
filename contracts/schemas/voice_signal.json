@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "call_id": {
+      "title": "Call Id",
+      "type": "string"
+    },
+    "at_ms": {
+      "minimum": 0,
+      "title": "At Ms",
+      "type": "integer"
+    },
+    "ai_score": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Ai Score",
+      "type": "number"
+    },
+    "model": {
+      "description": "w2v-head-v1 | telnyx | timing | combined",
+      "title": "Model",
+      "type": "string"
+    }
+  },
+  "required": [
+    "call_id",
+    "at_ms",
+    "ai_score",
+    "model"
+  ],
+  "title": "VoiceSignal",
+  "type": "object"
+}

@@ -1,0 +1,21 @@
+{
+  "guardian_request": {
+    "call_id": "c_fixture_1", "profile": "elder",
+    "rules": ["Never share codes or passwords", "Alert me about any money talk", "Allowed: Grandpa (+15550100)"],
+    "caller_known": false, "ai_voice": {"score": 0.91, "source": "detector"},
+    "turns": [
+      {"turn": 1, "speaker": "caller", "text": "Hello, this is the fraud department at your bank."},
+      {"turn": 2, "speaker": "protected", "text": "Oh, hello. Is something wrong?"},
+      {"turn": 3, "speaker": "caller", "text": "We saw a suspicious charge. To block it I'll send you a code."},
+      {"turn": 4, "speaker": "protected", "text": "Okay, I got a text."},
+      {"turn": 5, "speaker": "caller", "text": "Great, can you read me the code?"}
+    ]
+  },
+  "turns": [
+    {"call_id": "c_fixture_1", "turn": 1, "speaker": "caller", "text": "Hello, this is the fraud department at your bank.", "t_start_ms": 3100, "t_end_ms": 5600, "gap_ms": null},
+    {"call_id": "c_fixture_1", "turn": 2, "speaker": "protected", "text": "Oh, hello. Is something wrong?", "t_start_ms": 6000, "t_end_ms": 7400, "gap_ms": 400},
+    {"call_id": "c_fixture_1", "turn": 3, "speaker": "caller", "text": "We saw a suspicious charge. To block it I'll send you a code.", "t_start_ms": 8900, "t_end_ms": 12200, "gap_ms": 1500},
+    {"call_id": "c_fixture_1", "turn": 4, "speaker": "protected", "text": "Okay, I got a text.", "t_start_ms": 14000, "t_end_ms": 15100, "gap_ms": 1800},
+    {"call_id": "c_fixture_1", "turn": 5, "speaker": "caller", "text": "Great, can you read me the code?", "t_start_ms": 16600, "t_end_ms": 18300, "gap_ms": 1500}
+  ]
+}
