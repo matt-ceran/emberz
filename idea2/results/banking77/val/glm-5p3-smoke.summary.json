@@ -1,0 +1,47 @@
+{
+ "task": "banking77",
+ "split": "val",
+ "system": "glm-5p3-smoke",
+ "model": "accounts/fireworks/models/glm-5p3",
+ "base_url": "https://api.fireworks.ai/inference/v1",
+ "extra_body": null,
+ "max_tokens": 4096,
+ "prompt_sha": "0e895b6e6f68",
+ "n_expected": 20,
+ "n_done": 20,
+ "complete": true,
+ "accuracy": 0.75,
+ "ci95": [
+  0.55,
+  0.9
+ ],
+ "bootstrap_resamples": 2000,
+ "invalid_rate": 0.0,
+ "parse_methods": {
+  "exact": 20,
+  "invalid": 0
+ },
+ "finish_length_rate": 0.0,
+ "latency_p50_s": 1.1282999999999999,
+ "latency_p95_s": 2.8354800000000004,
+ "tokens": {
+  "prompt": 9576,
+  "cached": 3682,
+  "completion": 1673,
+  "reasoning": 1545
+ },
+ "tokens_per_call": {
+  "prompt": 478.8,
+  "completion": 83.65,
+  "reasoning": 77.25
+ },
+ "cost_usd": 0.01657012,
+ "cost_per_1k_calls_usd": 0.828506,
+ "price": {
+  "input": 1.4,
+  "cached_input": 0.26,
+  "output": 4.4,
+  "source": "https://fireworks.ai/models/fireworks/glm-5p3 (Per 1M Tokens input/cached input/output: $1.40/$0.26/$4.40)"
+ },
+ "failed_this_run": 0
+}
