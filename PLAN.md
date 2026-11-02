@@ -67,6 +67,8 @@ Give your kid, your grandma or yourself a **guarded phone number** instead of th
  "caretaker_note": "20 words max"}
 ```
 
+- **Scored categories (the proof):** scam, disclosure and grooming tactics, plus `none`. Vulgar language, threats and self-harm stay in the output format as a stretch goal: demo only, not part of the scored claim. Keeping the proof narrow is what makes it credible.
+- **A rule layer after the model:** smooth alerts over turns, add cooldowns so one call doesn't alert ten times, and apply hard caretaker rules such as an allowed-contacts list.
 - **Rules come from the caretaker.** Training mixes many different rule sets (kid profiles, elder profiles, "allow calls from Grandpa", "never share the door code") so the model follows the rules it is given instead of memorizing one set.
 - **Base model.** Start with **Qwen3-4B-Instruct-2507** (managed SFT LoRA, small and fast). Alternatives:
   - Qwen3.6-35B-A3B on serverless training: about $2.14 per million training tokens, and the untuned base is also served serverless, which gives a free same-weights baseline.
@@ -83,8 +85,10 @@ Give your kid, your grandma or yourself a **guarded phone number** instead of th
 4. **Disclosure:** the protected person giving away their address, school, one-time codes or home-alone schedule. No public dataset exists, so it has to be generated.
 5. **Grooming stays at the level of tactics only:** secrecy, isolation, gifts, photo requests, meeting requests. **Hard rule: no sexual content involving minors is ever generated.** A conversation stops at the request, and the label comes from the plan.
 6. **ASR noise:** render a share of the calls with Kokoro TTS (Apache-2.0), convert to 8 kHz phone audio, and run them through the same streaming ASR we use live, so training text carries real transcription errors.
-7. **Splits:** train / dev / **held-out test made by a different generator model and different persona seeds**. Check for overlap with every real eval set.
-8. **Volume:** about 3,000 calls (about 30k scored turns) for v1. Add 1,000 targeted at v1's mistakes for v2 (the adversary round).
+7. **Rule-flip pairs (about 10% of calls):** the same words with different rules. "What street do you live on?" from an unknown caller should alert; from Grandpa, who is on the allowed list, it should stay silent. This proves the model follows the caretaker's rules.
+8. **One scam type held out entirely** (for example romance/investment) to measure recall on a scam it never saw.
+9. **Splits:** train / dev / **held-out test made by a different generator model and different persona seeds**. Check for overlap with every real eval set.
+10. **Volume:** about 3,000 calls (about 30k scored turns) for v1. Add 1,000 targeted at v1's mistakes for v2 (the adversary round).
 
 ## 5. How we score it
 
@@ -96,9 +100,13 @@ Give your kid, your grandma or yourself a **guarded phone number** instead of th
 | False alarms | Alerts per 100 benign calls, hard negatives included. **Must stay low.** |
 | Turns to detect | Turns from the start of the risk to the first alert |
 | Category F1 | Macro-F1 over categories |
+| Rule-flip accuracy | % of rule-flip pairs where the decision follows the rules |
+| Unseen scam type | Recall on the held-out scam type |
 | Evidence match | % of evidence quotes that appear exactly in the transcript (catches hallucination) |
 | Speed | p50 and p95 per scored turn, end to end, in milliseconds |
 | Cost | $ per call-minute, including the deployment's GPU-hours at a stated volume |
+
+**Rules for honest numbers:** labels for the real and role-play sets are committed to git **before** any model is run on them. Every number shows its sample size (n) and a 95% interval, and the real-set intervals will be wide. B4 comes from a different model family than the generator, so the frontier baseline isn't grading its own style.
 
 **Baselines (run in the first hours):**
 
@@ -107,7 +115,7 @@ Give your kid, your grandma or yourself a **guarded phone number** instead of th
 | B0 | Keyword rules + PII regex | Shows the keyword trap: looks perfect on public sets, fails on benign twins |
 | B1 | Llama Guard 3 8B on Fireworks (on-demand) | The standard safety guard, last turn vs a 6-turn window |
 | B2 | gpt-oss-safeguard-20b on Fireworks (on-demand) with the caretaker's rules | **Strongest baseline.** Takes written rules at run time; slower and more expensive |
-| B3 | The same base model, untuned, same prompt | Clean fine-tuning comparison |
+| B3 | The same base model, untuned, same prompt, on the same multi-LoRA deployment | Clean fine-tuning comparison |
 | B4 | A frontier serverless model on Fireworks, zero-shot | Quality ceiling; also the teacher |
 
 **Test sets, always reported separately:**
@@ -136,6 +144,8 @@ Give your kid, your grandma or yourself a **guarded phone number** instead of th
 - **Expect off-the-shelf to collapse** and show it. W2V2-AASIST scores 0.22% EER in its own domain, but 11-46% on newer sets. Public detectors lost about 48% AUC on 2024 real-world deepfakes (Deepfake-Eval-2024). Training with codec augmentation helps.
 - **Timing cue:** people reply after about 0.2 s on average (Stivers et al. 2009); voice agents take about 1.3-2.4 s. Add reply gap, AI self-disclosure and missing "um"s as features. Report audio only, timing only and combined.
 - **Baselines:** off-the-shelf W2V2-AASIST, and Telnyx `deepfake_detection` on the same calls.
+- **How it is used:** an AI voice alone is at most `watch`. AI voice plus an unknown caller plus an ask escalates. A pharmacy reminder bot lights the badge but sends no alert. The FCC also requires artificial-voice calls to identify who is calling at the start (47 CFR 64.1200(b)). A missing identification is itself a signal.
+- **Keep the claim small:** this result is secondary. With about 20 test calls we label it "n=20, not a benchmark". The proof of the project is the guardian model.
 - **Metrics:** EER and AUC on our phone set, % detected within 2 s and 4 s, false alarms on human callers.
 
 ## 7. The demo (go all out)
@@ -145,8 +155,10 @@ Three phones and one big screen. The console shows both sides of the transcript,
 1. **An AI voice scams Grandma.** Our own AI caller dials Grandma's guarded number as "her bank". About 2 s in, the console shows **AI voice detected**. When the script reaches pressure, Grandma hears a whisper only she can hear: "This may be a scam. Say you'll call the number on your card."
 2. **The caretaker gets pulled in.** Mom's phone rings: "Grandma may be on a scam call. Press 1 to listen." She listens live, then barges in.
 3. **A stranger calls the kid.** "Don't tell your parents. What's your address?" sets off a disclosure alert and Mom gets the live transcript.
-4. **A normal call.** Grandma's friend calls about lunch. Nothing fires.
-5. **After the calls:** summaries arrive. Close on the chart.
+4. **Same words, different rules.** Grandpa, who is on the allowed list, asks the kid "what street are you on?". It stays silent.
+5. **An AI that isn't a scam.** A pharmacy reminder bot calls. The AI badge lights, no alert.
+6. **A normal call.** Grandma's friend calls about lunch. Nothing fires.
+7. **After the calls:** summaries arrive. Close on the overlay "alerted N turns before the ask", then the chart.
 
 - **Judge participation:** hand a judge a scam card and have them call the guarded number from their own phone.
 - **Fallback:** a recorded full run, in case venue reception fails.
@@ -156,7 +168,7 @@ Three phones and one big screen. The console shows both sides of the transcript,
 - **Every call starts with a notice.** It meets all-party-consent states such as California (Penal Code 632.7, *Smith v. LoanMe*, 2021) and costs about 3 seconds.
 - **Opt-in by the protected person.** Federal law needs one party's consent (18 USC 2511(2)(d)). For elders and other competent adults, **they** sign up and choose what to share. A caretaker cannot consent for a competent adult.
 - **Kids:** a line the parent owns. The amended COPPA rule (enforced since April 22, 2026) treats a child's voice as personal information, so we need verifiable parental consent plus written retention and security policies. "Vicarious consent" (*Pollock v. Pollock*, 6th Cir. 1998) is a backup argument, not the plan.
-- **Privacy by default:** alerts and summaries first. The live transcript is opt-in, or opens only after an alert. Keep data briefly.
+- **Privacy by default:** no voiceprints stored, and call data deleted after 7 days. Alerts and summaries first. The live transcript is opt-in, or opens only after an alert. Keep data briefly.
 - **Hackathon data:** generated calls, public datasets within their licenses, and calls between consenting teammates and friends. **No EmberDial customer data, ever.**
 
 ## 9. Who does what
@@ -175,7 +187,7 @@ Suggested split; swap freely. Assumes about 24 hours. Coding agents can run part
 | 2-6 | Factory v1: grid, self-play, twins, disclosure; 1,000 calls | Streaming ASR per side; console v0 (live transcript); AI-voice training data ready |
 | 6-10 | 3,000 calls; **SFT v1**; deployment; B1-B3 | Guardian wired into the call loop; whisper; caretaker alert call; first AI-voice head |
 | 10-14 | Score v1 on every test set; pick weak spots | Vapi/Retell agents call our number; role-play test calls (~40); AI-voice eval + Telnyx baseline |
-| 14-18 | Adversary round: 1,000 targeted calls, **SFT v2**, re-score | Summaries; console polish; full rehearsal |
+| 14-18 | **Gate:** v1 must beat the untuned base (B3); if not, fix the errors and retrain once. Then the adversary round: 1,000 targeted calls, **SFT v2**, re-score | Summaries; console polish; full rehearsal |
 | 18-24 | Charts, README results | 60-second video, fallback recording, submit |
 
 ## 10. Repo layout (proposal)
@@ -204,6 +216,8 @@ Secrets go in `.env` (gitignored). See `.env.example`.
 | Phone-line audio fails our AI-voice head | Report the collapse honestly; lead with timing + Telnyx detector |
 | Latency too high for live whisper | Score every 2nd turn; smaller base; keep the deployment warm |
 | Whisper/barge not available as expected | Caretaker alert call + console only; coach line on the console |
+| Generator refuses to write grooming calls | If still unreliable by hour 6, grooming becomes eval-only (PAN-12 subset + role-play) |
+| We lose to the frontier model on real calls | Say so; pitch quality per dollar and speed, where a small model wins |
 | Real test sets are small | Headline the synthetic held-out with intervals; report real sets as separate slices |
 | On-demand deployment cost | Spin up only for eval windows and the demo |
 
