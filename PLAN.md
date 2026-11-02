@@ -24,14 +24,15 @@ Fireworks hackathon, November 2026. Numan and Matt. Built on Fireworks plus open
 | Phone line | Telnyx on EmberDial's account: the existing demo app and spare test numbers. Production apps and live numbers are never touched |
 | Public URL for webhooks | `cloudflared` tunnel to the line server on Numan's Mac |
 | Speech-to-text | **NVIDIA Nemotron Speech Streaming 0.6B** (open, NVIDIA Open Model License), run locally with **sherpa-onnx** INT8. Streams in 160 ms chunks, one stream per side |
-| Training-data generator | **Nemotron 3 Ultra** on Fireworks serverless (Batch API for bulk) |
+| Training-data generator | **Nemotron 3 Ultra** on Fireworks serverless. It **needs a system prompt framing the task as synthetic safety-training data**: without it, it refused the scam call |
 | Held-out test generator | **GLM 5.3 Flash** on Fireworks serverless: a different model family, so the test isn't the generator grading itself |
 | Guardian model | **Qwen3-4B-Instruct-2507**, LoRA SFT on Fireworks, served on an on-demand deployment |
 | Baselines | Keyword rules, Llama Guard 3 8B (on-demand), gpt-oss-safeguard-20b (on-demand), untuned Qwen3-4B (same deployment), **Kimi K3** serverless |
 | Dev stand-in for the guardian (used only while building the line) | A cheap serverless model with the same prompt and schema, while the line is being built |
 | AI-voice detector | Local: frozen wav2vec2 front end + small head, trained on public data. Telnyx `deepfake_detection` ($0.01 per call) as the commercial baseline |
 | AI test callers | Our own agents on Vapi and Retell (free credits) calling our number |
-| Text-to-speech, for transcription noise in training data | Kokoro (Apache-2.0), local |
+| Text-to-speech, for transcription noise in training data | Kokoro (Apache-2.0) |
+| Google Cloud (bulk jobs only) | A big spot CPU VM for the bulk TTS-to-ASR noise pass, and a spot L4 for ASVspoof downloads and wav2vec features. The live system runs on the Mac and Fireworks |
 
 **Fireworks checks done (2026-11-02):**
 - The key works.
@@ -39,6 +40,15 @@ Fireworks hackathon, November 2026. Numan and Matt. Built on Fireworks plus open
 - Qwen3-4B and Qwen3-8B support LoRA.
 - Nemotron Nano 3 does not support LoRA on Fireworks, so it can't be the guardian.
 - Fireworks' hosted speech-to-text is unavailable on our key (503 / not found), so speech-to-text runs locally on open Nemotron.
+
+## 2b. Measured speed (2026-11-02, M5 Pro + Fireworks)
+
+| What | Measured | What it means |
+|---|---|---|
+| Generate one ~20-turn call | Nemotron 3 Ultra **157 tok/s** (~10 s per call, with framing); DeepSeek V4.1 Flash 131 tok/s; GLM 5.3 Flash 103 tok/s | With ~50 parallel requests, 3,500 calls take about 15-20 min, if rate limits allow (checked in M0) |
+| Live Nemotron ASR on the Mac | **37 ms** to process each 160 ms chunk; **64 ms** at worst with 4 streams at once | 2 live calls (4 streams) run comfortably in real time |
+| Bulk Nemotron ASR on the Mac | **~11x real time** at best (8 processes) | 300 calls (~10 h of audio) take ~55 min, so the bulk noise pass goes to a big Google Cloud VM (~10 min) |
+| SFT, deployment start-up | Not yet measured | Measured by the M0 probe job |
 
 ## 3. How a call works
 
