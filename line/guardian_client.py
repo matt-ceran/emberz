@@ -47,7 +47,8 @@ log = logging.getLogger("emberz.guardian")
 
 # GUARDIAN_URL overrides the endpoint, e.g. Matt's sampler proxy (callguard/guardian/sampler_proxy.py) at
 # http://127.0.0.1:8077/inference/v1/chat/completions, which serves the evaluated checkpoint exactly.
-FIREWORKS_URL = os.environ.get("GUARDIAN_URL") or "https://api.fireworks.ai/inference/v1/chat/completions"
+SERVERLESS_URL = "https://api.fireworks.ai/inference/v1/chat/completions"
+FIREWORKS_URL = os.environ.get("GUARDIAN_URL") or SERVERLESS_URL
 # Picked 2026-11-02: cheapest serverless chat model that answers JSON-schema output with
 # thinking off ($0.05 in / $0.20 out per 1M tokens, docs.fireworks.ai/serverless/pricing).
 # Measured on fixture windows: p50 ~0.5 s, but ~1 in 3 requests stalled past 4 s (hence the hedge).
@@ -221,6 +222,7 @@ class GuardianClient:
             self._fallback = GuardianClient(backend="standin", model=os.environ.get(
                 "GUARDIAN_FALLBACK_MODEL", os.environ.get("GUARDIAN_STANDIN_MODEL", STANDIN_MODEL)))
             self._fallback.reasoning_effort = os.environ.get("GUARDIAN_FALLBACK_EFFORT", "none")
+            self._fallback.url = SERVERLESS_URL  # never the GUARDIAN_URL proxy it is backing up
         return self._fallback
 
     async def _remote(self, req: GuardianRequest) -> GuardianResponse:
@@ -261,7 +263,7 @@ class GuardianClient:
     async def _post(self, body: dict) -> GuardianResponse:
         http = self._client()
         for attempt in (1, 2):
-            r = await http.post(FIREWORKS_URL, json=body)
+            r = await http.post(getattr(self, "url", None) or FIREWORKS_URL, json=body)
             if r.status_code == 503 and attempt == 1:
                 log.warning("guardian 503 (deployment waking?), retrying once")
                 await asyncio.sleep(0.3)
