@@ -169,7 +169,7 @@ Big chunks, each with an owner, what it delivers, and when it's done. **I** = ki
 - **Done when:** it works against the fixture event stream, then on live calls after L3.
 
 ### L1. Isolated Telnyx line (Numan)
-- **Setup: reuse what EmberDial already has.** Use the existing demo Call Control app (`EmberDial Jev Demo`) and spare test numbers. **Never repoint production apps** (`Dialer`, `EmberDial Private Browser Ingress`) or any number an agency uses for live calls.
+- **Setup: reuse what EmberDial already has.** Use the existing demo Call Control app (`EmberDial Jev Demo`) and any number not in use (owner's call: any unused number is fine). **Never repoint production apps** (`Dialer`, `EmberDial Private Browser Ingress`) or any number an agency uses for live calls.
 - **Webhooks:** go through a `cloudflared` tunnel. Only the demo app is re-pointed when the URL changes. Verify every webhook with Ed25519 (`TELNYX_PUBLIC_KEY`). Handlers are idempotent on `command_id`.
 - **Call skeleton:**
   - Answer leg A (the caller) with `deepfake_detection` on.
