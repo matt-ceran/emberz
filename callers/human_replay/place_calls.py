@@ -10,7 +10,10 @@
   2. upload the clips that are not yet in gs://emberz-g1-512122j5/human_replay/ (gcloud storage cp; the bucket stays private)
   3. sign V4 GET URLs, valid 2 h, as the emberz-g1 service account (gcloud storage sign-url --impersonate-service-account)
   4. per clip: POST /api/calling/calls {"command": "dial"} with inline SWML: silence, play the clip, hang up;
-     log it, wait until SignalWire reports the call ended (GET /api/voice/logs/{id}), then wait --gap-s
+     log it, wait until SignalWire reports the call ended (GET /api/voice/logs/{id}), then wait --gap-s.
+     If the call is not reported ended after the wait, send `calling.end` for it (safety: no runaway call).
+     A dial whose HTTP request fails in transit (timeout, reset) may or may not have placed a call:
+     the run logs `dial_uncertain` and stops instead of retrying.
 
 How each call sounds on the line: the line answers, starts the media stream and plays the Emberz notice
 to the caller; meanwhile our SWML waits --lead-silence-s and then plays the clip (the caller track,
@@ -19,7 +22,8 @@ the protected phone in parallel; the clip ends and we hang up before its 30 s ri
 
 SignalWire docs (checked 2026-11-02):
 - Calling API, dial with inline SWML (`swml` as a JSON object), `caller_id`, `timeout` 1-600 s,
-  `max_price_per_minute`, `status_url`/`status_events`; Basic auth project_id:api_token:
+  `max_price_per_minute`, `status_url`/`status_events`; `calling.end` {id, params.reason}; token scope
+  _Voice_ (the same scope `check` exercises with GET /api/voice/logs); Basic auth project_id:api_token:
   https://signalwire.com/docs/apis/rest/calls/call-commands
 - SWML play (`url` / `urls`, `silence:<seconds>`, HTTP(S) audio URLs): https://signalwire.com/docs/swml/reference/calling/play
 - SWML hangup: https://signalwire.com/docs/swml/reference/calling/hangup
@@ -185,6 +189,10 @@ def append_jsonl(path: Path, row: dict[str, Any]) -> None:
 # --------------------------------------------------------------------------------------------
 # SignalWire (httpx)
 
+class DialUncertain(Exception):
+    """The dial request failed in transit: SignalWire may or may not have created the call."""
+
+
 class SignalWire:
     def __init__(self, env: dict[str, str], client=None):
         missing = [k for k in SW_KEYS if not env.get(k)]
@@ -209,16 +217,34 @@ class SignalWire:
         return None
 
     def dial(self, payload: dict[str, Any]) -> dict[str, Any]:
-        r = self.http.post(self.base + "/api/calling/calls", json=payload)
+        import httpx
+        try:
+            r = self.http.post(self.base + "/api/calling/calls", json=payload)
+        except httpx.HTTPError as e:          # timeout/reset after sending: the call may exist
+            raise DialUncertain(type(e).__name__) from e
         if r.status_code >= 400:
             raise RuntimeError(f"dial -> HTTP {r.status_code}: {r.text[:300]}")
-        return r.json()
+        try:
+            return r.json()
+        except ValueError as e:
+            raise DialUncertain(f"HTTP {r.status_code} with a non-JSON body") from e
 
     def call_status(self, call_id: str) -> Optional[str]:
+        import httpx
         try:
             return self.get(f"/api/voice/logs/{call_id}").get("status")
-        except RuntimeError:
+        except (RuntimeError, httpx.HTTPError, ValueError):
             return None
+
+    def end(self, call_id: str) -> bool:
+        """`calling.end` (https://signalwire.com/docs/apis/rest/calls/call-commands). Harmless on an ended call."""
+        import httpx
+        try:
+            r = self.http.post(self.base + "/api/calling/calls",
+                               json={"command": "calling.end", "id": call_id, "params": {"reason": "hangup"}})
+            return r.status_code < 400
+        except httpx.HTTPError:
+            return False
 
 
 # --------------------------------------------------------------------------------------------
@@ -379,6 +405,12 @@ def cmd_run(args, env: dict[str, str], sw_factory: Callable[[dict[str, str]], Si
         started = datetime.now(timezone.utc).isoformat(timespec="seconds")
         try:
             resp = sw.dial(payload)
+        except DialUncertain as e:
+            log(f"{r['clip_id']}: dial request failed in transit ({e}); a call may have been placed. Stopping: "
+                "check the SignalWire voice logs before re-running (--skip-done skips only completed clips)")
+            append_jsonl(CALL_LOG, {"event": "dial_uncertain", "clip_id": r["clip_id"], "speaker": r["speaker"],
+                                    "started_at": started, "error": str(e)[:300]})
+            return 1
         except RuntimeError as e:
             failures += 1
             log(f"{r['clip_id']}: dial failed: {e}")
@@ -399,6 +431,11 @@ def cmd_run(args, env: dict[str, str], sw_factory: Callable[[dict[str, str]], Si
                                      "signalwire_call_id": call_id})
         log(f"[{i + 1}/{len(todo)}] {r['clip_id']} {r['speaker']} ({r['duration']} s): call {call_id}")
         status = wait_for_end(sw, call_id, expected_call_s(r, args.lead_silence_s) + args.ring_timeout_s + 30, sleep)
+        if status not in TERMINAL and call_id:
+            # our SWML hangs up by itself; this only guards against a call that never ends (or a
+            # status we can't read, in which case SignalWire just rejects the end of an ended call)
+            ended = sw.end(call_id)
+            log(f"    not reported ended (status {status}): calling.end sent, {'accepted' if ended else 'rejected'}")
         append_jsonl(CALL_LOG, {"event": "ended", "call_id": call_id, "clip_id": r["clip_id"], "status": status,
                                 "ended_at": datetime.now(timezone.utc).isoformat(timespec="seconds")})
         log(f"    status {status}")

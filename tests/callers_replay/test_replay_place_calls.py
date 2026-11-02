@@ -7,6 +7,10 @@ import pytest
 
 from callers.human_replay import build_set, place_calls as pc
 
+import httpx as _httpx
+
+_REAL_HTTPX_CLIENT = _httpx.Client      # saved before the autouse fixture patches it
+
 CALLER, GUARDED = "+13046481098", "+13235161282"
 ENV = {"SIGNALWIRE_CALLER_NUMBER": CALLER, "TELNYX_GUARDED_NUMBER": GUARDED}
 
@@ -138,6 +142,10 @@ class FakeSW:
     def call_status(self, call_id):
         return self.statuses.pop(0) if self.statuses else "completed"
 
+    def end(self, call_id):
+        self.ended = getattr(self, "ended", []) + [call_id]
+        return True
+
 
 def live_setup(monkeypatch):
     monkeypatch.setattr(build_set, "validate_manifest", lambda *a, **k: [])
@@ -184,3 +192,49 @@ def test_live_needs_typed_yes(monkeypatch):
     sw = FakeSW([])
     assert pc.cmd_run(run_args(live=True, yes=False), ENV, sw_factory=lambda env: sw, sleep=lambda s: None) == 1
     assert sw.dials == []
+
+
+def test_live_stops_on_uncertain_dial(monkeypatch):
+    """A dial lost in transit may have placed a call: log it and stop, never retry."""
+    live_setup(monkeypatch)
+
+    class Lost(FakeSW):
+        def dial(self, payload):
+            raise pc.DialUncertain("ReadTimeout")
+
+    sw = Lost([])
+    assert pc.cmd_run(run_args(live=True), ENV, sw_factory=lambda env: sw, sleep=lambda s: None) == 1
+    log = [json.loads(l) for l in pc.CALL_LOG.read_text().splitlines()]
+    assert [r["event"] for r in log] == ["dial_uncertain"]
+
+
+def test_live_ends_a_call_that_is_not_reported_ended(monkeypatch):
+    live_setup(monkeypatch)
+    sw = FakeSW(["in-progress"] * 100)
+    assert pc.cmd_run(run_args(live=True, limit=1), ENV, sw_factory=lambda env: sw, sleep=lambda s: None) == 0
+    assert sw.ended == ["sw-1"]
+
+
+def test_signalwire_client_maps_transport_errors():
+    import httpx
+
+    def handler(request):
+        if request.url.path.startswith("/api/voice/logs/"):
+            raise httpx.ConnectError("down", request=request)
+        raise httpx.ReadTimeout("slow", request=request)
+
+    env = {"SIGNALWIRE_SPACE": "example", "SIGNALWIRE_PROJECT_ID": "p", "SIGNALWIRE_API_TOKEN": "t"}
+    client = _REAL_HTTPX_CLIENT(transport=httpx.MockTransport(handler))   # httpx.Client itself is patched to fail
+    sw = pc.SignalWire(env, client=client)
+    with pytest.raises(pc.DialUncertain):
+        sw.dial(pc.build_dial(CALLER, GUARDED, "https://x/a.wav"))
+    assert sw.call_status("abc") is None
+    assert sw.end("abc") is False
+
+
+def test_cli_run_is_dry_by_default(monkeypatch, capsys):
+    monkeypatch.setattr(pc, "load_env", lambda env=None: dict(ENV))
+    monkeypatch.setattr(pc, "SignalWire", lambda *a, **k: (_ for _ in ()).throw(AssertionError("no client in dry run")))
+    assert pc.main(["run", "--limit", "2"]) == 0
+    out = capsys.readouterr().out
+    assert "DRY RUN" in out and out.count('"POST"') == 2

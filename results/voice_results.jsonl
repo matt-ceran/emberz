@@ -1,0 +1,4 @@
+{"model": "w2v-head-v1", "test_set": "itw_phone_heldout_speakers", "metric": "eer", "value": 0.0127, "n": 2829, "ci95": [0.0085, 0.0177]}
+{"model": "w2v-head-v1", "test_set": "itw_phone_heldout_speakers", "metric": "auc", "value": 0.9991, "n": 2829, "ci95": [0.9985, 0.9996]}
+{"model": "w2v-head-v1", "test_set": "itw_phone_heldout_speakers/w2s", "metric": "eer", "value": 0.0155, "n": 2829, "ci95": [0.0106, 0.0205]}
+{"model": "w2v-head-v1", "test_set": "itw_phone_heldout_speakers/w2s", "metric": "auc", "value": 0.9988, "n": 2829, "ci95": [0.9979, 0.9994]}

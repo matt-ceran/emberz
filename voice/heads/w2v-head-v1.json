@@ -1,0 +1,82 @@
+{
+  "name": "w2v-head-v1",
+  "ckpt": "facebook/wav2vec2-xls-r-300m",
+  "layer": 9,
+  "windows": [
+    2.0,
+    4.0
+  ],
+  "C": 1.0,
+  "phone": true,
+  "feature_version": "w2v-feat-v1",
+  "trained_on": {
+    "in_the_wild": 5818
+  },
+  "n_train": 5818,
+  "n_ai": 2840,
+  "n_human": 2978,
+  "search": [
+    {
+      "layer": 3,
+      "C": 0.01,
+      "dev_eer": 0.0675
+    },
+    {
+      "layer": 3,
+      "C": 0.1,
+      "dev_eer": 0.0736
+    },
+    {
+      "layer": 3,
+      "C": 1.0,
+      "dev_eer": 0.0798
+    },
+    {
+      "layer": 6,
+      "C": 0.01,
+      "dev_eer": 0.0613
+    },
+    {
+      "layer": 6,
+      "C": 0.1,
+      "dev_eer": 0.0613
+    },
+    {
+      "layer": 6,
+      "C": 1.0,
+      "dev_eer": 0.0675
+    },
+    {
+      "layer": 9,
+      "C": 0.01,
+      "dev_eer": 0.0613
+    },
+    {
+      "layer": 9,
+      "C": 0.1,
+      "dev_eer": 0.0613
+    },
+    {
+      "layer": 9,
+      "C": 1.0,
+      "dev_eer": 0.0552
+    },
+    {
+      "layer": 12,
+      "C": 0.01,
+      "dev_eer": 0.0613
+    },
+    {
+      "layer": 12,
+      "C": 0.1,
+      "dev_eer": 0.0613
+    },
+    {
+      "layer": 12,
+      "C": 1.0,
+      "dev_eer": 0.0613
+    }
+  ],
+  "created": "2026-11-02T22:38:24+00:00",
+  "sklearn": "1.9.1"
+}

@@ -3,7 +3,7 @@
     .venv/bin/python results/figures/build_snapshot.py   # tables -> json
     .venv/bin/python results/figures/make_figures.py     # json -> PNG (2x) + SVG
 
-Optional inputs: results/voice_roc.json (AI-voice ROC), results/line_latency.json (stage timings).
+Optional inputs: results/voice_roc.json (AI-voice ROC), results/figures/line_latency.json (stage timings).
 """
 import json
 from pathlib import Path
@@ -19,10 +19,10 @@ SNAP = json.loads((ROOT / "results" / "guardian_snapshot.json").read_text())
 
 # Dark chart surface, validated categorical slots (dataviz palette, dark mode).
 SURF, INK, INK2, MUTED, GRID = "#1a1a19", "#f0efec", "#c3c2b7", "#8a8984", "#383835"
-OURS, FRONT, OTHER = "#3987e5", "#d95926", "#8a8984"
-COLOR = {"ours": OURS, "frontier": FRONT, "baseline": OTHER, "rules": OTHER}
-MARKER = {"ours": "o", "frontier": "D", "baseline": "s", "rules": "s"}
-SRC = "Source: Matt's TRAINING_RUN.md snapshot 14:04 PST Nov 2 · whiskers = Wilson 95% CI"
+OURS, FRONT, OTHER, NV = "#3987e5", "#d95926", "#8a8984", "#199e70"
+COLOR = {"ours": OURS, "ours_nvidia": NV, "frontier": FRONT, "baseline": OTHER, "rules": OTHER}
+MARKER = {"ours": "o", "ours_nvidia": "^", "frontier": "D", "baseline": "s", "rules": "s"}
+SRC = "Source: Matt's TRAINING_RUN.md, refreshed 14:26 PST Nov 2 · whiskers = Wilson 95% CI"
 
 plt.rcParams.update({
     "figure.facecolor": SURF, "axes.facecolor": SURF, "savefig.facecolor": SURF,
@@ -44,15 +44,16 @@ def save(fig, name):
 
 def short(label):
     return (label.replace(", Fireworks zero-shot", " (zero-shot)")
-                 .replace("Untuned ", "Untuned ").replace(" (ours)", ""))
+                 .replace("Nemotron 3.5 Super fine-tuned (ours, NVIDIA)", "Nemotron 3.5 FT")
+                 .replace(" (ours)", ""))
 
 
 # label offsets (points) per system id so direct labels don't collide
 OFFS = {
     "subset_120": {"B0": (10, 8), "B1": (10, 12), "B3": (10, -16), "B4": (0, -26), "B5": (12, -10),
-                    "v1": (-14, 0), "v2": (0, 24)},
+                    "v1": (-14, 0), "v2": (0, 24), "nemo": (-10, -30)},
     "all_257": {"B0": (10, 8), "B1": (10, 10), "B3": (10, -16), "B5": (12, -4),
-                 "v1": (-14, -16), "v2": (-14, 14)},
+                 "v1": (-12, 12), "v2": (0, 24), "nemo": (-14, -14)},
 }
 
 
@@ -65,7 +66,7 @@ def headline(key):
         x, y = fa["pct"], c["pct"]
         xl, xh = [100 * v for v in fa["wilson95"]]
         yl, yh = [100 * v for v in c["wilson95"]]
-        col, ours = COLOR[s["kind"]], s["kind"] == "ours"
+        col, ours = COLOR[s["kind"]], s["kind"].startswith("ours")
         ax.errorbar(x, y, xerr=[[x - xl], [xh - x]], yerr=[[y - yl], [yh - y]], fmt="none",
                     ecolor=col, elinewidth=2 if ours else 1.2, alpha=0.9 if ours else 0.55,
                     capsize=0, zorder=2)
@@ -85,15 +86,16 @@ def headline(key):
     ax.set_ylim(30, 100)
     ax.set_xlabel(f"False alarms on benign calls (%)  ·  n = {t['n_benign']} benign")
     ax.set_ylabel(f"Catch before the ask (%)  ·  n = {t['n_risky']} risky")
-    ax.annotate("better: more caught,\nfewer false alarms", xy=(1.5, 78), xytext=(9, 68), color=INK2,
+    ax.annotate("better: more caught,\nfewer false alarms", xy=(1.5, 72), xytext=(9, 63), color=INK2,
                 fontsize=10.5, ha="center", va="top",
                 arrowprops=dict(arrowstyle="->", color=INK2, lw=1.2))
     sub = ("Same 120 held-out calls for every model (Kimi K3 scored on these only)"
            if key == "subset_120" else "All 257 held-out calls (Kimi K3 not run on the full set)")
-    fig.text(0.09, 0.94, "Fine-tuned guardian: fewer false alarms at the same catch rate",
+    fig.text(0.09, 0.94, "Fine-tuned guardian: fewer false alarms, catch rate on par",
              fontsize=17, fontweight="bold", color=INK)
     fig.text(0.09, 0.895, sub, fontsize=11.5, color=INK2)
     handles = [plt.Line2D([], [], marker="o", ls="", color=OURS, markersize=10, label="Guardian (ours)"),
+               plt.Line2D([], [], marker="^", ls="", color=NV, markersize=10, label="Ours on NVIDIA Nemotron"),
                plt.Line2D([], [], marker="D", ls="", color=FRONT, markersize=8, label="Frontier baseline"),
                plt.Line2D([], [], marker="s", ls="", color=OTHER, markersize=8, label="Other baseline")]
     ax.legend(handles=handles, loc="lower right", frameon=False, labelcolor=INK2, fontsize=10)
@@ -109,15 +111,16 @@ def hbars(ax, labels, vals, kinds, fmt, xmax, err=None):
         lo = [v - e[0] for v, e in zip(vals, err)]
         hi = [e[1] - v for v, e in zip(vals, err)]
         ax.errorbar(vals, y, xerr=[lo, hi], fmt="none", ecolor=INK2, elinewidth=1.2, zorder=3)
-    for yy, v, k, s in zip(y, vals, kinds, fmt):
-        ax.text(v + xmax * 0.012 + (0 if err is None else xmax * 0.0), yy, s, va="center",
-                color=INK if k == "ours" else INK2, fontsize=11,
-                fontweight="bold" if k == "ours" else "normal")
+    ends = vals if err is None else [max(v, e[1]) for v, e in zip(vals, err)]
+    for yy, v, k, s in zip(y, ends, kinds, fmt):
+        ax.text(v + xmax * 0.015, yy, s, va="center",
+                color=INK if k.startswith("ours") else INK2, fontsize=11,
+                fontweight="bold" if k.startswith("ours") else "normal")
     ax.set_yticks(y)
     ax.set_yticklabels(labels)
     for t, k in zip(ax.get_yticklabels(), kinds):
-        t.set_color(INK if k in ("ours", "frontier") else INK2)
-        if k == "ours":
+        t.set_color(INK if k in ("ours", "ours_nvidia", "frontier") else INK2)
+        if k.startswith("ours"):
             t.set_fontweight("bold")
     ax.set_xlim(0, xmax)
     ax.grid(axis="y", visible=False)
@@ -137,7 +140,7 @@ def rule_flips():
              fontsize=16, fontweight="bold")
     fig.text(0.03, 0.87, "All 257 held-out calls · 22 minimal pairs · Kimi K3 scored 0/10 on the 120-call subset",
              fontsize=11, color=INK2)
-    fig.text(0.03, 0.03, "Source: Matt's TRAINING_RUN.md snapshot 14:04 PST Nov 2", fontsize=9, color=MUTED)
+    fig.text(0.03, 0.03, "Source: Matt's TRAINING_RUN.md, refreshed 14:26 PST Nov 2", fontsize=9, color=MUTED)
     save(fig, "rule_flips")
 
 
@@ -156,8 +159,9 @@ def latency():
         ax.barh(yy, v, color=COLOR[s["kind"]], height=0.62, edgecolor=SURF, linewidth=2,
                 hatch="//" if sampler else None, alpha=0.85 if sampler else 1.0, zorder=2)
         ax.text(v + 0.1, yy, f"{v:.2f} s" + ("  (sampler)" if sampler else ""), va="center",
-                color=INK if s["kind"] == "ours" else INK2, fontsize=11,
-                fontweight="bold" if s["kind"] == "ours" else "normal")
+                color=INK if s["kind"].startswith("ours") else INK2, fontsize=11, zorder=4,
+                bbox=dict(boxstyle="square,pad=0.15", fc=SURF, ec="none"),
+                fontweight="bold" if s["kind"].startswith("ours") else "normal")
     ax.set_yticks(y)
     ax.set_yticklabels(labels)
     ax.axvline(1.5, color=INK2, lw=1, ls="--", zorder=1)
@@ -170,7 +174,7 @@ def latency():
     fig.text(0.03, 0.87, "All 257 held-out calls · *Kimi K3 from the 120-call subset", fontsize=11, color=INK2)
     fig.text(0.03, 0.075, "Hatched = Fireworks Training API sampler (queueing), not a deployment. "
              "Production guardian latency needs the dedicated deployment.", fontsize=10, color=INK2)
-    fig.text(0.03, 0.03, "Source: Matt's TRAINING_RUN.md snapshot 14:04 PST Nov 2", fontsize=9, color=MUTED)
+    fig.text(0.03, 0.03, "Source: Matt's TRAINING_RUN.md, refreshed 14:26 PST Nov 2", fontsize=9, color=MUTED)
     save(fig, "latency_p50")
 
 
@@ -223,7 +227,7 @@ def voice_roc():
 def line_budget():
     """Stage timings vs the 1.5 s coach budget. Reads results/line_latency.json:
     {"stages": [{"name", "ms", "source", "estimate": bool}], "note": str}"""
-    p = ROOT / "results" / "line_latency.json"
+    p = FIG_IN = OUT / "line_latency.json"
     if not p.exists():
         print("skip line budget: results/line_latency.json not present")
         return False
@@ -253,7 +257,7 @@ def line_budget():
     fig.text(0.05, 0.9, "Live-line latency budget", fontsize=16, fontweight="bold")
     fig.text(0.05, 0.82, d.get("subtitle", ""), fontsize=11, color=INK2)
     fig.text(0.05, 0.07, d.get("note", ""), fontsize=9.5, color=INK2)
-    fig.text(0.05, 0.02, "Hatched = estimate or non-production measurement; sources in results/line_latency.json",
+    fig.text(0.05, 0.02, "Hatched = estimate or non-production measurement; sources in results/figures/line_latency.json",
              fontsize=9, color=MUTED)
     save(fig, "line_budget")
     return True
