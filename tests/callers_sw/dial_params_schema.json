@@ -1,0 +1,334 @@
+{
+ "_source": "https://signalwire.com/docs/openapi/signalwire-rest-api.json (fetched 2026-11-02), components.schemas; descriptions stripped, $refs inlined",
+ "swml_params": {
+  "type": "object",
+  "properties": {
+   "from": {
+    "type": "string"
+   },
+   "to": {
+    "type": "string"
+   },
+   "username": {
+    "type": "string"
+   },
+   "password": {
+    "type": "string"
+   },
+   "to_script": {
+    "oneOf": [
+     {
+      "type": "string"
+     },
+     {
+      "type": "object",
+      "additionalProperties": {}
+     }
+    ]
+   },
+   "caller_id": {
+    "type": "string"
+   },
+   "fallback_url": {
+    "type": "string"
+   },
+   "status_url": {
+    "type": "string",
+    "format": "uri"
+   },
+   "status_events": {
+    "type": "array",
+    "items": {
+     "type": "string",
+     "enum": [
+      "created",
+      "ringing",
+      "answered",
+      "ending",
+      "ended"
+     ]
+    },
+    "default": [
+     "ended"
+    ]
+   },
+   "url_method": {
+    "type": "string",
+    "enum": [
+     "GET",
+     "POST"
+    ],
+    "default": "POST"
+   },
+   "codecs": {
+    "oneOf": [
+     {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "OPUS",
+        "OPUS@48000H@20I",
+        "OPUS@24000H@20I",
+        "OPUS@16000H@20I",
+        "OPUS@8000H@20I",
+        "G722",
+        "PCMU",
+        "PCMA",
+        "G729",
+        "VP8",
+        "H264"
+       ]
+      }
+     },
+     {
+      "type": "string"
+     }
+    ]
+   },
+   "transport": {
+    "type": "string",
+    "enum": [
+     "udp",
+     "tcp",
+     "tls"
+    ]
+   },
+   "headers": {
+    "type": "array",
+    "items": {
+     "type": "object",
+     "properties": {
+      "name": {
+       "type": "string",
+       "pattern": "^[!#$%&'*+\\-.^_`|~0-9A-Za-z]+$",
+       "minLength": 1
+      },
+      "value": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 1024
+      }
+     },
+     "required": [
+      "name",
+      "value"
+     ]
+    }
+   },
+   "timeout": {
+    "type": "integer",
+    "minimum": 1,
+    "maximum": 600
+   },
+   "max_price_per_minute": {
+    "type": "number",
+    "format": "double",
+    "minimum": 0
+   },
+   "send_digits": {
+    "type": "string",
+    "pattern": "^[0-9A-Da-d*#wW,]{1,98}$",
+    "maxLength": 98
+   },
+   "region": {
+    "oneOf": [
+     {
+      "type": "string"
+     },
+     {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "custom_variables": {
+    "type": "object",
+    "properties": {}
+   },
+   "swml": {
+    "oneOf": [
+     {
+      "type": "string"
+     },
+     {
+      "type": "object",
+      "additionalProperties": {}
+     }
+    ]
+   }
+  },
+  "required": [
+   "from",
+   "swml"
+  ]
+ },
+ "url_params": {
+  "type": "object",
+  "properties": {
+   "from": {
+    "type": "string"
+   },
+   "to": {
+    "type": "string"
+   },
+   "username": {
+    "type": "string"
+   },
+   "password": {
+    "type": "string"
+   },
+   "to_script": {
+    "oneOf": [
+     {
+      "type": "string"
+     },
+     {
+      "type": "object",
+      "additionalProperties": {}
+     }
+    ]
+   },
+   "caller_id": {
+    "type": "string"
+   },
+   "fallback_url": {
+    "type": "string"
+   },
+   "status_url": {
+    "type": "string",
+    "format": "uri"
+   },
+   "status_events": {
+    "type": "array",
+    "items": {
+     "type": "string",
+     "enum": [
+      "created",
+      "ringing",
+      "answered",
+      "ending",
+      "ended"
+     ]
+    },
+    "default": [
+     "ended"
+    ]
+   },
+   "url_method": {
+    "type": "string",
+    "enum": [
+     "GET",
+     "POST"
+    ],
+    "default": "POST"
+   },
+   "codecs": {
+    "oneOf": [
+     {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "enum": [
+        "OPUS",
+        "OPUS@48000H@20I",
+        "OPUS@24000H@20I",
+        "OPUS@16000H@20I",
+        "OPUS@8000H@20I",
+        "G722",
+        "PCMU",
+        "PCMA",
+        "G729",
+        "VP8",
+        "H264"
+       ]
+      }
+     },
+     {
+      "type": "string"
+     }
+    ]
+   },
+   "transport": {
+    "type": "string",
+    "enum": [
+     "udp",
+     "tcp",
+     "tls"
+    ]
+   },
+   "headers": {
+    "type": "array",
+    "items": {
+     "type": "object",
+     "properties": {
+      "name": {
+       "type": "string",
+       "pattern": "^[!#$%&'*+\\-.^_`|~0-9A-Za-z]+$",
+       "minLength": 1
+      },
+      "value": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 1024
+      }
+     },
+     "required": [
+      "name",
+      "value"
+     ]
+    }
+   },
+   "timeout": {
+    "type": "integer",
+    "minimum": 1,
+    "maximum": 600
+   },
+   "max_price_per_minute": {
+    "type": "number",
+    "format": "double",
+    "minimum": 0
+   },
+   "send_digits": {
+    "type": "string",
+    "pattern": "^[0-9A-Da-d*#wW,]{1,98}$",
+    "maxLength": 98
+   },
+   "region": {
+    "oneOf": [
+     {
+      "type": "string"
+     },
+     {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     }
+    ]
+   },
+   "custom_variables": {
+    "type": "object",
+    "properties": {}
+   },
+   "url": {
+    "type": "string"
+   }
+  },
+  "required": [
+   "from",
+   "url"
+  ]
+ },
+ "dial_command": {
+  "required": [
+   "command",
+   "params"
+  ],
+  "command_enum": [
+   "dial"
+  ]
+ }
+}
