@@ -21,7 +21,7 @@ Fireworks hackathon, November 2026. Numan and Matt. Built on Fireworks plus open
 
 | Part | Choice |
 |---|---|
-| Phone line | Telnyx on EmberDial's account, isolated: a **new** Call Control app and **new** numbers. Never touch EmberDial's apps, connections, numbers or webhooks |
+| Phone line | Telnyx on EmberDial's account: the existing demo app and spare test numbers. Production apps and live numbers are never touched |
 | Public URL for webhooks | `cloudflared` tunnel to the line server on Numan's Mac |
 | Speech-to-text | **NVIDIA Nemotron Speech Streaming 0.6B** (open, NVIDIA Open Model License), run locally with **sherpa-onnx** INT8. Streams in 160 ms chunks, one stream per side |
 | Training-data generator | **Nemotron 3 Ultra** on Fireworks serverless (Batch API for bulk) |
@@ -157,12 +157,8 @@ Big chunks, each with an owner, what it delivers, and when it's done. **I** = ki
 - **Done when:** it works against the fixture event stream, then on live calls after L3.
 
 ### L1. Isolated Telnyx line (Numan)
-- **Setup, all new objects tagged `emberz`:**
-  - An outbound voice profile with a $10 daily spend limit and US-only destinations.
-  - A Call Control app, `emberz`.
-  - 3 new numbers assigned to that app.
-- **Never PATCH existing EmberDial IDs.** Run `GET` on the apps and numbers before and after, to prove nothing of EmberDial's changed.
-- **Webhooks:** go through a `cloudflared` tunnel. Only the `emberz` app is re-pointed when the URL changes. Verify every webhook with Ed25519 (`TELNYX_PUBLIC_KEY`). Handlers are idempotent on `command_id`.
+- **Setup: reuse what EmberDial already has.** Use the existing demo Call Control app (`EmberDial Jev Demo`) and spare test numbers. **Never repoint production apps** (`Dialer`, `EmberDial Private Browser Ingress`) or any number an agency uses for live calls.
+- **Webhooks:** go through a `cloudflared` tunnel. Only the demo app is re-pointed when the URL changes. Verify every webhook with Ed25519 (`TELNYX_PUBLIC_KEY`). Handlers are idempotent on `command_id`.
 - **Call skeleton:**
   - Answer leg A (the caller) with `deepfake_detection` on.
   - Play the notice and put A into a conference.
@@ -310,7 +306,7 @@ A judge can call the guarded number from their own phone and try to fool it.
 - Run `firectl deployment list` on both accounts at every session end.
 - Each person keeps a ledger: `results/ledger-matt.md` and `results/ledger-numan.md`.
 
-**Telnyx** (on the `emberz` profile, $10 daily cap): about $0.002 per minute of voice, $0.002 per conference participant per minute, $0.0035 per minute of streaming, $0.01 per call for deepfake detection and $1 a month per number. About 150 test calls come to single-digit dollars.
+**Telnyx:** about $0.002 per minute of voice, $0.002 per conference participant per minute, $0.0035 per minute of streaming, $0.01 per call for deepfake detection and $1 a month per number. About 150 test calls come to single-digit dollars.
 
 ## 10. Consent (for the README)
 
