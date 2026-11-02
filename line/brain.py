@@ -155,7 +155,11 @@ class CallBrain:
             # Before B joins, A's outbound track is the consent notice and ringback, not the
             # protected person: feed silence (same length, so both sides keep one clock).
             payload_bytes = bytes([MULAW_SILENCE]) * len(payload_bytes)
-        await _maybe_await(self.transcriber.feed(track, payload_bytes, ts_ms))
+        # ts_ms is NOT passed on: Telnyx's media `timestamp` is RTP ticks (8 kHz), not ms, and
+        # starts at a random offset. Fed as ms it padded every 20 ms frame with ~140 ms of
+        # silence (8x the audio, words split apart; live call 2026-11-02 produced no turns).
+        # Frames are already reordered by chunk and arrive continuously on both tracks.
+        await _maybe_await(self.transcriber.feed(track, payload_bytes, None))
 
     async def on_call_event(self, event_type: str, payload: dict) -> None:
         s = self.session

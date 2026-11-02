@@ -129,7 +129,7 @@ async def test_media_goes_to_transcriber_and_threaded_turns_are_scored(fixture_t
     await brain.on_media("inbound", b"\xff" * 160, 20)
     await brain.on_media("outbound", b"\xff" * 160, 20)
     tr = FakeTranscriber.instances[-1]
-    assert tr.call_id == s.call_id and tr.fed == [("inbound", 160, 20), ("outbound", 160, 20)]
+    assert tr.call_id == s.call_id and tr.fed == [("inbound", 160, None), ("outbound", 160, None)]  # RTP ts not forwarded
 
     th = threading.Thread(target=lambda: [brain.on_turn(t) for t in fixture_turns])  # worker-thread callback
     th.start()

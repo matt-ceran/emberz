@@ -13,14 +13,14 @@
 <text x="337.5" y="188" font-size="11" fill="#52514e" text-anchor="middle">75%</text>
 <line x1="400.0" y1="70" x2="400.0" y2="172" stroke="#e6e5e0" stroke-width="1"/>
 <text x="400.0" y="188" font-size="11" fill="#52514e" text-anchor="middle">100%</text>
-<text x="138" y="91.0" font-size="12" fill="#0b0b0b" text-anchor="end">qwen3p8-max</text>
-<line x1="360.79999999999995" y1="87.0" x2="393.54999999999995" y2="87.0" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
-<circle cx="383.6" cy="87.0" r="5" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>qwen3p8-max: 57/61 = 93% (95% CI 84%-97%)</title></circle>
-<text x="354.79999999999995" y="81.0" font-size="11" fill="#52514e" text-anchor="end">57/61</text>
-<text x="138" y="125.0" font-size="12" fill="#0b0b0b" text-anchor="end">kimi-k3</text>
-<line x1="366.275" y1="121.0" x2="395.775" y2="121.0" stroke="#2a78d6" stroke-width="2" stroke-linecap="round"/>
-<circle cx="387.7" cy="121.0" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>kimi-k3: 58/61 = 95% (95% CI 87%-98%)</title></circle>
-<text x="360.275" y="115.0" font-size="11" fill="#52514e" text-anchor="end">58/61</text>
+<text x="138" y="91.0" font-size="12" fill="#0b0b0b" text-anchor="end">kimi-k3</text>
+<line x1="366.275" y1="87.0" x2="395.775" y2="87.0" stroke="#2a78d6" stroke-width="2" stroke-linecap="round"/>
+<circle cx="387.7" cy="87.0" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>kimi-k3: 58/61 = 95% (95% CI 87%-98%)</title></circle>
+<text x="360.275" y="81.0" font-size="11" fill="#52514e" text-anchor="end">58/61</text>
+<text x="138" y="125.0" font-size="12" fill="#0b0b0b" text-anchor="end">qwen3p8-max</text>
+<line x1="360.79999999999995" y1="121.0" x2="393.54999999999995" y2="121.0" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
+<circle cx="383.6" cy="121.0" r="5" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>qwen3p8-max: 57/61 = 93% (95% CI 84%-97%)</title></circle>
+<text x="354.79999999999995" y="115.0" font-size="11" fill="#52514e" text-anchor="end">57/61</text>
 <text x="138" y="159.0" font-size="12" fill="#0b0b0b" text-anchor="end">keyword-stub</text>
 <line x1="150.725" y1="155.0" x2="171.8" y2="155.0" stroke="#52514e" stroke-width="2" stroke-linecap="round"/>
 <circle cx="154.1" cy="155.0" r="5" fill="#52514e" stroke="#fcfcfb" stroke-width="2"><title>keyword-stub: 1/61 = 2% (95% CI 0%-9%)</title></circle>
@@ -36,12 +36,12 @@
 <text x="637.5" y="188" font-size="11" fill="#52514e" text-anchor="middle">75%</text>
 <line x1="700.0" y1="70" x2="700.0" y2="172" stroke="#e6e5e0" stroke-width="1"/>
 <text x="700.0" y="188" font-size="11" fill="#52514e" text-anchor="middle">100%</text>
-<line x1="474.425" y1="87.0" x2="527.0" y2="87.0" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
-<circle cx="495.0" cy="87.0" r="5" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>qwen3p8-max: 9/50 = 18% (95% CI 10%-31%)</title></circle>
-<text x="533.0" y="81.0" font-size="11" fill="#52514e" text-anchor="start">9/50</text>
-<line x1="478.1" y1="121.0" x2="532.6" y2="121.0" stroke="#2a78d6" stroke-width="2" stroke-linecap="round"/>
-<circle cx="500.0" cy="121.0" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>kimi-k3: 10/50 = 20% (95% CI 11%-33%)</title></circle>
-<text x="538.6" y="115.0" font-size="11" fill="#52514e" text-anchor="start">10/50</text>
+<line x1="478.1" y1="87.0" x2="532.6" y2="87.0" stroke="#2a78d6" stroke-width="2" stroke-linecap="round"/>
+<circle cx="500.0" cy="87.0" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>kimi-k3: 10/50 = 20% (95% CI 11%-33%)</title></circle>
+<text x="538.6" y="81.0" font-size="11" fill="#52514e" text-anchor="start">10/50</text>
+<line x1="474.425" y1="121.0" x2="527.0" y2="121.0" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
+<circle cx="495.0" cy="121.0" r="5" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>qwen3p8-max: 9/50 = 18% (95% CI 10%-31%)</title></circle>
+<text x="533.0" y="115.0" font-size="11" fill="#52514e" text-anchor="start">9/50</text>
 <line x1="457.875" y1="155.0" x2="497.1" y2="155.0" stroke="#52514e" stroke-width="2" stroke-linecap="round"/>
 <circle cx="470.0" cy="155.0" r="5" fill="#52514e" stroke="#fcfcfb" stroke-width="2"><title>keyword-stub: 4/50 = 8% (95% CI 3%-19%)</title></circle>
 <text x="503.1" y="149.0" font-size="11" fill="#52514e" text-anchor="start">4/50</text>
