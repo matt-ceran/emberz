@@ -8,6 +8,7 @@
 
 | Model | Scam recall | 95% CI | False alarms on benign | 95% CI | Turn errors | Cost (USD) | p50 latency |
 |---|---|---|---|---|---|---|---|
+| emberz-guardian-v2 | 31/61 = **51%** | 39%-63% | 9/50 = **18%** | 10%-31% | 0/503 (0 JSON-mode retries) | 0.00 | 862 ms |
 | kimi-k3 | 58/61 = **95%** | 87%-98% | 10/50 = **20%** | 11%-33% | 0/503 (0 JSON-mode retries) | 1.31 | 2152 ms |
 | qwen3p8-max | 57/61 = **93%** | 84%-97% | 9/50 = **18%** | 10%-31% | 0/503 (33 JSON-mode retries) | 1.41 | 2946 ms |
 | keyword-stub | 1/61 = **2%** | 0%-9% | 4/50 = **8%** | 3%-19% | 0/503 (0 JSON-mode retries) | 0.00 | - ms |
@@ -16,6 +17,7 @@ Recall by scam type:
 
 | Model | amazon_apple_order | auto_warranty | bank_credit_card | delivery_parcel | gov_ssa_irs | prize_travel_health | tech_support_utility |
 |---|---|---|---|---|---|---|---|
+| emberz-guardian-v2 | 10/11 | 0/6 | 5/9 | 0/3 | 12/12 | 0/6 | 4/14 |
 | kimi-k3 | 11/11 | 6/6 | 9/9 | 3/3 | 12/12 | 5/6 | 12/14 |
 | qwen3p8-max | 11/11 | 5/6 | 9/9 | 3/3 | 12/12 | 5/6 | 12/14 |
 | keyword-stub | 0/11 | 0/6 | 1/9 | 0/3 | 0/12 | 0/6 | 0/14 |
@@ -46,10 +48,12 @@ Recall by scam type:
 - **Scam type** is the keyword bucket, hand-corrected for 6 of 61 calls after reading the transcripts (`TYPE_FIX` in `realset/select_calls.py`: 4 power-disconnection / 'Microsoft' calls moved to tech_support_utility, 2 SSN / COVID-relief calls moved to gov_ssa_irs). The pick itself is unchanged.
 - Cost counts every attempt (including the 8 Qwen turns re-run after an unparseable reply and the 33 JSON-mode retries); p50 latency is the final attempt only.
 
+- emberz-guardian-v2 alert categories on false-alarm calls (turns): disclosure.credentials_otp 5, disclosure.financial_id 5, scam.impersonation_bank_gov 2, disclosure.location_school 1
 - kimi-k3 alert categories on false-alarm calls (turns): disclosure.credentials_otp 7, disclosure.location_school 7, scam.impersonation_bank_gov 3, disclosure.financial_id 2
 - qwen3p8-max alert categories on false-alarm calls (turns): scam.impersonation_bank_gov 6, disclosure.location_school 4, disclosure.credentials_otp 3, disclosure.financial_id 2, scam.tech_support 1
 - keyword-stub alert categories on false-alarm calls (turns): scam.impersonation_bank_gov 4
 
+- emberz-guardian-v2: missed scams ncsu_500579, ncsu_520019, ncsu_940843, ncsu_58339, ncsu_65173, ncsu_179188, ncsu_532475, ncsu_63405, ncsu_291121, ncsu_520125, ncsu_54484, ncsu_1236940; false alarms hv_6913f7cf2f2144a7, hv_d89ea95f9592404c, hv_a81d06d3ad99495d, hv_bb9fda54a22344cd, hv_298caa495dd144c0, hv_79fd27e709544567, hv_d96b4057a7c249d3, hv_f668f0034b4f4e97, hv_4822ffb6a74b4927.
 - kimi-k3: missed scams ncsu_547611, ncsu_1348032, ncsu_447375; false alarms hv_5c761521b3004564, hv_7ca9c78c16874c15, hv_a81d06d3ad99495d, hv_f596326a596a4bcc, hv_298caa495dd144c0, hv_c15574c69e6c4c33, hv_d96b4057a7c249d3, hv_f668f0034b4f4e97, hv_a554d05175f64f1f, hv_4822ffb6a74b4927.
 - qwen3p8-max: missed scams ncsu_63405, ncsu_28342, ncsu_1348032, ncsu_447375; false alarms hv_a81d06d3ad99495d, hv_a999d956e52c4635, hv_e2c66a7bd76e45fd, hv_bb9fda54a22344cd, hv_ec4eae85cdb946e0, hv_79fd27e709544567, hv_d96b4057a7c249d3, hv_f668f0034b4f4e97, hv_a554d05175f64f1f.
 - keyword-stub (contracts/stub_guardian.py, 4 trigger words: code, gift card, street, home alone) caught 1/61; it is a placeholder stub, not a tuned keyword baseline.
