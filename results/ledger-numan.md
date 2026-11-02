@@ -28,3 +28,9 @@ SignalWire AI scam caller -> Telnyx guarded number -> conference with protected 
 702-753 ms, trigger->ack 1.6-1.8 s. Caretaker phoned at alert, pressed a key, joined in monitor mode,
 whispered the second alert. Call 98 s; 0 brain errors. Fix that made it work: RTP timestamps were
 fed to ASR as ms (commit 3c9f725). Guardian: reasoning_effort=none (reasoning otherwise truncates JSON).
+
+## 2026-11-02 15:48 PST: live dry run on Matt's sampler proxy (exact evaluated checkpoint)
+Bank-scam AI caller -> guarded line -> real phone. Urgent alert at 58 s (scam.impersonation_bank_gov), coach
+"Don't confirm anything. Hang up and call the number on your card." (trigger->sent 3.1 s via proxy),
+caretaker rang, joined as monitor, heard the second alert (disclosure.credentials_otp, 83 s), pressed 9:
+caller dropped, goodbye played, call ended (keypress intervention, first live use). AI-voice w2v 0.9995.
