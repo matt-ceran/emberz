@@ -1,6 +1,6 @@
 # Real-audio test set (realset): frontier baselines
 
-**5 real calls** (3 scam robocalls, 2 benign bank calls), 2 min of audio, 19 scored caller turns. Every call went through our phone path and live ASR; every model saw identical transcripts.
+**48 real calls** (35 scam robocalls, 13 benign bank calls), 27 min of audio, 172 scored caller turns. Every call went through our phone path and live ASR; every model saw identical transcripts.
 
 ![realset chart](realset_chart.svg)
 
@@ -8,20 +8,20 @@
 
 | Model | Scam recall | 95% CI | False alarms on benign | 95% CI | Turn errors | Cost (USD) | p50 latency |
 |---|---|---|---|---|---|---|---|
-| qwen3p8-max | 2/2 = **100%** | 34%-100% | 0/0 = **0%** | 0%-100% | 0/7 | 0.01 | 1879 ms |
-| kimi-k3 | 2/2 = **100%** | 34%-100% | 0/0 = **0%** | 0%-100% | 0/7 | 0.02 | 2479 ms |
+| qwen3p8-max | 33/35 = **94%** | 81%-98% | 1/13 = **8%** | 1%-33% | 8/172 | 0.43 | 2901 ms |
+| kimi-k3 | 33/35 = **94%** | 81%-98% | 4/13 = **31%** | 13%-58% | 0/172 | 0.48 | 2532 ms |
 
 Recall by scam type:
 
-| Model | gov_ssa_irs |
-|---|---|
-| qwen3p8-max | 2/2 |
-| kimi-k3 | 2/2 |
+| Model | amazon_apple_order | auto_warranty | bank_credit_card | delivery_parcel | gov_ssa_irs | prize_travel_health | tech_support_utility |
+|---|---|---|---|---|---|---|---|
+| qwen3p8-max | 6/6 | 3/3 | 5/5 | 1/1 | 9/9 | 4/4 | 5/7 |
+| kimi-k3 | 6/6 | 3/3 | 5/5 | 1/1 | 9/9 | 4/4 | 5/7 |
 
 ## Method
 
-- **Scam (3):** NCSU Robocall Audio Dataset (FTC Project Point of No Entry; data public domain, https://github.com/wspr-ncsu/robocall-audio-dataset). English, transcript >= 25 words, near-duplicate campaigns removed, seeded (20261102) stratified pick by a keyword scam type read from the dataset's Whisper transcript, one per carrier case first. Types: gov_ssa_irs 3.
-- **Benign (2):** HarperValleyBank (Gridspace-Stanford, CC BY 4.0, https://github.com/cricketclub/gridspace-stanford-harper-valley). Real human speakers role-playing bank customer-service calls with account, card, PIN/password and transfer talk (hard negatives). Seeded pick from a 220-call random sample, round-robin over task types, calls >= 25 s. Tasks: get_branch_hours 1, replace_card 1.
+- **Scam (35):** NCSU Robocall Audio Dataset (FTC Project Point of No Entry; data public domain, https://github.com/wspr-ncsu/robocall-audio-dataset). English, transcript >= 25 words, near-duplicate campaigns removed, seeded (20261102) stratified pick by a keyword scam type read from the dataset's Whisper transcript, one per carrier case first. Types: amazon_apple_order 6, auto_warranty 3, bank_credit_card 5, delivery_parcel 1, gov_ssa_irs 9, prize_travel_health 4, tech_support_utility 7.
+- **Benign (13):** HarperValleyBank (Gridspace-Stanford, CC BY 4.0, https://github.com/cricketclub/gridspace-stanford-harper-valley). Real human speakers role-playing bank customer-service calls with account, card, PIN/password and transfer talk (hard negatives). Seeded pick from a 220-call random sample, round-robin over task types, calls >= 25 s. Tasks: check_balance 2, get_branch_hours 2, order_checks 1, replace_card 3, reset_password 4, schedule_appointment 1.
 - **Phone path + ASR:** each channel resampled to 8 kHz, G.711 mu-law (`line/audio.py`), fed in 20 ms frames into `line.asr.CallTranscriber` (Nemotron Speech Streaming 0.6B int8 via sherpa-onnx, the live line's code and endpointing). Robocalls: the recording is the caller track; the protected track is not fed (it would be digital silence). HarperValley: agent channel = caller, customer channel = protected.
 - **Guardian input:** Matt's frozen prompt `guardian/render.py` (PROMPT_SHA 806908cfba7d). One request at the end of every caller turn with the last 8 turns; profile `elder` for all calls (so the profile can't leak the class), no rules, unknown number, voice unknown, no 'earlier' verdict. Temperature 0, max_tokens 600, reasoning_effort none.
 - **Decision:** a call is flagged if any scored turn has risk alert or urgent. Wilson 95% intervals. Failed or unparseable replies count as not flagged.
@@ -35,3 +35,5 @@ Recall by scam type:
 - Scam type is a keyword bucket over the dataset's Whisper transcript, not a human label; labels are source-level (every NCSU call is treated as scam, the FTC letters name them as illegal robocall campaigns).
 - The ASR is our live Nemotron path on simulated (offline) G.711, not a real PSTN leg.
 
+- qwen3p8-max: missed scams ncsu_28342, ncsu_1348032; false alarms hv_d96b4057a7c249d3.
+- kimi-k3: missed scams ncsu_547611, ncsu_1348032; false alarms hv_7ca9c78c16874c15, hv_298caa495dd144c0, hv_d96b4057a7c249d3, hv_4822ffb6a74b4927.

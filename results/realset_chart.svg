@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 198" width="760" height="198" font-family="system-ui,-apple-system,Segoe UI,sans-serif">
 <rect width="760" height="198" fill="#fcfcfb"/>
 <text x="16" y="26" font-size="16" font-weight="600" fill="#0b0b0b">Real-audio test set: frontier baselines (call level, Wilson 95% CI)</text>
-<text x="16" y="46" font-size="12" fill="#52514e">2 real robocalls (NCSU, public domain) vs 0 HarperValley bank calls, 8 kHz mu-law + live Nemotron ASR, guardian prompt 806908cfba7d</text>
+<text x="16" y="46" font-size="12" fill="#52514e">35 real robocalls (NCSU, public domain) vs 13 HarperValley bank calls, 8 kHz mu-law + live Nemotron ASR, guardian prompt 806908cfba7d</text>
 <text x="150" y="62" font-size="12" font-weight="600" fill="#0b0b0b">Scam recall (higher is better)</text>
 <line x1="150" y1="70" x2="150" y2="138" stroke="#e6e5e0" stroke-width="1"/>
 <text x="150" y="154" font-size="11" fill="#52514e" text-anchor="middle">0%</text>
@@ -14,13 +14,13 @@
 <line x1="400.0" y1="70" x2="400.0" y2="138" stroke="#e6e5e0" stroke-width="1"/>
 <text x="400.0" y="154" font-size="11" fill="#52514e" text-anchor="middle">100%</text>
 <text x="138" y="91.0" font-size="12" fill="#0b0b0b" text-anchor="end">qwen3p8-max</text>
-<line x1="235.6" y1="87.0" x2="400.0" y2="87.0" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
-<circle cx="400.0" cy="87.0" r="5" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>qwen3p8-max: 2/2 = 100% (95% CI 34%-100%)</title></circle>
-<text x="229.6" y="81.0" font-size="11" fill="#52514e" text-anchor="end">2/2</text>
+<line x1="353.475" y1="87.0" x2="396.04999999999995" y2="87.0" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
+<circle cx="385.725" cy="87.0" r="5" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>qwen3p8-max: 33/35 = 94% (95% CI 81%-98%)</title></circle>
+<text x="347.475" y="81.0" font-size="11" fill="#52514e" text-anchor="end">33/35</text>
 <text x="138" y="125.0" font-size="12" fill="#0b0b0b" text-anchor="end">kimi-k3</text>
-<line x1="235.6" y1="121.0" x2="400.0" y2="121.0" stroke="#2a78d6" stroke-width="2" stroke-linecap="round"/>
-<circle cx="400.0" cy="121.0" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>kimi-k3: 2/2 = 100% (95% CI 34%-100%)</title></circle>
-<text x="229.6" y="115.0" font-size="11" fill="#52514e" text-anchor="end">2/2</text>
+<line x1="353.475" y1="121.0" x2="396.04999999999995" y2="121.0" stroke="#2a78d6" stroke-width="2" stroke-linecap="round"/>
+<circle cx="385.725" cy="121.0" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>kimi-k3: 33/35 = 94% (95% CI 81%-98%)</title></circle>
+<text x="347.475" y="115.0" font-size="11" fill="#52514e" text-anchor="end">33/35</text>
 <text x="450" y="62" font-size="12" font-weight="600" fill="#0b0b0b">False alarms on benign (lower is better)</text>
 <line x1="450" y1="70" x2="450" y2="138" stroke="#e6e5e0" stroke-width="1"/>
 <text x="450" y="154" font-size="11" fill="#52514e" text-anchor="middle">0%</text>
@@ -32,11 +32,11 @@
 <text x="637.5" y="154" font-size="11" fill="#52514e" text-anchor="middle">75%</text>
 <line x1="700.0" y1="70" x2="700.0" y2="138" stroke="#e6e5e0" stroke-width="1"/>
 <text x="700.0" y="154" font-size="11" fill="#52514e" text-anchor="middle">100%</text>
-<line x1="450.0" y1="87.0" x2="700.0" y2="87.0" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
-<circle cx="450.0" cy="87.0" r="5" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>qwen3p8-max: 0/0 = 0% (95% CI 0%-100%)</title></circle>
-<text x="444.0" y="81.0" font-size="11" fill="#52514e" text-anchor="end">0/0</text>
-<line x1="450.0" y1="121.0" x2="700.0" y2="121.0" stroke="#2a78d6" stroke-width="2" stroke-linecap="round"/>
-<circle cx="450.0" cy="121.0" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>kimi-k3: 0/0 = 0% (95% CI 0%-100%)</title></circle>
-<text x="444.0" y="115.0" font-size="11" fill="#52514e" text-anchor="end">0/0</text>
+<line x1="453.425" y1="87.0" x2="533.275" y2="87.0" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
+<circle cx="469.225" cy="87.0" r="5" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>qwen3p8-max: 1/13 = 8% (95% CI 1%-33%)</title></circle>
+<text x="539.275" y="81.0" font-size="11" fill="#52514e" text-anchor="start">1/13</text>
+<line x1="481.7" y1="121.0" x2="594.075" y2="121.0" stroke="#2a78d6" stroke-width="2" stroke-linecap="round"/>
+<circle cx="526.925" cy="121.0" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>kimi-k3: 4/13 = 31% (95% CI 13%-58%)</title></circle>
+<text x="600.075" y="115.0" font-size="11" fill="#52514e" text-anchor="start">4/13</text>
 <text x="16" y="186" font-size="11" fill="#52514e">Flag = any caller turn scored alert or urgent (last 8 turns). Robocalls are one-sided prerecorded messages; HarperValley is role-played.</text>
 </svg>
