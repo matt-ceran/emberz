@@ -21,7 +21,7 @@ Fireworks hackathon, November 2026. Numan and Matt. Built on Fireworks plus open
 
 | Part | Choice |
 |---|---|
-| Phone line | Telnyx on EmberDial's account: the existing demo app and spare test numbers. Production apps and live numbers are never touched |
+| Phone line | Telnyx on EmberDial's account: the existing demo app `EmberDial Jev Demo` with a new number, **+1 323 516 1282** (guarded number), and its own `emberz` outbound voice profile (US only, $10/day cap). Production apps, profiles and live numbers are never touched |
 | Public URL for webhooks | `cloudflared` tunnel to the line server on Numan's Mac |
 | Speech-to-text | **NVIDIA Nemotron Speech Streaming 0.6B** (open, NVIDIA Open Model License), run locally with **sherpa-onnx** INT8. Streams in 160 ms chunks, one stream per side |
 | Training-data generator | **Nemotron 3 Ultra** on Fireworks serverless. It **needs a system prompt framing the task as synthetic safety-training data**: without it, it refused the scam call |
@@ -30,7 +30,7 @@ Fireworks hackathon, November 2026. Numan and Matt. Built on Fireworks plus open
 | Baselines | Keyword rules, Llama Guard 3 8B (on-demand), gpt-oss-safeguard-20b (on-demand), untuned Qwen3-4B (same deployment), **Kimi K3** serverless |
 | Dev stand-in for the guardian (used only while building the line) | A cheap serverless model with the same prompt and schema, while the line is being built |
 | AI-voice detector | Local: frozen wav2vec2 front end + small head, trained on public data. Telnyx `deepfake_detection` ($0.01 per call) as the commercial baseline |
-| AI test callers | Our own agents on Vapi and Retell (free credits) calling our number |
+| AI test callers | **SignalWire AI agents** (EmberDial's existing account, non-ElevenLabs voices) for all five personas, calling from **+1 304 648 1098** (an idle SignalWire number, used outbound only). **ElevenLabs agents** for the two benign bots only (pharmacy, appointment). No Vapi or Retell |
 | Text-to-speech, for transcription noise in training data | Kokoro (Apache-2.0) |
 | Google Cloud (bulk jobs only, Numan) | Project `unified-booster-512122-j5`, region us-central1. Quota: 200 N2 vCPUs and 1 L4 GPU (spot allowed). Runs the bulk noise pass and the AI-voice dataset prep. The live system runs on the Mac and Fireworks |
 
@@ -49,6 +49,21 @@ Fireworks hackathon, November 2026. Numan and Matt. Built on Fireworks plus open
 | Live Nemotron ASR on the Mac | **37 ms** to process each 160 ms chunk; **64 ms** at worst with 4 streams at once | 2 live calls (4 streams) run comfortably in real time |
 | Bulk Nemotron ASR on the Mac | **~11x real time** at best (8 processes) | 300 calls (~10 h of audio) take ~55 min, so the bulk noise pass goes to Google Cloud (G1, ~10-15 min) |
 | SFT, deployment start-up | Not yet measured | Measured by the M0 probe job |
+
+## 2c. Decisions (2026-11-02, Numan)
+
+| Decision | Why |
+|---|---|
+| **Bought one Telnyx number, +1 323 516 1282**, on the demo app | The EmberDial Telnyx account had 0 numbers (all earlier orders deleted), so there was no spare number to reuse. $1 up front and $1 a month |
+| **New `emberz` outbound voice profile** on the demo app (US only, $10/day cap) | The demo app was attached to the production `Dialer` profile, which is disabled, so dialing the protected phone and the caretaker would fail. A separate profile leaves production untouched and caps spend |
+| **Demo app repointed to our tunnel** when we go live (it was inactive, pointing at an old trycloudflare URL) | Approved by Numan; nothing live depends on it |
+| **Test phones: Numan's cell** is both the protected phone and the caretaker phone to start | One phone is enough for the hour-0 checks and the latency call; a second phone is added for the demo |
+| **AI test callers on SignalWire + ElevenLabs, not Vapi/Retell** | We already have both accounts, so there's no signup. ElevenLabs runs only the benign bots: its use policy bans fraud and impersonation with no stated exception for testing, and we won't risk EmberDial's account. The "no ElevenLabs output in training data" rule (V1) still stands; these calls are test data only |
+| **AI caller number: +1 304 648 1098** (SignalWire), outbound only, inbound routing unchanged | Of 130 SignalWire numbers, this is the only one with no calls in the last 45 days that isn't parked for an agency pool or used as a QA robot, and it appears nowhere in the voice repo. The other 11 idle numbers are reserved (10 for agency 25's shared pool, 1 is QA robot 6) |
+| **No hour limit: run everything as soon as its inputs exist** | The critical path is Matt's data generation and SFT plus the real calls, not code. Target: everything done ~10-12 h from kickoff instead of ~18 |
+| **Proposal for Matt: skip the Batch API for generation if M0 shows a slow turnaround** | Batch can take hours to return; ~50 parallel serverless requests take ~20 min. It costs about 2x (~$12 more on account B), so B4 Kimi stays on Batch, and the swap happens only if Batch is slow |
+| **Human calls: fewer friends needed** (see V2) | Most of the "human over the phone path" audio comes from replaying CC0/public human speech through a real Telnyx call; Numan and Matt do the role-play calls themselves; friends are a bonus |
+| **Google Cloud: $25 is a target, not a hard cap** | Numan's call. VMs still auto-delete (max run duration + DELETE on termination) |
 
 ## 3. How a call works
 
@@ -125,7 +140,7 @@ Big chunks, each with an owner, what it delivers, and when it's done. **I** = ki
   - **The Telnyx key (EmberDial's account) stays on Numan's Mac only.**
   - Auto Reload off on both Fireworks accounts.
 - Set up a shared channel for `data/` and `recordings/`. Manifests are committed; files are not.
-- Start the big downloads (ASVspoof 5, In-the-Wild), request PAN-12 access, and book friends for the human and role-play calls.
+- Start the big downloads (ASVspoof 5, In-the-Wild), and request PAN-12 access. Friends for extra role-play calls are optional (see V2).
 
 ### M0. Fireworks hour-0 checks and the shared guardian library (Matt)
 - **Checks:**
@@ -209,8 +224,10 @@ Big chunks, each with an owner, what it delivers, and when it's done. **I** = ki
 - **Done when:** EER and AUC on our phone set for audio only, timing only and combined, with n and intervals.
 
 ### V2. Real test calls (Numan records, Matt labels blind)
-- 5 of our own Vapi and Retell agents making about 10 calls each, plus about 50 human calls over the same path.
-- About 40 role-play guardian calls with blind-written scripts.
+- **AI callers:** 5 SignalWire AI agents (bank, tech support, prize scams; pharmacy and appointment bots) plus ElevenLabs agents for the two benign bots, about 10 calls each, from +1 304 648 1098 into the guarded number.
+- **Human audio over the same path (V1's human class):** replay CC0/public human speech (e.g. Common Voice) as real calls from the SignalWire number into the guarded number, so it crosses the real PSTN and Telnyx path, about 50 calls. Plus 10-20 live calls from Numan and Matt (different phones, rooms, speakerphone). This gives real codec conditions without needing ~50 people; its limit is no live reply timing, which only the timing cue uses.
+- **About 40 role-play guardian calls** with blind-written cards (`callers/roleplay/`): Numan and Matt play both sides, swapping roles. Friends are a bonus for voice variety, not a dependency.
+- **Why real people at all:** the guardian is trained only on generated text, so the role-play set is the one test of real, unscripted speech and real ASR errors; the AI-voice detector needs real human voices over the phone path, or its false-alarm rate on humans is unmeasured.
 - Labels are committed after the calls are segmented (around sync S4), before any model scores them.
 
 ### G1. Google Cloud bulk jobs (Numan)
@@ -227,7 +244,7 @@ Big chunks, each with an owner, what it delivers, and when it's done. **I** = ki
   - The large audio never touches the Mac.
 - **Rules:**
   - Delete every VM as soon as its job ends, and run `gcloud compute instances list` at every session end.
-  - Cap: $25 total.
+  - Target about $25 total (not a hard cap). Every VM has a max run duration and deletes itself on termination.
 - **Done when:** the noisy turns are delivered to M1, and the voice features are in the bucket for V1.
 
 ### D1. Integration and rehearsal (Numan)
@@ -335,7 +352,7 @@ A judge can call the guarded number from their own phone and try to fool it.
 - Run `firectl deployment list` on both accounts at every session end.
 - Each person keeps a ledger: `results/ledger-matt.md` and `results/ledger-numan.md`.
 
-**Google Cloud (G1):** capped at $25. VMs are deleted right after each job.
+**Google Cloud (G1):** about $25 target, not a hard cap. VMs are deleted right after each job.
 
 **Telnyx:** about $0.002 per minute of voice, $0.002 per conference participant per minute, $0.0035 per minute of streaming, $0.01 per call for deepfake detection and $1 a month per number. About 150 test calls come to single-digit dollars.
 
