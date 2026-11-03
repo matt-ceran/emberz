@@ -8,7 +8,7 @@ grooming, threats) Emberz:
 - **whispers a coach line** only the protected person hears ("Don't share any codes. Hang up and call the bank directly."),
 - **phones the caretaker**, who can listen in (press 1), talk (press 0) or **end the call** (press 9),
 - follows **rules the caretaker writes in plain words** ("Never share codes", "Alert me about any money talk, even with family"),
-- flags **AI voices** (our wav2vec2 detector + Telnyx deepfake detection + reply timing).
+- flags **AI voices** with our own detector (wav2vec2 features + a trained head, evaluated below) and reply timing.
 
 ## Why now: AI made the scam call cheap, convincing and endless
 
@@ -21,8 +21,8 @@ grooming, threats) Emberz:
   count as "artificial" under the TCPA and named voice clones posing as family as a harm [1][4].
 - **We built the attacker ourselves.** Our test caller is off-the-shelf: an LLM scam script plus a stock neural voice on a
   cloud phone API, an estimated **$0.34 per two-minute call** (`callers/signalwire`). On real phone calls it held a fluent,
-  pressuring back-and-forth and asked for the verification code. Telnyx's built-in deepfake check scored its voice on only 1 of
-  5 live calls (silence timeout on the rest); our own detector flagged it on every live call we checked (4 calls, 0.94-0.9997).
+  pressuring back-and-forth and asked for the verification code.
+  Our own detector flagged its voice on every live call we checked (4 calls, scores 0.94-0.9997).
 - **Existing filters stop at the ring.** Carrier filters and caller-ID apps judge the number before you answer. A manipulative
   call from an unknown or spoofed number gets through, and the damage happens during the conversation, which is exactly where
   Emberz listens.
