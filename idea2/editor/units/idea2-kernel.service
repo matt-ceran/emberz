@@ -1,0 +1,24 @@
+[Unit]
+Description=Idea 2 editor: persistent Python kernel for weight analysis (CPU only, no GPU)
+
+[Service]
+User=idea2
+UMask=0000
+StateDirectory=idea2
+WorkingDirectory=/opt/idea2/work
+Environment=HOME=/var/lib/idea2
+Environment=CUDA_VISIBLE_DEVICES=
+Environment=OMP_NUM_THREADS=6
+Environment=MKL_NUM_THREADS=6
+Environment=PYTHONUNBUFFERED=1
+Environment=HF_HUB_OFFLINE=1
+Environment=TOKENIZERS_PARALLELISM=false
+EnvironmentFile=/opt/idea2/editor.env
+ExecStartPre=/bin/rm -f /opt/idea2/work/kernel/conn.json
+ExecStart=/opt/idea2/venv/bin/python -m ipykernel_launcher -f /opt/idea2/work/kernel/conn.json
+# 32 GiB VM: leave room for the forward-pass server (~3 GB CPU) and the page cache
+MemoryMax=20G
+MemorySwapMax=0
+Restart=no
+StandardOutput=append:/opt/idea2/kernel.log
+StandardError=append:/opt/idea2/kernel.log

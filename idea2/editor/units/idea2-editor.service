@@ -1,0 +1,23 @@
+[Unit]
+Description=Idea 2 editor: forward-pass server, Qwen3-8B bf16 on the GPU (127.0.0.1:8100)
+# Only one copy of the 8B model fits on the L4: starting this unit stops vLLM and vice versa.
+Conflicts=idea2-vllm.service
+After=network-online.target
+
+[Service]
+User=idea2
+UMask=0000
+StateDirectory=idea2
+WorkingDirectory=/opt/idea2/editor
+Environment=HOME=/var/lib/idea2
+Environment=PYTHONUNBUFFERED=1
+Environment=HF_HUB_OFFLINE=1
+Environment=HF_HOME=/opt/idea2/hf
+Environment=TOKENIZERS_PARALLELISM=false
+EnvironmentFile=/opt/idea2/editor.env
+ExecStart=/opt/idea2/venv/bin/python fwd_server.py
+# no MemoryMax: the mmap-ed checkpoint pages count against it and a low cap makes loading thrash
+Restart=on-failure
+RestartSec=10
+StandardOutput=append:/opt/idea2/editor.log
+StandardError=append:/opt/idea2/editor.log
