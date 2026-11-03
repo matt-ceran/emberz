@@ -87,4 +87,4 @@ Our guardian rates most of them only "watch" and catches 52% vs 98% for Kimi K3;
 | `results/`, `docs/` | Results, charts, business value (`docs/business_value.md`) |
 | `PLAN.md` | Plan and every decision with its reason |
 
-Tests: `.venv/bin/python -m pytest -q tests` (557 pass). Secrets live only in `.env` (not committed).
+Setup: `uv venv && uv pip install -r requirements.txt`, copy `.env.example` to `.env`. Tests: `.venv/bin/python -m pytest -q tests` (557 pass). Secrets live only in `.env` (not committed).
