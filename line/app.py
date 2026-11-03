@@ -201,6 +201,9 @@ def build_app(
     flow = app.state.flow
     caretaker.telnyx, caretaker.sessions_lookup = app.state.telnyx, flow.sessions.get
     app.include_router(actions_router(flow, caretaker, hub, open_access=open_console))
+    if os.environ.get("EMBERZ_DEMO_DIAL") == "1":
+        from line.demo_dial import demo_dial_router
+        app.include_router(demo_dial_router())
     add_cors(app)
 
     def record_tap(ev: ConsoleEvent) -> None:

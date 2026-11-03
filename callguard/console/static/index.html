@@ -192,7 +192,17 @@ details.demo summary { cursor: pointer; font-weight: 700; }
 <body>
 <header class="top"><div class="wrap">
   <div class="brand">Emberz <span>caretaker</span></div>
-  <div id="conn" class="conn">Connecting</div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <select id="demoPersona" title="Demo caller" style="font:inherit;padding:6px 8px;border-radius:8px;background:#1b1f24;color:#e8e6e3;border:1px solid #3a3f45">
+      <option value="bank_fraud">Bank scam</option>
+      <option value="tech_support">Tech support scam</option>
+      <option value="prize_giftcard">Prize scam</option>
+      <option value="family_money">Grandson asks for money</option>
+      <option value="appointment_confirm">Normal: appointment</option>
+    </select>
+    <button id="demoGo" style="font:inherit;font-weight:700;padding:8px 18px;border-radius:999px;border:0;background:#2fbf71;color:#08130c;cursor:pointer">Go: place demo call</button>
+    <div id="conn" class="conn">Connecting</div>
+  </div>
 </div></header>
 
 <main class="wrap">
@@ -865,6 +875,21 @@ clearView();
 updateButtons();
 loadDemo();
 connect();
+
+// ------------------------------------------------------------------ demo "Go" button (line server with EMBERZ_DEMO_DIAL=1)
+(function () {
+  const btn = document.getElementById("demoGo"), sel = document.getElementById("demoPersona");
+  if (!btn) return;
+  btn.addEventListener("click", async () => {
+    btn.disabled = true; const label = btn.textContent; btn.textContent = "Dialing...";
+    try {
+      const r = await api("POST", "/demo/dial", { persona: sel.value });
+      if (r.ok) toast("Calling the protected phone now. Answer it!");
+      else toast((r.body && r.body.detail) || ("Demo call failed (HTTP " + r.status + ")"));
+    } catch (e) { toast("Could not reach the line server for the demo call."); }
+    setTimeout(() => { btn.disabled = false; btn.textContent = label; }, 8000);
+  });
+})();
 </script>
 </body>
 </html>
