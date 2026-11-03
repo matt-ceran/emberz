@@ -1,0 +1,24 @@
+<section id="cost" style="background:#14100D;color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">Business value</p>
+<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">Cheap to run, fast enough to interrupt.</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;flex:1">
+<div style="background:#2A1F18;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px;border:2px solid #FF7A3D">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:112px;font-weight:800;line-height:1;letter-spacing:-3px;color:#FF7A3D">$3.64</h3>
+<p style="font-size:28px;line-height:1.4;color:#F5EFE6"><b>per household per month</b></p>
+<p style="font-size:26px;line-height:1.4;color:#C9BBAC">Phone line plus guardian, modeled at scale. Kimi K3 on the same line: $9.37.</p>
+</div>
+<div style="background:#1E1712;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:112px;font-weight:800;line-height:1;letter-spacing:-3px;color:#F5EFE6">475 ms</h3>
+<p style="font-size:28px;line-height:1.4;color:#F5EFE6"><b>median per scored turn</b></p>
+<p style="font-size:26px;line-height:1.4;color:#C9BBAC">871 ms p95 on a dedicated Fireworks deployment. The coach line lands before the caller’s next ask.</p>
+</div>
+<div style="background:#1E1712;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:112px;font-weight:800;line-height:1;letter-spacing:-3px;color:#F5EFE6">1 in 25</h3>
+<p style="font-size:28px;line-height:1.4;color:#F5EFE6"><b>household-years to break even</b></p>
+<p style="font-size:26px;line-height:1.4;color:#C9BBAC">At about $10 a month, stopping one $3,000 median phone-fraud loss every 25 years pays for it.</p>
+</div>
+</div>
+<p style="font-size:28px;line-height:1.4;color:#C9BBAC;width:1600px"><b style="color:#F5EFE6">Buyer:</b> adult children of an aging parent. Carrier filters and caller-ID apps stop at the ring; on-device scam detection warns only the person being targeted, never the family.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8F8174">Cost model and assumptions: docs/business_value.md (Telnyx list prices, 100 call-minutes and 40 calls per household-month). Latency: 314 turns, one call at a time.</p>
+<aside>Who pays: adult children with an aging parent. What it costs us: about $3.64 per household per month for the phone line and the model, at scale — that’s a model of the costs, with the assumptions in our business-value doc, not a measured bill. A frontier model on the same line would be about $9.37. It’s fast enough: median under half a second per turn on a dedicated deployment. And the math for a family is simple: at ten dollars a month, stopping one typical phone-fraud loss every 25 years pays for it. [If asked: the cost model assumes one H100 at 50 concurrent calls; at low traffic, serverless frontier models are cheaper per minute.]</aside>
+</section>

@@ -1,0 +1,22 @@
+<section id="robust" style="background:#F5EFE6;color:#1C1612;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8430F">Beyond our own test set</p>
+<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px;width:1500px">It holds up off-distribution, through real speech-to-text and against AI voices.</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;flex:1">
+<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px;border:2px solid #E6DCCF">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:96px;font-weight:800;line-height:1;letter-spacing:-3px;color:#B8430F">98/100</h3>
+<p style="font-size:28px;line-height:1.4;color:#1C1612"><b>scams caught, 0/100 false alarms</b></p>
+<p style="font-size:26px;line-height:1.4;color:#4E443C">BothBosu: 200 public scam conversations we never trained on.</p>
+</div>
+<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px;border:2px solid #E6DCCF">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:96px;font-weight:800;line-height:1;letter-spacing:-3px;color:#B8430F">85%</h3>
+<p style="font-size:28px;line-height:1.4;color:#1C1612"><b>caught before the ask through live ASR</b></p>
+<p style="font-size:26px;line-height:1.4;color:#4E443C">49 held-out calls voiced at 8 kHz phone quality, transcribed by Nemotron Speech. Same as on clean text.</p>
+</div>
+<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px;border:2px solid #E6DCCF">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:96px;font-weight:800;line-height:1;letter-spacing:-3px;color:#B8430F">1.27%</h3>
+<p style="font-size:28px;line-height:1.4;color:#1C1612"><b>equal error rate, AI-voice detector</b></p>
+<p style="font-size:26px;line-height:1.4;color:#4E443C">In-the-Wild, 25 unseen speakers, 2,829 clips, AUC 0.9991. Flagged 4 of 5 live AI calls.</p>
+</div>
+</div>
+<aside>We also checked it outside our own data. On a public scam-conversation dataset it had never seen, it caught 98 of 100 scams with zero false alarms. When we voiced held-out calls over a phone-quality line and ran them through the same speech-to-text the live line uses, the catch rate didn’t move. And our AI-voice detector — frozen wav2vec2 features plus a trained head — has a 1.27% equal error rate on speakers it never saw, and flagged 4 of our 5 live AI scam calls.</aside>
+</section>

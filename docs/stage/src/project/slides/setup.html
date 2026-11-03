@@ -1,0 +1,23 @@
+<section id="setup" style="background:#F5EFE6;color:#1C1612;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8430F">The benchmark</p>
+<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px;width:1500px">A fair test against a named frontier model.</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;flex:1">
+<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:12px;border:2px solid #E6DCCF">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:48px;font-weight:700;line-height:1.1"><span style="color:#B8430F">257</span> held-out calls</h3>
+<p style="font-size:28px;line-height:1.4;color:#4E443C">Written by NVIDIA Nemotron 3 Ultra, a different model family from our training data (DeepSeek V4.1 Flash). One scam type never seen in training.</p>
+</div>
+<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:12px;border:2px solid #E6DCCF">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:48px;font-weight:700;line-height:1.1">Caught <span style="color:#B8430F">before the ask</span></h3>
+<p style="font-size:28px;line-height:1.4;color:#4E443C">The alert must come before the turn where the caller asks for the code, money, address or meet-up. Scored turn by turn, as the live line runs.</p>
+</div>
+<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:12px;border:2px solid #E6DCCF">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:48px;font-weight:700;line-height:1.1">Kimi K3, zero-shot</h3>
+<p style="font-size:28px;line-height:1.4;color:#4E443C">The frontier baseline, plus Fireworks Rune, DeepSeek V4.1 Flash, our untuned base model and a keyword + PII-regex rule set.</p>
+</div>
+<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:12px;border:2px solid #E6DCCF">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:48px;font-weight:700;line-height:1.1">Same prompt, real error bars</h3>
+<p style="font-size:28px;line-height:1.4;color:#4E443C">One frozen prompt for every model. Wilson 95% intervals, McNemar test, scenario-clustered bootstrap.</p>
+</div>
+</div>
+<aside>Before the numbers, how we tested. 257 held-out calls, written by a different model family than our training data, so the test isn’t the generator grading itself. The metric is the one that matters on a live call: did the guardian raise an alert before the caller asked for the code or the money? Same frozen prompt for every model, and every number comes with a 95% interval.</aside>
+</section>

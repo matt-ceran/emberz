@@ -1,0 +1,35 @@
+<section id="how" style="background:#14100D;color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">How it works</p>
+<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">Every caller turn, scored live.</h2>
+<div style="display:flex;align-items:stretch;gap:16px">
+<div style="flex:1;background:#1E1712;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:36px;font-weight:700;line-height:1.1">Caller</h3>
+<p style="font-size:24px;line-height:1.4;color:#C9BBAC">Any number, any voice, human or AI</p>
+</div>
+<p style="font-size:48px;color:#FF7A3D;align-self:center">→</p>
+<div style="flex:1;background:#1E1712;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:36px;font-weight:700;line-height:1.1">Guarded line</h3>
+<p style="font-size:24px;line-height:1.4;color:#C9BBAC">Telnyx Call Control: notice, conference, both audio tracks</p>
+</div>
+<p style="font-size:48px;color:#FF7A3D;align-self:center">→</p>
+<div style="flex:1;background:#1E1712;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px;border:2px solid #76B900">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:36px;font-weight:700;line-height:1.1">Live speech-to-text</h3>
+<p style="font-size:24px;line-height:1.4;color:#C9BBAC">NVIDIA Nemotron Speech Streaming 0.6B, INT8, 160 ms chunks</p>
+</div>
+<p style="font-size:48px;color:#FF7A3D;align-self:center">→</p>
+<div style="flex:1;background:#2A1F18;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px;border:2px solid #FF7A3D">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:36px;font-weight:700;line-height:1.1">Guardian</h3>
+<p style="font-size:24px;line-height:1.4;color:#C9BBAC">Qwen3.6-35B-A3B LoRA, fine-tuned and served on Fireworks</p>
+</div>
+<p style="font-size:48px;color:#FF7A3D;align-self:center">→</p>
+<div style="flex:1;background:#1E1712;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:36px;font-weight:700;line-height:1.1">Action</h3>
+<p style="font-size:24px;line-height:1.4;color:#C9BBAC">Coach whisper, caretaker call, console alert</p>
+</div>
+</div>
+<div style="display:flex;gap:32px;flex:1;align-items:end">
+<p style="flex:1;font-size:32px;line-height:1.4;color:#C9BBAC">The guardian reads the caretaker’s rules and the last 8 turns, and returns <b style="color:#F5EFE6">risk, category, an evidence quote, a coach line and a caretaker note</b> as JSON.</p>
+<p style="flex:1;font-size:32px;line-height:1.4;color:#C9BBAC"><b style="color:#F5EFE6">One frozen prompt</b> for training, evaluation and the live line. If the endpoint is down, Nemotron Lightning 3.5 on Fireworks serverless takes over.</p>
+</div>
+<aside>Under the hood: the call lands on our Telnyx line, both sides are transcribed live by NVIDIA Nemotron Speech Streaming running locally, and after every caller turn our fine-tuned guardian on Fireworks reads the conversation and the family’s rules and returns a structured verdict. The same prompt is used in training, in the benchmark and on the live line, so what we measured is what runs. And a call is never left unguarded: if the guardian endpoint is down, it falls back to Nemotron Lightning on Fireworks serverless.</aside>
+</section>

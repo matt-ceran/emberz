@@ -1,0 +1,51 @@
+<section id="table" style="background:#F5EFE6;color:#1C1612;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8430F">The full table</p>
+<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">Same catch rate, fewer false alarms.</h2>
+<table style="width:1664px;border-collapse:collapse;font-size:28px;font-variant-numeric:tabular-nums">
+<tr style="border-bottom:3px solid #1C1612">
+<th style="width:40%;text-align:left;padding:16px 20px;font-size:26px;color:#4E443C;font-weight:600">Model</th>
+<th style="width:20%;text-align:right;padding:16px 20px;font-size:26px;color:#4E443C;font-weight:600">Caught before the ask</th>
+<th style="width:20%;text-align:right;padding:16px 20px;font-size:26px;color:#4E443C;font-weight:600">False alarms</th>
+<th style="width:20%;text-align:right;padding:16px 20px;font-size:26px;color:#4E443C;font-weight:600">Caretaker rules right</th>
+</tr>
+<tr style="background:#FFE3D2;border-bottom:1px solid #E6DCCF">
+<td style="padding:18px 20px;font-weight:700">Emberz guardian v2 (ours)</td>
+<td style="padding:18px 20px;text-align:right;font-weight:700">93%</td>
+<td style="padding:18px 20px;text-align:right;font-weight:700">18%</td>
+<td style="padding:18px 20px;text-align:right;font-weight:700">86%</td>
+</tr>
+<tr style="border-bottom:1px solid #E6DCCF">
+<td style="padding:18px 20px">Kimi K3 (frontier, zero-shot)</td>
+<td style="padding:18px 20px;text-align:right">90%</td>
+<td style="padding:18px 20px;text-align:right">23%</td>
+<td style="padding:18px 20px;text-align:right">18%</td>
+</tr>
+<tr style="border-bottom:1px solid #E6DCCF">
+<td style="padding:18px 20px">Fireworks Rune (zero-shot)</td>
+<td style="padding:18px 20px;text-align:right">93%</td>
+<td style="padding:18px 20px;text-align:right">38%</td>
+<td style="padding:18px 20px;text-align:right">23%</td>
+</tr>
+<tr style="border-bottom:1px solid #E6DCCF">
+<td style="padding:18px 20px">DeepSeek V4.1 Flash (zero-shot)</td>
+<td style="padding:18px 20px;text-align:right">85%</td>
+<td style="padding:18px 20px;text-align:right">32%</td>
+<td style="padding:18px 20px;text-align:right">14%</td>
+</tr>
+<tr style="border-bottom:1px solid #E6DCCF">
+<td style="padding:18px 20px">Same base model, untuned</td>
+<td style="padding:18px 20px;text-align:right">89%</td>
+<td style="padding:18px 20px;text-align:right">53%</td>
+<td style="padding:18px 20px;text-align:right">14%</td>
+</tr>
+<tr>
+<td style="padding:18px 20px">Keywords + PII regex</td>
+<td style="padding:18px 20px;text-align:right">52%</td>
+<td style="padding:18px 20px;text-align:right">49%</td>
+<td style="padding:18px 20px;text-align:right">0%</td>
+</tr>
+</table>
+<p style="font-size:28px;line-height:1.4;color:#4E443C;width:1500px">Fine-tuning took the same base model from <b style="color:#1C1612">53% false alarms to 18%</b> and from <b style="color:#1C1612">14% rule-following to 86%</b>.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E6259">n = 148 risky / 79 harmless calls / 22 rule-flip pairs. Wilson 95% CIs in callguard/README.md (v2 catch 87–96, Kimi K3 84–94).</p>
+<aside>The full picture. On catching scams, the fine-tune matches the best frontier models — the catch-rate gap with Kimi K3 is inside the error bars, and we say so. Where it wins clearly is everything else: fewer false alarms than every zero-shot model, less than half of Rune’s and DeepSeek’s, and it’s the only model that reliably follows the family’s own rules. Compare it with its own untuned base: the fine-tune cut false alarms from 53% to 18%.</aside>
+</section>
