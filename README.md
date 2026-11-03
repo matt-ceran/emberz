@@ -22,7 +22,8 @@ grooming, threats) Emberz:
 - **We built the attacker ourselves.** Our test caller is off-the-shelf: an LLM scam script plus a stock neural voice on a
   cloud phone API, an estimated **$0.34 per two-minute call** (`callers/signalwire`). On real phone calls it held a fluent,
   pressuring back-and-forth and asked for the verification code.
-  Our own detector flagged its voice on every live call we checked (4 calls, scores 0.94-0.9997).
+  Our own AI-voice detector flagged it on 4 of 5 live calls; the phone carrier's built-in deepfake check scored it on 1 of 5
+  (see the live check below).
 - **Existing filters stop at the ring.** Carrier filters and caller-ID apps judge the number before you answer. A manipulative
   call from an unknown or spoofed number gets through, and the damage happens during the conversation, which is exactly where
   Emberz listens.
@@ -76,6 +77,22 @@ Run it: `line/README_live.md`. One-command demo with preflight: `bash demo/run_d
 Frozen wav2vec2 XLS-R 300M features (layer 9) + a calibrated logistic head, scored on the first seconds of caller speech after
 our 8 kHz phone path. On **In-the-Wild, 25 speakers never seen in training (2,829 clips): EER 1.27% (95% CI 0.85-1.77),
 AUC 0.9991**, 98% of AI clips caught at a 1% false-alarm rate. Details: `results/voice_v1.md`.
+
+**Live check on our own AI scam calls (5 real calls, 2 Nov 2026; a small sample, not a benchmark).** Same calls, same caller
+audio, three AI text-to-speech voices. "Flagged" = score >= 0.5 on the first seconds of caller speech.
+
+| Call (PST) | Caller TTS voice | Our detector (w2v-head-v1) | Telnyx built-in deepfake detection |
+|---|---|---|---|
+| 14:59 | Azure Andrew Neural | **0.97** flagged | 0.999 flagged |
+| 15:11 | Azure Andrew Neural | **0.96** flagged | no score (silence timeout) |
+| 15:37 | Google Neural2-F | **0.998** flagged | no score (silence timeout) |
+| 15:47 | Cartesia (brisk) | 0.41, **missed** | no score (silence timeout) |
+| 15:48 | Azure Andrew Neural | **0.9995** flagged | no score (silence timeout) |
+| **Total** | | **4/5** | **1/5** |
+
+Telnyx's check needs several seconds of caller speech right after answer; our caller waits for the Emberz notice, so it timed
+out on 4 calls. That is a property of our call flow as much as of their detector. Our miss was the one Cartesia voice. Logs:
+`recordings/<call>/events.jsonl` and `results/ledger-numan.md`.
 
 ## Real-audio check (`realset/`, supporting)
 
