@@ -1,0 +1,48 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #0b0d12; font-family: Inter, sans-serif; color: #f2f4f8; overflow: hidden; }
+    #val-wipe { position: absolute; inset: 0; background: #0b0d12; }
+    #val-kicker { position: absolute; left: 192px; top: 150px; font-size: 30px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #8a93a6; }
+    .val-row { position: absolute; left: 192px; display: flex; align-items: baseline; gap: 44px; }
+    .val-num { font-size: 116px; font-weight: 900; letter-spacing: -0.03em; line-height: 1; width: 600px; flex: none; }
+    .val-txt { font-size: 40px; font-weight: 700; line-height: 1.2; max-width: 900px; }
+    .val-sub { display: block; font-size: 26px; font-weight: 400; color: #8a93a6; margin-top: 6px; }
+    #val-r1 { top: 230px; } #val-r2 { top: 430px; } #val-r3 { top: 630px; }
+    #val-r1 .val-num { color: #ff4d4f; } #val-r2 .val-num { color: #ff4d4f; } #val-r3 .val-num { color: #ffb347; }
+    #val-line { position: absolute; left: 192px; right: 192px; top: 860px; font-size: 44px; font-weight: 700; line-height: 1.25; }
+    #val-line b { color: #ffb347; }
+  </style>
+  <div id="root" data-composition-id="value" data-width="1920" data-height="1080">
+    <div id="val-wipe"></div>
+    <div id="val-kicker" class="clip" data-start="0" data-duration="10">Why it matters</div>
+    <div id="val-r1" class="val-row clip" data-start="0" data-duration="10">
+      <div class="val-num" id="val-n1">$3,000</div>
+      <div class="val-txt" id="val-t1">median loss when the scam starts with a phone call<span class="val-sub">vs $599 when it starts on social media · FTC, older adults</span></div>
+    </div>
+    <div id="val-r2" class="val-row clip" data-start="0" data-duration="10">
+      <div class="val-num" id="val-n2">$0.34</div>
+      <div class="val-txt" id="val-t2">what our AI scam caller costs per 2-minute call<span class="val-sub">LLM script + stock neural voice + cloud phone API: scams now scale</span></div>
+    </div>
+    <div id="val-r3" class="val-row clip" data-start="0" data-duration="10">
+      <div class="val-num" id="val-n3">$3.64/mo</div>
+      <div class="val-txt" id="val-t3">to guard one family's number<span class="val-sub">estimated line + model cost · fine-tune trained for about $23 on Fireworks</span></div>
+    </div>
+    <div id="val-line" class="clip" data-start="0" data-duration="10">Carrier filters stop at the ring. <b>Emberz works during the call</b>, for grandparents and kids.</div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#val-wipe", { yPercent: -100 }, { yPercent: 0, duration: 0.4, ease: "power2.inOut" }, 0);
+      tl.fromTo("#val-kicker", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 0.3);
+      const rows = [["#val-n1", "#val-t1", 0.5], ["#val-n2", "#val-t2", 2.4], ["#val-n3", "#val-t3", 4.3]];
+      rows.forEach(([n, t, at]) => {
+        tl.fromTo(n, { opacity: 0, x: -40, filter: "blur(10px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, at);
+        tl.fromTo(t, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, at + 0.25);
+      });
+      tl.fromTo("#val-line", { opacity: 0, clipPath: "inset(0 100% 0 0)" }, { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 0.7, ease: "power3.out" }, 6.3);
+      tl.to("#val-line", { opacity: 1, duration: 0.01 }, 9.9);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["value"] = tl;
+    })();
+  </script>
+</template>

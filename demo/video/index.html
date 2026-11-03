@@ -20,7 +20,7 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="108" data-width="1920" data-height="1080">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="118" data-width="1920" data-height="1080">
       <div id="ground"></div>
 
       <div id="intro" data-composition-id="intro" data-composition-src="compositions/intro.html"
@@ -38,9 +38,13 @@
         data-start="81" data-duration="22" data-track-index="4" data-track-kind="graphics"
         data-width="1920" data-height="1080" style="z-index:7"></div>
 
-      <div id="endcard" data-composition-id="endcard" data-composition-src="compositions/endcard.html"
-        data-start="103" data-duration="5" data-track-index="5" data-track-kind="graphics"
+      <div id="value" data-composition-id="value" data-composition-src="compositions/value.html"
+        data-start="103" data-duration="10" data-track-index="6" data-track-kind="graphics"
         data-width="1920" data-height="1080" style="z-index:8"></div>
+
+      <div id="endcard" data-composition-id="endcard" data-composition-src="compositions/endcard.html"
+        data-start="113" data-duration="5" data-track-index="5" data-track-kind="graphics"
+        data-width="1920" data-height="1080" style="z-index:9"></div>
 
       <!-- SFX: each placed so its peak lands ~1 frame after the picture event (see SPEC event times; demo local + 13) -->
       <audio id="sfx-whoosh-demo" class="clip" src="assets/sfx_whoosh.mp3" data-start="12.87" data-duration="0.6" data-volume="0.5" data-track-index="10"></audio>
@@ -51,7 +55,8 @@
       <audio id="sfx-impact-press9" class="clip" src="assets/sfx_impact.mp3" data-start="76.16" data-duration="2.6" data-volume="0.8" data-track-index="13"></audio>
       <audio id="sfx-chime-coach2" class="clip" src="assets/sfx_chime.mp3" data-start="77.58" data-duration="2.5" data-volume="0.45" data-track-index="12"></audio>
       <audio id="sfx-whoosh-results" class="clip" src="assets/sfx_whoosh.mp3" data-start="80.87" data-duration="0.6" data-volume="0.5" data-track-index="10"></audio>
-      <audio id="sfx-whoosh-end" class="clip" src="assets/sfx_whoosh.mp3" data-start="102.87" data-duration="0.6" data-volume="0.45" data-track-index="10"></audio>
+      <audio id="sfx-whoosh-value" class="clip" src="assets/sfx_whoosh.mp3" data-start="102.87" data-duration="0.6" data-volume="0.45" data-track-index="10"></audio>
+      <audio id="sfx-whoosh-end" class="clip" src="assets/sfx_whoosh.mp3" data-start="112.87" data-duration="0.6" data-volume="0.45" data-track-index="10"></audio>
     </div>
     <script>
       window.__timelines = window.__timelines || {};
