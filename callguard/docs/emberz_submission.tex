@@ -317,7 +317,7 @@ NVIDIA models carry three jobs:
 \section{Reference}
 \sloppy
 \begin{itemize}
-\item \textbf{Repository:} \url{https://github.com/matt-ceran/fireworks-AMD} (branch \texttt{main}).
+\item \textbf{Repository:} \url{https://github.com/matt-ceran/emberz} (branches \texttt{matt/callguard-code} and \texttt{numan/line-voice-gcp}).
 \item \textbf{Checkpoint:} \path{afceran33-zaqel7a5ap/run-d0f99835415b46f5a898cafaa544e005/v2-fin-7ecb9b48}. Promoted model: \path{accounts/afceran33-zaqel7a5ap/models/emberz-guardian-v2}.
 \item \textbf{Code} (all under \path{callguard/}):
   \begin{itemize}
@@ -327,15 +327,5 @@ NVIDIA models carry three jobs:
   \item serving the evaluated checkpoint: \path{guardian/sampler_proxy.py}
   \item caretaker console: \path{console/}
   \end{itemize}
-\item \textbf{Live phone line} (repo root): \path{line/}; AI-voice detector: \path{voice/}; one-command demo: \path{demo/run_demo.sh}.
-\end{itemize}
-
-\section{The live line works on real phone calls}
-On November 2, 2026 we called the guarded Telnyx number with an AI bank-scam caller (an LLM script with a neural TTS voice over SignalWire, about \$0.34 per two-minute call) and bridged it to a real phone. Logs: \path{results/ledger-numan.md}; recordings: \path{recordings/}.
-\begin{itemize}
-\item \textbf{15:11 PST.} Both sides were transcribed live (11 turns). The guardian raised an \emph{urgent} alert on the bank impersonation (turn 4) and again on the request for the verification code (turn 10). Three coach lines went to the protected leg only, 0.70--0.75\,s after the turn that triggered them; the caller heard nothing. The caretaker was phoned at the first alert, pressed 1, joined in listen-only mode and heard the second alert whispered.
-\item \textbf{15:48 PST, on the exact evaluated checkpoint} (served through \path{sampler_proxy.py}). Urgent alerts at 58\,s and 83\,s, a coach line, and the caretaker listening. The caretaker then \textbf{pressed 9}: Emberz dropped the scam caller, told the protected person ``you are safe'', and ended the call.
-\item \textbf{AI voice, live.} On 5 live calls our detector flagged the synthetic caller 4 times (scores 0.96--0.9995 for Azure and Google voices) and missed one Cartesia voice (0.41). This is a small sample, not a benchmark; Table~2 is the benchmark.
-\item \textbf{Never left unguarded.} If the guardian endpoint is down (for example, a deployment scaled to zero), the line scores turns with NVIDIA Nemotron Lightning~3.5 on Fireworks serverless instead.
 \end{itemize}
 \end{document}
