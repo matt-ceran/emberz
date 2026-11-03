@@ -1,0 +1,299 @@
+<template>
+  <style>
+    #root {
+      position: absolute; inset: 0; font-family: Inter, sans-serif; color: #f2f4f8;
+      --bg:#0b0d12; --panel:#151922; --ink:#f2f4f8; --dim:#8a93a6; --red:#ff4d4f; --amber:#ffb347; --green:#3ddc84; --blue:#4da3ff;
+    }
+    #d-console { position: absolute; left: 608px; top: 0; right: 0; bottom: 0; background: var(--bg); }
+    #d-head { position: absolute; left: 652px; top: 56px; width: 1172px; height: 96px; }
+    #d-live { position: absolute; left: 0; top: 4px; font-size: 30px; font-weight: 900; letter-spacing: .03em; white-space: nowrap; }
+    #d-live .dot { display: inline-block; width: 16px; height: 16px; border-radius: 50%; background: var(--red); margin-right: 12px; vertical-align: 3px; }
+    #d-live .rest { font-weight: 700; color: var(--dim); }
+    #d-aitag { display: inline-block; font-size: 22px; font-weight: 900; letter-spacing: .06em; padding: 5px 14px; border-radius: 999px; background: var(--red); color: #14100a; margin-left: 16px; vertical-align: 4px; opacity: 0; }
+    #d-sub { position: absolute; left: 0; top: 54px; font-size: 22px; color: var(--dim); white-space: nowrap; }
+    #d-clock { position: absolute; right: 0; top: -4px; width: 180px; height: 64px; font-size: 56px; font-weight: 900; font-variant-numeric: tabular-nums; }
+    #d-clock span { position: absolute; right: 0; top: 0; opacity: 0; }
+    .colhead { position: absolute; top: 172px; font-size: 20px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+    #d-tx-head { left: 652px; }
+    #d-feed-head { left: 1330px; color: var(--amber); }
+    .view { position: absolute; top: 210px; height: 700px; overflow: hidden;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 36px); mask-image: linear-gradient(to bottom, transparent 0, #000 36px); }
+    #d-tx-view { left: 652px; width: 640px; }
+    #d-feed-view { left: 1330px; width: 494px; }
+    .list { position: relative; padding-top: 36px; }
+    .turn { opacity: 0; margin-bottom: 22px; padding-left: 20px; border-left: 5px solid var(--red); }
+    .turn.g { margin-left: 84px; border-left-color: var(--green); }
+    .turn .who { font-size: 20px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--red); margin-bottom: 4px; opacity: 0; }
+    .turn.g .who { color: var(--green); }
+    .turn .txt { font-size: 34px; line-height: 1.28; }
+    .turn .w { opacity: 0; }
+    .card { background: var(--panel); border-radius: 18px; padding: 16px 22px 18px; border-left: 8px solid var(--dim); margin-bottom: 16px; opacity: 0; }
+    .card .k { font-size: 20px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--dim); }
+    .card .big { font-size: 38px; font-weight: 900; line-height: 1.08; margin-top: 4px; }
+    .card .t { font-size: 26px; line-height: 1.3; margin-top: 6px; }
+    .card .n { font-size: 22px; line-height: 1.3; margin-top: 6px; color: var(--dim); }
+    .card.r { border-left-color: var(--red); } .card.r .big { color: var(--red); }
+    .card.alert { background: #24151a; }
+    .card.gr { border-left-color: var(--green); } .card.gr .big { color: var(--green); }
+    .card.b { border-left-color: var(--blue); } .card.b .big { color: var(--blue); }
+    .card.a { border-left-color: var(--amber); background: #2a2114; } .card.a .big { color: var(--amber); font-size: 46px; }
+    #d-c1 .big { font-size: 56px; color: var(--ink); }
+    #d-c1-foot { opacity: 0; color: var(--ink); }
+    #d-tlbar { position: absolute; left: 652px; top: 936px; width: 1172px; height: 60px; }
+    #d-track { position: absolute; left: 0; top: 36px; width: 1172px; height: 12px; border-radius: 6px; background: #1c212c; }
+    #d-prog { position: absolute; left: 0; top: 36px; width: 1172px; height: 12px; border-radius: 6px; background: #3a4660; transform-origin: 0 50%; }
+    .mk { position: absolute; top: 28px; width: 6px; height: 28px; border-radius: 3px; margin-left: -3px; opacity: .3; }
+    .ml { position: absolute; top: 0; font-size: 20px; font-weight: 700; color: var(--dim); white-space: nowrap; transform: translateX(-50%); opacity: .45; }
+    /* footage overlays */
+    .ov { position: absolute; left: 96px; width: 488px; }
+    .glass { background: rgba(15,16,22,.86); border-radius: 18px; }
+    .tagin { display: inline-block; padding: 14px 24px 16px 22px; border-left: 8px solid var(--green); }
+    .tagin .nm { font-size: 36px; font-weight: 700; color: var(--green); }
+    .tagin .sb { font-size: 24px; color: var(--ink); margin-top: 2px; }
+    .tagin.bl { border-left-color: var(--blue); } .tagin.bl .nm { color: var(--blue); }
+    .notif { background: #f4f6fb; color: #111; border-radius: 26px; padding: 16px 22px 18px; box-shadow: 0 10px 40px rgba(0,0,0,.55); }
+    .notif .h { display: flex; justify-content: space-between; align-items: center; font-size: 20px; font-weight: 700; color: #555; }
+    .notif .ic { display: inline-block; width: 30px; height: 30px; border-radius: 8px; background: var(--amber); color: #14100a; font-size: 20px; font-weight: 900; text-align: center; line-height: 30px; margin-right: 10px; }
+    .notif .b { font-size: 30px; font-weight: 700; line-height: 1.22; margin-top: 8px; }
+    .notif .o { font-size: 20px; font-weight: 700; color: #c62828; margin-top: 8px; }
+    .kp { padding: 16px 22px 18px; }
+    .kp .k { font-size: 20px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--blue); }
+    .kp .row { display: flex; justify-content: space-around; margin-top: 12px; }
+    .kp .key { text-align: center; width: 130px; }
+    .kp .c { width: 76px; height: 76px; border-radius: 50%; background: rgba(255,255,255,.18); margin: 0 auto; font-size: 40px; font-weight: 700; line-height: 76px; }
+    .kp .c.end { background: var(--red); }
+    .kp .l { font-size: 24px; margin-top: 6px; }
+    .subt { padding: 14px 22px 16px; text-align: center; }
+    .subt .s1 { font-size: 20px; font-weight: 700; color: var(--blue); letter-spacing: .06em; text-transform: uppercase; }
+    .subt .s2 { font-size: 34px; white-space: nowrap; font-weight: 900; margin-top: 2px; }
+    .stamp { background: var(--blue); color: #0b0d12; border-radius: 18px; padding: 18px 22px; display: flex; align-items: center; gap: 18px; }
+    .stamp .nine { width: 92px; height: 92px; border-radius: 50%; background: #0b0d12; color: var(--blue); font-size: 58px; font-weight: 900; text-align: center; line-height: 92px; flex: none; }
+    .stamp .a1 { font-size: 29px; white-space: nowrap; font-weight: 900; line-height: 1.1; }
+    .stamp .a2 { font-size: 26px; font-weight: 700; margin-top: 4px; }
+    .payoff { background: var(--amber); color: #14100a; border-radius: 18px; padding: 18px 26px 22px; }
+    .payoff .p1 { font-size: 22px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+    .payoff .p2 { font-size: 58px; font-weight: 900; line-height: 1.05; margin-top: 4px; }
+  </style>
+
+  <div id="root" data-composition-id="demo" data-width="1920" data-height="1080">
+    <div id="d-console">
+    </div>
+
+    <div id="d-head">
+      <div id="d-live"><span class="dot"></span>LIVE CALL<span class="rest"> · real phone line · one take</span><span id="d-aitag">AI VOICE</span></div>
+      <div id="d-sub">Recorded 2 Nov 2026 · the scam caller is an AI voice agent we built to test Emberz</div>
+      <div id="d-clock"></div>
+    </div>
+
+    <div id="d-tx-head" class="colhead">Call transcript</div>
+    <div id="d-feed-head" class="colhead">Emberz guardian · judges every turn</div>
+
+    <div id="d-tx-view" class="view" data-layout-allow-overflow data-layout-ignore>
+      <div id="d-tx-list" class="list" data-layout-allow-occlusion>
+        <div class="turn g" data-s="1.26" data-e="2.22"><div class="who">Grandpa</div><div class="txt">Hello</div></div>
+        <div class="turn" data-s="5.60" data-e="10.34"><div class="who">Scam caller (AI)</div><div class="txt">Hello. This is Daniel from the Fraud Prevention Team at First Meridian Bank.</div></div>
+        <div class="turn" data-s="10.60" data-e="11.70"><div class="who">Scam caller (AI)</div><div class="txt">Am I speaking with Margaret?</div></div>
+        <div class="turn g" data-s="11.98" data-e="12.86"><div class="who">Grandpa</div><div class="txt">Yes, that's me.</div></div>
+        <div class="turn" data-s="17.22" data-e="27.52"><div class="who">Scam caller (AI)</div><div class="txt">Thank you, Margaret. We've flagged a charge of $842 at an electronics store in Miami on your card ending in 4417. Did you make this purchase?</div></div>
+        <div class="turn g" data-s="28.30" data-e="31.00"><div class="who">Grandpa</div><div class="txt">Uh, I don't... I don't think so. I can't remember.</div></div>
+        <div class="turn" data-s="35.24" data-e="42.62"><div class="who">Scam caller (AI)</div><div class="txt">I understand. Your money is safe as long as we act now. The case number for this issue is F20931.</div></div>
+        <div class="turn g" data-s="44.26" data-e="44.76"><div class="who">Grandpa</div><div class="txt">Oh, okay.</div></div>
+        <div class="turn" data-s="48.28" data-e="54.38"><div class="who">Scam caller (AI)</div><div class="txt">The charge will go through in just a few minutes. To block it, I'm sending a verification code to your phone right now.</div></div>
+        <div class="turn g" data-s="55.44" data-e="56.34"><div class="who">Grandpa</div><div class="txt">Okay, let me see.</div></div>
+        <div class="turn" data-s="60.08" data-e="61.00"><div class="who">Scam caller (AI)</div><div class="txt">I've just sent the code.</div></div>
+      </div>
+    </div>
+
+    <div id="d-feed-view" class="view" data-layout-allow-overflow data-layout-ignore>
+      <div id="d-feed-list" class="list" data-layout-allow-occlusion>
+        <div class="card r" id="d-c1" data-s="10.48"><div class="k">AI-voice check · 0:10</div><div class="big">99.95%</div><div class="t">Voice model (wav2vec2): the caller's voice is synthetic.</div><div class="n" id="d-c1-foot">0:30 · reply-timing check: 100% AI</div></div>
+        <div class="card r alert" data-s="33.80"><div class="k">Risk alert · urgent · 0:33</div><div class="big">Fake bank call</div><div class="t">Our fine-tuned guardian (Fireworks) flagged this turn.</div><div class="n">“Caller claims a suspicious charge. This is a common scam tactic.”</div></div>
+        <div class="card gr" data-s="34.71"><div class="k">Coach whisper · 0:34</div><div class="big">Whispered to Grandpa</div><div class="t">0.9 s after the alert. Only Grandpa hears it.</div></div>
+        <div class="card b" data-s="35.30"><div class="k">Caretaker · 0:35</div><div class="big">Caretaker's phone ringing</div><div class="t">Emberz phones his grandson on the alert.</div></div>
+        <div class="card b" data-s="51.13"><div class="k">Caretaker · 0:51</div><div class="big">Caretaker listening</div><div class="t">He hears the live call. 0 to talk, 9 to end it.</div></div>
+        <div class="card r alert" data-s="58.92"><div class="k">Risk alert · urgent · 0:58</div><div class="big">Asking for a code</div><div class="t">“Caller is sending a code. This is a scam. Do not share it.”</div></div>
+        <div class="card b" data-s="63.21"><div class="k">Caretaker · 1:03</div><div class="big">Caretaker pressed 9</div><div class="t">Emberz hung up on the caller.</div></div>
+        <div class="card gr" data-s="64.64"><div class="k">Coach whisper · 1:04</div><div class="big">Whispered to Grandpa</div><div class="t">“Don't read any code. Hang up and call your bank.”</div></div>
+        <div class="card a" data-s="66.5"><div class="k">Call ended · 1:06</div><div class="big">Code never shared</div></div>
+      </div>
+    </div>
+
+    <div id="d-tlbar">
+      <div id="d-track"></div>
+      <div id="d-prog"></div>
+    </div>
+
+    <!-- footage overlays (x 96-584) -->
+    <div id="d-tag1" class="clip ov" style="bottom:60px" data-start="1" data-duration="5" data-track-index="1">
+      <div id="d-tag1-in" class="glass tagin"><div class="nm">Grandpa</div><div class="sb">protected line</div></div>
+    </div>
+    <div id="d-tag2" class="clip ov" style="bottom:60px" data-start="40.5" data-duration="5.5" data-track-index="1">
+      <div id="d-tag2-in" class="glass tagin bl"><div class="nm">Caretaker (grandson)</div><div class="sb">somewhere else</div></div>
+    </div>
+    <div id="d-tag3" class="clip ov" style="bottom:60px" data-start="55.4" data-duration="1.3" data-track-index="1">
+      <div id="d-tag3-in" class="glass tagin"><div class="nm">Grandpa</div><div class="sb">protected line</div></div>
+    </div>
+
+    <div id="d-notif1" class="clip ov" style="top:64px" data-start="34.71" data-duration="5.85" data-track-index="2">
+      <div id="d-notif1-in" class="notif"><div class="h"><span><span class="ic">E</span>Emberz coach</span><span>now</span></div><div class="b">Don't confirm anything. Hang up and call the number on your card.</div><div class="o">Only Grandpa hears this</div></div>
+    </div>
+    <div id="d-notif2" class="clip ov" style="top:64px" data-start="64.64" data-duration="3.36" data-track-index="2">
+      <div id="d-notif2-in" class="notif"><div class="h"><span><span class="ic">E</span>Emberz coach</span><span>now</span></div><div class="b">Don't read any code. Hang up and call your bank.</div><div class="o">Only Grandpa hears this</div></div>
+    </div>
+
+    <div id="d-keypad" class="clip ov" style="bottom:176px" data-start="42.5" data-duration="6" data-track-index="3">
+      <div id="d-keypad-in" class="glass kp">
+        <div class="k">Emberz calls him · press</div>
+        <div class="row">
+          <div class="key" id="d-key1"><div class="c">1</div><div class="l">listen</div></div>
+          <div class="key" id="d-key0"><div class="c">0</div><div class="l">talk</div></div>
+          <div class="key" id="d-key9"><div class="c end">9</div><div class="l">end call</div></div>
+        </div>
+      </div>
+    </div>
+    <div id="d-subt" class="clip ov" style="bottom:60px" data-start="61.1" data-duration="2.05" data-track-index="3">
+      <div id="d-subt-in" class="glass subt"><div class="s1">Caretaker, out loud</div><div class="s2">“Grandpa, don't do it!”</div></div>
+    </div>
+
+    <div id="d-stamp" class="clip ov" style="bottom:60px" data-start="63.21" data-duration="2.79" data-track-index="4">
+      <div id="d-stamp-in" class="stamp"><div class="nine">9</div><div><div class="a1">Caretaker pressed 9</div><div class="a2">Scammer disconnected</div></div></div>
+    </div>
+    <div id="d-payoff" class="clip ov" style="bottom:60px" data-start="66" data-duration="2" data-track-index="4">
+      <div id="d-payoff-in" class="payoff"><div class="p1">Call ended</div><div class="p2">Code never shared</div></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var DUR = 68;
+      var tl = gsap.timeline({ paused: true });
+
+      // clock: one span per second, switched with sets (seek-safe)
+      var clock = document.getElementById("d-clock");
+      var secs = [];
+      for (var s = 0; s <= DUR; s++) {
+        var sp = document.createElement("span");
+        sp.textContent = Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
+        clock.appendChild(sp);
+        secs.push(sp);
+      }
+
+      // split transcript text into words
+      var turns = Array.prototype.slice.call(document.querySelectorAll("#d-tx-list .turn"));
+      turns.forEach(function (t) {
+        var txt = t.querySelector(".txt");
+        var words = txt.textContent.trim().split(/\s+/);
+        txt.innerHTML = words.map(function (w) { return '<span class="w">' + w + "</span>"; }).join(" ");
+      });
+      var cards = Array.prototype.slice.call(document.querySelectorAll("#d-feed-list .card"));
+
+      var EV = [
+        [10.48, "#ff4d4f", "AI voice"], [30.68, "#ff4d4f", ""], [33.80, "#ff4d4f", "Fake bank call"],
+        [34.71, "#3ddc84", ""], [35.30, "#4da3ff", ""], [51.13, "#4da3ff", "Caretaker listening"],
+        [58.92, "#ff4d4f", ""], [63.21, "#4da3ff", "Pressed 9"], [64.64, "#3ddc84", ""], [66.5, "#ffb347", ""]
+      ];
+      var bar = document.getElementById("d-tlbar");
+      var marks = EV.map(function (e) {
+        var x = (e[0] / DUR) * 1172;
+        var m = document.createElement("div");
+        m.className = "mk"; m.style.left = x + "px"; m.style.background = e[1];
+        bar.appendChild(m);
+        var l = null;
+        if (e[2]) { l = document.createElement("div"); l.className = "ml"; l.style.left = x + "px"; l.textContent = e[2]; bar.appendChild(l); }
+        return [e[0], m, l];
+      });
+
+      function build() {
+        // clock
+        secs.forEach(function (sp, i) {
+          tl.set(sp, { opacity: 1 }, i === 0 ? 0 : i);
+          if (i < secs.length - 1) tl.set(sp, { opacity: 0 }, i + 1);
+        });
+        tl.fromTo("#d-prog", { scaleX: 0 }, { scaleX: 1, duration: DUR, ease: "none" }, 0);
+        marks.forEach(function (m) {
+          tl.fromTo(m[1], { opacity: 0.3 }, { opacity: 1, duration: 0.2 }, m[0]);
+          if (m[2]) tl.fromTo(m[2], { opacity: 0.45 }, { opacity: 1, duration: 0.2 }, m[0]);
+        });
+        tl.fromTo("#d-aitag", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.35, ease: "expo.out" }, 10.48);
+
+        // transcript
+        var txView = 700, prevY = 0;
+        turns.forEach(function (t, i) {
+          var st = parseFloat(t.dataset.s), en = parseFloat(t.dataset.e);
+          var bottom = t.offsetTop + t.offsetHeight + 8;
+          var y = -Math.max(0, bottom - txView);
+          if (y !== prevY) {
+            tl.fromTo("#d-tx-list", { y: prevY }, { y: y, duration: 0.45, ease: "power3.inOut", immediateRender: i === 0 }, st - 0.1);
+            prevY = y;
+          }
+          tl.fromTo(t, { opacity: 0 }, { opacity: 1, duration: 0.01 }, st - 0.06);
+          tl.fromTo(t.querySelector(".who"), { opacity: 0 }, { opacity: 1, duration: 0.2 }, st - 0.05);
+          var ws = Array.prototype.slice.call(t.querySelectorAll(".w"));
+          var total = ws.reduce(function (a, w) { return a + w.textContent.length + 1; }, 0), acc = 0;
+          ws.forEach(function (w) {
+            var at = st + (en - st) * (acc / total);
+            acc += w.textContent.length + 1;
+            tl.fromTo(w, { opacity: 0, filter: "blur(4px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power2.out" }, at);
+          });
+          if (i < turns.length - 1) {
+            var nx = parseFloat(turns[i + 1].dataset.s);
+            tl.fromTo(t, { opacity: 1 }, { opacity: 0.38, duration: 0.35, immediateRender: false }, nx);
+          }
+        });
+
+        // guardian feed
+        var fView = 700, fPrev = 0;
+        cards.forEach(function (c, i) {
+          var st = parseFloat(c.dataset.s);
+          var bottom = c.offsetTop + c.offsetHeight + 8;
+          var y = -Math.max(0, bottom - fView);
+          if (y !== fPrev) {
+            tl.fromTo("#d-feed-list", { y: fPrev }, { y: y, duration: 0.45, ease: "power3.inOut", immediateRender: false }, st - 0.1);
+            fPrev = y;
+          }
+          tl.fromTo(c, { opacity: 0, scale: 0.97, filter: "blur(10px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, st);
+          if (i < cards.length - 1) {
+            tl.fromTo(c, { opacity: 1 }, { opacity: 0.5, duration: 0.35, immediateRender: false }, parseFloat(cards[i + 1].dataset.s) + 0.2);
+          }
+        });
+        tl.fromTo("#d-c1-foot", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 30.68);
+
+        // footage overlays
+        function wipeTag(sel, st, en) {
+          tl.fromTo(sel, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "expo.out" }, st);
+          tl.fromTo(sel, { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power2.in", immediateRender: false }, en - 0.3);
+        }
+        wipeTag("#d-tag1-in", 1, 6);
+        wipeTag("#d-tag2-in", 40.5, 46);
+        wipeTag("#d-tag3-in", 55.4, 56.7);
+
+        function drop(sel, st, en) {
+          tl.fromTo(sel, { y: -60, opacity: 0, filter: "blur(6px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }, st);
+          if (en) tl.fromTo(sel, { y: 0, opacity: 1 }, { y: -40, opacity: 0, duration: 0.3, ease: "power3.in", immediateRender: false }, en - 0.35);
+        }
+        drop("#d-notif1-in", 34.71, 40.56);
+        drop("#d-notif2-in", 64.64, 0);
+
+        tl.fromTo("#d-keypad-in", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.35, ease: "power4.out" }, 42.5);
+        tl.fromTo(["#d-key1", "#d-key0", "#d-key9"], { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: "expo.out", stagger: 0.12 }, 42.6);
+        tl.fromTo("#d-keypad-in", { y: 0 }, { y: 116, duration: 0.5, ease: "power2.inOut", immediateRender: false }, 46.05);
+        tl.fromTo("#d-keypad-in", { opacity: 1 }, { opacity: 0, duration: 0.25, immediateRender: false }, 48.2);
+
+        tl.fromTo("#d-subt-in", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 61.1);
+        tl.fromTo("#d-subt-in", { opacity: 1 }, { opacity: 0, duration: 0.15, immediateRender: false }, 63.0);
+
+        tl.fromTo("#d-stamp-in", { opacity: 0, scale: 1.35 }, { opacity: 1, scale: 1, duration: 0.28, ease: "expo.out" }, 63.21);
+        tl.fromTo("#d-stamp-in", { opacity: 1 }, { opacity: 0, duration: 0.2, immediateRender: false }, 65.75);
+        tl.fromTo("#d-payoff-in", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.55, ease: "expo.out" }, 66.0);
+
+        window.__timelines["demo"] = tl;
+      }
+
+      var ready = (document.fonts && document.fonts.load)
+        ? Promise.all([document.fonts.load("400 34px Inter"), document.fonts.load("700 34px Inter"), document.fonts.load("900 34px Inter")]).catch(function () {})
+        : Promise.resolve();
+      ready.then(build);
+    })();
+  </script>
+</template>

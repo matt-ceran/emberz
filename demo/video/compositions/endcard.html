@@ -1,0 +1,39 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: Inter, sans-serif; }
+    #end-amber { position: absolute; inset: 0; background: #ffb347; }
+    #end-dark { position: absolute; inset: 0; background: #0b0d12; }
+    #end-name { position: absolute; left: 0; right: 0; top: 250px; text-align: center; font-size: 200px; font-weight: 900; letter-spacing: -0.04em; color: #ffb347; line-height: 1; }
+    #end-name span { display: inline-block; }
+    #end-tag { position: absolute; left: 0; right: 0; top: 500px; text-align: center; font-size: 48px; font-weight: 400; color: #f2f4f8; }
+    #end-rule { position: absolute; left: 860px; top: 610px; width: 200px; height: 4px; background: #ffb347; transform-origin: 50% 50%; }
+    .end-l { position: absolute; left: 0; right: 0; text-align: center; }
+    #end-team { top: 660px; font-size: 40px; font-weight: 700; color: #f2f4f8; }
+    #end-stack { top: 726px; font-size: 32px; font-weight: 400; color: #8a93a6; }
+    #end-repo { top: 790px; font-size: 32px; font-weight: 700; color: #f2f4f8; }
+  </style>
+  <div id="root" data-composition-id="endcard" data-width="1920" data-height="1080">
+    <div id="end-amber"></div>
+    <div id="end-dark"></div>
+    <div id="end-name"><span>E</span><span>m</span><span>b</span><span>e</span><span>r</span><span>z</span></div>
+    <div id="end-tag">a guardian on Grandpa's phone line</div>
+    <div id="end-rule"></div>
+    <div id="end-team" class="end-l">Numan + Matt</div>
+    <div id="end-stack" class="end-l">Built on Fireworks + NVIDIA Nemotron</div>
+    <div id="end-repo" class="end-l">github.com/matt-ceran/fireworks-AMD</div>
+  </div>
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+      // flood back to dark from the amber results ground
+      tl.fromTo("#end-dark", { clipPath: "inset(0% 0% 100% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.45, ease: "power2.inOut" }, 0);
+      // name typed in, letter by letter
+      tl.fromTo("#end-name span", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.12, stagger: 0.09, ease: "power4.out" }, 0.4);
+      tl.fromTo("#end-tag", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 1.0);
+      tl.fromTo("#end-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "expo.out" }, 1.25);
+      tl.fromTo(["#end-team", "#end-stack", "#end-repo"], { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, stagger: 0.15, ease: "power4.out" }, 1.4);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["endcard"] = tl;
+    })();
+  </script>
+</template>

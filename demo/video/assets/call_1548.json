@@ -1,0 +1,155 @@
+{
+ "call": "Real call 2 Nov 2026 15:48 PST",
+ "turns": [
+  {
+   "turn": 1,
+   "speaker": "protected",
+   "text": "Hello",
+   "t_start_ms": 25760,
+   "t_end_ms": 26720
+  },
+  {
+   "turn": 2,
+   "speaker": "caller",
+   "text": "Hello. This is Daniel from the Fraud Prevention Team at First Meridian",
+   "t_start_ms": 30100,
+   "t_end_ms": 34200
+  },
+  {
+   "turn": 3,
+   "speaker": "caller",
+   "text": "Bake",
+   "t_start_ms": 34260,
+   "t_end_ms": 34840
+  },
+  {
+   "turn": 4,
+   "speaker": "caller",
+   "text": "Am I speaking with Margaret",
+   "t_start_ms": 35100,
+   "t_end_ms": 36200
+  },
+  {
+   "turn": 5,
+   "speaker": "protected",
+   "text": "Yes, that's me",
+   "t_start_ms": 36480,
+   "t_end_ms": 37360
+  },
+  {
+   "turn": 6,
+   "speaker": "caller",
+   "text": "Thank you, Margaret. We've flagged a charge of eight hundred forty two dollars at an electronic store in Miami on your card ending in four four one seven. Did you make this purchase",
+   "t_start_ms": 41720,
+   "t_end_ms": 52020
+  },
+  {
+   "turn": 7,
+   "speaker": "protected",
+   "text": "Uh I don't I don't think so I can't remember",
+   "t_start_ms": 52800,
+   "t_end_ms": 55500
+  },
+  {
+   "turn": 8,
+   "speaker": "caller",
+   "text": "I understand your money is safe as long as we act now. The case number for this issue is F two zero nine three one",
+   "t_start_ms": 59740,
+   "t_end_ms": 67120
+  },
+  {
+   "turn": 9,
+   "speaker": "protected",
+   "text": "Oh okay",
+   "t_start_ms": 68760,
+   "t_end_ms": 69260
+  },
+  {
+   "turn": 10,
+   "speaker": "caller",
+   "text": "The charge will go through in just a few minutes to block it. I'm sending a verification code to your phone right now",
+   "t_start_ms": 72780,
+   "t_end_ms": 78880
+  },
+  {
+   "turn": 11,
+   "speaker": "protected",
+   "text": "Okay, let me see",
+   "t_start_ms": 79940,
+   "t_end_ms": 80840
+  },
+  {
+   "turn": 12,
+   "speaker": "caller",
+   "text": "I've just sent the code",
+   "t_start_ms": 84580,
+   "t_end_ms": 85500
+  }
+ ],
+ "events": [
+  {
+   "type": "call_started",
+   "at_ms": 0,
+   "reason": null
+  },
+  {
+   "type": "voice",
+   "at_ms": 34982,
+   "score": 0.9995,
+   "model": "w2v-head-v1"
+  },
+  {
+   "type": "voice",
+   "at_ms": 36800,
+   "score": 0.9997,
+   "model": "w2v-head-v1"
+  },
+  {
+   "type": "voice",
+   "at_ms": 55181,
+   "score": 1.0,
+   "model": "timing"
+  },
+  {
+   "type": "alert",
+   "at_ms": 58299,
+   "level": "urgent",
+   "category": "scam.impersonation_bank_gov",
+   "note": "Caller claims a suspicious charge. This is a common scam tactic."
+  },
+  {
+   "type": "coach",
+   "at_ms": 59209,
+   "text": "Don't confirm anything. Hang up and call the number on your card."
+  },
+  {
+   "type": "caretaker_joined",
+   "at_ms": 75629,
+   "mode": "monitor"
+  },
+  {
+   "type": "alert",
+   "at_ms": 83424,
+   "level": "urgent",
+   "category": "disclosure.credentials_otp",
+   "note": "Caller is sending a code. This is a scam. Do not share it."
+  },
+  {
+   "type": "alert",
+   "at_ms": 87714,
+   "level": "urgent",
+   "category": "intervention",
+   "note": "Call ended by the caretaker (keypress 9)"
+  },
+  {
+   "type": "coach",
+   "at_ms": 89135,
+   "text": "Don't read any code. Hang up and call your bank."
+  },
+  {
+   "type": "call_ended",
+   "at_ms": 94098,
+   "reason": "ended_by_caretaker_keypress"
+  }
+ ]
+}

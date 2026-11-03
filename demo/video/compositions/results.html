@@ -1,0 +1,288 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: Inter, sans-serif; color: #14100a; --amber: #ffb347; --ink: #14100a; --ink2: #3a2a10; --mute: #b98336; }
+    #root * { box-sizing: border-box; }
+    .abs { position: absolute; }
+    #res-base { position: absolute; inset: 0; background: #0b0d12; }
+    #res-flood { position: absolute; inset: 0; background: var(--amber); }
+    .beat { position: absolute; inset: 0; }
+    .wrap { position: absolute; inset: 0; }
+    .num { font-variant-numeric: tabular-nums; }
+    /* beat 1 */
+    #res-chap { position: absolute; left: 96px; top: 60px; transform-origin: 0 0; }
+    #res-kick { font-size: 40px; font-weight: 900; letter-spacing: -0.01em; }
+    #res-sub { font-size: 26px; font-weight: 400; color: var(--ink2); margin-top: 6px; }
+    #res-h1 { position: absolute; left: 96px; top: 170px; font-size: 60px; font-weight: 900; line-height: 1.06; letter-spacing: -0.02em; }
+    #res-h1 span { display: inline-block; }
+    .colh { position: absolute; top: 340px; }
+    .colh b { display: block; font-size: 30px; font-weight: 900; }
+    .colh i { display: block; font-style: normal; font-size: 24px; color: var(--ink2); margin-top: 4px; }
+    .row { position: absolute; left: 96px; right: 96px; height: 76px; }
+    .lab { position: absolute; left: 0; top: 0; height: 76px; display: flex; align-items: center; gap: 12px; font-size: 28px; font-weight: 700; }
+    .ours .lab { font-size: 32px; font-weight: 900; }
+    .tag { background: var(--ink); color: var(--amber); font-size: 22px; font-weight: 900; padding: 3px 10px; border-radius: 6px; }
+    .frontier { font-size: 22px; font-weight: 700; border: 2px solid var(--ink); padding: 1px 8px; border-radius: 6px; }
+    .cell { position: absolute; top: 0; height: 76px; }
+    .bar { position: absolute; left: 0; top: 19px; height: 38px; width: calc(var(--v) * 4.6px); background: var(--mute); transform-origin: 0 50%; }
+    .ours .bar { background: var(--ink); }
+    .wh { position: absolute; top: 36px; height: 4px; background: #fff; box-shadow: 0 0 0 1.5px var(--ink); }
+    .wh::before, .wh::after { content: ""; position: absolute; top: -8px; width: 4px; height: 20px; background: #fff; box-shadow: 0 0 0 1.5px var(--ink); }
+    .wh::before { left: -2px; } .wh::after { right: -2px; }
+    .val { position: absolute; top: 0; height: 76px; display: flex; align-items: center; font-size: 30px; font-weight: 700; white-space: nowrap; }
+    .ours .val { font-size: 38px; font-weight: 900; }
+    .axis { position: absolute; top: 432px; width: 3px; height: 380px; background: var(--ink); transform-origin: 50% 0; }
+    .foot { position: absolute; left: 96px; font-size: 22px; color: var(--ink2); }
+    /* beat 2 */
+    #res-h2 { position: absolute; left: 96px; top: 150px; font-size: 88px; font-weight: 900; line-height: 1.02; letter-spacing: -0.03em; }
+    #res-p2 { position: absolute; left: 96px; top: 380px; width: 600px; font-size: 32px; line-height: 1.3; }
+    #res-n2 { position: absolute; left: 96px; top: 600px; width: 600px; font-size: 24px; color: var(--ink2); }
+    #res-base2 { position: absolute; left: 800px; top: 858px; width: 1024px; height: 4px; background: var(--ink); transform-origin: 0 50%; }
+    .col { position: absolute; bottom: 222px; width: 120px; height: calc(var(--v) * 5.6px); background: var(--mute); transform-origin: 50% 100%; }
+    .col.ours { width: 220px; background: var(--ink); }
+    .vwh { position: absolute; width: 4px; background: #fff; box-shadow: 0 0 0 1.5px var(--ink); }
+    .vwh::before, .vwh::after { content: ""; position: absolute; left: -8px; width: 20px; height: 4px; background: #fff; box-shadow: 0 0 0 1.5px var(--ink); }
+    .vwh::before { top: -2px; } .vwh::after { bottom: -2px; }
+    .cval { position: absolute; width: 240px; text-align: center; font-size: 40px; font-weight: 900; line-height: 1; }
+    .cval small { display: block; font-size: 24px; font-weight: 700; color: var(--ink2); margin-top: 6px; }
+    #res-c-ours-v { font-size: 104px; width: 300px; letter-spacing: -0.03em; }
+    #res-c-ours-v small { font-size: 28px; color: var(--ink); font-weight: 900; letter-spacing: 0; }
+    .cname { position: absolute; top: 876px; width: 220px; text-align: center; font-size: 24px; font-weight: 700; line-height: 1.2; }
+    .cname.ours { font-weight: 900; font-size: 26px; }
+    /* beat 3 */
+    #res-h3 { position: absolute; left: 96px; top: 80px; font-size: 84px; font-weight: 900; letter-spacing: -0.03em; }
+    #res-h3 span { display: inline-block; }
+    #res-s3 { position: absolute; left: 96px; top: 196px; font-size: 28px; font-weight: 400; color: var(--ink2); }
+    .row3 { position: absolute; left: 96px; right: 96px; height: 76px; }
+    .row3 .bar { width: calc(var(--v) * 7px); }
+    .row3 .cell { left: 520px; }
+    #res-delta { position: absolute; left: 1420px; top: 262px; width: 404px; font-size: 26px; line-height: 1.3; border-left: 6px solid var(--ink); padding-left: 18px; }
+    #res-delta b { display: block; font-size: 64px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.05; }
+    #res-rule3 { position: absolute; left: 96px; top: 690px; width: 1728px; height: 4px; background: var(--ink); transform-origin: 0 50%; }
+    .side { position: absolute; top: 730px; width: 820px; }
+    .side b { display: block; font-size: 30px; font-weight: 900; }
+    .side em { display: block; font-style: normal; font-size: 72px; font-weight: 900; letter-spacing: -0.02em; margin-top: 6px; }
+    .side i { display: block; font-style: normal; font-size: 26px; color: var(--ink2); margin-top: 6px; }
+  </style>
+
+  <div id="root" data-composition-id="results" data-width="1920" data-height="1080">
+    <div id="res-base"></div>
+    <div id="res-flood"></div>
+
+    <!-- BEAT 1: catch + false alarms (0 - 8.6 s) -->
+    <div id="res-b1" class="beat clip" data-start="0" data-duration="8.6" data-track-index="1">
+      <div id="res-b1-in" class="wrap">
+        <div id="res-chap">
+          <div id="res-kick">The measured result</div>
+          <div id="res-sub">257 held-out calls, written by NVIDIA Nemotron 3 Ultra, never trained on</div>
+        </div>
+        <div id="res-h1"><span>Catches</span> <span>the</span> <span>scam</span> <span>before</span> <span>the</span> <span>ask,</span><br><span>with</span> <span>the</span> <span>fewest</span> <span>false</span> <span>alarms.</span></div>
+
+        <div id="res-frame1" class="abs" style="inset:0">
+          <div class="colh" style="left:600px"><b>Caught before the ask</b><i>148 risky calls · higher is better</i></div>
+          <div class="colh" style="left:1230px"><b>False alarms</b><i>79 benign calls · lower is better</i></div>
+          <div class="axis" style="left:597px"></div>
+          <div class="axis" style="left:1227px"></div>
+        </div>
+
+        <div class="row ours" style="top:432px">
+          <div class="lab r1lab">Emberz guardian v2 <span class="tag">ours</span></div>
+          <div class="cell" style="left:504px"><div class="bar b1c" style="--v:92.6"></div><div class="wh w1c" data-k="137" data-n="148"></div><div class="val v1c num" data-to="92.6">92.6%</div></div>
+          <div class="cell" style="left:1134px"><div class="bar b1f" style="--v:17.7"></div><div class="wh w1f" data-k="14" data-n="79"></div><div class="val v1f num" data-to="17.7">17.7%</div></div>
+        </div>
+        <div class="row" style="top:508px">
+          <div class="lab r1lab">Kimi K3 <span class="frontier">frontier</span></div>
+          <div class="cell" style="left:504px"><div class="bar b1c" style="--v:89.9"></div><div class="wh w1c" data-k="133" data-n="148"></div><div class="val v1c num" data-to="89.9">89.9%</div></div>
+          <div class="cell" style="left:1134px"><div class="bar b1f" style="--v:22.8"></div><div class="wh w1f" data-k="18" data-n="79"></div><div class="val v1f num" data-to="22.8">22.8%</div></div>
+        </div>
+        <div class="row" style="top:584px">
+          <div class="lab r1lab">Rune (Fireworks, zero-shot)</div>
+          <div class="cell" style="left:504px"><div class="bar b1c" style="--v:92.6"></div><div class="wh w1c" data-k="137" data-n="148"></div><div class="val v1c num" data-to="92.6">92.6%</div></div>
+          <div class="cell" style="left:1134px"><div class="bar b1f" style="--v:38.0"></div><div class="wh w1f" data-k="30" data-n="79"></div><div class="val v1f num" data-to="38.0">38.0%</div></div>
+        </div>
+        <div class="row" style="top:660px">
+          <div class="lab r1lab">DeepSeek V4.1 Flash <span class="frontier">frontier</span></div>
+          <div class="cell" style="left:504px"><div class="bar b1c" style="--v:85.1"></div><div class="wh w1c" data-k="126" data-n="148"></div><div class="val v1c num" data-to="85.1">85.1%</div></div>
+          <div class="cell" style="left:1134px"><div class="bar b1f" style="--v:31.6"></div><div class="wh w1f" data-k="25" data-n="79"></div><div class="val v1f num" data-to="31.6">31.6%</div></div>
+        </div>
+        <div class="row" style="top:736px">
+          <div class="lab r1lab">Untuned Qwen3.6-35B-A3B</div>
+          <div class="cell" style="left:504px"><div class="bar b1c" style="--v:89.2"></div><div class="wh w1c" data-k="132" data-n="148"></div><div class="val v1c num" data-to="89.2">89.2%</div></div>
+          <div class="cell" style="left:1134px"><div class="bar b1f" style="--v:53.2"></div><div class="wh w1f" data-k="42" data-n="79"></div><div class="val v1f num" data-to="53.2">53.2%</div></div>
+        </div>
+        <div id="res-foot1" class="foot" style="top:860px">Whiskers: Wilson 95% confidence intervals. All five systems scored on the same 257 calls.</div>
+      </div>
+    </div>
+
+    <!-- BEAT 2: rule-flip pairs (8.6 - 14.2 s) -->
+    <div id="res-b2" class="beat clip" data-start="8.6" data-duration="5.6" data-track-index="2">
+      <div id="res-b2-in" class="wrap">
+        <div id="res-h2">Follows the<br>family's rules</div>
+        <div id="res-p2">Same call, but the caretaker's rule changes the right answer. Both halves of the pair must be right.</div>
+        <div id="res-n2">22 rule-flip pairs · whiskers: Wilson 95% CI</div>
+        <div id="res-base2"></div>
+
+        <div class="col c2o" style="--v:18.18;left:835px" data-k="4" data-n="22"></div>
+        <div class="col c2o" style="--v:13.64;left:1025px" data-k="3" data-n="22"></div>
+        <div class="col c2o" style="--v:13.64;left:1215px" data-k="3" data-n="22"></div>
+        <div class="col c2o" style="--v:22.73;left:1405px" data-k="5" data-n="22"></div>
+        <div id="res-c-ours" class="col ours" style="--v:86.36;left:1595px" data-k="19" data-n="22"></div>
+
+        <div class="cval c2v num" style="left:775px">4/22</div>
+        <div class="cval c2v num" style="left:965px">3/22</div>
+        <div class="cval c2v num" style="left:1155px">3/22</div>
+        <div class="cval c2v num" style="left:1345px">5/22</div>
+        <div id="res-c-ours-v" class="cval num" style="left:1555px"><span id="res-ours-k">19</span>/22<small>pairs right</small></div>
+
+        <div class="cname c2n" style="left:785px">Kimi K3<br>frontier</div>
+        <div class="cname c2n" style="left:975px">Untuned<br>Qwen3.6</div>
+        <div class="cname c2n" style="left:1165px">DeepSeek<br>V4.1 Flash</div>
+        <div class="cname c2n" style="left:1355px">Rune<br>Fireworks</div>
+        <div class="cname ours c2n" style="left:1595px">Emberz<br>guardian v2</div>
+      </div>
+    </div>
+
+    <!-- BEAT 3: handled correctly vs Kimi K3 (14.2 - 22 s) -->
+    <div id="res-b3" class="beat clip" data-start="14.2" data-duration="7.8" data-track-index="3">
+      <div id="res-b3-in" class="wrap">
+        <div id="res-h3"><span>Beats</span> <span>the</span> <span>frontier</span> <span>model</span></div>
+        <div id="res-s3">Calls handled correctly, all 257: risky ones alerted before the ask, harmless ones never alerted</div>
+
+        <div class="row3 ours" style="top:262px">
+          <div class="lab r3lab">Emberz guardian v2 <span class="tag">ours</span></div>
+          <div class="cell"><div class="bar b3" style="--v:90.3"></div><div class="val v3 num" style="left:648px" data-to="90.3">90.3%</div></div>
+        </div>
+        <div class="row3" style="top:338px">
+          <div class="lab r3lab">Kimi K3 <span class="frontier">frontier</span></div>
+          <div class="cell"><div class="bar b3" style="--v:83.7"></div><div class="val v3 num" style="left:602px" data-to="83.7">83.7%</div></div>
+        </div>
+        <div class="row3" style="top:414px">
+          <div class="lab r3lab">Rune (Fireworks)</div>
+          <div class="cell"><div class="bar b3" style="--v:83.3"></div><div class="val v3 num" style="left:599px" data-to="83.3">83.3%</div></div>
+        </div>
+        <div class="row3" style="top:490px">
+          <div class="lab r3lab">DeepSeek V4.1 Flash</div>
+          <div class="cell"><div class="bar b3" style="--v:79.4"></div><div class="val v3 num" style="left:572px" data-to="79.4">79.4%</div></div>
+        </div>
+        <div class="row3" style="top:566px">
+          <div class="lab r3lab">Untuned Qwen3.6 (our base)</div>
+          <div class="cell"><div class="bar b3" style="--v:75.5"></div><div class="val v3 num" style="left:545px" data-to="75.5">75.5%</div></div>
+        </div>
+        <div id="res-delta"><b>+6.6 pts</b>over Kimi K3: 90.3% vs 83.7%, McNemar p = 0.003</div>
+
+        <div id="res-rule3"></div>
+        <div id="res-ood" class="side" style="left:96px"><b>Out of distribution</b><em class="num">98/100</em><i>scams caught on the public BothBosu set, 0 false alarms</i></div>
+        <div id="res-voice" class="side" style="left:1004px"><b>AI-voice detector</b><em class="num">EER 1.27%</em><i>on 25 unseen speakers, over the phone path</i></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.querySelector('[data-composition-id="results"]');
+      var q = function (s) { return Array.prototype.slice.call(root.querySelectorAll(s)); };
+      function wilson(k, n) {
+        var z = 1.96, p = k / n, d = 1 + z * z / n;
+        var c = (p + z * z / (2 * n)) / d;
+        var h = z * Math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d;
+        return [Math.max(0, c - h) * 100, Math.min(1, c + h) * 100];
+      }
+      // place horizontal whiskers and value labels (static layout, set once)
+      q(".wh").forEach(function (w) {
+        var ci = wilson(+w.dataset.k, +w.dataset.n);
+        w.style.left = (ci[0] * 4.6) + "px";
+        w.style.width = ((ci[1] - ci[0]) * 4.6) + "px";
+        var val = w.nextElementSibling;
+        val.style.left = (ci[1] * 4.6 + 18) + "px";
+      });
+      // vertical whiskers + value labels for the rules columns
+      var colEls = q(".col");
+      var vals = q(".c2v").concat([root.querySelector("#res-c-ours-v")]);
+      colEls.forEach(function (c, i) {
+        var ci = wilson(+c.dataset.k, +c.dataset.n);
+        var w = parseFloat(c.style.left) + (c.classList.contains("ours") ? 110 : 60) - 2;
+        var vw = document.createElement("div");
+        vw.className = "vwh c2w";
+        vw.style.left = w + "px";
+        vw.style.bottom = (222 + ci[0] * 5.6) + "px";
+        vw.style.height = ((ci[1] - ci[0]) * 5.6) + "px";
+        c.parentNode.appendChild(vw);
+        var v = vals[i];
+        v.style.bottom = (222 + ci[1] * 5.6 + 18) + "px";
+      });
+
+      var tl = gsap.timeline({ paused: true });
+      function count(el, to, dec, suffix, at, dur) {
+        var o = { v: 0 };
+        tl.fromTo(o, { v: 0 }, { v: to, duration: dur, ease: "power2.out", onUpdate: function () { el.textContent = o.v.toFixed(dec) + suffix; } }, at);
+      }
+
+      // flood: dark console ground -> amber
+      tl.fromTo("#res-flood", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "power2.inOut" }, 0);
+
+      // chapter line big, then carried up to the header
+      tl.fromTo("#res-chap", { opacity: 0, filter: "blur(8px)", scale: 1.7, y: 380 }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power4.out" }, 0.3);
+      tl.fromTo("#res-chap", { scale: 1.7, y: 380 }, { scale: 1, y: 0, duration: 0.6, ease: "power3.inOut", immediateRender: false }, 1.2);
+
+      // headline per word
+      tl.fromTo("#res-h1 span", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, stagger: 0.067, ease: "power4.out" }, 1.6);
+
+      // chart frame
+      tl.fromTo("#res-frame1 .colh", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, stagger: 0.1, ease: "power4.out" }, 2.4);
+      tl.fromTo("#res-frame1 .axis", { scaleY: 0 }, { scaleY: 1, duration: 0.5, ease: "expo.out" }, 2.4);
+      tl.fromTo(".r1lab", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.4, stagger: 0.06, ease: "expo.out" }, 2.5);
+
+      // catch bars
+      tl.fromTo(".b1c", { scaleX: 0 }, { scaleX: 1, duration: 1.0, stagger: 0.08, ease: "expo.out" }, 2.9);
+      q(".v1c").forEach(function (el, i) {
+        tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.15 }, 2.9 + i * 0.08);
+        count(el, +el.dataset.to, 1, "%", 2.9 + i * 0.08, 1.1);
+      });
+      tl.fromTo(".w1c", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 4.0);
+
+      // false-alarm bars
+      tl.fromTo(".b1f", { scaleX: 0 }, { scaleX: 1, duration: 1.0, stagger: 0.08, ease: "expo.out" }, 4.4);
+      q(".v1f").forEach(function (el, i) {
+        tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.15 }, 4.4 + i * 0.08);
+        count(el, +el.dataset.to, 1, "%", 4.4 + i * 0.08, 1.1);
+      });
+      tl.fromTo(".w1f", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 5.5);
+      tl.fromTo("#res-foot1", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 5.7);
+
+      // exit beat 1: blur swap
+      tl.fromTo("#res-b1-in", { opacity: 1, filter: "blur(0px)" }, { opacity: 0, filter: "blur(8px)", duration: 0.22, ease: "power3.in" }, 8.3);
+
+      // BEAT 2
+      tl.fromTo("#res-h2", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 8.65);
+      tl.fromTo(["#res-p2", "#res-n2"], { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, stagger: 0.25, ease: "power4.out" }, 8.95);
+      tl.fromTo("#res-base2", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "expo.out" }, 9.3);
+      tl.fromTo(".c2n", { opacity: 0 }, { opacity: 1, duration: 0.25, stagger: 0.06 }, 9.4);
+      tl.fromTo(".c2o", { scaleY: 0 }, { scaleY: 1, duration: 0.6, stagger: 0.2, ease: "expo.out" }, 9.8);
+      tl.fromTo(".c2v", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, stagger: 0.2, ease: "power4.out" }, 10.0);
+      // payoff: ours rises last, after a beat of stillness
+      tl.fromTo("#res-c-ours", { scaleY: 0 }, { scaleY: 1, duration: 1.0, ease: "expo.out" }, 11.3);
+      tl.fromTo("#res-c-ours-v", { opacity: 0 }, { opacity: 1, duration: 0.15 }, 11.3);
+      count(root.querySelector("#res-ours-k"), 19, 0, "", 11.3, 1.1);
+      tl.fromTo(".c2w", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 12.4);
+
+      // exit beat 2: whip left
+      tl.fromTo("#res-b2-in", { opacity: 1, x: 0, filter: "blur(0px)" }, { opacity: 0, x: -220, filter: "blur(12px)", duration: 0.25, ease: "power3.in" }, 13.9);
+
+      // BEAT 3
+      tl.fromTo("#res-h3 span", { opacity: 0, x: 120, filter: "blur(12px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.4, stagger: 0.07, ease: "expo.out" }, 14.25);
+      tl.fromTo("#res-s3", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 14.7);
+      tl.fromTo(".r3lab", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.4, stagger: 0.06, ease: "expo.out" }, 15.0);
+      tl.fromTo(".b3", { scaleX: 0 }, { scaleX: 1, duration: 1.1, stagger: 0.1, ease: "expo.out" }, 15.3);
+      q(".v3").forEach(function (el, i) {
+        tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.15 }, 15.3 + i * 0.1);
+        count(el, +el.dataset.to, 1, "%", 15.3 + i * 0.1, 1.2);
+      });
+      tl.fromTo("#res-delta", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "power4.out" }, 16.8);
+      tl.fromTo("#res-rule3", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "expo.out" }, 17.6);
+      tl.fromTo("#res-ood", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 17.8);
+      tl.fromTo("#res-voice", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 18.3);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["results"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,273 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #0b0d12;
+      font-family: Inter, sans-serif;
+      color: #f2f4f8;
+      --bg: #0b0d12;
+      --panel: #151922;
+      --ink: #f2f4f8;
+      --dim: #8a93a6;
+      --red: #ff4d4f;
+      --amber: #ffb347;
+      --green: #3ddc84;
+      --blue: #4da3ff;
+    }
+    #intro-ground { position: absolute; inset: 0; background: var(--bg); z-index: 0; }
+
+    /* The camera: one portrait still, the same frame the real footage opens on.
+       Natural box 1920 x 3413 (1080x1920 scaled to 1920 wide); GSAP scales it.
+       End state scale 0.316667 = 608 x 1081 at x 0, exactly the footage panel. */
+    #intro-photo {
+      position: absolute; left: 0; top: 0;
+      width: 1920px; height: 3413px;
+      object-fit: cover;
+      z-index: 1;
+    }
+    /* Darkening layers (gradients, no filters on the footage still) */
+    #intro-scrim-side {
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(90deg,
+        rgba(11,13,18,0) 0px, rgba(11,13,18,0) 560px,
+        rgba(11,13,18,0.82) 860px, rgba(11,13,18,1) 1080px);
+    }
+    #intro-scrim-flat {
+      position: absolute; inset: 0; z-index: 2;
+      background: radial-gradient(ellipse 1100px 700px at 50% 46%, rgba(11,13,18,0.66), rgba(11,13,18,0.86));
+      opacity: 0;
+    }
+
+    .intro-layer { position: absolute; inset: 0; z-index: 5; }
+    .w { display: inline-block; }
+
+    /* HOOK */
+    #intro-hook-a, #intro-hook-b {
+      position: absolute; left: 920px; top: 0; width: 800px; height: 1080px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .intro-hook-line {
+      font-weight: 900; font-size: 92px; line-height: 1.04; letter-spacing: -0.025em;
+    }
+    #intro-hook-b2 { color: var(--red); margin-top: 14px; }
+
+    /* PROBLEM */
+    #intro-stat-box {
+      position: absolute; left: 192px; width: 1536px; top: 210px;
+      text-align: center;
+    }
+    #intro-num {
+      font-weight: 900; font-size: 230px; line-height: 1; letter-spacing: -0.04em;
+      font-variant-numeric: tabular-nums;
+    }
+    #intro-cap {
+      margin-top: 26px; font-weight: 700; font-size: 52px; letter-spacing: -0.01em;
+    }
+    #intro-src {
+      margin-top: 18px; font-weight: 400; font-size: 24px; color: var(--dim);
+    }
+    #intro-trust {
+      position: absolute; left: 192px; width: 1536px; top: 770px;
+      text-align: center; font-weight: 700; font-size: 54px; letter-spacing: -0.015em;
+    }
+    #intro-trust .code { color: var(--red); }
+
+    /* REVEAL */
+    #intro-rev-box { position: absolute; left: 700px; top: 120px; width: 1028px; }
+    #intro-name {
+      font-weight: 900; font-size: 150px; line-height: 1; letter-spacing: -0.035em;
+      color: var(--amber);
+    }
+    #intro-tag { margin-top: 18px; font-weight: 400; font-size: 44px; color: var(--ink); }
+    #intro-steps { position: absolute; left: 700px; top: 450px; width: 1028px; height: 390px; }
+    #intro-spine {
+      position: absolute; left: 10px; top: 32px; width: 3px; height: 260px;
+      background: rgba(138,147,166,0.45); transform-origin: 50% 0%;
+    }
+    .intro-step { position: absolute; left: 0; width: 1028px; height: 120px; }
+    #intro-step1 { top: 0; }
+    #intro-step2 { top: 130px; }
+    #intro-step3 { top: 260px; }
+    .intro-node {
+      position: absolute; left: 0; top: 22px; width: 23px; height: 23px; border-radius: 50%;
+      background: var(--ink);
+    }
+    #intro-node2 { background: var(--amber); }
+    .intro-verb {
+      position: absolute; left: 56px; top: 0; font-weight: 700; font-size: 50px; line-height: 1.2;
+      letter-spacing: -0.015em; white-space: nowrap;
+    }
+    .intro-detail {
+      position: absolute; left: 56px; top: 64px; font-weight: 400; font-size: 32px; color: var(--dim);
+      white-space: nowrap;
+    }
+    #intro-take {
+      position: absolute; left: 700px; top: 880px; width: 1028px;
+      font-weight: 700; font-size: 48px; letter-spacing: -0.01em; color: var(--ink);
+    }
+    #intro-take .arrow { color: var(--dim); margin-right: 18px; }
+  </style>
+
+  <div id="root" data-composition-id="intro" data-width="1920" data-height="1080">
+    <div id="intro-ground"></div>
+    <img id="intro-photo" src="assets/still_footage0.jpg" alt="Grandpa answering his phone" />
+    <div id="intro-scrim-side"></div>
+    <div id="intro-scrim-flat"></div>
+
+    <!-- 0-4 s HOOK -->
+    <div id="intro-l1" class="clip intro-layer" data-start="0" data-duration="1.9" data-track-index="1">
+      <div id="intro-hook-a">
+        <div class="intro-hook-line">
+          <span class="w" id="intro-h1w1">Grandpa's</span>
+          <span class="w" id="intro-h1w2">phone</span>
+          <span class="w" id="intro-h1w3">rings.</span>
+        </div>
+      </div>
+    </div>
+    <div id="intro-l2" class="clip intro-layer" data-start="1.8" data-duration="2.2" data-track-index="2">
+      <div id="intro-hook-b">
+        <div class="intro-hook-line" id="intro-hook-b1">It's his bank.</div>
+        <div class="intro-hook-line" id="intro-hook-b2">Except it isn't.</div>
+      </div>
+    </div>
+
+    <!-- 4-8 s PROBLEM -->
+    <div id="intro-stat" class="clip intro-layer" data-start="4" data-duration="4.05" data-track-index="1">
+      <div id="intro-stat-box">
+        <div id="intro-num">$<span id="intro-num-val">0.0</span> billion</div>
+        <div id="intro-cap">
+          <span class="w">lost</span> <span class="w">to</span> <span class="w">fraud</span>
+          <span class="w">by</span> <span class="w">people</span> <span class="w">60+</span>
+          <span class="w">in</span> <span class="w">2025</span>
+        </div>
+        <div id="intro-src">FBI IC3, 2025 Internet Crime Report</div>
+      </div>
+      <div id="intro-trust">
+        <span class="w">Scammers</span> <span class="w">build</span> <span class="w">trust</span>
+        <span class="w">first,</span> <span class="w">then</span> <span class="w">ask</span>
+        <span class="w">for</span> <span class="w code">the</span> <span class="w code">code.</span>
+      </div>
+    </div>
+
+    <!-- 8-13 s REVEAL + HOW + HAND-OFF -->
+    <div id="intro-rev" class="clip intro-layer" data-start="7.95" data-duration="5.05" data-track-index="2">
+      <div id="intro-rev-box">
+        <div id="intro-name">
+          <span class="w">E</span><span class="w">m</span><span class="w">b</span><span class="w">e</span><span class="w">r</span><span class="w">z</span>
+        </div>
+        <div id="intro-tag">a guardian on Grandpa's phone line</div>
+      </div>
+      <div id="intro-steps">
+        <div id="intro-spine"></div>
+        <div class="intro-step" id="intro-step1">
+          <div class="intro-node" id="intro-node1"></div>
+          <div class="intro-verb" id="intro-verb1">Hears the call</div>
+          <div class="intro-detail" id="intro-det1">NVIDIA Nemotron speech</div>
+        </div>
+        <div class="intro-step" id="intro-step2">
+          <div class="intro-node" id="intro-node2"></div>
+          <div class="intro-verb" id="intro-verb2">Judges every turn</div>
+          <div class="intro-detail" id="intro-det2">our fine-tuned guardian on Fireworks</div>
+        </div>
+        <div class="intro-step" id="intro-step3">
+          <div class="intro-node" id="intro-node3"></div>
+          <div class="intro-verb" id="intro-verb3">Acts</div>
+          <div class="intro-detail" id="intro-det3">whispers to Grandpa, calls the family</div>
+        </div>
+      </div>
+      <div id="intro-take"><span class="arrow">&larr;</span>A real call, one take:</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+
+      // ---- Camera states (img natural box 1920 x 3413, origin top-left) ----
+      // HOOK: 1100 px wide portrait on the left, face + phone in frame
+      const HOOK = { scale: 0.5729, x: 0, y: -330 };
+      const HOOK_END = { scale: 0.5900, x: -6, y: -362 };   // slow drift of the world
+      // PROBLEM: punch-in on the phone in his hand, full bleed
+      const PUNCH = { scale: 1.0, x: 0, y: -1450 };
+      const PUNCH_END = { scale: 1.03, x: -24, y: -1500 };
+      // HAND-OFF: exactly the footage panel, 608 x 1081 at x 0
+      const PANEL = { scale: 608 / 1920, x: 0, y: 0 };
+
+      tl.fromTo("#intro-photo", { ...HOOK, transformOrigin: "0 0" },
+        { ...HOOK_END, duration: 4, ease: "none" }, 0);
+      tl.set("#intro-photo", { ...PUNCH }, 4);
+      tl.set("#intro-scrim-side", { opacity: 0 }, 4);
+      tl.set("#intro-scrim-flat", { opacity: 1 }, 4);
+      tl.fromTo("#intro-photo", { ...PUNCH },
+        { ...PUNCH_END, duration: 3.9, ease: "none", immediateRender: false }, 4);
+      tl.fromTo("#intro-photo", { ...PUNCH_END },
+        { ...PANEL, duration: 1.0, ease: "power3.inOut", immediateRender: false }, 7.9);
+      tl.fromTo("#intro-scrim-flat", { opacity: 1 },
+        { opacity: 0, duration: 0.8, ease: "power2.inOut", immediateRender: false }, 7.95);
+
+      // ---- HOOK lines ----
+      tl.fromTo("#intro-hook-a .w", { opacity: 0, filter: "blur(8px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.16, stagger: 0.09, ease: "power4.out" }, 0.12);
+      tl.to("#intro-hook-a .w", { opacity: 0, filter: "blur(8px)", duration: 0.14, stagger: 0.03, ease: "power3.in" }, 1.68);
+
+      tl.fromTo("#intro-hook-b1", { opacity: 0, filter: "blur(10px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 1.86);
+      tl.fromTo("#intro-hook-b2", { clipPath: "inset(0 100% 0 0)" },
+        { clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "expo.out" }, 2.6);
+
+      // ---- PROBLEM ----
+      const num = { v: 0 };
+      tl.fromTo(num, { v: 0 }, {
+        v: 7.7, duration: 1.1, ease: "expo.out",
+        onUpdate: () => {
+          const el = document.getElementById("intro-num-val");
+          if (el) el.textContent = num.v.toFixed(1);
+        }
+      }, 4.05);
+      tl.fromTo("#intro-num", { opacity: 0, scale: 1.06 },
+        { opacity: 1, scale: 1, duration: 0.45, ease: "expo.out" }, 4.02);
+      tl.fromTo("#intro-cap .w", { opacity: 0.12 },
+        { opacity: 1, duration: 0.12, stagger: 0.08, ease: "power2.out" }, 4.55);
+      tl.fromTo("#intro-src", { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: "power2.out" }, 5.1);
+      tl.fromTo("#intro-trust .w", { opacity: 0, filter: "blur(8px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.14, stagger: 0.07, ease: "power4.out" }, 5.55);
+      tl.to("#intro-stat-box, #intro-trust", { opacity: 0, filter: "blur(10px)", duration: 0.2, ease: "power3.in" }, 7.8);
+
+      // ---- REVEAL ----
+      tl.fromTo("#intro-name .w", { opacity: 0.0, filter: "blur(6px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.22, stagger: 0.07, ease: "power4.out" }, 8.3);
+      tl.fromTo("#intro-tag", { opacity: 0, filter: "blur(8px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 8.85);
+
+      // three steps, one per beat; the spine draws down to each node
+      tl.fromTo("#intro-spine", { scaleY: 0 }, { scaleY: 0, duration: 0.01 }, 7.95);
+      const steps = [
+        { at: 9.4, n: 1 },
+        { at: 10.15, n: 2 },
+        { at: 10.9, n: 3 },
+      ];
+      steps.forEach(({ at, n }) => {
+        if (n > 1) {
+          tl.fromTo("#intro-spine", { scaleY: (n - 2) / 2 },
+            { scaleY: (n - 1) / 2, duration: 0.25, ease: "power2.inOut", immediateRender: false }, at - 0.2);
+        }
+        tl.fromTo("#intro-node" + n, { scale: 0 },
+          { scale: 1, duration: 0.35, ease: "back.out(1.6)" }, at);
+        tl.fromTo("#intro-verb" + n, { clipPath: "inset(0 100% 0 0)" },
+          { clipPath: "inset(0 0% 0 0)", duration: 0.45, ease: "expo.out" }, at + 0.03);
+        tl.fromTo("#intro-det" + n, { opacity: 0, filter: "blur(6px)" },
+          { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, at + 0.2);
+      });
+
+      tl.fromTo("#intro-take", { clipPath: "inset(0 100% 0 0)" },
+        { clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "expo.out" }, 11.55);
+
+      tl.set({}, {}, 13);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["intro"] = tl;
+    })();
+  </script>
+</template>

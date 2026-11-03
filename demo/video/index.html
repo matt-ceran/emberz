@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --bg: #0b0d12;
+        --ink: #f2f4f8;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+      #root { position: relative; width: 100%; height: 100%; font-family: Inter, sans-serif; }
+      #ground { position: absolute; inset: 0; background: var(--bg); z-index: 0; }
+      #footage {
+        position: absolute; left: 0; top: 0; width: 608px; height: 1080px;
+        object-fit: cover; z-index: 2;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="108" data-width="1920" data-height="1080">
+      <div id="ground"></div>
+
+      <div id="intro" data-composition-id="intro" data-composition-src="compositions/intro.html"
+        data-start="0" data-duration="13" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080" style="z-index:5"></div>
+
+      <video id="footage" class="clip" src="assets/call_footage.mp4" playsinline data-has-audio="true"
+        data-volume="1" data-fade-in="0.3" data-fade-out="0.6" data-start="13" data-duration="68" data-media-start="0" data-track-index="2"></video>
+
+      <div id="demo" data-composition-id="demo" data-composition-src="compositions/demo.html"
+        data-start="13" data-duration="68" data-track-index="3" data-track-kind="graphics"
+        data-width="1920" data-height="1080" style="z-index:6"></div>
+
+      <div id="results" data-composition-id="results" data-composition-src="compositions/results.html"
+        data-start="81" data-duration="22" data-track-index="4" data-track-kind="graphics"
+        data-width="1920" data-height="1080" style="z-index:7"></div>
+
+      <div id="endcard" data-composition-id="endcard" data-composition-src="compositions/endcard.html"
+        data-start="103" data-duration="5" data-track-index="5" data-track-kind="graphics"
+        data-width="1920" data-height="1080" style="z-index:8"></div>
+
+      <!-- SFX: each placed so its peak lands ~1 frame after the picture event (see SPEC event times; demo local + 13) -->
+      <audio id="sfx-whoosh-demo" class="clip" src="assets/sfx_whoosh.mp3" data-start="12.87" data-duration="0.6" data-volume="0.5" data-track-index="10"></audio>
+      <audio id="sfx-pop-aivoice" class="clip" src="assets/sfx_pop.mp3" data-start="23.40" data-duration="0.7" data-volume="0.6" data-track-index="11"></audio>
+      <audio id="sfx-pop-alert1" class="clip" src="assets/sfx_pop.mp3" data-start="46.72" data-duration="0.7" data-volume="0.7" data-track-index="11"></audio>
+      <audio id="sfx-chime-coach1" class="clip" src="assets/sfx_chime.mp3" data-start="47.65" data-duration="2.5" data-volume="0.55" data-track-index="12"></audio>
+      <audio id="sfx-pop-alert2" class="clip" src="assets/sfx_pop.mp3" data-start="71.84" data-duration="0.7" data-volume="0.7" data-track-index="11"></audio>
+      <audio id="sfx-impact-press9" class="clip" src="assets/sfx_impact.mp3" data-start="76.16" data-duration="2.6" data-volume="0.8" data-track-index="13"></audio>
+      <audio id="sfx-chime-coach2" class="clip" src="assets/sfx_chime.mp3" data-start="77.58" data-duration="2.5" data-volume="0.45" data-track-index="12"></audio>
+      <audio id="sfx-whoosh-results" class="clip" src="assets/sfx_whoosh.mp3" data-start="80.87" data-duration="0.6" data-volume="0.5" data-track-index="10"></audio>
+      <audio id="sfx-whoosh-end" class="clip" src="assets/sfx_whoosh.mp3" data-start="102.87" data-duration="0.6" data-volume="0.45" data-track-index="10"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
