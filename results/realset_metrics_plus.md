@@ -48,7 +48,7 @@ Median (IQR). Seconds = end of the flagged caller turn, when the request is sent
 
 | Model | Flagged scams | Seconds into call | Seconds incl. model latency | Caller turn # | Words heard | Flagged on 1st caller turn |
 |---|---|---|---|---|---|---|
-| Emberz guardian v2 (ours) | 90 | 14.6 (12.9-18.7) | 16.1 (14.2-20.2) | 1 (1-2) | 0.81 (0.61-1.00) | 55/90 |
+| Emberz guardian v2 (ours) | 90 | 14.6 (12.9-18.7) | 16.1 (14.2-20.2) | 1 (1-2) | 0.80 (0.61-1.00) | 55/90 |
 | Kimi K3 | 175 | 14.3 (12.1-14.9) | 17.1 (14.8-18.9) | 1 (1-1) | 0.78 (0.56-0.99) | 142/175 |
 | Qwen3.8 Max | 173 | 14.3 (11.4-14.9) | 16.2 (14.3-19.3) | 1 (1-1) | 0.73 (0.54-0.98) | 146/173 |
 | Nemotron Lightning 3.5 | 166 | 14.3 (11.4-15.1) | 14.9 (11.9-16.2) | 1 (1-1) | 0.73 (0.52-0.98) | 135/166 |
@@ -60,10 +60,10 @@ Same 88 scams for every model (the ones all 6 full-coverage LLM guardians flagge
 
 | Model | Seconds into call | Caller turn # | Words heard |
 |---|---|---|---|
-| Emberz guardian v2 (ours) | 14.6 (12.9-18.7) | 1 (1-2) | 0.81 (0.61-1.00) |
+| Emberz guardian v2 (ours) | 14.6 (12.9-18.7) | 1 (1-2) | 0.80 (0.61-1.00) |
 | DeepSeek V4.1 Flash | 14.5 (12.4-15.7) | 1 (1-2) | 0.70 (0.56-0.95) |
 | Kimi K3 | 14.3 (11.0-14.8) | 1 (1-1) | 0.67 (0.46-0.93) |
-| Nemotron Lightning 3.5 | 14.2 (10.3-14.8) | 1 (1-1) | 0.66 (0.44-0.93) |
+| Nemotron Lightning 3.5 | 14.2 (10.4-14.8) | 1 (1-1) | 0.66 (0.44-0.93) |
 | Qwen3.8 Max | 14.2 (10.2-14.7) | 1 (1-1) | 0.66 (0.46-0.93) |
 | Rune (decisions API) | 14.2 (10.2-14.8) | 1 (1-1) | 0.66 (0.46-0.93) |
 

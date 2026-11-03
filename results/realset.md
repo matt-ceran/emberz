@@ -1,10 +1,10 @@
 # Real-audio test set (realset): fine-tuned guardian vs frontier baselines
 
 **301 real phone calls** (181 scam robocalls, 120 benign bank calls), 192 min of audio, 1,233 scored caller turns.
-Every call went through our phone path (8 kHz G.711) and our live ASR. Every model saw the same transcripts and the same frozen prompt.
+Every call went through our phone path (8 kHz G.711) and our live ASR. Every chat model saw the same transcripts and the same frozen prompt. Rune saw the same prompt through the decisions API (see section 2).
 Frontier baselines: **Kimi K3** (named baseline) and **Qwen3.8 Max**. Cheaper serverless baselines: Nemotron Lightning 3.5, DeepSeek V4.1 Flash, Rune.
 
-Short version: the frontier models catch 96-97% of the scam robocalls. Our fine-tuned guardian catches 50%. Its false-alarm rate is not significantly different from Kimi's (21% vs 26%). It is faster (860 ms vs 2,324 ms p50).
+Short version: the frontier models catch 96-97% of the scam robocalls. Our fine-tuned guardian catches 50%. Its false-alarm rate is not significantly different from Kimi's (21% vs 26%). So on this set the fine-tune does not beat the named baseline. It is faster than Kimi K3 (860 ms vs 2,324 ms p50), but that pits a dedicated GPU against shared serverless. Nemotron Lightning 3.5 is faster still (449 ms), far cheaper, and catches 92%.
 
 ![realset chart](realset_chart.svg)
 
@@ -23,7 +23,7 @@ Read first: [realset_headline.md](realset_headline.md). Every call with every mo
 
 - **Scam types** (keyword bucket, hand-checked): tech support / utility 42, Amazon / Apple order 38, government / SSA / IRS 35, bank / credit card 33, auto warranty 19, prize / travel / health 11, delivery / parcel 3.
 - **Benign tasks** (HarperValley): check_balance 16, get_branch_hours 16, order_checks 15, pay_bill 15, replace_card 15, reset_password 15, schedule_appointment 14, transfer_money 14.
-- **Split:** seeded, stratified by label and scam type, fixed before any model was scored on the new calls. Dev and test each have about half of every type.
+- **Split:** a seeded shuffle, stratified by label and scam type (`assign_split` in `realset/select_calls.py`). It never reads model outputs. The 111 v1 calls had already been scored when the split was drawn, so the split is not pre-registered. It cannot carry score information, though, because it is a fixed-seed shuffle. Dev and test each have about half of every type. The split is per call, not per campaign, so near-duplicate robocalls fall on both sides (section 8).
 - **Licenses:** NCSU robocall audio comes from the FTC's Project Point of No Entry, packaged by S. Prasad and B. Reaves (NCSU TR-2023-1, https://github.com/wspr-ncsu/robocall-audio-dataset); the data is public domain. HarperValleyBank is by Gridspace-Stanford, CC BY 4.0 (https://github.com/cricketclub/gridspace-stanford-harper-valley). We publish only our own ASR transcripts, no audio.
 
 ## 2. Method
@@ -49,9 +49,9 @@ Read first: [realset_headline.md](realset_headline.md). Every call with every mo
 | Rune (decisions API) | 163/181 = **90%** (85-94%) | 49/120 = **41%** (32-50%) | 0.76 (0.71-0.81) | 14.5 s | $0.15 | 107 ms |
 | keyword stub | 3/181 = 2% (1-5%) | 11/120 = 9% (5-16%) | 0.46 | - | $0 | - |
 
-- **Time to first alert** = seconds from call start to the end of the first flagged caller turn, plus that request's latency, over the scams the model flagged. Robocalls are short, so this mostly reflects how much of the message a model needs. On the 88 scams that all six LLMs flagged, every model alerts on the first caller turn (median about 14.2-14.6 s). Ours has heard more of the caller's words by then: 81% of them, vs 66-70% for the others.
+- **Time to first alert** = seconds from call start to the end of the first flagged caller turn, plus that request's latency, over the scams the model flagged. Each model is timed on a different set of scams (only the ones it caught), so the column is not a head-to-head comparison. Robocalls are short, so this mostly reflects how much of the message a model needs. On the 88 scams that all six LLMs flagged, every model's median alert comes on the first caller turn (about 14.2-14.6 s into the call). Ours has heard more of the caller's words by then: a median 80% of them, vs 66-70% for the others.
 - **Cost.** Serverless cost = tokens × Fireworks list price, counting every attempt and retry. Our guardian runs on a dedicated GPU: cost = summed request time × $8/h. That is a rough figure. It leaves out idle time and scale-up, so it is not an invoice.
-- 0 turn errors for every model after re-runs. Qwen needed 97 JSON-mode retries and Nemotron 93 (counted in cost).
+- 0 turn errors for every model after re-runs. Qwen needed 97 JSON-mode retries and Nemotron 97 (93 on the final verdicts, 4 in attempts that were later re-run); all are counted in cost.
 
 ## 4. Held-out test split: dev-tuned operating point
 
@@ -67,6 +67,7 @@ Each model picks its threshold (watch / alert / urgent) **on dev only**: the bes
 | Rune (decisions API) | urgent | 0/90 = 0% (0-4%) | 0/60 = 0% (0-6%) | 50% | 0.75 (0.68-0.82) |
 
 - Ours, Kimi, Qwen and Nemotron all pick the official `alert` rule on dev, so their test numbers equal the official rule on test.
+- The 25% false-alarm cap and the balanced-accuracy criterion were our choice and were not registered in advance. A different cap would move DeepSeek and Rune, but not the comparison between ours and Kimi K3.
 - DeepSeek and Rune exceed 25% false alarms at `alert` on dev. They are forced to `urgent` and collapse on test. With the official rule on test they reach 92% / 35% and 90% / 43%.
 - **No threshold rescues our guardian.** At `watch` it flags 99% of scams but also 98% of benign calls. At `alert` it flags 50% of scams. At `urgent` it flags 3%. 91 of 181 scams never get past `watch`.
 
@@ -87,6 +88,9 @@ Same calls, official rule. Difference = model minus Kimi K3. (x:y) = calls only 
 - **On false alarms ours is not worse.** It is 3-5 points lower, but the CI includes zero, so this is a tie, not a win.
 - Ours has significantly fewer false alarms than DeepSeek V4.1 Flash (-12 pts, p<0.001) and Rune (-20 pts, p<0.001) over all calls. It still catches about 40 points fewer scams than either.
 - Qwen3.8 Max and Kimi K3 are statistically tied. Nemotron Lightning 3.5 is close to Kimi on test at about 1/60 of the cost.
+- `realset_metrics_plus.md` has 21 model pairs (42 McNemar tests), with no correction. The Bonferroni cut is 0.05/42 = 0.0012. Ours' recall gap to every LLM survives it, and so do ours' lower false-alarm rates vs DeepSeek and Rune, and Kimi's and Qwen's lower false-alarm rates vs Rune. The other gaps between baselines (p 0.002-0.065, for example Kimi vs Nemotron or DeepSeek on recall) do not.
+
+**Sensitivity: duplicate campaigns.** Many robocalls are the same script recorded several times. We grouped scams by 4-gram overlap (at least half of the shorter call's 4-grams shared). That gives 84 campaign clusters, or 107 at a 70% cut. The largest cluster is 16 auto-warranty calls. If each campaign counts once, ours catches 53% vs Kimi's 95% (other models 91-96%). The difference is -42 points, with a cluster bootstrap 95% CI of -52 to -32 (-44, CI -53 to -35, at the 70% cut). Our all-call recall CI widens to about 37-64% when calls are resampled by cluster. The conclusion holds, but the per-call CIs in this report are too narrow for scam rates. This is a post-hoc check: the clusters were built after scoring, from our ASR text, and nothing was tuned on them.
 
 ## 6. Recall by scam type (all calls)
 
@@ -123,7 +127,7 @@ False alarms by HarperValley task (out of 14-16 each):
 
 **Ours false-alarms when the bank agent asks for account details.** Example: hv_6913f7cf2f2144a7 (pay_bill, test). The agent asks "what is the company address", the customer reads out an address, and ours gives `alert` / financial_id. Kimi stays at `watch` on this call.
 
-**Kimi K3 false-alarms on address requests.** Example: hv_5c761521b3004564 (order_checks, test). The agent asks "what is your address" for a new checkbook, and Kimi gives `alert` / location_school. Ours does not. Kimi flags 13 of 15 order_checks calls; ours flags 6. This is ours' clearest win, but it does not hold across all tasks.
+**Kimi K3 false-alarms on address requests.** Example: hv_5c761521b3004564 (order_checks, test). The agent asks "what is your address" for a new checkbook, and Kimi gives `alert` / location_school. Ours does not. Kimi flags 13 of 15 order_checks calls; ours flags 6. This is the one slice that favours ours, but we picked it after seeing results (1 of 8 tasks, 15 calls). On pay_bill ours is worse (10 vs 8), and the total false-alarm gap is not significant.
 
 **Kimi K3 misses 6 scams with no explicit ask:**
 - an AT&T DirecTV "fifty percent discount" pitch (ncsu_547611)
@@ -141,11 +145,13 @@ Ours misses all six too.
 - **Robocalls are one-sided.** They are prerecorded pitches (often TTS) with no victim side. They test recognizing a scam pitch through real ASR errors. They do not test catching the ask inside a live conversation.
 - **The benign calls have the agent as caller.** In HarperValley the customer phoned the bank. We put the agent on the caller track, as if the bank called from an unknown number. That makes the benign set harder. The calls are also role-played from templates by paid speakers, so the vocabulary is small.
 - **Source-style confound.** All scams are NCSU monologues and all benign calls are HarperValley dialogues. A model could separate them by style alone. Treat this set as a real-audio check of the full phone path. Do not read it as a field false-alarm rate.
-- **The guardian was trained on two-sided conversations.** Matt's fine-tune learned to wait for the ask: money, a code, card details, remote access. Robocalls rarely make that ask inside the recording. That likely explains most of its `watch` ratings, so this set is out of distribution for it. It still means the fine-tune does not generalize to one-sided scam pitches.
-- **Labels are source-level.** Every NCSU call counts as a scam. A few are illegal telemarketing rather than fraud (solar, DirecTV offers). Scam type is a keyword bucket over the dataset transcript, with 19 calls hand-corrected (`TYPE_FIX` in `realset/select_calls.py`).
-- **Near-duplicates.** Some v2 robocalls come from the same campaign as others (same script, different recording). The duplicate filter only compares the first 120 characters.
+- **The guardian was trained on two-sided conversations.** Matt's fine-tune learned to wait for the ask: money, a code, card details, remote access. Robocalls rarely make that ask inside the recording. That may explain many of its `watch` ratings, but we have not tested it. Either way, the fine-tune does not generalize to one-sided scam pitches, and a deployed guardian will hear them.
+- **Labels are source-level.** Every NCSU call counts as a scam. A few are illegal telemarketing rather than fraud (solar, DirecTV offers). A few transcripts hold only an IVR tail with no pitch, for example ncsu_57750, ncsu_62996 and ncsu_1205446 ("press two to listen to this message again... call us on our toll free number"). They are labelled scam from the source, but the text alone cannot show it. Scam type is a keyword bucket over the dataset transcript, with 19 calls hand-corrected (`TYPE_FIX`, `TYPE_FIX_V2` in `realset/select_calls.py`). The corrections change only the type, never scam vs benign.
+- **Near-duplicates.** Many robocalls come from the same campaign (same script, different recording). The selection filter only compares the first 120 characters of the dataset transcript, so it misses most of them. For example, ncsu_598182 (v2) is almost word-for-word ncsu_807762 (v1). The 181 scams form about 84 campaign clusters, and 23 clusters have calls in both dev and test. The sensitivity check in section 5 shows the main result holds. Per-call CIs overstate how precise the scam numbers are, and dev and test are not independent at the campaign level.
+- **Benign speakers repeat.** HarperValley has 59 speakers and templated scripts, so the 120 benign calls are not 120 independent samples either.
+- **Baselines ran without reasoning.** Every chat model ran with `reasoning_effort` none, the same as the guardian, which keeps latency comparable. Frontier models with reasoning on might score higher and would be slower. Frontier models may also have seen the NCSU dataset's public transcripts in pretraining. Our ASR text differs, but some contamination is possible.
 - **Precision depends on the mix.** The scam share here is 60%. Real call traffic has far fewer scams, so real-world precision would be lower for every model.
 - **ASR.** We used our live ASR on simulated G.711, not a real carrier leg.
 - **Our cost is rough.** It is summed request time on a dedicated GPU at $8/h. The deployment also scaled to zero mid-run: 24 turns returned 503 and were re-scored.
 - **Rune is not like-for-like.** It ran through the decisions API with multiple-choice questions we wrote from the prompt.
-- **No tuning on test.** Nothing was tuned on these calls. The only choice made from data is the dev-side threshold in section 4, which is reported on test only.
+- **No tuning on test.** No model, prompt or threshold was tuned on these calls. The only choice made from data is the dev-side threshold in section 4, which is reported on test only. The slices and failure cases in sections 6-7 were read after scoring and are descriptive, not tests.

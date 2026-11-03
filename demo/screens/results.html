@@ -1,0 +1,49 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Emberz results</title>
+<style>body{margin:0;background:#0d1117;color:#e6edf3;font-family:Inter,system-ui,sans-serif;height:100vh;overflow:hidden}
+.sc{display:none;padding:50px 80px;height:100vh;box-sizing:border-box}.sc.on{display:block}
+h1{font-size:64px;margin:0 0 10px}h2{font-size:32px;color:#9fb0c0;font-weight:400;margin:0 0 30px}
+table{border-collapse:collapse;font-size:36px;width:100%}td,th{padding:14px 20px;text-align:left;border-bottom:1px solid #30363d}th{color:#9fb0c0;font-weight:500;font-size:28px}
+tr.us td{color:#ffb347;font-weight:700}.ci{font-size:24px;color:#8b949e}
+.big{font-size:44px;line-height:1.5;margin:0;padding-left:40px}.big li{margin-bottom:16px}.lose{color:#ff7b72}.win{color:#3fb950}
+.foot{position:fixed;bottom:24px;left:80px;font-size:22px;color:#6e7681}.nav{position:fixed;bottom:24px;right:60px;font-size:24px;color:#6e7681}
+.bar{display:inline-block;height:28px;background:#ffb347;vertical-align:middle;border-radius:4px}.bar.o{background:#58a6ff}</style></head><body>
+
+<div class="sc on"><h1>Catches scams before the ask</h1><h2>Held-out test: 257 calls written by NVIDIA Nemotron 3 Ultra (148 risky, 79 benign). Kimi K3: 120-call subset.</h2>
+<table><tr><th>System</th><th>Caught before the ask</th><th>False alarms</th></tr>
+<tr class="us"><td>Our guardian v2</td><td>92.6% <span class="ci">137/148 · CI 87-96</span></td><td>17.7% <span class="ci">14/79 · CI 11-28</span></td></tr>
+<tr><td>Rune (Fireworks, zero-shot)</td><td>92.6% <span class="ci">137/148 · CI 87-96</span></td><td>38.0% <span class="ci">30/79 · CI 28-49</span></td></tr>
+<tr><td>DeepSeek V4.1 Flash</td><td>85.1% <span class="ci">126/148 · CI 79-90</span></td><td>31.6% <span class="ci">25/79 · CI 22-43</span></td></tr>
+<tr><td>Untuned Qwen3.6-35B-A3B</td><td>89.2% <span class="ci">132/148 · CI 83-93</span></td><td>53.2% <span class="ci">42/79 · CI 42-64</span></td></tr>
+<tr><th colspan="3">120-call subset (74 risky, 36 benign)</th></tr>
+<tr class="us"><td>Our guardian v2</td><td>87.8% <span class="ci">65/74 · CI 78-93</span></td><td>25.0% <span class="ci">9/36 · CI 14-41</span></td></tr>
+<tr><td>Kimi K3</td><td>85.1% <span class="ci">63/74 · CI 75-91</span></td><td>25.0% <span class="ci">9/36 · CI 14-41</span></td></tr>
+</table><div class="foot">Wilson 95% CIs. Source: results/guardian_snapshot.json</div></div>
+
+<div class="sc"><h1>Follows the caretaker's rules</h1><h2>Rule-flip pairs: same call, the caretaker's rule changes the right answer. Both halves must be right.</h2>
+<table><tr><th>System (all 257 calls, 22 pairs)</th><th>Pairs followed</th></tr>
+<tr class="us"><td>Our guardian v2</td><td><span class="bar" style="width:432px"></span> 86.4% <span class="ci">19/22 · CI 67-95</span></td></tr>
+<tr><td>Rune</td><td><span class="bar o" style="width:114px"></span> 22.7% <span class="ci">5/22 · CI 10-43</span></td></tr>
+<tr><td>DeepSeek V4.1 Flash</td><td><span class="bar o" style="width:68px"></span> 13.6% <span class="ci">3/22 · CI 5-33</span></td></tr>
+<tr><td>Untuned Qwen3.6</td><td><span class="bar o" style="width:68px"></span> 13.6% <span class="ci">3/22 · CI 5-33</span></td></tr>
+<tr><td>Kimi K3 <span class="ci">(120 subset, 10 pairs)</span></td><td><span class="bar o" style="width:2px"></span> 0% <span class="ci">0/10 · CI 0-28</span></td></tr>
+</table><div class="foot">Source: results/guardian_snapshot.json</div></div>
+
+<div class="sc"><h1>Fast, cheap, hears AI voices</h1><h2>Speed and cost on the real-audio set; AI-voice check on unseen speakers</h2>
+<ul class="big"><li>Guardian p50: <b class="win">860 ms</b> vs Kimi K3 2,324 ms <span class="ci">(real-audio set)</span></li>
+<li>Cost: about $8.42 vs $10.93 per 1,000 calls <span class="ci">(ours: rough GPU-time figure)</span></li>
+<li>ASR end of turn: 620 ms p50 <span class="ci">(audio time, 26 utterance ends)</span></li>
+<li>AI-voice detector, In-the-Wild, 25 unseen speakers, phone path:<br><b class="win">EER 1.27%</b> <span class="ci">CI 0.85-1.77 · 2,829 clips</span>, AUC 0.9991</li>
+<li>At 1% false alarms it catches 98.0% of AI clips</li></ul>
+<div class="foot">Sources: results/realset_headline.md, results/figures/line_latency.json, results/voice_v1.md</div></div>
+
+<div class="sc"><h1>Live on a real phone line</h1><h2>Today, end to end: AI scam caller -> guarded number -> a real phone</h2>
+<ul class="big"><li>11 turns transcribed live; alerts on turn 4 (bank impersonation) and turn 10 (code asked for)</li>
+<li>Coach whisper sent in 702-753 ms after the trigger</li>
+<li>Caretaker phoned at the alert, joined and listened</li>
+<li>Second run: caretaker pressed 9, scam caller dropped, call ended</li>
+<li>AI-voice score on the scam caller: 0.9995</li></ul>
+<div class="foot">2 live calls, Nov 2. Source: results/ledger-numan.md</div></div>
+
+<div class="nav"><span id="pg"></span> · arrows / space · <a href="index.html" style="color:#6e7681">home</a></div>
+<script>const s=[...document.querySelectorAll('.sc')];let i=0;function g(n){i=Math.max(0,Math.min(s.length-1,n));s.forEach((e,k)=>e.classList.toggle('on',k==i));document.getElementById('pg').textContent=(i+1)+'/'+s.length}
+document.addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){g(i+1);e.preventDefault()}if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))g(i-1)});g(0)</script></body></html>

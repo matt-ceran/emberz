@@ -1,0 +1,91 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Call Replay</title>
+<style>
+:root{--bg:#0b0d12;--panel:#151922;--ink:#f2f4f8;--dim:#8a93a6;--red:#ff4d4f;--amber:#ffb020;--green:#3ddc84;--blue:#4da3ff}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",Inter,Helvetica,sans-serif;overflow:hidden}
+header{display:flex;align-items:center;justify-content:space-between;padding:22px 48px 6px}
+h1{font-size:44px;margin:0;font-weight:800}.sub{font-size:20px;color:var(--dim);padding:0 48px 12px}
+.ctl{display:flex;gap:14px;align-items:center}
+button{font-family:inherit;font-weight:700;font-size:24px;background:#232a38;color:var(--ink);border:2px solid #333c4f;border-radius:14px;padding:12px 22px;cursor:pointer}
+button.primary{background:var(--blue);border-color:var(--blue);color:#001}
+#clock{font:800 52px ui-monospace,Menlo,monospace;min-width:170px;text-align:right}
+main{display:grid;grid-template-columns:1fr 420px 1fr;gap:24px;padding:8px 48px;height:calc(100% - 290px)}
+.side{background:var(--panel);border-radius:24px;padding:24px 28px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.side h2{margin:0 0 12px;font-size:34px}.side.caller h2{color:var(--red)}.side.prot h2{color:var(--green)}
+.caps{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:12px;overflow:hidden}
+.cap{font-size:31px;line-height:1.3;opacity:.45}.cap.live{opacity:1}
+.center{display:flex;flex-direction:column;gap:16px;justify-content:flex-start}
+.card{background:var(--panel);border-radius:22px;padding:20px 24px;border-left:10px solid var(--dim);animation:pop .35s ease-out}
+.card .k{font-size:20px;color:var(--dim);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.card .big{font-size:64px;font-weight:900;line-height:1.05}.card .t{font-size:26px;line-height:1.3;margin-top:6px}
+.card.voice{border-color:var(--amber)}.card.voice .big{color:var(--amber)}
+.card.alert{border-color:var(--red)}.card.alert .big{color:var(--red);font-size:46px}
+.card.care{border-color:var(--blue)}.card.care .big{color:var(--blue);font-size:40px}
+.card.end{border-color:var(--green);background:#123222}.card.end .big{color:var(--green);font-size:38px}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
+.notif{position:absolute;left:24px;right:24px;top:80px;background:#f4f6fb;color:#111;border-radius:22px;padding:18px 22px;box-shadow:0 10px 40px #0009;animation:drop .4s ease-out}
+.notif .h{font-weight:700;font-size:18px;color:#555;display:flex;justify-content:space-between}.notif .b{font-size:30px;font-weight:700;margin-top:6px}
+.notif .o{font-size:18px;color:#b00;font-weight:800;margin-top:8px}
+@keyframes drop{from{transform:translateY(-40px);opacity:0}to{transform:none;opacity:1}}
+footer{position:absolute;left:48px;right:48px;bottom:26px}
+.tl{position:relative;height:70px;background:var(--panel);border-radius:14px}
+.prog{position:absolute;left:0;top:0;bottom:0;background:#26324a;border-radius:14px}
+.m{position:absolute;top:8px;bottom:8px;width:6px;border-radius:3px;transform:translateX(-3px);cursor:pointer}
+.m span{position:absolute;bottom:62px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:16px;color:var(--dim);font-weight:700}
+.m.voice{background:var(--amber)}.m.alert{background:var(--red)}.m.coach{background:var(--green)}.m.care{background:var(--blue)}.m.end{background:#fff}
+.m:nth-child(even) span{bottom:-26px}
+.tag{display:inline-block;font-size:18px;font-weight:800;padding:4px 12px;border-radius:999px;background:#3a1a1a;color:var(--red);margin-left:10px;vertical-align:middle}
+</style></head><body>
+<header><h1>Live call replay</h1><div class="ctl"><button class="primary" id="play">&#9654; Play</button><button id="spd">1x</button><button id="jump">Jump to alert</button><div id="clock">0:00</div></div></header>
+<div class="sub">Real call recorded 2 Nov 2026, 15:48 PST. AI scam caller (SignalWire), real phone line (Telnyx), live ASR on a Mac, guardian on Fireworks.</div>
+<main>
+<section class="side caller"><h2>Caller (AI voice) <span class="tag" id="aitag" style="display:none">AI VOICE</span></h2><div class="caps" id="capC"></div></section>
+<section class="center" id="cards"></section>
+<section class="side prot"><h2>Grandma's phone</h2><div class="caps" id="capP"></div><div id="notifBox"></div></section>
+</main>
+<footer><div class="tl" id="tl"><div class="prog" id="prog"></div></div></footer>
+<audio id="au" src="assets/call_1548.mp3" preload="auto"></audio>
+<script>
+const DATA={"call": "Real call 2 Nov 2026 15:48 PST", "turns": [{"turn": 1, "speaker": "protected", "text": "Hello", "t_start_ms": 25760, "t_end_ms": 26720}, {"turn": 2, "speaker": "caller", "text": "Hello. This is Daniel from the Fraud Prevention Team at First Meridian", "t_start_ms": 30100, "t_end_ms": 34200}, {"turn": 3, "speaker": "caller", "text": "Bake", "t_start_ms": 34260, "t_end_ms": 34840}, {"turn": 4, "speaker": "caller", "text": "Am I speaking with Margaret", "t_start_ms": 35100, "t_end_ms": 36200}, {"turn": 5, "speaker": "protected", "text": "Yes, that's me", "t_start_ms": 36480, "t_end_ms": 37360}, {"turn": 6, "speaker": "caller", "text": "Thank you, Margaret. We've flagged a charge of eight hundred forty two dollars at an electronic store in Miami on your card ending in four four one seven. Did you make this purchase", "t_start_ms": 41720, "t_end_ms": 52020}, {"turn": 7, "speaker": "protected", "text": "Uh I don't I don't think so I can't remember", "t_start_ms": 52800, "t_end_ms": 55500}, {"turn": 8, "speaker": "caller", "text": "I understand your money is safe as long as we act now. The case number for this issue is F two zero nine three one", "t_start_ms": 59740, "t_end_ms": 67120}, {"turn": 9, "speaker": "protected", "text": "Oh okay", "t_start_ms": 68760, "t_end_ms": 69260}, {"turn": 10, "speaker": "caller", "text": "The charge will go through in just a few minutes to block it. I'm sending a verification code to your phone right now", "t_start_ms": 72780, "t_end_ms": 78880}, {"turn": 11, "speaker": "protected", "text": "Okay, let me see", "t_start_ms": 79940, "t_end_ms": 80840}, {"turn": 12, "speaker": "caller", "text": "I've just sent the code", "t_start_ms": 84580, "t_end_ms": 85500}], "events": [{"type": "call_started", "at_ms": 0, "reason": null}, {"type": "voice", "at_ms": 34982, "score": 0.9995, "model": "w2v-head-v1"}, {"type": "voice", "at_ms": 36800, "score": 0.9997, "model": "w2v-head-v1"}, {"type": "voice", "at_ms": 55181, "score": 1.0, "model": "timing"}, {"type": "alert", "at_ms": 58299, "level": "urgent", "category": "scam.impersonation_bank_gov", "note": "Caller claims a suspicious charge. This is a common scam tactic."}, {"type": "coach", "at_ms": 59209, "text": "Don't confirm anything. Hang up and call the number on your card."}, {"type": "caretaker_joined", "at_ms": 75629, "mode": "monitor"}, {"type": "alert", "at_ms": 83424, "level": "urgent", "category": "disclosure.credentials_otp", "note": "Caller is sending a code. This is a scam. Do not share it."}, {"type": "alert", "at_ms": 87714, "level": "urgent", "category": "intervention", "note": "Call ended by the caretaker (keypress 9)"}, {"type": "coach", "at_ms": 89135, "text": "Don't read any code. Hang up and call your bank."}, {"type": "call_ended", "at_ms": 94098, "reason": "ended_by_caretaker_keypress"}]};
+const END=94098;
+const nice={"scam.impersonation_bank_gov":"Fake bank call","disclosure.credentials_otp":"Asking for a code","intervention":"Caretaker stepped in"};
+const det={"w2v-head-v1":"Voice model (wav2vec2)","timing":"Reply timing"};
+// Display beats, built from the real events. "Calling caretaker" follows the first alert (the alert is what dials the caretaker).
+const B=[];let firstAlert=null,voiceN=0;
+for(const e of DATA.events){
+ if(e.type==="voice"){voiceN++;B.push({at:e.at_ms,kind:"voice",lab:voiceN===2?"":"AI voice",html:`<div class="k">AI voice score</div><div class="big">${Math.round(e.score*100)}%</div><div class="t">${det[e.model]||e.model}</div>`});}
+ else if(e.type==="alert"&&e.category!=="intervention"){if(firstAlert===null)firstAlert=e.at_ms;B.push({at:e.at_ms,kind:"alert",lab:"Risk alert",html:`<div class="k">Risk alert &middot; ${e.level}</div><div class="big">${nice[e.category]||e.category}</div><div class="t">Note to caretaker: ${e.note}</div>`});}
+ else if(e.type==="alert"&&e.category==="intervention"){B.push({at:e.at_ms,kind:"end",lab:"Pressed 9",html:`<div class="k">Caretaker</div><div class="big">Caretaker pressed 9: Emberz hung up on the caller</div>`});}
+ else if(e.type==="coach"&&e.at_ms<87714){B.push({at:e.at_ms,kind:"coach",lab:"Coach",coach:e.text});}
+ else if(e.type==="caretaker_joined"){B.push({at:e.at_ms,kind:"care",lab:"Listening",html:`<div class="k">Caretaker</div><div class="big">&#127911; Caretaker listening</div><div class="t">Press 0 to talk &middot; 9 to end the call</div>`});}
+}
+if(firstAlert!==null)B.push({at:firstAlert+1500,kind:"care",lab:"",html:`<div class="k">Caretaker</div><div class="big">&#128222; Caretaker phone ringing&hellip;</div>`});
+B.sort((a,b)=>a.at-b.at);
+const au=document.getElementById("au"),cards=document.getElementById("cards"),tl=document.getElementById("tl");
+B.forEach((b,i)=>{const m=document.createElement("div");m.className="m "+b.kind;m.style.left=(b.at/END*100)+"%";m.innerHTML=b.lab?`<span>${b.lab}</span>`:'';m.onclick=()=>seek(b.at-1500);tl.appendChild(m);});
+function fmt(ms){const s=Math.floor(ms/1000);return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");}
+let shown=-1,capKey="",endT=null;
+function render(ms){
+ document.getElementById("clock").textContent=fmt(ms);
+ document.getElementById("prog").style.width=Math.min(100,ms/END*100)+"%";
+ // captions: show turns that have started, newest live
+ const key=DATA.turns.filter(t=>t.t_start_ms<=ms).map(t=>t.turn).join(",");
+ if(key!==capKey){capKey=key;for(const [sp,id] of [["caller","capC"],["protected","capP"]]){const el=document.getElementById(id);const ts=DATA.turns.filter(t=>t.speaker===sp&&t.t_start_ms<=ms).slice(-3);el.innerHTML=ts.map((t,i)=>`<div class="cap${i===ts.length-1?" live":""}">${t.text}</div>`).join("");}}
+ document.getElementById("aitag").style.display=ms>=B.find(b=>b.kind==="voice").at?"inline-block":"none";
+ // cards
+ let n=-1;B.forEach((b,i)=>{if(b.at<=ms)n=i;});
+ if(n!==shown){shown=n;const cs=B.slice(0,n+1).filter(b=>b.html);cards.innerHTML=cs.slice(-3).reverse().map(b=>`<div class="card ${b.kind}">${b.html}</div>`).join("");
+  const c=B.slice(0,n+1).filter(b=>b.coach).pop();
+  document.getElementById("notifBox").innerHTML=c&&ms-c.at<14000?`<div class="notif"><div class="h"><span>&#128737; Emberz coach</span><span>now</span></div><div class="b">${c.coach}</div><div class="o">Only Grandma hears this</div></div>`:"";}
+ if(B.filter(b=>b.coach).some(c=>ms-c.at>=14000&&ms-c.at<14300))shown=-2;
+}
+function now(){return endT!==null?Math.min(END,au.duration*1000+(performance.now()-endT)*au.playbackRate):au.currentTime*1000;}
+function loop(){render(now());requestAnimationFrame(loop);}
+function seek(ms){endT=null;au.currentTime=Math.max(0,ms)/1000;shown=-2;capKey="";if(au.paused)toggle();}
+function toggle(){if(au.paused){au.play();play.innerHTML="&#10074;&#10074; Pause";}else{au.pause();play.innerHTML="&#9654; Play";}}
+const play=document.getElementById("play");play.onclick=toggle;
+document.getElementById("spd").onclick=e=>{au.playbackRate=au.playbackRate===1?2:1;e.target.textContent=au.playbackRate+"x";};
+document.getElementById("jump").onclick=()=>seek(B.find(b=>b.kind==="alert").at-4000);
+au.onended=()=>{endT=performance.now();play.innerHTML="&#9654; Play";};
+document.addEventListener("keydown",e=>{if(e.code==="Space"){e.preventDefault();toggle();}if(e.key==="ArrowRight")seek(now()+5000);if(e.key==="ArrowLeft")seek(now()-5000);});
+loop();
+</script></body></html>
