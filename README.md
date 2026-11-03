@@ -10,6 +10,26 @@ grooming, threats) Emberz:
 - follows **rules the caretaker writes in plain words** ("Never share codes", "Alert me about any money talk, even with family"),
 - flags **AI voices** (our wav2vec2 detector + Telnyx deepfake detection + reply timing).
 
+## Why now: AI made the scam call cheap, convincing and endless
+
+- **Losses are rising fast.** People 60+ reported **$7.75B** in losses to the FBI in 2025, **up 59%** in a year; average loss
+  $38,500, and 12,444 of them lost more than $100k. The FTC puts the true 2025 cost to older adults at **$13.3B-$119.5B** [1][2].
+- **The phone is where they lose the most.** For older adults, the median loss on scams that start with a phone call is **$3,000**,
+  vs $599 when the scam starts on social media; people 80+ lose more by phone than by any other channel [2].
+- **AI is already in these calls.** The FBI logged **22,364 complaints mentioning AI in 2025 ($893M lost)**, 3,143 of them from
+  people 60+ ($352M), including grandparent "distress" scams that use cloned voices of loved ones. The FCC ruled that AI voices
+  count as "artificial" under the TCPA and named voice clones posing as family as a harm [1][4].
+- **We built the attacker ourselves.** Our test caller is off-the-shelf: an LLM scam script plus a stock neural voice on a
+  cloud phone API, an estimated **$0.34 per two-minute call** (`callers/signalwire`). On real phone calls it held a fluent,
+  pressuring back-and-forth and asked for the verification code. Telnyx's built-in deepfake check scored its voice on only 1 of
+  5 live calls (silence timeout on the rest); our own detector flagged it on every live call we checked (4 calls, 0.94-0.9997).
+- **Existing filters stop at the ring.** Carrier filters and caller-ID apps judge the number before you answer. A manipulative
+  call from an unknown or spoofed number gets through, and the damage happens during the conversation, which is exactly where
+  Emberz listens.
+
+Sources (full list and figures in [docs/business_value.md](docs/business_value.md)): [1] FBI IC3 2025 Internet Crime Report;
+[2] FTC, Protecting Older Consumers 2025-2026; [4] FCC Declaratory Ruling FCC 24-17.
+
 Team: **Numan Karakas** (live line, speech-to-text, AI-voice detector, real-audio tests) and **Matt Ceran** (guardian data,
 fine-tuning, eval harness, console).
 
