@@ -50,6 +50,10 @@ Wilson 95% CIs. Full tables, ablations, caveats and the commands to reproduce: *
 | Qwen3.6-35B-A3B untuned (same base) | 132/148 (89%, CI 83-93) | 42/79 (53%, CI 42-64) | 3/22 (14%, CI 5-33) |
 | Keywords + PII regex | 77/148 (52%, CI 44-60) | 39/79 (49%, CI 39-60) | 0/22 (0%, CI 0-15) |
 
+Counting every call (risky caught before the ask, harmless never alerted), v2 handles **90.3%** vs **83.7% for Kimi K3**
+(McNemar p = 0.003; scenario-clustered bootstrap gain +0.9 to +12.3 pts), 83.3% for Rune and 79.4% for DeepSeek V4.1 Flash.
+The write-up with every table: [docs/emberz_submission.pdf](docs/emberz_submission.pdf).
+
 Reading: the fine-tune matches the best frontier catch rate, raises fewer false alarms than every zero-shot model
 (less than half of Rune's and DeepSeek's), and is the only model that reliably follows the caretaker's own rules
 (86% vs at most 23%). Out of distribution (BothBosu, 200 public calls) it catches 98/100 scams with 0/100 false alarms.
