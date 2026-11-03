@@ -1,413 +1,185 @@
-<!doctype html><html><head><meta charset="utf-8"><title>Emberz — Stage Deck</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400..800&family=DM+Sans:wght@400..700&display=swap"><style>@page{size:1920px 1080px;margin:0}*{box-sizing:border-box}html,body{margin:0;padding:0;background:#14100D}
+<!doctype html><html><head><meta charset="utf-8"><title>Emberz — Stage Deck</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400..800&family=DM+Sans:wght@400..700&family=JetBrains+Mono:wght@400;600&display=swap"><style>@page{size:1920px 1080px;margin:0}*{box-sizing:border-box}html,body{margin:0;padding:0;background:#14100D}
 h1,h2,h3,p,ul,table{margin:0}section{width:1920px;height:1080px;position:relative;overflow:hidden;break-after:page;page-break-after:always}
-section:last-of-type{break-after:auto}aside{display:none}img{display:block}</style></head><body><section id="cover" data-transition="fade" style="background:radial-gradient(circle at 82% 22%, #4A230F 0%, #24150D 30%, #14100D 62%);color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">Fireworks × NVIDIA hackathon · November 2026</p>
+section:last-of-type{break-after:auto}aside{display:none}img{display:block}</style></head><body><section id="cover" style="background:radial-gradient(circle at 82% 22%, #4A230F 0%, #24150D 30%, #14100D 62%);color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between">
+<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">Fireworks × NVIDIA · November 2026</p>
 <div style="display:flex;flex-direction:column;gap:32px">
-<h1 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:220px;font-weight:800;line-height:0.95;letter-spacing:-6px;color:#F5EFE6">Emberz</h1>
-<p style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:64px;font-weight:500;line-height:1.15;color:#F5EFE6">A guardian on Grandma’s phone line.</p>
-<p style="font-size:32px;line-height:1.4;color:#C9BBAC;width:1200px">A fine-tuned model that listens during the call, coaches the person being targeted and phones the family before the scammer gets the code.</p>
+<h1 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:220px;font-weight:800;line-height:0.95;letter-spacing:-6px">Emberz</h1>
+<p style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:64px;font-weight:500;line-height:1.15">A guardian on Grandma’s phone line.</p>
+<p style="font-size:32px;line-height:1.4;color:#C9BBAC;width:1250px">A fine-tuned model listens during the call, warns the person being targeted, and calls the family before the scammer gets the code.</p>
 </div>
 <p style="font-size:32px;color:#C9BBAC"><b style="color:#F5EFE6">Numan Karakas</b>  ·  <b style="color:#F5EFE6">Matt Ceran</b></p>
-<aside>Open: “Every one of us has a parent or grandparent who answers unknown calls. We built Emberz: a guardian that sits on their phone line, listens during the call and steps in before the scammer gets what they want.” Introduce yourselves: Numan built the live line, speech-to-text and the AI-voice detector; Matt built the guardian data, the fine-tune, the eval harness and the console.</aside>
+<aside>“Everyone here has a parent or grandparent who picks up unknown calls. Emberz puts a guardian on that line.” Introduce yourselves in one line each.</aside>
 </section>
-<section id="losses" data-transition="fade" style="background:#14100D;color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<section id="problem" style="background:#14100D;color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
 <p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">The problem</p>
-<div style="display:flex;gap:96px;align-items:end;flex:1">
-<div style="flex:1.2;display:flex;flex-direction:column;gap:24px">
-<h1 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:260px;font-weight:800;line-height:0.9;letter-spacing:-8px;color:#FF7A3D">$7.75B</h1>
-<p style="font-size:44px;line-height:1.25;color:#F5EFE6">lost to fraud by Americans 60+ in 2025, reported to the FBI. <b>Up 59% in one year.</b></p>
+<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px;width:1600px">The scam happens on the call. Nothing listens there.</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;flex:1">
+<div style="background:#2A1F18;border-radius:24px;padding:44px;display:flex;flex-direction:column;gap:16px;border:2px solid #FF7A3D">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:120px;font-weight:800;line-height:1;letter-spacing:-4px;color:#FF7A3D">$7.7B</h3>
+<p style="font-size:30px;line-height:1.4;color:#C9BBAC">lost by Americans 60+ in 2025. <b style="color:#F5EFE6">37% of all fraud losses</b>, from 20% of complaints.</p>
 </div>
-<div style="flex:1;display:flex;flex-direction:column;gap:24px">
-<div style="background:#2A1F18;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:8px;border:2px solid #FF7A3D">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:96px;font-weight:700;line-height:1;color:#F5EFE6">$3,000</h3>
-<p style="font-size:32px;line-height:1.35;color:#C9BBAC">median loss when the scam <b style="color:#F5EFE6">starts with a phone call</b></p>
+<div style="background:#1E1712;border-radius:24px;padding:44px;display:flex;flex-direction:column;gap:16px">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:120px;font-weight:800;line-height:1;letter-spacing:-4px;color:#F5EFE6">3×</h3>
+<p style="font-size:30px;line-height:1.4;color:#C9BBAC">bigger loss when AI is involved: <b style="color:#F5EFE6">$112K</b> per complaint for victims 60+, vs $38K.</p>
 </div>
-<div style="background:#1E1712;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:8px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:96px;font-weight:700;line-height:1;color:#A39587">$599</h3>
-<p style="font-size:32px;line-height:1.35;color:#C9BBAC">median loss when it starts on social media</p>
-</div>
+<div style="background:#1E1712;border-radius:24px;padding:44px;display:flex;flex-direction:column;gap:16px">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:120px;font-weight:800;line-height:1;letter-spacing:-4px;color:#F5EFE6">$0.34</h3>
+<p style="font-size:30px;line-height:1.4;color:#C9BBAC">is what <b style="color:#F5EFE6">our own AI scam call</b> costs: an LLM script, a stock voice, a phone API.</p>
 </div>
 </div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8F8174">Sources: FBI IC3 2025 Internet Crime Report; FTC, Protecting Older Consumers 2025–2026 (older-adult medians)</p>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">2 / 19</p><aside>Older adults reported $7.75 billion in losses to the FBI last year, up 59%. The FTC thinks the true cost is $13 to $120 billion once unreported cases are counted. And the phone is where they lose the most: a scam that starts with a call costs a median $3,000, five times a scam that starts on social media. People over 80 lose more by phone than any other way.</aside>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8F8174">FBI IC3 2025 Annual Report. Caller-ID filters judge the number before it rings; the damage happens during the conversation.</p>
+<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">2 / 9</p><aside>Older Americans lost $7.7 billion to fraud last year — more than a third of all losses. When AI is involved, the average loss for someone over 60 triples, to $112,000. And it’s cheap: we built our own AI scam caller for 34 cents a call. Today’s filters judge the phone number before it rings. Once the call connects, nothing is listening. That’s where Emberz sits.</aside>
 </section>
-<section id="attacker" data-transition="fade" style="background:#14100D;color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">Why now</p>
-<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px;width:1500px">AI made the scam call cheap, fluent and endless.</h2>
+<section id="call" style="background:#14100D;color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:44px">
+<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">Example: a real call, 2 Nov 2026</p>
+<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:80px;font-weight:700;line-height:1.05;letter-spacing:-2px">An AI scammer calls “Margaret”. 94 seconds.</h2>
+<div style="display:flex;flex-direction:column;flex:1">
+<div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:40px;padding:22px 0;border-bottom:1px solid #3A2C22">
+<p style="font-family:'JetBrains Mono', monospace;font-size:28px;color:#FF7A3D;font-weight:600">0:30</p>
+<p style="font-size:28px;line-height:1.35;color:#C9BBAC">“This is Daniel from the Fraud Prevention Team at First Meridian.”</p>
+<p style="font-size:28px;line-height:1.35;color:#F5EFE6"><b>AI voice detected</b> (score 0.9995)</p>
+</div>
+<div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:40px;padding:22px 0;border-bottom:1px solid #3A2C22">
+<p style="font-family:'JetBrains Mono', monospace;font-size:28px;color:#FF7A3D;font-weight:600">0:58</p>
+<p style="font-size:28px;line-height:1.35;color:#C9BBAC">“We’ve flagged a charge of eight hundred forty two dollars… Did you make this purchase?”</p>
+<p style="font-size:28px;line-height:1.35;color:#F5EFE6"><b style="color:#FF7A3D">Urgent: fake bank call.</b> Only Margaret hears: “Don’t confirm anything. Hang up and call the number on your card.” Family phoned.</p>
+</div>
+<div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:40px;padding:22px 0;border-bottom:1px solid #3A2C22">
+<p style="font-family:'JetBrains Mono', monospace;font-size:28px;color:#FF7A3D;font-weight:600">1:23</p>
+<p style="font-size:28px;line-height:1.35;color:#C9BBAC">“I’m sending a verification code to your phone right now.”</p>
+<p style="font-size:28px;line-height:1.35;color:#F5EFE6"><b style="color:#FF7A3D">Urgent: code request.</b> The caretaker, listening in since 1:16, hears it.</p>
+</div>
+<div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:40px;padding:22px 0">
+<p style="font-family:'JetBrains Mono', monospace;font-size:28px;color:#FF7A3D;font-weight:600">1:28</p>
+<p style="font-size:28px;line-height:1.35;color:#C9BBAC">Margaret: “Okay, let me see.”</p>
+<p style="font-size:28px;line-height:1.35;color:#F5EFE6"><b>Caretaker presses 9.</b> Scammer dropped, call over. No code shared.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8F8174">AI caller over SignalWire → our Telnyx guarded number → a real phone. Quotes from the live transcript; times from the call log (recordings/, results/ledger-numan.md).</p>
+<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">3 / 9</p><aside>Here’s a real call from yesterday. Our AI scammer, “Daniel from First Meridian”, calls Margaret. Five seconds in, our detector flags the voice as synthetic. When he claims a suspicious $842 charge, the guardian raises an urgent alert, whispers to Margaret only — “Don’t confirm anything, hang up and call the number on your card” — and phones the family. The caretaker joins and listens. When the caller says he’s sending a verification code, a second alert fires, and the caretaker presses 9. The scammer is dropped. Ninety-four seconds, no code shared. [Optional: play the 2-minute video here.]</aside>
+</section>
+<section id="how" style="background:#F5EFE6;color:#1C1612;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:48px">
+<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8430F">How it works</p>
+<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">Hear it, judge every turn, act.</h2>
+<div style="display:flex;gap:16px;align-items:stretch">
+<div style="flex:1;background:#FFFBF5;border:2px solid #E6DCCF;border-radius:20px;padding:28px 32px;display:flex;flex-direction:column;gap:8px"><h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:36px;font-weight:700">Guarded number</h3><p style="font-size:24px;line-height:1.4;color:#4E443C">Telnyx bridges the call to the real phone</p></div>
+<p style="font-size:44px;color:#B8430F;align-self:center">→</p>
+<div style="flex:1;background:#FFFBF5;border:2px solid #76B900;border-radius:20px;padding:28px 32px;display:flex;flex-direction:column;gap:8px"><h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:36px;font-weight:700">Hears it</h3><p style="font-size:24px;line-height:1.4;color:#4E443C">NVIDIA Nemotron Speech, live, on a laptop</p></div>
+<p style="font-size:44px;color:#B8430F;align-self:center">→</p>
+<div style="flex:1;background:#FFE3D2;border:2px solid #B8430F;border-radius:20px;padding:28px 32px;display:flex;flex-direction:column;gap:8px"><h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:36px;font-weight:700">Judges each turn</h3><p style="font-size:24px;line-height:1.4;color:#4E443C">Our guardian, fine-tuned on Fireworks</p></div>
+<p style="font-size:44px;color:#B8430F;align-self:center">→</p>
+<div style="flex:1;background:#FFFBF5;border:2px solid #E6DCCF;border-radius:20px;padding:28px 32px;display:flex;flex-direction:column;gap:8px"><h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:36px;font-weight:700">Acts</h3><p style="font-size:24px;line-height:1.4;color:#4E443C">Whisper, family call (1 listen, 0 talk, 9 end)</p></div>
+</div>
 <div style="display:flex;gap:48px;flex:1;align-items:stretch">
-<div style="flex:1;background:#2A1F18;border-radius:24px;padding:48px;display:flex;flex-direction:column;gap:16px;border:2px solid #FF7A3D">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:140px;font-weight:800;line-height:1;letter-spacing:-4px;color:#FF7A3D">$0.34</h3>
-<p style="font-size:32px;line-height:1.4;color:#C9BBAC"><b style="color:#F5EFE6">We built the attacker ourselves.</b> An LLM scam script, a stock neural voice and a cloud phone API: about 34 cents for a two-minute call that pressures you for the code.</p>
+<div style="flex:1.25;background:#1C1612;border-radius:20px;padding:36px 40px;display:flex;flex-direction:column;gap:6px">
+<p style="font-size:24px;color:#A39587;font-family:'DM Sans', Arial, sans-serif">What the guardian returned at 0:58</p>
+<p style="font-family:'JetBrains Mono', monospace;font-size:26px;line-height:1.5;color:#F5EFE6">risk: <span style="color:#FF7A3D">"urgent"</span><br>category: <span style="color:#FF7A3D">"scam.impersonation_bank_gov"</span><br>coach_line: <span style="color:#FF7A3D">"Don’t confirm anything. Hang up and call the number on your card."</span><br>caretaker_note: <span style="color:#FF7A3D">"Caller claims a suspicious charge. This is a common scam tactic."</span></p>
 </div>
-<div style="flex:1;background:#1E1712;border-radius:24px;padding:48px;display:flex;flex-direction:column;gap:16px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:140px;font-weight:800;line-height:1;letter-spacing:-4px;color:#F5EFE6">22,364</h3>
-<p style="font-size:32px;line-height:1.4;color:#C9BBAC">FBI complaints mentioned AI in 2025, <b style="color:#F5EFE6">$893M lost</b>. 3,143 came from people 60+, including grandparent scams with cloned family voices.</p>
-</div>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8F8174">Sources: FBI IC3 2025 Internet Crime Report; our test caller, callers/signalwire (cost estimate)</p>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">3 / 19</p><aside>Here’s what changed. We built our own scam caller in an afternoon: an LLM script, an off-the-shelf neural voice, a cloud phone API. About 34 cents per two-minute call. On real phone calls it held a fluent, pressuring back-and-forth and asked for the verification code. That’s the attacker every family now faces, and the FBI already logged over 22,000 AI-related complaints last year.</aside>
-</section>
-<section id="gap" data-transition="fade" style="background:#FF7A3D;color:#14100D;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:56px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#3A1A08">The gap</p>
-<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:112px;font-weight:700;line-height:1.05;letter-spacing:-3px;width:1600px">Filters judge the number before it rings. The damage happens during the conversation.</h2>
-<p style="font-size:44px;line-height:1.3;color:#3A1A08;width:1400px">That’s exactly where Emberz listens.</p>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">4 / 19</p><aside>Carrier filters and caller-ID apps decide before you pick up, based on the number. A spoofed or unknown number gets through, and then nothing is watching while the caller works on Grandma for ten minutes. Emberz is built for that window: the conversation itself.</aside>
-</section>
-<section id="product" style="background:#F5EFE6;color:#1C1612;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8430F">The product</p>
-<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px;width:1500px">One guarded number. Four ways it steps in.</h2>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:32px;flex:1">
-<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:20px;border:2px solid #E6DCCF">
-<p style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:64px;font-weight:800;color:#B8430F;line-height:1">01</p>
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:44px;font-weight:700;line-height:1.1">Coach whisper</h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">A tip only the protected person hears: “Don’t share any codes. Hang up and call the bank directly.”</p>
-</div>
-<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:20px;border:2px solid #E6DCCF">
-<p style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:64px;font-weight:800;color:#B8430F;line-height:1">02</p>
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:44px;font-weight:700;line-height:1.1">Caretaker call</h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">Emberz phones the family. Press <b>1</b> to listen in, <b>0</b> to talk, <b>9</b> to end the call.</p>
-</div>
-<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:20px;border:2px solid #E6DCCF">
-<p style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:64px;font-weight:800;color:#B8430F;line-height:1">03</p>
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:44px;font-weight:700;line-height:1.1">Plain-word rules</h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">The caretaker writes them: “Never share codes.” “Alert me about any money talk, even with family.”</p>
-</div>
-<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:20px;border:2px solid #E6DCCF">
-<p style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:64px;font-weight:800;color:#B8430F;line-height:1">04</p>
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:44px;font-weight:700;line-height:1.1">AI-voice flag</h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">Our own detector scores the caller’s voice in the first seconds, plus reply timing.</p>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px;justify-content:center">
+<p style="font-size:30px;line-height:1.4;color:#4E443C">It reads the <b style="color:#1C1612">family’s own rules</b> (“alert me about any money talk, even with family”), the last 8 turns and the AI-voice score.</p>
+<p style="font-size:30px;line-height:1.4;color:#4E443C">Trained on <b style="color:#1C1612">1,440 generated calls</b>, about 28% of them harmless look-alikes that reuse scam words.</p>
 </div>
 </div>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">5 / 19</p><aside>You give Grandma, your kid or yourself a guarded number. Every call passes through our line. When a caller starts working someone over — impersonating the bank, asking for the code, grooming, threats — Emberz does four things: whispers a coach line only the protected person hears; phones the caretaker, who can listen, talk or end the call with one key; follows rules the family writes in plain words; and flags AI voices.</aside>
-</section>
-<section id="how" style="background:#14100D;color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">How it works</p>
-<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">Every caller turn, scored live.</h2>
-<div style="display:flex;align-items:stretch;gap:16px">
-<div style="flex:1;background:#1E1712;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:36px;font-weight:700;line-height:1.1">Caller</h3>
-<p style="font-size:24px;line-height:1.4;color:#C9BBAC">Any number, any voice, human or AI</p>
-</div>
-<p style="font-size:48px;color:#FF7A3D;align-self:center">→</p>
-<div style="flex:1;background:#1E1712;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:36px;font-weight:700;line-height:1.1">Guarded line</h3>
-<p style="font-size:24px;line-height:1.4;color:#C9BBAC">Telnyx Call Control: notice, conference, both audio tracks</p>
-</div>
-<p style="font-size:48px;color:#FF7A3D;align-self:center">→</p>
-<div style="flex:1;background:#1E1712;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px;border:2px solid #76B900">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:36px;font-weight:700;line-height:1.1">Live speech-to-text</h3>
-<p style="font-size:24px;line-height:1.4;color:#C9BBAC">NVIDIA Nemotron Speech Streaming 0.6B, INT8, 160 ms chunks</p>
-</div>
-<p style="font-size:48px;color:#FF7A3D;align-self:center">→</p>
-<div style="flex:1;background:#2A1F18;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px;border:2px solid #FF7A3D">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:36px;font-weight:700;line-height:1.1">Guardian</h3>
-<p style="font-size:24px;line-height:1.4;color:#C9BBAC">Qwen3.6-35B-A3B LoRA, fine-tuned and served on Fireworks</p>
-</div>
-<p style="font-size:48px;color:#FF7A3D;align-self:center">→</p>
-<div style="flex:1;background:#1E1712;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:36px;font-weight:700;line-height:1.1">Action</h3>
-<p style="font-size:24px;line-height:1.4;color:#C9BBAC">Coach whisper, caretaker call, console alert</p>
-</div>
-</div>
-<div style="display:flex;gap:32px;flex:1;align-items:end">
-<p style="flex:1;font-size:32px;line-height:1.4;color:#C9BBAC">The guardian reads the caretaker’s rules and the last 8 turns, and returns <b style="color:#F5EFE6">risk, category, an evidence quote, a coach line and a caretaker note</b> as JSON.</p>
-<p style="flex:1;font-size:32px;line-height:1.4;color:#C9BBAC"><b style="color:#F5EFE6">One frozen prompt</b> for training, evaluation and the live line. If the endpoint is down, Nemotron Lightning 3.5 on Fireworks serverless takes over.</p>
-</div>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">6 / 19</p><aside>Under the hood: the call lands on our Telnyx line, both sides are transcribed live by NVIDIA Nemotron Speech Streaming running locally, and after every caller turn our fine-tuned guardian on Fireworks reads the conversation and the family’s rules and returns a structured verdict. The same prompt is used in training, in the benchmark and on the live line, so what we measured is what runs. And a call is never left unguarded: if the guardian endpoint is down, it falls back to Nemotron Lightning on Fireworks serverless.</aside>
-</section>
-<section id="live" style="background:#14100D;color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">It works on real phones</p>
-<div style="display:flex;gap:64px;flex:1;align-items:start">
-<img src="../../demo/screens/shots/replay_60.png" alt="Replay of the live call: AI caller transcript, urgent fake-bank alert, coach whisper on Grandma's phone, AI voice score 100%" style="width:1088px;height:612px;object-fit:cover;border-radius:20px;border:2px solid #3A2C22">
-<div style="flex:1;display:flex;flex-direction:column;gap:28px">
-<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:64px;font-weight:700;line-height:1.05;letter-spacing:-1px">A real call, end to end</h2>
-<p style="font-size:28px;line-height:1.4;color:#C9BBAC"><b style="color:#F5EFE6">AI bank-scam caller</b> → guarded number → a real phone. 2 Nov 2026.</p>
-<p style="font-size:28px;line-height:1.4;color:#C9BBAC"><b style="color:#FF7A3D">Urgent alerts</b> on the impersonation and on the code request.</p>
-<p style="font-size:28px;line-height:1.4;color:#C9BBAC"><b style="color:#F5EFE6">Coach whisper in 0.7 s</b> after the trigger turn.</p>
-<p style="font-size:28px;line-height:1.4;color:#C9BBAC"><b style="color:#F5EFE6">Caretaker joined, pressed 9</b>, and Emberz hung up on the scammer.</p>
-</div>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8F8174">Real calls, 2 Nov 2026: whisper latency from the 15:11 PST call, press-9 hang-up on the 15:48 call (results/ledger-numan.md).</p>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">7 / 19</p><aside>This isn’t a mock-up. This is a replay of a real call from yesterday afternoon: our AI scam caller dialed the guarded number, which rang a real phone. Emberz raised an urgent alert when the caller impersonated the bank, whispered “Don’t confirm anything, hang up and call the number on your card” only to Grandma, phoned the caretaker, and when the caller asked for the code, the caretaker pressed 9 and Emberz ended the call. [If time allows: play the 2-minute video, demo/video/renders/emberz_demo_final.mp4, or open demo/screens/replay.html.]</aside>
-</section>
-<section id="setup" style="background:#F5EFE6;color:#1C1612;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8430F">The benchmark</p>
-<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px;width:1500px">A fair test against a named frontier model.</h2>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;flex:1">
-<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:12px;border:2px solid #E6DCCF">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:48px;font-weight:700;line-height:1.1"><span style="color:#B8430F">257</span> held-out calls</h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">Written by NVIDIA Nemotron 3 Ultra, a different model family from our training data (DeepSeek V4.1 Flash). One scam type never seen in training.</p>
-</div>
-<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:12px;border:2px solid #E6DCCF">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:48px;font-weight:700;line-height:1.1">Caught <span style="color:#B8430F">before the ask</span></h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">The alert must come before the turn where the caller asks for the code, money, address or meet-up. Scored turn by turn, as the live line runs.</p>
-</div>
-<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:12px;border:2px solid #E6DCCF">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:48px;font-weight:700;line-height:1.1">Kimi K3, zero-shot</h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">The frontier baseline, plus Fireworks Rune, DeepSeek V4.1 Flash, our untuned base model and a keyword + PII-regex rule set.</p>
-</div>
-<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:12px;border:2px solid #E6DCCF">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:48px;font-weight:700;line-height:1.1">Same prompt, real error bars</h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">One frozen prompt for every model. Wilson 95% intervals, McNemar test, scenario-clustered bootstrap.</p>
-</div>
-</div>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">8 / 19</p><aside>Before the numbers, how we tested. 257 held-out calls, written by a different model family than our training data, so the test isn’t the generator grading itself. The metric is the one that matters on a live call: did the guardian raise an alert before the caller asked for the code or the money? Same frozen prompt for every model, and every number comes with a 95% interval.</aside>
+<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">4 / 9</p><aside>The pipeline is simple: our number bridges the call, NVIDIA Nemotron Speech transcribes both sides live, and after every caller turn our guardian — fine-tuned on Fireworks — returns a verdict like this one, from the real call: urgent, fake bank call, a coach line for Margaret and a note for the family. It reads the family’s own rules. We trained it on generated calls, and more than a quarter of them are harmless calls that sound scary — a real bank alert, a pharmacy bot — so it learns when to stay quiet.</aside>
 </section>
 <section id="headline" style="background:#14100D;color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">The headline</p>
+<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">The benchmark</p>
 <h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">More calls handled right than Kimi K3.</h2>
-<div style="display:flex;gap:48px;flex:1;align-items:center">
-<div style="flex:1;display:flex;flex-direction:column;gap:8px">
-<h1 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:240px;font-weight:800;line-height:0.95;letter-spacing:-8px;color:#FF7A3D">90.3%</h1>
-<p style="font-size:36px;color:#F5EFE6"><b>Emberz guardian v2</b></p>
-<p style="font-size:28px;color:#C9BBAC">Qwen3.6-35B-A3B + LoRA, Fireworks Training API</p>
+<div style="display:flex;gap:120px;flex:1;align-items:center">
+<div style="display:flex;flex-direction:column;gap:8px">
+<h1 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:220px;font-weight:800;line-height:0.95;letter-spacing:-8px;color:#FF7A3D">90.3%</h1>
+<p style="font-size:32px"><b>Emberz guardian</b></p>
 </div>
-<div style="flex:1;display:flex;flex-direction:column;gap:8px">
-<h1 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:240px;font-weight:800;line-height:0.95;letter-spacing:-8px;color:#7D7066">83.7%</h1>
-<p style="font-size:36px;color:#F5EFE6"><b>Kimi K3</b>, zero-shot</p>
-<p style="font-size:28px;color:#C9BBAC">Same 257 calls, same prompt</p>
+<div style="display:flex;flex-direction:column;gap:8px">
+<h1 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:220px;font-weight:800;line-height:0.95;letter-spacing:-8px;color:#7D7066">83.7%</h1>
+<p style="font-size:32px;color:#C9BBAC"><b style="color:#F5EFE6">Kimi K3</b>, frontier</p>
 </div>
+
 </div>
-<div style="display:flex;gap:24px">
-<p style="background:#2A1F18;border-radius:999px;padding:16px 32px;font-size:28px;color:#F5EFE6">McNemar <b>p = 0.003</b></p>
-<p style="background:#2A1F18;border-radius:999px;padding:16px 32px;font-size:28px;color:#F5EFE6">Clustered bootstrap gain <b>+0.9 to +12.3 pts</b></p>
-<p style="background:#2A1F18;border-radius:999px;padding:16px 32px;font-size:28px;color:#F5EFE6">Rune 83.3% · DeepSeek 79.4%</p>
+<div style="display:flex;gap:32px">
+<div style="flex:1;background:#1E1712;border-radius:20px;padding:28px 36px"><p style="font-size:30px;line-height:1.35;color:#C9BBAC"><b style="color:#F5EFE6">p = 0.003</b> (McNemar). Every gain over every baseline holds, p ≤ 0.005.</p></div>
+<div style="flex:1;background:#1E1712;border-radius:20px;padding:28px 36px"><p style="font-size:30px;line-height:1.35;color:#C9BBAC"><b style="color:#F5EFE6">4.5 turns</b>: median warning before the caller asks for the code or money.</p></div>
 </div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8F8174">Handled = a risky call caught before the ask, or a harmless call never alerted. All 257 held-out calls. docs/emberz_submission.pdf</p>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">9 / 19</p><aside>Here’s the headline. Count every call: a scam caught before the ask, or a harmless call left alone. Our fine-tuned guardian handles 90.3% of calls; Kimi K3, the frontier model, handles 83.7%. That gap is statistically significant: McNemar p of 0.003, and the bootstrap interval for the gain stays above zero even when we cluster by scenario.</aside>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8F8174">257 held-out calls by NVIDIA Nemotron 3 Ultra, not our training writer. Handled = scam caught before the ask, or harmless call left alone.</p>
+<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">5 / 9</p><aside>We tested on 257 calls the model never saw, written by a different model family than our training data. Count every call: a scam caught before the ask, or a harmless call left alone. Our guardian handles 90.3%. Kimi K3, a frontier model, handles 83.7%. That gap is significant, and so is our gain over every other baseline. And when it catches a scam, it does so a median of four and a half turns before the caller asks for the code — that’s the window where a whisper or a family member can still stop it.</aside>
 </section>
-<section id="table" style="background:#F5EFE6;color:#1C1612;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8430F">The full table</p>
-<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">Same catch rate, fewer false alarms.</h2>
-<table style="width:1664px;border-collapse:collapse;font-size:28px;font-variant-numeric:tabular-nums">
-<tr style="border-bottom:3px solid #1C1612">
-<th style="width:40%;text-align:left;padding:16px 20px;font-size:26px;color:#4E443C;font-weight:600">Model</th>
-<th style="width:20%;text-align:right;padding:16px 20px;font-size:26px;color:#4E443C;font-weight:600">Caught before the ask</th>
-<th style="width:20%;text-align:right;padding:16px 20px;font-size:26px;color:#4E443C;font-weight:600">False alarms</th>
-<th style="width:20%;text-align:right;padding:16px 20px;font-size:26px;color:#4E443C;font-weight:600">Caretaker rules right</th>
-</tr>
-<tr style="background:#FFE3D2;border-bottom:1px solid #E6DCCF">
-<td style="padding:18px 20px;font-weight:700">Emberz guardian v2 (ours)</td>
-<td style="padding:18px 20px;text-align:right;font-weight:700">93%</td>
-<td style="padding:18px 20px;text-align:right;font-weight:700">18%</td>
-<td style="padding:18px 20px;text-align:right;font-weight:700">86%</td>
-</tr>
-<tr style="border-bottom:1px solid #E6DCCF">
-<td style="padding:18px 20px">Kimi K3 (frontier, zero-shot)</td>
-<td style="padding:18px 20px;text-align:right">90%</td>
-<td style="padding:18px 20px;text-align:right">23%</td>
-<td style="padding:18px 20px;text-align:right">18%</td>
-</tr>
-<tr style="border-bottom:1px solid #E6DCCF">
-<td style="padding:18px 20px">Fireworks Rune (zero-shot)</td>
-<td style="padding:18px 20px;text-align:right">93%</td>
-<td style="padding:18px 20px;text-align:right">38%</td>
-<td style="padding:18px 20px;text-align:right">23%</td>
-</tr>
-<tr style="border-bottom:1px solid #E6DCCF">
-<td style="padding:18px 20px">DeepSeek V4.1 Flash (zero-shot)</td>
-<td style="padding:18px 20px;text-align:right">85%</td>
-<td style="padding:18px 20px;text-align:right">32%</td>
-<td style="padding:18px 20px;text-align:right">14%</td>
-</tr>
-<tr style="border-bottom:1px solid #E6DCCF">
-<td style="padding:18px 20px">Same base model, untuned</td>
-<td style="padding:18px 20px;text-align:right">89%</td>
-<td style="padding:18px 20px;text-align:right">53%</td>
-<td style="padding:18px 20px;text-align:right">14%</td>
-</tr>
-<tr>
-<td style="padding:18px 20px">Keywords + PII regex</td>
-<td style="padding:18px 20px;text-align:right">52%</td>
-<td style="padding:18px 20px;text-align:right">49%</td>
-<td style="padding:18px 20px;text-align:right">0%</td>
-</tr>
-</table>
-<p style="font-size:28px;line-height:1.4;color:#4E443C;width:1500px">Fine-tuning took the same base model from <b style="color:#1C1612">53% false alarms to 18%</b> and from <b style="color:#1C1612">14% rule-following to 86%</b>.</p>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E6259">n = 148 risky / 79 harmless calls / 22 rule-flip pairs. Wilson 95% CIs in callguard/README.md (v2 catch 87–96, Kimi K3 84–94).</p>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">10 / 19</p><aside>The full picture. On catching scams, the fine-tune matches the best frontier models — the catch-rate gap with Kimi K3 is inside the error bars, and we say so. Where it wins clearly is everything else: fewer false alarms than every zero-shot model, less than half of Rune’s and DeepSeek’s, and it’s the only model that reliably follows the family’s own rules. Compare it with its own untuned base: the fine-tune cut false alarms from 53% to 18%.</aside>
-</section>
-<section id="rules" style="background:#14100D;color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">The family’s rules</p>
-<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">Only the fine-tune follows the family’s rules.</h2>
-<div style="display:flex;gap:80px;flex:1;align-items:center">
-<div style="flex:1.3;display:flex;flex-direction:column;gap:28px">
-<div style="display:flex;align-items:center;gap:24px"><p style="width:300px;font-size:28px;text-align:right;color:#F5EFE6"><b>Guardian v2</b></p><div style="width:690px;height:56px;background:#FF7A3D;border-radius:8px"></div><p style="font-size:28px;color:#F5EFE6"><b>19/22</b></p></div>
-<div style="display:flex;align-items:center;gap:24px"><p style="width:300px;font-size:28px;text-align:right;color:#C9BBAC">Rune</p><div style="width:182px;height:56px;background:#6B6058;border-radius:8px"></div><p style="font-size:28px;color:#C9BBAC">5/22</p></div>
-<div style="display:flex;align-items:center;gap:24px"><p style="width:300px;font-size:28px;text-align:right;color:#C9BBAC">Kimi K3</p><div style="width:145px;height:56px;background:#6B6058;border-radius:8px"></div><p style="font-size:28px;color:#C9BBAC">4/22</p></div>
-<div style="display:flex;align-items:center;gap:24px"><p style="width:300px;font-size:28px;text-align:right;color:#C9BBAC">DeepSeek V4.1 Flash</p><div style="width:109px;height:56px;background:#6B6058;border-radius:8px"></div><p style="font-size:28px;color:#C9BBAC">3/22</p></div>
-<div style="display:flex;align-items:center;gap:24px"><p style="width:300px;font-size:28px;text-align:right;color:#C9BBAC">Untuned base</p><div style="width:109px;height:56px;background:#6B6058;border-radius:8px"></div><p style="font-size:28px;color:#C9BBAC">3/22</p></div>
+<section id="wins" style="background:#F5EFE6;color:#1C1612;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8430F">Where it wins</p>
+<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">Quieter, and it follows the family’s rules.</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px">
+<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:12px;border:2px solid #E6DCCF">
+<p style="font-size:26px;color:#4E443C;font-weight:600">False alarms</p>
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:96px;font-weight:800;line-height:1;letter-spacing:-3px;color:#B8430F">18%</h3>
+<p style="font-size:28px;line-height:1.4;color:#4E443C">Kimi K3 23%. The same model untuned: 53%.</p>
 </div>
-<div style="flex:1;background:#1E1712;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:20px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:44px;font-weight:700;line-height:1.1">A rule-flip pair</h3>
-<p style="font-size:28px;line-height:1.4;color:#C9BBAC">Same call, one rule changed: the right answer flips.</p>
-<p style="font-size:28px;line-height:1.4;color:#F5EFE6">Grandson asks to borrow rent money.<br><span style="color:#FF7A3D"><b>Rule “alert me about any money talk, even with family” → alert.</b></span><br>No such rule → stay quiet.</p>
+<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:12px;border:2px solid #E6DCCF">
+<p style="font-size:26px;color:#4E443C;font-weight:600">Family rules followed</p>
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:96px;font-weight:800;line-height:1;letter-spacing:-3px;color:#B8430F">19/22</h3>
+<p style="font-size:28px;line-height:1.4;color:#4E443C">Kimi K3 4/22. No baseline gets more than 5.</p>
 </div>
-</div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E6259">22 rule-flip pairs in the 257 held-out calls. 86% (CI 67–95) vs at most 23% for any zero-shot model. Example shows the pair format.</p>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">11 / 19</p><aside>This is the part frontier models just don’t do. Every family is different: Grandpa is allowed to ask about the bank; the grandson is not allowed to ask for money. We test that with pairs: the same call, one rule changed, so the right answer flips. Our guardian gets 19 of 22 pairs right. Kimi K3 gets 4. A general model reads the call and ignores the family; ours reads the family’s rules.</aside>
-</section>
-<section id="ablate" style="background:#F5EFE6;color:#1C1612;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8430F">Ablations</p>
-<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">What made it work.</h2>
-<table style="width:1664px;border-collapse:collapse;font-size:28px;font-variant-numeric:tabular-nums">
-<tr style="border-bottom:3px solid #1C1612">
-<th style="width:52%;text-align:left;padding:14px 20px;font-size:26px;color:#4E443C;font-weight:600">Step (all 257 held-out calls)</th>
-<th style="width:16%;text-align:right;padding:14px 20px;font-size:26px;color:#4E443C;font-weight:600">Caught before ask</th>
-<th style="width:16%;text-align:right;padding:14px 20px;font-size:26px;color:#4E443C;font-weight:600">False alarms</th>
-<th style="width:16%;text-align:right;padding:14px 20px;font-size:26px;color:#4E443C;font-weight:600">Rules right</th>
-</tr>
-<tr style="border-bottom:1px solid #E6DCCF"><td style="padding:16px 20px">Untuned Qwen3.6-35B-A3B, same prompt</td><td style="padding:16px 20px;text-align:right">89%</td><td style="padding:16px 20px;text-align:right">53%</td><td style="padding:16px 20px;text-align:right">14%</td></tr>
-<tr style="border-bottom:1px solid #E6DCCF"><td style="padding:16px 20px">+ LoRA on 733 generated calls (v1, 8 min, about $6)</td><td style="padding:16px 20px;text-align:right">90%</td><td style="padding:16px 20px;text-align:right">16%</td><td style="padding:16px 20px;text-align:right">86%</td></tr>
-<tr style="background:#FFE3D2;border-bottom:1px solid #E6DCCF"><td style="padding:16px 20px;font-weight:700">+ 707 more calls, more quiet turns (v2, shipped)</td><td style="padding:16px 20px;text-align:right;font-weight:700">93%</td><td style="padding:16px 20px;text-align:right;font-weight:700">18%</td><td style="padding:16px 20px;text-align:right;font-weight:700">86%</td></tr>
-<tr style="border-bottom:1px solid #E6DCCF"><td style="padding:16px 20px">+ 97 look-alike contrast pairs (v3)</td><td style="padding:16px 20px;text-align:right">86%</td><td style="padding:16px 20px;text-align:right">13%</td><td style="padding:16px 20px;text-align:right">82%</td></tr>
-<tr style="border-bottom:1px solid #E6DCCF"><td style="padding:16px 20px">Same data on NVIDIA Nemotron 3.5 Super</td><td style="padding:16px 20px;text-align:right">89%</td><td style="padding:16px 20px;text-align:right">15%</td><td style="padding:16px 20px;text-align:right">77%</td></tr>
-<tr><td style="padding:16px 20px">Cascade: Rune flags, v2 confirms</td><td style="padding:16px 20px;text-align:right">90%</td><td style="padding:16px 20px;text-align:right">10%</td><td style="padding:16px 20px;text-align:right">–</td></tr>
-</table>
-<p style="font-size:28px;line-height:1.4;color:#4E443C;width:1600px"><b style="color:#1C1612">Fine-tuning did the work:</b> one short run cut false alarms from 53% to 16% and taught the family’s rules.</p>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E6259">Cascade computed from cached per-turn predictions. v3 was designed after seeing held-out false alarms; dev and BothBosu are its clean checks.</p>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">12 / 19</p><aside>Which choices mattered? Fine-tuning itself: the untuned base model alarms on more than half of harmless calls; one eight-minute, six-dollar LoRA run brought that to 16% and taught it the family’s rules. More data (v2) raised the catch rate. Contrast pairs (v3) made it quieter but missed more. And if a family wants the quietest possible line, a cascade — Rune flags, our guardian confirms — gets false alarms down to 10% at a 90% catch rate.</aside>
-</section>
-<section id="robust" style="background:#F5EFE6;color:#1C1612;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8430F">Beyond our own test set</p>
-<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px;width:1500px">It holds up off-distribution, through real speech-to-text and against AI voices.</h2>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;flex:1">
-<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px;border:2px solid #E6DCCF">
+<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:12px;border:2px solid #E6DCCF">
+<p style="font-size:26px;color:#4E443C;font-weight:600">Public data, never seen</p>
 <h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:96px;font-weight:800;line-height:1;letter-spacing:-3px;color:#B8430F">98/100</h3>
-<p style="font-size:28px;line-height:1.4;color:#1C1612"><b>scams caught, 0/100 false alarms</b></p>
-<p style="font-size:26px;line-height:1.4;color:#4E443C">BothBosu: 200 public scam conversations we never trained on.</p>
-</div>
-<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px;border:2px solid #E6DCCF">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:96px;font-weight:800;line-height:1;letter-spacing:-3px;color:#B8430F">85%</h3>
-<p style="font-size:28px;line-height:1.4;color:#1C1612"><b>caught before the ask through live ASR</b></p>
-<p style="font-size:26px;line-height:1.4;color:#4E443C">49 held-out calls voiced at 8 kHz phone quality, transcribed by Nemotron Speech. Same as on clean text.</p>
-</div>
-<div style="background:#FFFBF5;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px;border:2px solid #E6DCCF">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:96px;font-weight:800;line-height:1;letter-spacing:-3px;color:#B8430F">1.27%</h3>
-<p style="font-size:28px;line-height:1.4;color:#1C1612"><b>equal error rate, AI-voice detector</b></p>
-<p style="font-size:26px;line-height:1.4;color:#4E443C">In-the-Wild, 25 unseen speakers, 2,829 clips, AUC 0.9991. Flagged 4 of 5 live AI calls.</p>
+<p style="font-size:28px;line-height:1.4;color:#4E443C">scams caught on BothBosu, with 0/100 false alarms.</p>
 </div>
 </div>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">13 / 19</p><aside>We also checked it outside our own data. On a public scam-conversation dataset it had never seen, it caught 98 of 100 scams with zero false alarms. When we voiced held-out calls over a phone-quality line and ran them through the same speech-to-text the live line uses, the catch rate didn’t move. And our AI-voice detector — frozen wav2vec2 features plus a trained head — has a 1.27% equal error rate on speakers it never saw, and flagged 4 of our 5 live AI scam calls.</aside>
+<div style="background:#1C1612;color:#F5EFE6;border-radius:20px;padding:32px 40px;display:flex;gap:40px;align-items:center">
+<p style="font-size:24px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#FF7A3D;width:220px">Rule-flip example</p>
+<p style="font-size:28px;line-height:1.4;color:#C9BBAC;flex:1">Grandson asks to borrow rent money. With the rule <b style="color:#F5EFE6">“alert me about any money talk, even with family”</b> → alert. Without it → stay quiet. Same words, different family, different answer.</p>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6E6259">All 257 held-out calls (79 harmless, 22 rule-flip pairs). Wilson 95% CIs in the paper: v2 false alarms 11–28%, Kimi K3 15–33%.</p>
+<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">6 / 9</p><aside>Where it really wins is the rest of the picture. It raises fewer false alarms — 18% of harmless calls, against 23% for Kimi K3 and 53% for the same model before fine-tuning. It follows the family’s rules: same call, one rule changed, the right answer flips — we get 19 of 22 pairs, Kimi K3 gets 4. And on a public dataset it had never seen, it caught 98 of 100 scams with zero false alarms.</aside>
 </section>
-<section id="cost" style="background:#14100D;color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">Business value</p>
-<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">Cheap to run, fast enough to interrupt.</h2>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;flex:1">
-<div style="background:#2A1F18;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px;border:2px solid #FF7A3D">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:112px;font-weight:800;line-height:1;letter-spacing:-3px;color:#FF7A3D">$3.64</h3>
-<p style="font-size:28px;line-height:1.4;color:#F5EFE6"><b>per household per month</b></p>
-<p style="font-size:26px;line-height:1.4;color:#C9BBAC">Phone line plus guardian, modeled at scale. Kimi K3 on the same line: $9.37.</p>
+<section id="value" style="background:#14100D;color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">Why it’s worth it</p>
+<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">Small cost per family. Big pool of losses.</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;flex:1">
+<div style="background:#2A1F18;border-radius:24px;padding:48px;display:flex;flex-direction:column;gap:16px;border:2px solid #FF7A3D">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:120px;font-weight:800;line-height:1;letter-spacing:-4px;color:#FF7A3D">$38.6M</h3>
+<p style="font-size:30px;line-height:1.4;color:#C9BBAC">a year saved for <b style="color:#F5EFE6">every 1%</b> of call-driven scams stopped (tech support, government impostors, romance: $3.86B a year).</p>
 </div>
-<div style="background:#1E1712;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:112px;font-weight:800;line-height:1;letter-spacing:-3px;color:#F5EFE6">475 ms</h3>
-<p style="font-size:28px;line-height:1.4;color:#F5EFE6"><b>median per scored turn</b></p>
-<p style="font-size:26px;line-height:1.4;color:#C9BBAC">871 ms p95 on a dedicated Fireworks deployment. The coach line lands before the caller’s next ask.</p>
-</div>
-<div style="background:#1E1712;border-radius:24px;padding:40px;display:flex;flex-direction:column;gap:16px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:112px;font-weight:800;line-height:1;letter-spacing:-3px;color:#F5EFE6">1 in 25</h3>
-<p style="font-size:28px;line-height:1.4;color:#F5EFE6"><b>household-years to break even</b></p>
-<p style="font-size:26px;line-height:1.4;color:#C9BBAC">At about $10 a month, stopping one $3,000 median phone-fraud loss every 25 years pays for it.</p>
+<div style="background:#1E1712;border-radius:24px;padding:48px;display:flex;flex-direction:column;gap:16px">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:120px;font-weight:800;line-height:1;letter-spacing:-4px;color:#F5EFE6">$3.64</h3>
+<p style="font-size:30px;line-height:1.4;color:#C9BBAC">per household per month to run the line and the model (modeled). <b style="color:#F5EFE6">One stopped $3,000 loss covers 25 years</b> at $10 a month.</p>
 </div>
 </div>
-<p style="font-size:28px;line-height:1.4;color:#C9BBAC;width:1600px"><b style="color:#F5EFE6">Buyer:</b> adult children of an aging parent. Carrier filters and caller-ID apps stop at the ring; on-device scam detection warns only the person being targeted, never the family.</p>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8F8174">Cost model and assumptions: docs/business_value.md (Telnyx list prices, 100 call-minutes and 40 calls per household-month). Latency: 314 turns, one call at a time.</p>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">14 / 19</p><aside>Who pays: adult children with an aging parent. What it costs us: about $3.64 per household per month for the phone line and the model, at scale — that’s a model of the costs, with the assumptions in our business-value doc, not a measured bill. A frontier model on the same line would be about $9.37. It’s fast enough: median under half a second per turn on a dedicated deployment. And the math for a family is simple: at ten dollars a month, stopping one typical phone-fraud loss every 25 years pays for it. [If asked: the cost model assumes one H100 at 50 concurrent calls; at low traffic, serverless frontier models are cheaper per minute.]</aside>
+<p style="font-size:30px;line-height:1.4;color:#C9BBAC;width:1600px"><b style="color:#F5EFE6">The buyer:</b> adult children of an aging parent. Phone-maker and carrier tools warn only the person being scammed, or stop at the ring. Emberz brings in the family.</p>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8F8174">Losses: FBI IC3 2025. Running cost: docs/business_value.md (Telnyx list prices, 100 call-minutes per household-month).</p>
+<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">7 / 9</p><aside>Why it’s worth building: call-driven scams — tech support, government impostors, romance — cost $3.86 billion a year, so every 1% we stop is worth $38.6 million. On our cost model it runs for about $3.64 per family per month, line and model included. The buyer is the adult child with an aging parent; today’s tools either warn only the person being manipulated or stop at the ring. Emberz is the one that brings in the family.</aside>
 </section>
-<section id="compete" style="background:#14100D;color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:44px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">What exists today</p>
-<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">Nobody else listens and calls the family.</h2>
-<table style="width:1664px;border-collapse:collapse;font-size:28px;color:#C9BBAC">
-<tr style="border-bottom:3px solid #F5EFE6">
-<th style="width:30%;text-align:left;padding:14px 20px;font-size:26px;color:#A39587;font-weight:600">Product</th>
-<th style="width:18%;text-align:left;padding:14px 20px;font-size:26px;color:#A39587;font-weight:600">Price</th>
-<th style="width:52%;text-align:left;padding:14px 20px;font-size:26px;color:#A39587;font-weight:600">What it doesn’t do</th>
-</tr>
-<tr style="border-bottom:1px solid #3A2C22"><td style="padding:16px 20px;color:#F5EFE6">Google / Samsung Scam Detection</td><td style="padding:16px 20px">Built into the phone</td><td style="padding:16px 20px">Warns only the phone’s user. No family alerts, no family rules</td></tr>
-<tr style="border-bottom:1px solid #3A2C22"><td style="padding:16px 20px;color:#F5EFE6">Verizon, T-Mobile add-ons</td><td style="padding:16px 20px">$4 / line / month</td><td style="padding:16px 20px">Judge the number. Nothing about what’s said</td></tr>
-<tr style="border-bottom:1px solid #3A2C22"><td style="padding:16px 20px;color:#F5EFE6">Aura Family</td><td style="padding:16px 20px">$32 / month</td><td style="padding:16px 20px">Screens before it rings. No listening once connected</td></tr>
-<tr style="border-bottom:1px solid #3A2C22"><td style="padding:16px 20px;color:#F5EFE6">Truecaller, Hiya</td><td style="padding:16px 20px">$9.99 / month</td><td style="padding:16px 20px">Check if the voice is synthetic, not what the caller asks for</td></tr>
-<tr style="background:#3A1E10"><td style="padding:16px 20px;color:#FF7A3D;font-weight:700">Emberz</td><td style="padding:16px 20px;color:#F5EFE6">$3.64 / month to run</td><td style="padding:16px 20px;color:#F5EFE6;font-weight:700">Listens during the call, coaches, phones the family, follows their rules</td></tr>
-</table>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8F8174">Prices and features from each product’s public pages, checked 2 Nov 2026 (docs/business_value.md). Emberz figure is modeled running cost, not a price.</p>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">15 / 19</p><aside>Why not just use what exists? Google and Samsung warn the person on the phone — but the person being scammed is exactly the one who’s been talked out of their judgment, and the family never hears. Carrier filters and Aura decide before the phone rings. Truecaller and Hiya check whether the voice is fake, not what the caller is asking for. Emberz is the only one that listens during the call and brings the family in, on the family’s own rules.</aside>
-</section>
-<section id="consent" style="background:#F5EFE6;color:#1C1612;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8430F">Consent and privacy</p>
-<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px;width:1500px">A model on the line has to earn its place.</h2>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:40px 64px;flex:1;align-content:start">
-<div style="display:flex;flex-direction:column;gap:10px;border-top:3px solid #B8430F;padding-top:24px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:40px;font-weight:700;line-height:1.15">Every call starts with a notice</h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">A recorded notice plays first, as all-party-consent states like California require.</p>
+<section id="next" style="background:#F5EFE6;color:#1C1612;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8430F">Honest limits</p>
+<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">What we haven’t solved yet.</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;align-content:start">
+<div style="display:flex;flex-direction:column;gap:12px;border-top:3px solid #B8430F;padding-top:24px">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:40px;font-weight:700;line-height:1.15">Serving drift</h3>
+<p style="font-size:28px;line-height:1.4;color:#4E443C">The dedicated deployment follows family rules less well than the checkpoint we tested. Raised with Fireworks.</p>
 </div>
-<div style="display:flex;flex-direction:column;gap:10px;border-top:3px solid #B8430F;padding-top:24px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:40px;font-weight:700;line-height:1.15">The protected adult opts in</h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">A caretaker can’t sign up a competent adult. Alert calls go only to caretakers who agreed to them.</p>
+<div style="display:flex;flex-direction:column;gap:12px;border-top:3px solid #B8430F;padding-top:24px">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:40px;font-weight:700;line-height:1.15">Synthetic test calls</h3>
+<p style="font-size:28px;line-height:1.4;color:#4E443C">The benchmark is generated. Real role-played calls are the next test set.</p>
 </div>
-<div style="display:flex;flex-direction:column;gap:10px;border-top:3px solid #B8430F;padding-top:24px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:40px;font-weight:700;line-height:1.15">Deleted after 7 days</h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">No voiceprints. Recordings and transcripts expire, beyond what COPPA asks for children.</p>
-</div>
-<div style="display:flex;flex-direction:column;gap:10px;border-top:3px solid #B8430F;padding-top:24px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:40px;font-weight:700;line-height:1.15">Quiet by default</h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">“Watch” is only logged. The family is called on “alert” or above, and saved contacts stay quiet.</p>
+<div style="display:flex;flex-direction:column;gap:12px;border-top:3px solid #B8430F;padding-top:24px">
+<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:40px;font-weight:700;line-height:1.15">Not for robocalls</h3>
+<p style="font-size:28px;line-height:1.4;color:#4E443C">One-way recorded pitches have no conversation to read; carriers already block them.</p>
 </div>
 </div>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">16 / 19</p><aside>The question we always get: isn’t this creepy? We designed for that. Every call starts with a recorded notice, which all-party-consent states require. The protected adult opts in themselves; a caretaker can’t enroll a competent adult. No voiceprints, and everything is deleted after seven days. And it stays quiet: a “watch” is only logged; the family is only called on a real alert, and the family’s allowed contacts don’t trigger it. Not legal advice — this is our design, documented in PLAN.md section 10.</aside>
-</section>
-<section id="limits" style="background:#F5EFE6;color:#1C1612;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
-<p style="font-size:24px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#B8430F">What we haven’t solved</p>
-<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">Honest limits.</h2>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:48px 64px;flex:1;align-content:start">
-<div style="display:flex;flex-direction:column;gap:10px;border-top:3px solid #B8430F;padding-top:24px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:40px;font-weight:700;line-height:1.15">Deployment drift</h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">On the dedicated deployment, rule-following drops (2/10 vs 8/10 on one subset). Headline numbers are the evaluated checkpoint. Raised with Fireworks.</p>
+<div style="background:#FFFBF5;border:2px solid #E6DCCF;border-radius:20px;padding:32px 40px">
+<p style="font-size:28px;line-height:1.4;color:#4E443C"><b style="color:#1C1612">Consent built in:</b> every call starts with a recorded notice, the protected adult opts in themselves, no voiceprints, deleted after 7 days.</p>
 </div>
-<div style="display:flex;flex-direction:column;gap:10px;border-top:3px solid #B8430F;padding-top:24px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:40px;font-weight:700;line-height:1.15">Test calls are generated</h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">Benchmark calls are synthetic, from a different model family. Real role-played calls are the next test.</p>
-</div>
-<div style="display:flex;flex-direction:column;gap:10px;border-top:3px solid #B8430F;padding-top:24px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:40px;font-weight:700;line-height:1.15">Robocalls are out of scope</h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">On 181 recorded one-way robocalls we catch 52% vs Kimi K3’s 98%. No conversation to read; carriers already block these.</p>
-</div>
-<div style="display:flex;flex-direction:column;gap:10px;border-top:3px solid #B8430F;padding-top:24px">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:40px;font-weight:700;line-height:1.15">Small samples in places</h3>
-<p style="font-size:28px;line-height:1.4;color:#4E443C">The catch-rate gap with Kimi K3 sits inside the error bars. The AI-voice check missed one Cartesia voice in 5 live calls.</p>
-</div>
-</div>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">17 / 19</p><aside>We want to be straight about the limits. The deployed model loses some of its rule-following versus the checkpoint we evaluated; our hypothesis is the LoRA is only partly applied in serving, and we’ve raised it with Fireworks. All benchmark calls are generated, so real role-played calls are next. One-way recorded robocalls aren’t what Emberz is for, and we’re weaker than Kimi K3 there. And some samples are small; our clear wins are false alarms and the family’s rules, not the raw catch rate.</aside>
-</section>
-<section id="stack" style="background:#14100D;color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
-<p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">Built on</p>
-<h2 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:88px;font-weight:700;line-height:1.05;letter-spacing:-2px">NVIDIA hears the call. Fireworks trains and serves the guardian.</h2>
-<div style="display:flex;gap:48px;flex:1">
-<div style="flex:1;background:#1E1712;border-radius:24px;padding:48px;display:flex;flex-direction:column;gap:24px;border-top:6px solid #76B900">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:48px;font-weight:700;line-height:1.1">NVIDIA Nemotron</h3>
-<p style="font-size:28px;line-height:1.4;color:#C9BBAC"><b style="color:#F5EFE6">Speech Streaming 0.6B</b> transcribes every live call, locally, about 37 ms per 160 ms chunk.</p>
-<p style="font-size:28px;line-height:1.4;color:#C9BBAC"><b style="color:#F5EFE6">3 Ultra</b> wrote the held-out test calls.</p>
-<p style="font-size:28px;line-height:1.4;color:#C9BBAC"><b style="color:#F5EFE6">3.5 Super</b>, fine-tuned as a second guardian: 100/100 BothBosu scams, 0 false alarms.</p>
-<p style="font-size:28px;line-height:1.4;color:#C9BBAC"><b style="color:#F5EFE6">Lightning 3.5</b> is the live fallback.</p>
-</div>
-<div style="flex:1;background:#1E1712;border-radius:24px;padding:48px;display:flex;flex-direction:column;gap:24px;border-top:6px solid #FF7A3D">
-<h3 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:48px;font-weight:700;line-height:1.1">Fireworks</h3>
-<p style="font-size:28px;line-height:1.4;color:#C9BBAC"><b style="color:#F5EFE6">Training API</b>: LoRA on Qwen3.6-35B-A3B. First run about 8 minutes and about $5.80.</p>
-<p style="font-size:28px;line-height:1.4;color:#C9BBAC"><b style="color:#F5EFE6">Sampler and dedicated deployment</b> serve the guardian on the live line.</p>
-<p style="font-size:28px;line-height:1.4;color:#C9BBAC"><b style="color:#F5EFE6">Every baseline</b>: Kimi K3, Rune, DeepSeek V4.1 Flash and the untuned base, on one API.</p>
-</div>
-</div>
-<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">18 / 19</p><aside>Quick credit to the stack. NVIDIA Nemotron runs through the whole project: Speech Streaming hears every call, Nemotron 3 Ultra wrote our test set, we fine-tuned Nemotron 3.5 Super as a second guardian, and Nemotron Lightning is the fallback. Fireworks did the training — our first LoRA run took about eight minutes and six dollars — serves the guardian live, and hosted every baseline we compared against.</aside>
+<p style="position:absolute;right:48px;bottom:40px;font-family:DM Sans,Arial,sans-serif;font-size:20px;opacity:.55">8 / 9</p><aside>We want to be straight about what’s left. The deployed model follows family rules less well than the checkpoint we benchmarked — we think the adapter isn’t fully applied in serving, and we’ve raised it with Fireworks. The benchmark calls are generated, so real role-played calls are next. And one-way robocalls aren’t what this is for. On privacy: every call starts with a notice, the protected adult opts in themselves, and nothing is kept past seven days.</aside>
 </section>
 <section id="close" style="background:radial-gradient(circle at 18% 80%, #4A230F 0%, #24150D 30%, #14100D 62%);color:#F5EFE6;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between">
 <p style="font-size:24px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#FF7A3D">Emberz</p>
 <div style="display:flex;flex-direction:column;gap:40px">
 <h1 style="font-family:'Bricolage Grotesque', Arial, sans-serif;font-size:140px;font-weight:800;line-height:1;letter-spacing:-4px;width:1600px">Give Grandma a guarded number.</h1>
-<p style="font-size:36px;line-height:1.4;color:#C9BBAC;width:1400px">90.3% of calls handled vs 83.7% for Kimi K3. Fewer false alarms. The only model that follows the family’s rules. Working on real phone lines today.</p>
+<p style="font-size:36px;line-height:1.4;color:#C9BBAC;width:1450px">90.3% of calls handled vs 83.7% for Kimi K3. Fewer false alarms. Follows the family’s rules. Working on real phones today.</p>
+<p style="font-size:28px;color:#A39587">NVIDIA Nemotron hears the call · Fireworks trains and serves the guardian</p>
 </div>
 <div style="display:flex;justify-content:space-between;align-items:end">
-<p style="font-size:32px;color:#F5EFE6"><b>Numan Karakas</b>  ·  <b>Matt Ceran</b></p>
+<p style="font-size:32px"><b>Numan Karakas</b>  ·  <b>Matt Ceran</b></p>
 <p style="font-size:32px;color:#FF7A3D"><b>github.com/matt-ceran/emberz</b></p>
 </div>
-<aside>Close: “Scammers now have AI on their side for 34 cents a call. Emberz puts a guardian on the line, measured against a frontier model and working on real phones today. Give Grandma a guarded number. Thank you.” Then take questions. Likely questions: deployment drift (see limits slide), consent (every call starts with a recorded notice; the protected adult opts in themselves), cost at low traffic (serverless is cheaper until about 3–4 concurrent calls).</aside>
+<aside>“Scammers now have AI for 34 cents a call. Emberz puts a guardian on the line — measured against a frontier model, and working on real phones today. Give Grandma a guarded number. Thank you.” Backup slides for questions: the 19-slide deck (ablations, competitors, consent, cost details).</aside>
 </section>
 </body></html>
